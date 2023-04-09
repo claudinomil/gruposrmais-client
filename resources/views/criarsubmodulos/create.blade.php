@@ -49,7 +49,7 @@
                                     <option value="">Selecione...</option>
                                     <option value="Departamento">Departamento</option>
                                     <option value="Funcionario">Funcionário</option>
-                                    <option value="Client">Client</option>
+                                    <option value="Cliente">Cliente</option>
                                 </select>
                             </div>
                         </div>

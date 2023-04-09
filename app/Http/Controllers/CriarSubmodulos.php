@@ -124,14 +124,14 @@ class CriarSubmodulos extends Controller
             //SCRIPTS'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
             //Criando js igual ao js do Referencia
-            copy('../resources/js/scripts_'.strtolower($referenciaNomePlural).'.js', '../resources/js/scripts_' . strtolower($submoduloNomePlural) . '.js');
+            copy('../resources/assets_template/js/scripts_'.strtolower($referenciaNomePlural).'.js', '../resources/assets_template/js/scripts_' . strtolower($submoduloNomePlural) . '.js');
 
             //Substituindo no Script novo
-            if (file_exists('../resources/js/scripts_' . strtolower($submoduloNomePlural) . '.js')) {
-                $this->substituir('../resources/js/scripts_' . strtolower($submoduloNomePlural) . '.js', $referenciaNomePlural, $submoduloNomePlural);
-                $this->substituir('../resources/js/scripts_' . strtolower($submoduloNomePlural) . '.js', strtolower($referenciaNomePlural), strtolower($submoduloNomePlural));
-                $this->substituir('../resources/js/scripts_' . strtolower($submoduloNomePlural) . '.js', $referenciaNomeSingular, $submoduloNomeSingular);
-                $this->substituir('../resources/js/scripts_' . strtolower($submoduloNomePlural) . '.js', strtolower($referenciaNomeSingular), strtolower($submoduloNomeSingular));
+            if (file_exists('../resources/assets_template/js/scripts_' . strtolower($submoduloNomePlural) . '.js')) {
+                $this->substituir('../resources/assets_template/js/scripts_' . strtolower($submoduloNomePlural) . '.js', $referenciaNomePlural, $submoduloNomePlural);
+                $this->substituir('../resources/assets_template/js/scripts_' . strtolower($submoduloNomePlural) . '.js', strtolower($referenciaNomePlural), strtolower($submoduloNomePlural));
+                $this->substituir('../resources/assets_template/js/scripts_' . strtolower($submoduloNomePlural) . '.js', $referenciaNomeSingular, $submoduloNomeSingular);
+                $this->substituir('../resources/assets_template/js/scripts_' . strtolower($submoduloNomePlural) . '.js', strtolower($referenciaNomeSingular), strtolower($submoduloNomeSingular));
             }
             //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 

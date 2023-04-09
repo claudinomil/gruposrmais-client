@@ -10,7 +10,11 @@ $(document).ready(function () {
                     required: true,
                     dateMethod: true
                 },
-                gender_id: {
+                contratacao_tipo_id: {
+                    required: true,
+                    idMethod: true
+                },
+                genero_id: {
                     required: true,
                     idMethod: true
                 },
@@ -30,11 +34,11 @@ $(document).ready(function () {
                     required: false,
                     idMethod: true
                 },
-                father: {
+                pai: {
                     required: false,
                     minlength: 3
                 },
-                mother: {
+                mae: {
                     required: false,
                     minlength: 3
                 },
@@ -63,10 +67,18 @@ $(document).ready(function () {
                     idMethod: true
                 },
                 data_admissao: {
-                    required: true,
+                    required: false,
                     dateMethod: true
                 },
                 data_demissao: {
+                    required: false,
+                    dateMethod: true
+                },
+                data_cadastro: {
+                    required: false,
+                    dateMethod: true
+                },
+                data_afastamento: {
                     required: false,
                     dateMethod: true
                 },
@@ -144,6 +156,25 @@ $(document).ready(function () {
             }
         });
     }
+
+    //Acertar formulário para entrada de dados de contratacao_tipo
+    if ($('#contratacao_tipo_id').val() == 1) {
+        $('.contratacao_tipo_1').show();
+        $('.contratacao_tipo_2').hide();
+    } else {
+        $('.contratacao_tipo_1').hide();
+        $('.contratacao_tipo_2').show();
+    }
+
+    $('#contratacao_tipo_id').change(function(e) {
+        if ($('#contratacao_tipo_id').val() == 1) {
+            $('.contratacao_tipo_1').show();
+            $('.contratacao_tipo_2').hide();
+        } else {
+            $('.contratacao_tipo_1').hide();
+            $('.contratacao_tipo_2').show();
+        }
+    });
 
     <!-- Script para Funcionario "Botão Extra" -->
     $(function () {

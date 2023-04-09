@@ -44,7 +44,7 @@ $(document).ready(function () {
                     required: false,
                     dateMethod: true
                 },
-                gender_id: {
+                genero_id: {
                     required: false,
                     idMethod: true
                 },
@@ -133,22 +133,30 @@ $(document).ready(function () {
     if ($('#tipo').val() == 1) {
         $('.pessoa_juridica').show();
         $('.pessoa_fisica').hide();
+
+        $('#label_data_nascimento').html('Data Abertura');
     }
 
     if ($('#tipo').val() == 2) {
         $('.pessoa_juridica').hide();
         $('.pessoa_fisica').show();
+
+        $('#label_data_nascimento').html('Data Nascimento');
     }
 
     $('#tipo').change(function(e) {
         if ($('#tipo').val() == 1) {
             $('.pessoa_juridica').show();
             $('.pessoa_fisica').hide();
+
+            $('#label_data_nascimento').html('Data Abertura');
         }
 
         if ($('#tipo').val() == 2) {
             $('.pessoa_juridica').hide();
             $('.pessoa_fisica').show();
+
+            $('#label_data_nascimento').html('Data Nascimento');
         }
     });
 

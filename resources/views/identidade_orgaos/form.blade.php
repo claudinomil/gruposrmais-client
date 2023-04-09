@@ -49,11 +49,11 @@
                             <div class="row mt-4">
                                 <div class="form-group col-12 col-md-4 pb-3">
                                     <label class="form-label">Nome</label>
-                                    <input type="text" class="form-control" id="name" name="name" required="required">
+                                    <input type="text" class="form-control text-uppercase" id="name" name="name" required="required">
                                 </div>
                                 <div class="form-group col-12 col-md-4 pb-3">
                                     <label class="form-label">Sigla</label>
-                                    <input type="text" class="form-control" id="sigla" name="sigla" required="required">
+                                    <input type="text" class="form-control text-uppercase" id="sigla" name="sigla" required="required">
                                 </div>
                             </div>
                         </fieldset>

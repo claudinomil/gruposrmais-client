@@ -118,14 +118,14 @@
                                 <table class="table align-middle table-nowrap">
                                     <tbody>
 
-                                    @foreach($content['dashboardsFuncionariosGeneros'] as $gender)
+                                    @foreach($content['dashboardsFuncionariosGeneros'] as $genero)
                                         @php
-                                            $percentual = ($gender['qtd'] / $content['dashboardsFuncionariosQtd']) * 100;
+                                            $percentual = ($genero['qtd'] / $content['dashboardsFuncionariosQtd']) * 100;
                                         @endphp
 
                                         <tr>
-                                            <td class="px-0" style="width: 30%"><p class="mb-0">{{$gender['name']}}</p></td>
-                                            <td class="text-end" style="width: 25%"><h5 class="mb-0">{{$gender['qtd']}}</h5></td>
+                                            <td class="px-0" style="width: 30%"><p class="mb-0">{{$genero['name']}}</p></td>
+                                            <td class="text-end" style="width: 25%"><h5 class="mb-0">{{$genero['qtd']}}</h5></td>
                                             <td class="px-0" style="width: 30%">
                                                 <div class="progress bg-transparent progress-sm">
                                                     <div class="progress-bar bg-success rounded" role="progressbar" style="width: {{number_format($percentual, 2, '.', '')}}%" aria-valuenow="{{number_format($percentual, 2, '.', '')}}" aria-valuemin="0" aria-valuemax="100"></div>

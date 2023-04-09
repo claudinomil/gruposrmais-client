@@ -51,11 +51,11 @@
                                     <h5 class="pb-4 text-primary"><i class="fas fa-user"></i> Usuário</h5>
                                     <div class="form-group col-12 col-md-4 pb-3">
                                         <label class="form-label">E-mail</label>
-                                        <input type="text" class="form-control" id="email" name="email" required="required">
+                                        <input type="text" class="form-control text-lowercase" id="email" name="email" required="required">
                                     </div>
                                     <div class="form-group col-12 col-md-4 pb-3">
                                         <label class="form-label">Nome</label>
-                                        <input type="text" class="form-control" id="name" name="name" required="required">
+                                        <input type="text" class="form-control text-uppercase" id="name" name="name" required="required">
                                     </div>
                                     <div class="form-group col-12 col-md-4 pb-3">
                                         <label class="form-label">Grupo</label>

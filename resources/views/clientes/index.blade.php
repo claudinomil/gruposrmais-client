@@ -38,8 +38,8 @@
                                                 <option value="clientes.cpf">CPF</option>
                                                 <option value="generos.name">Gênero</option>
                                                 <option value="estados_civis.name">Estado Civil</option>
-                                                <option value="clientes.father">Pai</option>
-                                                <option value="clientes.mother">Mãe</option>
+                                                <option value="clientes.pai">Pai</option>
+                                                <option value="clientes.mae">Mãe</option>
                                                 <option value="clientes.email">E-mail</option>
                                             </select>
                                         </div>

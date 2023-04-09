@@ -614,10 +614,6 @@
                                                 <th scope="row">E-mail :</th>
                                                 <td class="jsonFuncionarioEmail"></td>
                                             </tr>
-                                            <tr>
-                                                <th scope="row">Admissão :</th>
-                                                <td class="jsonFuncionarioDataAdmissao"></td>
-                                            </tr>
                                             </tbody>
                                         </table>
                                     </div>

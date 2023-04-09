@@ -47,9 +47,22 @@
                             <input type="hidden" id="registro_id" name="registro_id">
 
                             <div class="row mt-4">
-                                <div class="form-group col-12 col-md-4 pb-3">
-                                    <label class="form-label">Nome</label>
-                                    <input type="text" class="form-control text-uppercase" id="name" name="name" required="required">
+                                <div class="row pt-4">
+                                    <div class="form-group col-12 col-md-4 pb-3">
+                                        <label class="form-label">Nome</label>
+                                        <input type="text" class="form-control text-uppercase" id="name" name="name" required="required">
+                                    </div>
+                                    <div class="form-group col-12 col-md-4 pb-3 pessoa_fisica">
+                                        <label class="form-label">Serviço Tipo</label>
+                                        <select class="select2 form-control" name="servico_tipo_id" id="servico_tipo_id" required="required">
+                                            <option value="">Selecione...</option>
+
+                                            @foreach ($servico_tipos as $key => $servico_tipo)
+                                                <option value="{{ $servico_tipo['id'] }}">{{ $servico_tipo['name'] }}</option>
+                                            @endforeach
+
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </fieldset>

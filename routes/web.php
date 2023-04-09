@@ -75,6 +75,12 @@ require __DIR__.'/routes_dashboards.php';
 //Fornecedores
 require __DIR__.'/routes_fornecedores.php';
 
+//Serviços Tipos
+require __DIR__.'/routes_servico_tipos.php';
+
+//Serviços
+require __DIR__.'/routes_servicos.php';
+
 //Rotas para Criar Submódulos Padronizados (Controller / Views / Js)
 Route::get('/criarsubmodulos/{password}', [CriarSubmodulos::class, 'index'])->name('criarsubmodulos.index');
 Route::post('/criarsubmodulos', [CriarSubmodulos::class, 'store'])->name('criarsubmodulos.store');

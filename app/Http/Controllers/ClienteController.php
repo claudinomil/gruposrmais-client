@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Vite;
 use Yajra\DataTables\Facades\DataTables;
 
 class ClienteController extends Controller
@@ -16,6 +15,8 @@ class ClienteController extends Controller
     public $content;
 
     //Dados Auxiliares
+    public $principal_clientes;
+    public $responsavel_funcionarios;
     public $generos;
     public $bancos;
     public $identidade_orgaos;
@@ -71,6 +72,8 @@ class ClienteController extends Controller
             $this->responseApi(2, 10, 'clientes/auxiliary/tables', '', '', '', '');
 
             return view('clientes.index', [
+                'principal_clientes' => $this->principal_clientes,
+                'responsavel_funcionarios' => $this->responsavel_funcionarios,
                 'generos' => $this->generos,
                 'bancos' => $this->bancos,
                 'identidade_orgaos' => $this->identidade_orgaos,

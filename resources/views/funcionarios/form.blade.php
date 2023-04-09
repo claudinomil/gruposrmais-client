@@ -51,10 +51,36 @@
 
                             <div class="row mt-4">
                                 <div class="row pt-4">
-                                    <h5 class="pb-4 text-primary"><i class="fas fa-user"></i> Dados Pessoais</h5>
+                                    <h5 class="pb-4 text-primary"><i class="fas fa-user"></i> Informa&ccedil;&otilde;es Gerais</h5>
+                                    <div class="form-group col-12 col-md-4 pb-3">
+                                        <label class="form-label">CPF</label>
+                                        <input type="text" class="form-control mask_cpf" id="cpf" name="cpf" required="required">
+                                    </div>
+                                    <div class="form-group col-12 col-md-4 pb-3">
+                                        <label class="form-label">Tipo Contratação</label>
+                                        <select class="form-control select2" name="contratacao_tipo_id" id="contratacao_tipo_id">
+                                            <option value="">Selecione...</option>
+
+                                            @foreach ($contratacao_tipos as $key => $contratacao_tipo)
+                                                <option value="{{ $contratacao_tipo['id'] }}">{{ $contratacao_tipo['name'] }}</option>
+                                            @endforeach
+
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-12 col-md-4 pb-3">
+                                        <label class="form-label">Função</label>
+                                        <select class="form-control select2" name="funcao_id" id="funcao_id">
+                                            <option value="">Selecione...</option>
+
+                                            @foreach ($funcoes as $key => $funcao)
+                                                <option value="{{ $funcao['id'] }}">{{ $funcao['name'] }}</option>
+                                            @endforeach
+
+                                        </select>
+                                    </div>
                                     <div class="form-group col-12 col-md-4 pb-3">
                                         <label class="form-label">Nome</label>
-                                        <input type="text" class="form-control" id="name" name="name" required="required">
+                                        <input type="text" class="form-control text-uppercase" id="name" name="name" required="required">
                                     </div>
                                     <div class="form-group col-12 col-md-4 pb-3">
                                         <label class="form-label">Nascimento</label>
@@ -70,6 +96,26 @@
                                             @endforeach
 
                                         </select>
+                                    </div>
+                                    <div class="form-group col-12 col-md-3 pb-3">
+                                        <label class="form-label">Telefone 1</label>
+                                        <input type="text" class="form-control mask_phone_with_ddd" id="telephone_1" name="telephone_1">
+                                    </div>
+                                    <div class="form-group col-12 col-md-3 pb-3">
+                                        <label class="form-label">Telefone 2</label>
+                                        <input type="text" class="form-control mask_phone_with_ddd" id="telephone_2" name="telephone_2">
+                                    </div>
+                                    <div class="form-group col-12 col-md-3 pb-3">
+                                        <label class="form-label">Celular 1</label>
+                                        <input type="text" class="form-control mask_cell_with_ddd" id="cellular_1" name="cellular_1">
+                                    </div>
+                                    <div class="form-group col-12 col-md-3 pb-3">
+                                        <label class="form-label">Celular 2</label>
+                                        <input type="text" class="form-control mask_cell_with_ddd" id="cellular_2" name="cellular_2">
+                                    </div>
+                                    <div class="form-group col-12 col-md-4 pb-3">
+                                        <label class="form-label">E-mail</label>
+                                        <input type="email" class="form-control mask_email" id="email" name="email">
                                     </div>
                                     <div class="form-group col-12 col-md-4 pb-3">
                                         <label class="form-label">Estado Civil</label>
@@ -117,54 +163,54 @@
                                     </div>
                                     <div class="form-group col-12 col-md-4 pb-3">
                                         <label class="form-label">Pai</label>
-                                        <input type="text" class="form-control" id="father" name="father">
+                                        <input type="text" class="form-control text-uppercase" id="pai" name="pai">
                                     </div>
                                     <div class="form-group col-12 col-md-4 pb-3">
                                         <label class="form-label">Mãe</label>
-                                        <input type="text" class="form-control" id="mother" name="mother">
-                                    </div>
-                                    <div class="form-group col-12 col-md-4 pb-3">
-                                        <label class="form-label">E-mail</label>
-                                        <input type="email" class="form-control mask_email" id="email" name="email">
-                                    </div>
-                                    <div class="form-group col-12 col-md-4 pb-3">
-                                        <label class="form-label">Telefone 1</label>
-                                        <input type="text" class="form-control mask_phone_with_ddd" id="telephone_1" name="telephone_1">
-                                    </div>
-                                    <div class="form-group col-12 col-md-4 pb-3">
-                                        <label class="form-label">Telefone 2</label>
-                                        <input type="text" class="form-control mask_phone_with_ddd" id="telephone_2" name="telephone_2">
-                                    </div>
-                                    <div class="form-group col-12 col-md-4 pb-3">
-                                        <label class="form-label">Celular 1</label>
-                                        <input type="text" class="form-control mask_cell_with_ddd" id="cellular_1" name="cellular_1">
-                                    </div>
-                                    <div class="form-group col-12 col-md-4 pb-3">
-                                        <label class="form-label">Celular 2</label>
-                                        <input type="text" class="form-control mask_cell_with_ddd" id="cellular_2" name="cellular_2">
+                                        <input type="text" class="form-control text-uppercase" id="mae" name="mae">
                                     </div>
                                 </div>
 
                                 <div class="row pt-4">
-                                    <h5 class="pb-4 text-primary"><i class="fas fa-user-tie"></i> Dados Profissionais</h5>
+                                    <h5 class="pb-4 text-primary"><i class="fas fa-landmark"></i> Dados Bancários</h5>
                                     <div class="form-group col-12 col-md-4 pb-3">
-                                        <label class="form-label">Função</label>
-                                        <select class="form-control select2" name="funcao_id" id="funcao_id">
+                                        <label class="form-label">Banco</label>
+                                        <select class="form-control select2" name="banco_id" id="banco_id">
                                             <option value="">Selecione...</option>
 
-                                            @foreach ($funcoes as $key => $funcao)
-                                                <option value="{{ $funcao['id'] }}">{{ $funcao['name'] }}</option>
+                                            @foreach ($bancos as $key => $banco)
+                                                <option value="{{ $banco['id'] }}">{{ $banco['name'] }}</option>
                                             @endforeach
 
                                         </select>
                                     </div>
                                     <div class="form-group col-12 col-md-4 pb-3">
+                                        <label class="form-label">Agência</label>
+                                        <input type="text" class="form-control" id="agencia" name="agencia">
+                                    </div>
+                                    <div class="form-group col-12 col-md-4 pb-3">
+                                        <label class="form-label">Conta</label>
+                                        <input type="text" class="form-control" id="conta" name="conta">
+                                    </div>
+                                </div>
+
+                                <div class="row pt-4">
+                                    <h5 class="pb-4 text-primary"><i class="fas fa-user-tie"></i> Dados Profissionais</h5>
+                                    <div class="form-group col-12 col-md-4 pb-3 contratacao_tipo_1">
                                         <label class="form-label">Data Admissão</label>
                                         <input type="text" class="form-control mask_date" id="data_admissao" name="data_admissao">
                                     </div>
-                                    <div class="form-group col-12 col-md-4 pb-3">
+                                    <div class="form-group col-12 col-md-4 pb-3 contratacao_tipo_1">
                                         <label class="form-label">Data Demissão</label>
                                         <input type="text" class="form-control mask_date" id="data_demissao" name="data_demissao">
+                                    </div>
+                                    <div class="form-group col-12 col-md-4 pb-3 contratacao_tipo_2">
+                                        <label class="form-label">Data Cadastro</label>
+                                        <input type="text" class="form-control mask_date" id="data_cadastro" name="data_cadastro">
+                                    </div>
+                                    <div class="form-group col-12 col-md-4 pb-3 contratacao_tipo_2">
+                                        <label class="form-label">Data Afastamento</label>
+                                        <input type="text" class="form-control mask_date" id="data_afastamento" name="data_afastamento">
                                     </div>
                                 </div>
 
@@ -231,10 +277,6 @@
                                         <input type="text" class="form-control mask_date" id="professional_identidade_data_emissao" name="professional_identidade_data_emissao">
                                     </div>
                                     <div class="form-group col-12 col-md-3 pb-3">
-                                        <label class="form-label">CPF</label>
-                                        <input type="text" class="form-control mask_cpf" id="cpf" name="cpf" required="required">
-                                    </div>
-                                    <div class="form-group col-12 col-md-3 pb-3">
                                         <label class="form-label">PIS</label>
                                         <input type="text" class="form-control mask_pis" id="pis" name="pis">
                                     </div>
@@ -260,23 +302,23 @@
                                     </div>
                                     <div class="form-group col-12 col-md-4 pb-3">
                                         <label class="form-label">Complemento</label>
-                                        <input type="text" class="form-control" id="complemento" name="complemento">
+                                        <input type="text" class="form-control text-uppercase" id="complemento" name="complemento">
                                     </div>
                                     <div class="form-group col-12 col-md-4 pb-3">
                                         <label class="form-label">Logradouro</label>
-                                        <input type="text" class="form-control" id="logradouro" name="logradouro" readonly="readonly">
+                                        <input type="text" class="form-control text-uppercase" id="logradouro" name="logradouro" readonly="readonly">
                                     </div>
                                     <div class="form-group col-12 col-md-4 pb-3">
                                         <label class="form-label">Bairro</label>
-                                        <input type="text" class="form-control" id="bairro" name="bairro" readonly="readonly">
+                                        <input type="text" class="form-control text-uppercase" id="bairro" name="bairro" readonly="readonly">
                                     </div>
                                     <div class="form-group col-12 col-md-4 pb-3">
                                         <label class="form-label">Localidade</label>
-                                        <input type="text" class="form-control" id="localidade" name="localidade" readonly="readonly">
+                                        <input type="text" class="form-control text-uppercase" id="localidade" name="localidade" readonly="readonly">
                                     </div>
                                     <div class="form-group col-12 col-md-4 pb-3">
                                         <label class="form-label">UF</label>
-                                        <input type="text" class="form-control" id="uf" name="uf" readonly="readonly">
+                                        <input type="text" class="form-control text-uppercase" id="uf" name="uf" readonly="readonly">
                                     </div>
                                 </div>
                             </div>

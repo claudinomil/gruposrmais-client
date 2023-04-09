@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title') Funcionários @endsection
+@section('title') Servicos @endsection
 
 @section('css')
 @endsection
@@ -32,15 +32,8 @@
                                     <div class="row">
                                         <div class="col-5 float-end px-1">
                                             <select class="form-control" id="pesquisar_field" name="pesquisar_field" placeholder="Campo Pesquisar">
-                                                <option value="funcionarios.name">Nome</option>
-                                                <option value="funcionarios.identidade">Identidade</option>
-                                                <option value="identidade_orgaos.name">Órgão Identidade</option>
-                                                <option value="funcionarios.cpf">CPF</option>
-                                                <option value="generos.name">Gênero</option>
-                                                <option value="estados_civis.name">Estado Civil</option>
-                                                <option value="funcionarios.pai">Pai</option>
-                                                <option value="funcionarios.mae">Mãe</option>
-                                                <option value="funcionarios.email">E-mail</option>
+                                                <option value="servicos.name">Nome</option>
+                                                <option value="servico_tipos.name">Serviço Tipo</option>
                                             </select>
                                         </div>
                                         <div class="col-5 float-end px-1">
@@ -57,13 +50,13 @@
 
                     <!-- Tabela (Componente Blade) -->
                     @php
-                        $colsNames = ['#', 'Nome', 'Nascimento', 'Gênero', 'Estado Civil'];
-                        $colsFields = ['foto', 'name', 'data_nascimento', 'generoName', 'estado_civilName'];
+                        $colsNames = ['Nome', 'Serviço Tipo'];
+                        $colsFields = ['name', 'servicoTipoName'];
                         $colActions = 'yes';
                     @endphp
 
                     <x-table-crud-ajax
-                        :numCols="5"
+                        :numCols="3"
                         :class="'table table-bordered dt-responsive table-striped nowrap w-100 class-datatable-1'"
                         :colsNames=$colsNames
                         :colsFields=$colsFields
@@ -75,12 +68,12 @@
 </div>
 
 <!-- Modal -->
-@include('funcionarios.form')
+@include('servicos.form')
 @endsection
 
 @section('script')
-    <!-- scripts_funcionarios.js -->
-    <script src="{{ Vite::asset('resources/assets_template/js/scripts_funcionarios.js')}}"></script>
+    <!-- scripts_servicos.js -->
+    <script src="{{ Vite::asset('resources/assets_template/js/scripts_servicos.js')}}"></script>
 @endsection
 
 @section('script-bottom')

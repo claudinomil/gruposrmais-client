@@ -182,10 +182,6 @@ function funcionarioExtraData(id='') {
             $('.jsonFuncionarioId').val(funcionario.id);
             $('.jsonFuncionarioEmail').html(funcionario.email);
 
-            dataAdmissao = funcionario.data_admissao;
-            dataAdmissao = dataAdmissao.substring(8, 10)+'/'+dataAdmissao.substring(5, 7)+'/'+dataAdmissao.substring(0, 4);
-            $('.jsonFuncionarioDataAdmissao').html(dataAdmissao);
-
             //Lendo dados transacoes (Totais)
             let transacoesCount = json.transacoesCount;
 

@@ -73,7 +73,7 @@
 
                                 <div class="form-group col-12 col-md-12 pb-3">
                                     <label class="form-label">Título</label>
-                                    <input type="text" class="form-control" id="title" name="title" required="required">
+                                    <input type="text" class="form-control text-uppercase" id="title" name="title" required="required">
                                 </div>
                                 <div class="form-group col-12 col-md-12 pb-3">
                                     <label class="form-label">Notificação</label>

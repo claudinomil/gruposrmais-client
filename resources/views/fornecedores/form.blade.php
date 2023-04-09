@@ -55,24 +55,32 @@
                                     <div class="form-group col-12 col-md-4 pb-3">
                                         <label class="form-label col-12">Status</label>
                                         <select class="select2 form-control col-12" name="status" id="status" required="required">
-                                            <option value="1">Ativo</option>
-                                            <option value="2">Inativo</option>
+                                            <option value="1">ATIVO</option>
+                                            <option value="2">INATIVO</option>
                                         </select>
                                     </div>
                                     <div class="form-group col-12 col-md-4 pb-3">
                                         <label class="form-label">Tipo</label>
                                         <select class="select2 form-control" name="tipo" id="tipo" required="required">
-                                            <option value="1">Pessoa Jurídica</option>
-                                            <option value="2">Pessoa Física</option>
+                                            <option value="1">PESSOA JURÍDICA</option>
+                                            <option value="2">PESSOA FÍSICA</option>
                                         </select>
+                                    </div>
+                                    <div class="form-group col-12 col-md-4 pb-3 pessoa_fisica">
+                                        <label class="form-label">CPF</label>
+                                        <input type="text" class="form-control mask_cpf" id="cpf" name="cpf">
+                                    </div>
+                                    <div class="form-group col-12 col-md-4 pb-3 pessoa_juridica">
+                                        <label class="form-label">CNPJ</label>
+                                        <input type="text" class="form-control mask_cnpj" id="cnpj" name="cnpj">
                                     </div>
                                     <div class="form-group col-12 col-md-4 pb-3">
                                         <label class="form-label">Nome</label>
-                                        <input type="text" class="form-control" id="name" name="name" required="required">
+                                        <input type="text" class="form-control text-uppercase" id="name" name="name" required="required">
                                     </div>
                                     <div class="form-group col-12 col-md-4 pb-3 pessoa_juridica">
                                         <label class="form-label">Nome Fantasia</label>
-                                        <input type="text" class="form-control" id="nome_fantasia" name="nome_fantasia">
+                                        <input type="text" class="form-control text-uppercase" id="nome_fantasia" name="nome_fantasia">
                                     </div>
                                     <div class="form-group col-12 col-md-4 pb-3 pessoa_fisica">
                                         <label class="form-label">Gênero</label>
@@ -86,9 +94,41 @@
                                         </select>
                                     </div>
                                     <div class="form-group col-12 col-md-4 pb-3">
-                                        <label class="form-label">Nascimento</label>
+                                        <label class="form-label" id="label_data_nascimento">Nascimento</label>
                                         <input type="text" class="form-control mask_date" id="data_nascimento" name="data_nascimento">
                                     </div>
+                                </div>
+
+                                <div class="row pt-4">
+                                    <h5 class="pb-4 text-primary"><i class="fas fa-user"></i> Contato</h5>
+                                    <div class="form-group col-12 col-md-3 pb-3">
+                                        <label class="form-label">Telefone 1</label>
+                                        <input type="text" class="form-control mask_phone_with_ddd" id="telefone_1" name="telefone_1">
+                                    </div>
+                                    <div class="form-group col-12 col-md-3 pb-3">
+                                        <label class="form-label">Telefone 2</label>
+                                        <input type="text" class="form-control mask_phone_with_ddd" id="telefone_2" name="telefone_2">
+                                    </div>
+                                    <div class="form-group col-12 col-md-3 pb-3">
+                                        <label class="form-label">Celular 1</label>
+                                        <input type="text" class="form-control mask_cell_with_ddd" id="celular_1" name="celular_1">
+                                    </div>
+                                    <div class="form-group col-12 col-md-3 pb-3">
+                                        <label class="form-label">Celular 2</label>
+                                        <input type="text" class="form-control mask_cell_with_ddd" id="celular_2" name="celular_2">
+                                    </div>
+                                    <div class="form-group col-12 col-md-6 pb-3">
+                                        <label class="form-label">E-mail</label>
+                                        <input type="email" class="form-control text-lowercase mask_email" id="email" name="email">
+                                    </div>
+                                    <div class="form-group col-12 col-md-6 pb-3">
+                                        <label class="form-label">Site</label>
+                                        <input type="text" class="form-control text-lowercase" id="site" name="site">
+                                    </div>
+                                </div>
+
+                                <div class="row pt-4">
+                                    <h5 class="pb-4 text-primary"><i class="fas fa-landmark"></i> Dados Bancários</h5>
                                     <div class="form-group col-12 col-md-4 pb-3">
                                         <label class="form-label">Banco</label>
                                         <select class="form-control select2" name="banco_id" id="banco_id">
@@ -107,34 +147,6 @@
                                     <div class="form-group col-12 col-md-4 pb-3">
                                         <label class="form-label">Conta</label>
                                         <input type="text" class="form-control" id="conta" name="conta">
-                                    </div>
-                                </div>
-
-                                <div class="row pt-4">
-                                    <h5 class="pb-4 text-primary"><i class="fas fa-user"></i> Contato</h5>
-                                    <div class="form-group col-12 col-md-4 pb-3">
-                                        <label class="form-label">E-mail</label>
-                                        <input type="email" class="form-control mask_email" id="email" name="email">
-                                    </div>
-                                    <div class="form-group col-12 col-md-4 pb-3">
-                                        <label class="form-label">Site</label>
-                                        <input type="text" class="form-control" id="site" name="site">
-                                    </div>
-                                    <div class="form-group col-12 col-md-4 pb-3">
-                                        <label class="form-label">Telefone 1</label>
-                                        <input type="text" class="form-control mask_phone_with_ddd" id="telefone_1" name="telefone_1">
-                                    </div>
-                                    <div class="form-group col-12 col-md-4 pb-3">
-                                        <label class="form-label">Telefone 2</label>
-                                        <input type="text" class="form-control mask_phone_with_ddd" id="telefone_2" name="telefone_2">
-                                    </div>
-                                    <div class="form-group col-12 col-md-4 pb-3">
-                                        <label class="form-label">Celular 1</label>
-                                        <input type="text" class="form-control mask_cell_with_ddd" id="celular_1" name="celular_1">
-                                    </div>
-                                    <div class="form-group col-12 col-md-4 pb-3">
-                                        <label class="form-label">Celular 2</label>
-                                        <input type="text" class="form-control mask_cell_with_ddd" id="celular_2" name="celular_2">
                                     </div>
                                 </div>
 
@@ -170,19 +182,11 @@
                                         <label class="form-label">Identidade (Emissão)</label>
                                         <input type="text" class="form-control mask_date" id="identidade_data_emissao" name="identidade_data_emissao">
                                     </div>
-                                    <div class="form-group col-12 col-md-3 pb-3 pessoa_fisica">
-                                        <label class="form-label">CPF</label>
-                                        <input type="text" class="form-control mask_cpf" id="cpf" name="cpf">
-                                    </div>
-                                    <div class="form-group col-12 col-md-3 pb-3 pessoa_juridica">
-                                        <label class="form-label">CNPJ</label>
-                                        <input type="text" class="form-control mask_cnpj" id="cnpj" name="cnpj">
-                                    </div>
-                                    <div class="form-group col-12 col-md-3 pb-3 pessoa_juridica">
+                                    <div class="form-group col-12 col-md-4 pb-3 pessoa_juridica">
                                         <label class="form-label">Inscrição Estadual</label>
                                         <input type="text" class="form-control" id="inscricao_estadual" name="inscricao_estadual">
                                     </div>
-                                    <div class="form-group col-12 col-md-3 pb-3 pessoa_juridica">
+                                    <div class="form-group col-12 col-md-4 pb-3 pessoa_juridica">
                                         <label class="form-label">Inscrição Municipal</label>
                                         <input type="text" class="form-control" id="inscricao_municipal" name="inscricao_municipal">
                                     </div>
@@ -200,23 +204,23 @@
                                     </div>
                                     <div class="form-group col-12 col-md-4 pb-3">
                                         <label class="form-label">Complemento</label>
-                                        <input type="text" class="form-control" id="complemento" name="complemento">
+                                        <input type="text" class="form-control text-uppercase" id="complemento" name="complemento">
                                     </div>
                                     <div class="form-group col-12 col-md-4 pb-3">
                                         <label class="form-label">Logradouro</label>
-                                        <input type="text" class="form-control" id="logradouro" name="logradouro" readonly="readonly">
+                                        <input type="text" class="form-control text-uppercase" id="logradouro" name="logradouro" readonly="readonly">
                                     </div>
                                     <div class="form-group col-12 col-md-4 pb-3">
                                         <label class="form-label">Bairro</label>
-                                        <input type="text" class="form-control" id="bairro" name="bairro" readonly="readonly">
+                                        <input type="text" class="form-control text-uppercase" id="bairro" name="bairro" readonly="readonly">
                                     </div>
                                     <div class="form-group col-12 col-md-4 pb-3">
                                         <label class="form-label">Localidade</label>
-                                        <input type="text" class="form-control" id="localidade" name="localidade" readonly="readonly">
+                                        <input type="text" class="form-control text-uppercase" id="localidade" name="localidade" readonly="readonly">
                                     </div>
                                     <div class="form-group col-12 col-md-4 pb-3">
                                         <label class="form-label">UF</label>
-                                        <input type="text" class="form-control" id="uf" name="uf" readonly="readonly">
+                                        <input type="text" class="form-control text-uppercase" id="uf" name="uf" readonly="readonly">
                                     </div>
                                 </div>
 
@@ -232,23 +236,23 @@
                                     </div>
                                     <div class="form-group col-12 col-md-4 pb-3">
                                         <label class="form-label">Complemento</label>
-                                        <input type="text" class="form-control" id="complemento_cobranca" name="complemento_cobranca">
+                                        <input type="text" class="form-control text-uppercase" id="complemento_cobranca" name="complemento_cobranca">
                                     </div>
                                     <div class="form-group col-12 col-md-4 pb-3">
                                         <label class="form-label">Logradouro</label>
-                                        <input type="text" class="form-control" id="logradouro_cobranca" name="logradouro_cobranca" readonly="readonly">
+                                        <input type="text" class="form-control text-uppercase" id="logradouro_cobranca" name="logradouro_cobranca" readonly="readonly">
                                     </div>
                                     <div class="form-group col-12 col-md-4 pb-3">
                                         <label class="form-label">Bairro</label>
-                                        <input type="text" class="form-control" id="bairro_cobranca" name="bairro_cobranca" readonly="readonly">
+                                        <input type="text" class="form-control text-uppercase" id="bairro_cobranca" name="bairro_cobranca" readonly="readonly">
                                     </div>
                                     <div class="form-group col-12 col-md-4 pb-3">
                                         <label class="form-label">Localidade</label>
-                                        <input type="text" class="form-control" id="localidade_cobranca" name="localidade_cobranca" readonly="readonly">
+                                        <input type="text" class="form-control text-uppercase" id="localidade_cobranca" name="localidade_cobranca" readonly="readonly">
                                     </div>
                                     <div class="form-group col-12 col-md-4 pb-3">
                                         <label class="form-label">UF</label>
-                                        <input type="text" class="form-control" id="uf_cobranca" name="uf_cobranca" readonly="readonly">
+                                        <input type="text" class="form-control text-uppercase" id="uf_cobranca" name="uf_cobranca" readonly="readonly">
                                     </div>
                                 </div>
                             </div>

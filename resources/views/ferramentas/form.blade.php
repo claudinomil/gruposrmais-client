@@ -57,7 +57,7 @@
                                 </div>
                                 <div class="form-group col-12 col-md-4 pb-3">
                                     <label class="form-label">URL</label>
-                                    <input type="text" class="form-control" id="url" name="url" required="required">
+                                    <input type="text" class="form-control text-lowercase" id="url" name="url" required="required">
                                 </div>
                                 <div class="form-group col-12 col-md-4 pb-3">
                                     <label class="form-label">

@@ -16,6 +16,7 @@ class FuncionarioController extends Controller
     public $content;
 
     //Dados Auxiliares
+    public $contratacao_tipos;
     public $generos;
     public $estados_civis;
     public $escolaridades;
@@ -24,6 +25,7 @@ class FuncionarioController extends Controller
     public $identidade_orgaos;
     public $identidade_estados;
     public $funcoes;
+    public $bancos;
 
     public function __construct()
     {
@@ -74,10 +76,8 @@ class FuncionarioController extends Controller
             //Buscando dados Api_Data() - Auxiliary Tables (Combobox)
             $this->responseApi(2, 10, 'funcionarios/auxiliary/tables', '', '', '', '');
 
-
-            //dd($this->generos);
-
             return view('funcionarios.index', [
+                'contratacao_tipos' => $this->contratacao_tipos,
                 'generos' => $this->generos,
                 'estados_civis' => $this->estados_civis,
                 'escolaridades' => $this->escolaridades,
@@ -86,6 +86,7 @@ class FuncionarioController extends Controller
                 'identidade_orgaos' => $this->identidade_orgaos,
                 'identidade_estados' => $this->identidade_estados,
                 'funcoes' => $this->funcoes,
+                'bancos' => $this->bancos,
             ]);
         }
     }
@@ -135,6 +136,12 @@ class FuncionarioController extends Controller
                 if ($this->content['data_demissao'] != '') {
                     $this->content['data_demissao'] = Carbon::createFromFormat('Y-m-d', substr($this->content['data_demissao'], 0, 10))->format('d/m/Y');
                 }
+                if ($this->content['data_cadastro'] != '') {
+                    $this->content['data_cadastro'] = Carbon::createFromFormat('Y-m-d', substr($this->content['data_cadastro'], 0, 10))->format('d/m/Y');
+                }
+                if ($this->content['data_afastamento'] != '') {
+                    $this->content['data_afastamento'] = Carbon::createFromFormat('Y-m-d', substr($this->content['data_afastamento'], 0, 10))->format('d/m/Y');
+                }
                 if ($this->content['personal_identidade_data_emissao'] != '') {
                     $this->content['personal_identidade_data_emissao'] = Carbon::createFromFormat('Y-m-d', substr($this->content['personal_identidade_data_emissao'], 0, 10))->format('d/m/Y');
                 }
@@ -169,6 +176,12 @@ class FuncionarioController extends Controller
                 }
                 if ($this->content['data_demissao'] != '') {
                     $this->content['data_demissao'] = Carbon::createFromFormat('Y-m-d', substr($this->content['data_demissao'], 0, 10))->format('d/m/Y');
+                }
+                if ($this->content['data_cadastro'] != '') {
+                    $this->content['data_cadastro'] = Carbon::createFromFormat('Y-m-d', substr($this->content['data_cadastro'], 0, 10))->format('d/m/Y');
+                }
+                if ($this->content['data_afastamento'] != '') {
+                    $this->content['data_afastamento'] = Carbon::createFromFormat('Y-m-d', substr($this->content['data_afastamento'], 0, 10))->format('d/m/Y');
                 }
                 if ($this->content['personal_identidade_data_emissao'] != '') {
                     $this->content['personal_identidade_data_emissao'] = Carbon::createFromFormat('Y-m-d', substr($this->content['personal_identidade_data_emissao'], 0, 10))->format('d/m/Y');

@@ -9,7 +9,7 @@
         <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
         <meta content="Themesbrand" name="author" />
         <!-- App favicon -->
-        <link rel="shortcut icon" href="{{ asset('build/assets/images/image_favicon') }}" id="appFavicon">
+        <link rel="shortcut icon" href="{{ asset('build/assets/images/image_favicon.png') }}" id="appFavicon">
 
         <!-- Styles -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
