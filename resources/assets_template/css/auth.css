@@ -1,0 +1,21 @@
+/** Acertos para views auth  - INICIO **/
+.text-authentication {
+    color: rgba(255, 255, 255, 1) !important;
+}
+
+.bg-authentication {
+    background-color: rgba(179, 0, 0, 0.8) !important;
+}
+
+.btn-authentication {
+    color: rgba(255, 255, 255, 1) !important;
+    background-color: rgba(179, 0, 0, 0.8) !important;
+    border-color: rgba(179, 0, 0, 0.8) !important;
+}
+
+.btn-authentication:hover {
+    color: rgba(255, 255, 255, 1) !important;
+    background-color: rgba(179, 0, 0, 1) !important;
+    border-color: rgba(179, 0, 0, 1) !important;
+}
+/** Acertos para views auth  - FIM **/
