@@ -1,0 +1,381 @@
+{
+  "resources/assets_template/fonts/boxicons.eot": {
+    "file": "assets/boxicons-802c3564.eot",
+    "src": "resources/assets_template/fonts/boxicons.eot"
+  },
+  "resources/assets_template/fonts/boxicons.svg": {
+    "file": "assets/boxicons-809f57f0.svg",
+    "src": "resources/assets_template/fonts/boxicons.svg"
+  },
+  "resources/assets_template/fonts/boxicons.ttf": {
+    "file": "assets/boxicons-ac7dcf49.ttf",
+    "src": "resources/assets_template/fonts/boxicons.ttf"
+  },
+  "resources/assets_template/fonts/boxicons.woff": {
+    "file": "assets/boxicons-77e1b957.woff",
+    "src": "resources/assets_template/fonts/boxicons.woff"
+  },
+  "resources/assets_template/fonts/boxicons.woff2": {
+    "file": "assets/boxicons-79f14604.woff2",
+    "src": "resources/assets_template/fonts/boxicons.woff2"
+  },
+  "resources/assets_template/fonts/dripicons-v2.eot": {
+    "file": "assets/dripicons-v2-4551d45f.eot",
+    "src": "resources/assets_template/fonts/dripicons-v2.eot"
+  },
+  "resources/assets_template/fonts/dripicons-v2.svg": {
+    "file": "assets/dripicons-v2-2c1ce9e2.svg",
+    "src": "resources/assets_template/fonts/dripicons-v2.svg"
+  },
+  "resources/assets_template/fonts/dripicons-v2.ttf": {
+    "file": "assets/dripicons-v2-d8c798b5.ttf",
+    "src": "resources/assets_template/fonts/dripicons-v2.ttf"
+  },
+  "resources/assets_template/fonts/dripicons-v2.woff": {
+    "file": "assets/dripicons-v2-e87a09ce.woff",
+    "src": "resources/assets_template/fonts/dripicons-v2.woff"
+  },
+  "resources/assets_template/fonts/fa-brands-400.eot": {
+    "file": "assets/fa-brands-400-811e1577.eot",
+    "src": "resources/assets_template/fonts/fa-brands-400.eot"
+  },
+  "resources/assets_template/fonts/fa-brands-400.svg": {
+    "file": "assets/fa-brands-400-02340ba1.svg",
+    "src": "resources/assets_template/fonts/fa-brands-400.svg"
+  },
+  "resources/assets_template/fonts/fa-brands-400.ttf": {
+    "file": "assets/fa-brands-400-a0c14538.ttf",
+    "src": "resources/assets_template/fonts/fa-brands-400.ttf"
+  },
+  "resources/assets_template/fonts/fa-brands-400.woff": {
+    "file": "assets/fa-brands-400-e836c5d5.woff",
+    "src": "resources/assets_template/fonts/fa-brands-400.woff"
+  },
+  "resources/assets_template/fonts/fa-brands-400.woff2": {
+    "file": "assets/fa-brands-400-5d919029.woff2",
+    "src": "resources/assets_template/fonts/fa-brands-400.woff2"
+  },
+  "resources/assets_template/fonts/fa-regular-400.eot": {
+    "file": "assets/fa-regular-400-01f4416f.eot",
+    "src": "resources/assets_template/fonts/fa-regular-400.eot"
+  },
+  "resources/assets_template/fonts/fa-regular-400.svg": {
+    "file": "assets/fa-regular-400-865fd23d.svg",
+    "src": "resources/assets_template/fonts/fa-regular-400.svg"
+  },
+  "resources/assets_template/fonts/fa-regular-400.ttf": {
+    "file": "assets/fa-regular-400-f32b94a2.ttf",
+    "src": "resources/assets_template/fonts/fa-regular-400.ttf"
+  },
+  "resources/assets_template/fonts/fa-regular-400.woff": {
+    "file": "assets/fa-regular-400-8e2d9619.woff",
+    "src": "resources/assets_template/fonts/fa-regular-400.woff"
+  },
+  "resources/assets_template/fonts/fa-regular-400.woff2": {
+    "file": "assets/fa-regular-400-6a8c8e9e.woff2",
+    "src": "resources/assets_template/fonts/fa-regular-400.woff2"
+  },
+  "resources/assets_template/fonts/fa-solid-900.eot": {
+    "file": "assets/fa-solid-900-32501727.eot",
+    "src": "resources/assets_template/fonts/fa-solid-900.eot"
+  },
+  "resources/assets_template/fonts/fa-solid-900.svg": {
+    "file": "assets/fa-solid-900-e7685398.svg",
+    "src": "resources/assets_template/fonts/fa-solid-900.svg"
+  },
+  "resources/assets_template/fonts/fa-solid-900.ttf": {
+    "file": "assets/fa-solid-900-231d68ce.ttf",
+    "src": "resources/assets_template/fonts/fa-solid-900.ttf"
+  },
+  "resources/assets_template/fonts/fa-solid-900.woff": {
+    "file": "assets/fa-solid-900-352f8ead.woff",
+    "src": "resources/assets_template/fonts/fa-solid-900.woff"
+  },
+  "resources/assets_template/fonts/fa-solid-900.woff2": {
+    "file": "assets/fa-solid-900-7f4d3fd0.woff2",
+    "src": "resources/assets_template/fonts/fa-solid-900.woff2"
+  },
+  "resources/assets_template/fonts/materialdesignicons-webfont.eot": {
+    "file": "assets/materialdesignicons-webfont-e1ad5120.eot",
+    "src": "resources/assets_template/fonts/materialdesignicons-webfont.eot"
+  },
+  "resources/assets_template/fonts/materialdesignicons-webfont.ttf": {
+    "file": "assets/materialdesignicons-webfont-4045a75f.ttf",
+    "src": "resources/assets_template/fonts/materialdesignicons-webfont.ttf"
+  },
+  "resources/assets_template/fonts/materialdesignicons-webfont.woff": {
+    "file": "assets/materialdesignicons-webfont-7b7ee7a1.woff",
+    "src": "resources/assets_template/fonts/materialdesignicons-webfont.woff"
+  },
+  "resources/assets_template/fonts/materialdesignicons-webfont.woff2": {
+    "file": "assets/materialdesignicons-webfont-34845bb6.woff2",
+    "src": "resources/assets_template/fonts/materialdesignicons-webfont.woff2"
+  },
+  "resources/assets_template/fonts/summernote.eot": {
+    "file": "assets/summernote-edd368ac.eot",
+    "src": "resources/assets_template/fonts/summernote.eot"
+  },
+  "resources/assets_template/fonts/summernote.ttf": {
+    "file": "assets/summernote-2eeca740.ttf",
+    "src": "resources/assets_template/fonts/summernote.ttf"
+  },
+  "resources/assets_template/fonts/summernote.woff": {
+    "file": "assets/summernote-68282f2b.woff",
+    "src": "resources/assets_template/fonts/summernote.woff"
+  },
+  "resources/css/app.css": {
+    "file": "assets/app-4ed993c7.js",
+    "isEntry": true,
+    "src": "resources/css/app.css"
+  },
+  "resources/js/app.css": {
+    "file": "assets/app-842c0a76.css",
+    "src": "resources/js/app.css"
+  },
+  "resources/js/app.js": {
+    "assets": [
+      "assets/materialdesignicons-webfont-e1ad5120.eot",
+      "assets/materialdesignicons-webfont-34845bb6.woff2",
+      "assets/boxicons-802c3564.eot",
+      "assets/boxicons-79f14604.woff2",
+      "assets/boxicons-77e1b957.woff",
+      "assets/boxicons-ac7dcf49.ttf",
+      "assets/boxicons-809f57f0.svg",
+      "assets/fa-brands-400-811e1577.eot",
+      "assets/fa-brands-400-5d919029.woff2",
+      "assets/fa-brands-400-e836c5d5.woff",
+      "assets/fa-brands-400-a0c14538.ttf",
+      "assets/fa-brands-400-02340ba1.svg",
+      "assets/fa-regular-400-01f4416f.eot",
+      "assets/fa-regular-400-6a8c8e9e.woff2",
+      "assets/fa-regular-400-8e2d9619.woff",
+      "assets/fa-regular-400-f32b94a2.ttf",
+      "assets/fa-regular-400-865fd23d.svg",
+      "assets/fa-solid-900-32501727.eot",
+      "assets/fa-solid-900-7f4d3fd0.woff2",
+      "assets/fa-solid-900-352f8ead.woff",
+      "assets/fa-solid-900-231d68ce.ttf",
+      "assets/fa-solid-900-e7685398.svg",
+      "assets/dripicons-v2-4551d45f.eot",
+      "assets/dripicons-v2-e87a09ce.woff",
+      "assets/dripicons-v2-d8c798b5.ttf",
+      "assets/dripicons-v2-2c1ce9e2.svg"
+    ],
+    "css": [
+      "assets/app-842c0a76.css"
+    ],
+    "file": "assets/app-e4795584.js",
+    "isEntry": true,
+    "src": "resources/js/app.js"
+  },
+    "resources/assets_template/libs/jquery/jquery.min.js": {
+        "file": "assets/jquery.min.js",
+        "isEntry": true,
+        "src": "resources/assets_template/libs/jquery/jquery.min.js"
+    },
+    "resources/assets_template/libs/bootstrap/bootstrap.min.js": {
+        "file": "assets/bootstrap.min.js",
+        "isEntry": true,
+        "src": "resources/assets_template/libs/bootstrap/bootstrap.min.js"
+    },
+    "resources/assets_template/libs/jquery-validation/jquery-validation.min.js": {
+        "file": "assets/jquery-validation.min.js",
+        "isEntry": true,
+        "src": "resources/assets_template/libs/jquery-validation/jquery-validation.min.js"
+    },
+    "resources/assets_template/libs/jquery-validation/jquery-validation-pt-br.js": {
+        "file": "assets/jquery-validation-pt-br.js",
+        "isEntry": true,
+        "src": "resources/assets_template/libs/jquery-validation/jquery-validation-pt-br.js"
+    },
+    "resources/assets_template/js/jquery-validation-methods.js": {
+        "file": "assets/jquery-validation-methods.js",
+        "isEntry": true,
+        "src": "resources/assets_template/js/jquery-validation-methods.js"
+    },
+    "resources/assets_template/libs/metismenu/metismenu.min.js": {
+        "file": "assets/metismenu.min.js",
+        "isEntry": true,
+        "src": "resources/assets_template/libs/metismenu/metismenu.min.js"
+    },
+    "resources/assets_template/libs/simplebar/simplebar.min.js": {
+        "file": "assets/simplebar.min.js",
+        "isEntry": true,
+        "src": "resources/assets_template/libs/simplebar/simplebar.min.js"
+    },
+    "resources/assets_template/libs/node-waves/node-waves.min.js": {
+        "file": "assets/node-waves.min.js",
+        "isEntry": true,
+        "src": "resources/assets_template/libs/node-waves/node-waves.min.js"
+    },
+    "resources/assets_template/libs/sweetalert2/sweetalert2.min.js": {
+        "file": "assets/sweetalert2.min.js",
+        "isEntry": true,
+        "src": "resources/assets_template/libs/sweetalert2/sweetalert2.min.js"
+    },
+    "resources/assets_template/libs/select2/select2.min.js": {
+        "file": "assets/select2.min.js",
+        "isEntry": true,
+        "src": "resources/assets_template/libs/select2/select2.min.js"
+    },
+    "resources/assets_template/libs/datatables/datatables.min.js": {
+        "file": "assets/datatables.min.js",
+        "isEntry": true,
+        "src": "resources/assets_template/libs/datatables/datatables.min.js"
+    },
+    "resources/assets_template/libs/jszip/jszip.min.js": {
+        "file": "assets/jszip.min.js",
+        "isEntry": true,
+        "src": "resources/assets_template/libs/jszip/jszip.min.js"
+    },
+    "resources/assets_template/libs/pdfmake/pdfmake.min.js": {
+        "file": "assets/pdfmake.min.js",
+        "isEntry": true,
+        "src": "resources/assets_template/libs/pdfmake/pdfmake.min.js"
+    },
+    "resources/assets_template/libs/jquery-mask/jquery.mask.min.js": {
+        "file": "assets/jquery.mask.min.js",
+        "isEntry": true,
+        "src": "resources/assets_template/libs/jquery-mask/jquery.mask.min.js"
+    },
+    "resources/assets_template/js/jquery-masks.js": {
+        "file": "assets/jquery-masks.js",
+        "isEntry": true,
+        "src": "resources/assets_template/js/jquery-masks.js"
+    },
+    "resources/assets_template/js/app.min.js": {
+        "file": "assets/app.min.js",
+        "isEntry": true,
+        "src": "resources/assets_template/js/app.min.js"
+    },
+    "resources/assets_template/js/main.js": {
+        "file": "assets/main.js",
+        "isEntry": true,
+        "src": "resources/assets_template/js/main.js"
+    },
+    "resources/assets_template/js/functions.js": {
+        "file": "assets/functions.js",
+        "isEntry": true,
+        "src": "resources/assets_template/js/functions.js"
+    },
+    "resources/assets_template/js/scripts_template_init.js": {
+        "file": "assets/scripts_template_init.js",
+        "isEntry": true,
+        "src": "resources/assets_template/js/scripts_template_init.js"
+    },
+    "resources/assets_template/js/scripts_bancos.js": {
+        "file": "assets/scripts_bancos.js",
+        "isEntry": true,
+        "src": "resources/assets_template/js/scripts_bancos.js"
+    },
+    "resources/assets_template/js/scripts_clientes.js": {
+        "file": "assets/scripts_clientes.js",
+        "isEntry": true,
+        "src": "resources/assets_template/js/scripts_clientes.js"
+    },
+    "resources/assets_template/js/scripts_departamentos.js": {
+        "file": "assets/scripts_departamentos.js",
+        "isEntry": true,
+        "src": "resources/assets_template/js/scripts_departamentos.js"
+    },
+    "resources/assets_template/js/scripts_funcionarios.js": {
+        "file": "assets/scripts_funcionarios.js",
+        "isEntry": true,
+        "src": "resources/assets_template/js/scripts_funcionarios.js"
+    },
+    "resources/assets_template/js/scripts_fornecedores.js": {
+        "file": "assets/scripts_fornecedores.js",
+        "isEntry": true,
+        "src": "resources/assets_template/js/scripts_fornecedores.js"
+    },
+    "resources/assets_template/js/scripts_generos.js": {
+        "file": "assets/scripts_generos.js",
+        "isEntry": true,
+        "src": "resources/assets_template/js/scripts_generos.js"
+    },
+    "resources/assets_template/js/scripts_grupos.js": {
+        "file": "assets/scripts_grupos.js",
+        "isEntry": true,
+        "src": "resources/assets_template/js/scripts_grupos.js"
+    },
+    "resources/assets_template/js/scripts_identidade_orgaos.js": {
+        "file": "assets/scripts_identidade_orgaos.js",
+        "isEntry": true,
+        "src": "resources/assets_template/js/scripts_identidade_orgaos.js"
+    },
+    "resources/assets_template/js/scripts_estados_civis.js": {
+        "file": "assets/scripts_estados_civis.js",
+        "isEntry": true,
+        "src": "resources/assets_template/js/scripts_estados_civis.js"
+    },
+    "resources/assets_template/js/scripts_modulos.js": {
+        "file": "assets/scripts_modulos.js",
+        "isEntry": true,
+        "src": "resources/assets_template/js/scripts_modulos.js"
+    },
+    "resources/assets_template/js/scripts_nacionalidades.js": {
+        "file": "assets/scripts_nacionalidades.js",
+        "isEntry": true,
+        "src": "resources/assets_template/js/scripts_nacionalidades.js"
+    },
+    "resources/assets_template/js/scripts_naturalidades.js": {
+        "file": "assets/scripts_naturalidades.js",
+        "isEntry": true,
+        "src": "resources/assets_template/js/scripts_naturalidades.js"
+    },
+    "resources/assets_template/js/scripts_notificacoes.js": {
+        "file": "assets/scripts_notificacoes.js",
+        "isEntry": true,
+        "src": "resources/assets_template/js/scripts_notificacoes.js"
+    },
+    "resources/assets_template/js/scripts_funcoes.js": {
+        "file": "assets/scripts_funcoes.js",
+        "isEntry": true,
+        "src": "resources/assets_template/js/scripts_funcoes.js"
+    },
+    "resources/assets_template/js/scripts_escolaridades.js": {
+        "file": "assets/scripts_escolaridades.js",
+        "isEntry": true,
+        "src": "resources/assets_template/js/scripts_escolaridades.js"
+    },
+    "resources/assets_template/js/scripts_submodulos.js": {
+        "file": "assets/scripts_submodulos.js",
+        "isEntry": true,
+        "src": "resources/assets_template/js/scripts_submodulos.js"
+    },
+    "resources/assets_template/js/scripts_ferramentas.js": {
+        "file": "assets/scripts_ferramentas.js",
+        "isEntry": true,
+        "src": "resources/assets_template/js/scripts_ferramentas.js"
+    },
+    "resources/assets_template/js/scripts_users.js": {
+        "file": "assets/scripts_users.js",
+        "isEntry": true,
+        "src": "resources/assets_template/js/scripts_users.js"
+    },
+    "resources/assets_template/js/scripts_profiles.js": {
+        "file": "assets/scripts_profiles.js",
+        "isEntry": true,
+        "src": "resources/assets_template/js/scripts_profiles.js"
+    },
+    "resources/assets_template/js/scripts_logos.js": {
+        "file": "assets/scripts_logos.js",
+        "isEntry": true,
+        "src": "resources/assets_template/js/scripts_logos.js"
+    },
+    "resources/assets_template/js/scripts_servico_tipos.js": {
+        "file": "assets/scripts_servico_tipos.js",
+        "isEntry": true,
+        "src": "resources/assets_template/js/scripts_servico_tipos.js"
+    },
+    "resources/assets_template/js/scripts_servicos.js": {
+        "file": "assets/scripts_servicos.js",
+        "isEntry": true,
+        "src": "resources/assets_template/js/scripts_servicos.js"
+    },
+    "resources/assets_template/js/scripts_propostas.js": {
+        "file": "assets/scripts_propostas.js",
+        "isEntry": true,
+        "src": "resources/assets_template/js/scripts_propostas.js"
+    }
+}
