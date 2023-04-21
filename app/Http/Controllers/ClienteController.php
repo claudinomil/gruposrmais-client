@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\ConsultarSpeedioApi;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Yajra\DataTables\Facades\DataTables;
 
 class ClienteController extends Controller

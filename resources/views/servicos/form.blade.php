@@ -63,6 +63,10 @@
 
                                         </select>
                                     </div>
+                                    <div class="form-group col-12 col-md-4 pb-3">
+                                        <label class="form-label">Valor</label>
+                                        <input type="text" class="form-control mask_money" id="valor" name="valor" required="required">
+                                    </div>
                                 </div>
                             </div>
                         </fieldset>

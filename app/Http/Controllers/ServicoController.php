@@ -93,6 +93,10 @@ class ServicoController extends Controller
 
             //Registro recebido com sucesso
             if ($this->code == 2000) {
+                //Preparando Dados para a View''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+                $this->content['valor'] = number_format($this->content['valor'], 2, ",", ".");
+                //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
                 return response()->json(['success' => $this->content]);
             } else if ($this->code == 4040) { //Registro não encontrado
                 return response()->json(['error_not_found' => $this->message]);
@@ -111,6 +115,10 @@ class ServicoController extends Controller
 
             //Registro recebido com sucesso
             if ($this->code == 2000) {
+                //Preparando Dados para a View''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+                $this->content['valor'] = number_format($this->content['valor'], 2, ",", ".");
+                //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
                 return response()->json(['success' => $this->content]);
             } else if ($this->code == 4040) { //Registro não encontrado
                 return response()->json(['error_not_found' => $this->message]);

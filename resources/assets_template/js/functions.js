@@ -491,6 +491,385 @@ function viewFontAwesome(field) {
     }
 }
 
+//Retorna data por extenso
+//op=1, data=14/04/2023 : Sexta-feira, 14 de Abril de 2023
+//op=2, data=14/04/2023 : Rio de Janeiro, 14 de Abril de 2023
+//op=3, data=14/04/2023 : Rio de Janeiro, Sexta-feira, 14 de Abril de 2023
+
+function dataExtenso(op, data_informada) {
+    meses = new Array("Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro");
+    semana = new Array("Domingo","Segunda-feira","Terça-feira","Quarta-feira","Quinta-feira","Sexta-feira","Sábado");
+
+    var dia_informado = data_informada.split('/')[0];
+    var mes_informado = data_informada.split('/')[1];
+    var ano_informado = data_informada.split('/')[2];
+    var data = ano_informado + '-' + mes_informado + '-' + dia_informado + " 00:00:00";
+    var dataInfo = new Date(data);
+    var dia = dataInfo.getDate();
+    var dias = dataInfo.getDay();
+    var mes = dataInfo.getMonth();
+    var ano = dataInfo.getFullYear();
+
+    if (op == 1) {
+        var dataext = semana[dias] + ", " + dia + " de " + meses[mes] + " de " + ano;
+    }
+
+    if (op == 2) {
+        var dataext = "Rio de Janeiro, " + dia + " de " + meses[mes] + " de " + ano;
+    }
+
+    if (op == 3) {
+        var dataext = "Rio de Janeiro, " + semana[dias] + ", " + dia + " de " + meses[mes] + " de " + ano;
+    }
+
+    return dataext;
+}
+
+function valorExtenso(vlr) {
+    var Num=parseFloat(vlr);
+
+    if (vlr == 0) {
+        return "Zero";
+    } else {
+        var inteiro = parseInt(vlr);; // parte inteira do valor
+
+        if(inteiro<1000000000000000) {
+            var resto = Num.toFixed(2) - inteiro.toFixed(2);       // parte fracionária do valor
+            resto=resto.toFixed(2)
+            var vlrS =  inteiro.toString();
+
+            var cont=vlrS.length;
+            var extenso="";
+            var auxnumero;
+            var auxnumero2;
+            var auxnumero3;
+
+            var unidade =["", "um", "dois", "três", "quatro", "cinco",
+                "seis", "sete", "oito", "nove", "dez", "onze",
+                "doze", "treze", "quatorze", "quinze", "dezesseis",
+                "dezessete", "dezoito", "dezenove"];
+
+            var centena = ["", "cento", "duzentos", "trezentos",
+                "quatrocentos", "quinhentos", "seiscentos",
+                "setecentos", "oitocentos", "novecentos"];
+
+            var dezena = ["", "", "vinte", "trinta", "quarenta", "cinquenta",
+                "sessenta", "setenta", "oitenta", "noventa"];
+
+            var qualificaS = ["reais", "mil", "milhão", "bilhão", "trilhão"];
+            var qualificaP = ["reais", "mil", "milhões", "bilhões", "trilhões"];
+
+            for (var i=cont;i > 0;i--)
+            {
+                var verifica1="";
+                var verifica2=0;
+                var verifica3=0;
+                auxnumero2="";
+                auxnumero3="";
+                auxnumero=0;
+                auxnumero2 = vlrS.substr(cont-i,1);
+                auxnumero = parseInt(auxnumero2);
+
+
+                if((i==14)||(i==11)||(i==8)||(i==5)||(i==2))
+                {
+                    auxnumero2 = vlrS.substr(cont-i,2);
+                    auxnumero = parseInt(auxnumero2);
+                }
+
+                if((i==15)||(i==12)||(i==9)||(i==6)||(i==3))
+                {
+                    extenso=extenso+centena[auxnumero];
+                    auxnumero2 = vlrS.substr(cont-i+1,1)
+                    auxnumero3 = vlrS.substr(cont-i+2,1)
+
+                    if((auxnumero2!="0")||(auxnumero3!="0"))
+                        extenso+=" e ";
+
+                }else
+
+                if(auxnumero>19){
+                    auxnumero2 = vlrS.substr(cont-i,1);
+                    auxnumero = parseInt(auxnumero2);
+                    extenso=extenso+dezena[auxnumero];
+                    auxnumero3 = vlrS.substr(cont-i+1,1)
+
+                    if((auxnumero3!="0")&&(auxnumero2!="1"))
+                        extenso+=" e ";
+                }
+                else if((auxnumero<=19)&&(auxnumero>9)&&((i==14)||(i==11)||(i==8)||(i==5)||(i==2)))
+                {
+                    extenso=extenso+unidade[auxnumero];
+                }else if((auxnumero<10)&&((i==13)||(i==10)||(i==7)||(i==4)||(i==1)))
+                {
+                    auxnumero3 = vlrS.substr(cont-i-1,1);
+                    if((auxnumero3!="1")&&(auxnumero3!=""))
+                        extenso=extenso+unidade[auxnumero];
+                }
+
+                if(i%3==1)
+                {
+                    verifica3 = cont-i;
+                    if(verifica3==0)
+                        verifica1 = vlrS.substr(cont-i,1);
+
+                    if(verifica3==1)
+                        verifica1 = vlrS.substr(cont-i-1,2);
+
+                    if(verifica3>1)
+                        verifica1 = vlrS.substr(cont-i-2,3);
+
+                    verifica2 = parseInt(verifica1);
+
+                    if(i==13)
+                    {
+                        if(verifica2==1){
+                            extenso=extenso+" "+qualificaS[4]+" ";
+                        }else if(verifica2!=0){extenso=extenso+" "+qualificaP[4]+" ";}}
+                    if(i==10)
+                    {
+                        if(verifica2==1){
+                            extenso=extenso+" "+qualificaS[3]+" ";
+                        }else if(verifica2!=0){extenso=extenso+" "+qualificaP[3]+" ";}}
+                    if(i==7)
+                    {
+                        if(verifica2==1){
+                            extenso=extenso+" "+qualificaS[2]+" ";
+                        }else if(verifica2!=0){extenso=extenso+" "+qualificaP[2]+" ";}}
+                    if(i==4)
+                    {
+                        if(verifica2==1){
+                            extenso=extenso+" "+qualificaS[1]+" ";
+                        }else if(verifica2!=0){extenso=extenso+" "+qualificaP[1]+" ";}}
+                    if(i==1)
+                    {
+                        if(verifica2==1){
+                            extenso=extenso+" "+qualificaS[0]+" ";
+                        }else {extenso=extenso+" "+qualificaP[0]+" ";}}
+                }
+            }
+            resto = resto * 100;
+            var aexCent=0;
+            if(resto<=19&&resto>0)
+                extenso+=" e "+unidade[resto]+" Centavos";
+            if(resto>19)
+            {
+                aexCent=parseInt(resto/10);
+
+                extenso+=" e "+dezena[aexCent]
+                resto=resto-(aexCent*10);
+
+                if(resto!=0)
+                    extenso+=" e "+unidade[resto]+" Centavos";
+                else extenso+=" Centavos";
+            }
+
+            return extenso;
+        } else {
+            return "Numero maior que 999 trilhões";
+        }
+    }
+}
+
+function float2moeda(num) {
+    x = 0;
+
+    if (num < 0) {
+        num = Math.abs(num);
+        x = 1;
+    }
+
+    if (isNaN(num)) num = "0";
+
+    cents = Math.floor((num*100+0.5)%100);
+    num = Math.floor((num*100+0.5)/100).toString();
+
+    if (cents < 10) cents = "0" + cents;
+
+    for (var i = 0; i < Math.floor((num.length-(1+i))/3); i++)
+        num = num.substring(0,num.length-(4*i+3))+'.'+num.substring(num.length-(4*i+3));
+    ret = num + ',' + cents;
+
+    if (x == 1) ret = ' - ' + ret;
+
+    return ret;
+}
+
+function moeda2float(moeda){
+    moeda = moeda.replace(".","");
+    moeda = moeda.replace(".","");
+    moeda = moeda.replace(".","");
+    moeda = moeda.replace(".","");
+    moeda = moeda.replace(",",".");
+    return parseFloat(moeda);
+}
+
+//Funções para o Submódulo Propostas''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+//Atualiza/Limpa os dados do Serviço escolhido para grade
+//operacao = 0 : Limpar
+//operacao = 1 : Adicionar
+//operacao = 2 : Atualizar
+//operacao = 3 : Retirar
+function atualizarServicoEscolher(operacao, servico_id='', servico_nome='', servico_valor='', servico_qtd='') {
+    if (operacao == 0) {
+        //campos
+        $('#ts_servico_id').val(servico_id);
+        $('#select2-ts_servico_id-container').html(servico_nome);
+        $('#ts_servico_nome').val(servico_nome);
+        $('#ts_servico_valor').val(servico_valor);
+        $('#ts_servico_qtd').val(servico_qtd);
+
+        //botoes
+        $('#ts_servico_adicionar_div').hide();
+        $('#ts_servico_atualizar_div').hide();
+        $('#ts_servico_retirar_div').hide();
+    }
+
+    if (operacao == 1) {
+        //campos
+        $('#ts_servico_nome').val(servico_nome);
+        $('#ts_servico_valor').val(servico_valor);
+        $('#ts_servico_qtd').val(servico_qtd);
+
+        //botoes
+        $('#ts_servico_adicionar_div').show();
+        $('#ts_servico_atualizar_div').hide();
+        $('#ts_servico_retirar_div').hide();
+    }
+
+    if (operacao == 2) {
+        //campos
+        $('#ts_servico_id').val(servico_id);
+        $('#select2-ts_servico_id-container').html(servico_nome);
+        $('#ts_servico_nome').val(servico_nome);
+        $('#ts_servico_valor').val(servico_valor);
+        $('#ts_servico_qtd').val(servico_qtd);
+
+        //botoes
+        $('#ts_servico_adicionar_div').hide();
+        $('#ts_servico_atualizar_div').hide();
+        $('#ts_servico_retirar_div').show();
+    }
+}
+
+//Atualizar a Grade de Serviço
+//operacao = 0 : Somente atualiza os valores
+//operacao = 1 : Adicionar
+//operacao = 2 : Atualizar
+//operacao = 3 : Retirar
+function atualizarServicoGrade(operacao) {
+    if (operacao == 1) {
+        //Dados para preenchera linha da grade
+        servico_id = $('#ts_servico_id').val();
+        servico_nome = $('#ts_servico_nome').val();
+        servico_valor = $('#ts_servico_valor').val();
+        servico_qtd = $('#ts_servico_qtd').val();
+        servico_valor_total = servico_qtd * moeda2float(servico_valor);
+        servico_valor_total = float2moeda(servico_valor_total);
+
+        //Montar Linha
+        var linha;
+
+        linha = "<tr class='ts_servico_linha' id='ts_servico_linha_" + servico_id + "' data-id='" + servico_id + "' style='cursor: pointer'>";
+        linha += "  <td class='text-center ts_servico_item' data-id='" + servico_id + "'></td>";
+        linha += "  <td id='ts_servico_nome_td_" + servico_id + "'>" + servico_nome + "</td>";
+        linha += "  <td id='ts_servico_valor_td_" + servico_id + "' class='text-end'>R$ " + servico_valor + "</td>";
+        linha += "  <td id='ts_servico_qtd_td_" + servico_id + "' class='text-center'>" + servico_qtd + "</td>";
+        linha += "  <td class='text-end ts_servico_valor_total'>R$ " + servico_valor_total + "</td>";
+        linha += "</tr>";
+
+        //Adicionar linha na grade
+        $('#ts_servico_grade').append(linha);
+
+        //Montar campos hidden
+        var hiddens;
+
+        hiddens = "<div id='ts_servico_hiddens_" + servico_id + "'>";
+        hiddens += "<input class='servico_item_hiddens' type='hidden' name='servico_item[]' id='servico_item' value=''>";
+        hiddens += "<input type='hidden' name='servico_id[]' id='servico_id' value='"+servico_id+"'>";
+        hiddens += "<input type='hidden' name='servico_nome[]' id='servico_nome' value='"+servico_nome+"'>";
+        hiddens += "<input type='hidden' name='servico_valor[]' id='servico_valor' value='"+moeda2float(servico_valor)+"'>";
+        hiddens += "<input type='hidden' name='servico_quantidade[]' id='servico_quantidade' value='"+servico_qtd+"'>";
+        hiddens += "<input type='hidden' name='servico_valor_total[]' id='servico_valor_total' value='"+moeda2float(servico_valor_total)+"'>";
+        hiddens += "</div>";
+
+        //Adicionar hiddens na div
+        $('#ts_servico_hiddens').append(hiddens);
+    }
+
+    if (operacao == 3) {
+        //Dados
+        servico_id = $('#ts_servico_id').val();
+
+        //Remover linha da grade
+        $('#ts_servico_linha_'+servico_id).remove();
+
+        //Remover campos hiddens
+        $('#ts_servico_hiddens_'+servico_id).remove();
+    }
+
+    //Atualizando numeração das linhas da coluna Item
+    ln = 0;
+    $('.ts_servico_item').each(function( index ) {
+        ln++;
+        $(this).html(ln);
+    });
+
+    //Atualizando numeração das divs da coluna Item dos campos hiddens
+    ln = 0;
+    $('.servico_item_hiddens').each(function( index ) {
+        ln++;
+        $(this).val(ln);
+    });
+
+    //Atualizando Valor Global
+    var valor_global = 0;
+    var valor_total = 0;
+    $('.ts_servico_valor_total').each(function() {
+        valor_total = $(this).html();
+        valor_total = valor_total.substring(3);
+        valor_total = moeda2float(valor_total);
+
+        valor_global = valor_global + valor_total;
+    });
+
+    $('#ts_servico_valor_global').html('R$ '+float2moeda(valor_global));
+
+    //Atualizar Valor Total da Proposta
+    atualizarValorTotalProposta(valor_global);
+}
+
+//Limpar a Grade de Serviço
+function limparServicosGrade() {
+    //Limpando Serviços da grade
+    $('#ts_servico_grade').html('');
+
+    //Limpando campos hiddens
+    $('#ts_servico_hiddens').html('');
+
+    //Atualizar Valor Total da Proposta
+    atualizarValorTotalProposta(0);
+}
+
+//Atualizar o Valor Total da Proposta
+function atualizarValorTotalProposta(valor_global) {
+    var porcentagem_desconto = $('#porcentagem_desconto').val();
+
+    if (porcentagem_desconto ==  '') {
+        porcentagem_desconto = 0;
+        $('#porcentagem_desconto').val(porcentagem_desconto);
+    }
+
+    var valor_desconto = ((valor_global * porcentagem_desconto) / 100);
+
+    $('#valor_desconto').val(float2moeda(valor_desconto));
+    $('#valor_desconto_extenso').val(valorExtenso(valor_desconto));
+
+    $('#valor_total').val(float2moeda(valor_global - valor_desconto));
+    $('#valor_total_extenso').val(valorExtenso(valor_global - valor_desconto));
+}
+//''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
 //Funções para Api ViaCep Para rodar em formulario sem REPEATER (Inicio)''''''''''''''''''''''''''''''''''''''''''''''''
 
 //FORMULARIO COM CAMPOS SIMPLES'''''''''''''''''''''''''''''''''''''''''''''

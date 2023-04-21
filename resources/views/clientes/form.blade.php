@@ -71,7 +71,10 @@
                                         <input type="text" class="form-control mask_cpf" id="cpf" name="cpf">
                                     </div>
                                     <div class="form-group col-12 col-md-4 pb-3 pessoa_juridica">
-                                        <label class="form-label">CNPJ</label>
+                                        <label class="form-label">
+                                            CNPJ
+                                            <a href="#" class="texto-primary" id="link_api_buscar">&nbsp;&nbsp;&nbsp;<i class="mdi mdi-search-web"></i> Buscar na API</a>
+                                        </label>
                                         <input type="text" class="form-control mask_cnpj" id="cnpj" name="cnpj">
                                     </div>
                                     <div class="form-group col-12 col-md-4 pb-3">
@@ -281,6 +284,121 @@
                         </fieldset>
                     </form>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- API modal -->
+<div class="modal fade modal-dialog-scrollable" id="modal_api" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Dados</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="pb-2">
+                                <button type="button" class="btn btn-success button_api_copiar">Copiar Informações</button>
+                            </div>
+                            <div class="table-responsive">
+                                <!-- Campos hidden para copiar -->
+                                <input type="hidden" name="hidden_api_situacao" id="hidden_api_situacao">
+                                <input type="hidden" name="hidden_api_tipo" id="hidden_api_tipo">
+                                <input type="hidden" name="hidden_api_natureza_juridica" id="hidden_api_natureza_juridica">
+                                <input type="hidden" name="hidden_api_nome" id="hidden_api_nome">
+                                <input type="hidden" name="hidden_api_fantasia" id="hidden_api_fantasia">
+                                <input type="hidden" name="hidden_api_cnpj" id="hidden_api_cnpj">
+                                <input type="hidden" name="hidden_api_abertura" id="hidden_api_abertura">
+                                <input type="hidden" name="hidden_api_cep" id="hidden_api_cep">
+                                <input type="hidden" name="hidden_api_telefone" id="hidden_api_telefone">
+                                <input type="hidden" name="hidden_api_email" id="hidden_api_email">
+                                <input type="hidden" name="hidden_api_logradouro" id="hidden_api_logradouro">
+                                <input type="hidden" name="hidden_api_numero" id="hidden_api_numero">
+                                <input type="hidden" name="hidden_api_complemento" id="hidden_api_complemento">
+                                <input type="hidden" name="hidden_api_bairro" id="hidden_api_bairro">
+                                <input type="hidden" name="hidden_api_municipio" id="hidden_api_municipio">
+                                <input type="hidden" name="hidden_api_uf" id="hidden_api_uf">
+
+                                <table class="table table-nowrap mb-0">
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Situação</th>
+                                            <td name="td_api_situacao" id="td_api_situacao"></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Tipo</th>
+                                            <td name="td_api_tipo" id="td_api_tipo"></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Natureza Jurídica</th>
+                                            <td name="td_api_natureza_juridica" id="td_api_natureza_juridica"></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Nome</th>
+                                            <td name="td_api_nome" id="td_api_nome"></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Nome Fantasia</th>
+                                            <td name="td_api_fantasia" id="td_api_fantasia"></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">CNPJ</th>
+                                            <td name="td_api_cnpj" id="td_api_cnpj"></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Abertura</th>
+                                            <td name="td_api_abertura" id="td_api_abertura"></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">CEP</th>
+                                            <td name="td_api_cep" id="td_api_cep"></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Telefone</th>
+                                            <td name="td_api_telefone" id="td_api_telefone"></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">E-mail</th>
+                                            <td name="td_api_email" id="td_api_email"></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Logradouro</th>
+                                            <td name="td_api_logradouro" id="td_api_logradouro"></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Número</th>
+                                            <td name="td_api_numero" id="td_api_numero"></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Complemento</th>
+                                            <td name="td_api_complemento" id="td_api_complemento"></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Bairro</th>
+                                            <td name="td_api_bairro" id="td_api_bairro"></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Município</th>
+                                            <td name="td_api_municipio" id="td_api_municipio"></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">UF</th>
+                                            <td name="td_api_uf" id="td_api_uf"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-success button_api_copiar">Copiar Informações</button>
             </div>
         </div>
     </div>

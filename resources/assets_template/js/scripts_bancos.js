@@ -3,7 +3,7 @@ $(document).ready(function () {
         $('#frm_bancos').validate({
             rules: {
                 name: {
-                    required: true,
+                    required: false,
                     minlength: 3
                 }
             },

@@ -199,7 +199,7 @@ return [
         App\Providers\MenuProvider::class,
         App\Providers\PermissoesProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
-
+        //Barryvdh\DomPDF\ServiceProvider::class,
     ],
 
     /*
@@ -214,8 +214,8 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        'Debugbar' => Barryvdh\Debugbar\Facades\Debugbar::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
+        //'PDF' => Barryvdh\DomPDF\Facade::class,
     ])->toArray(),
 
 ];

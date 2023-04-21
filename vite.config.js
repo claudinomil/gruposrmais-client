@@ -60,6 +60,9 @@ export default defineConfig({
                 {src: 'resources/assets_template/js/scripts_users.js', dest: 'assets'},
                 {src: 'resources/assets_template/js/scripts_profiles.js', dest: 'assets'},
                 {src: 'resources/assets_template/js/scripts_logos.js', dest: 'assets'},
+                {src: 'resources/assets_template/js/scripts_servico_tipos.js', dest: 'assets'},
+                {src: 'resources/assets_template/js/scripts_servicos.js', dest: 'assets'},
+                {src: 'resources/assets_template/js/scripts_propostas.js', dest: 'assets'},
 
                 {src: 'resources/assets_template/images/clientes/cliente-0.png', dest: 'assets/images/clientes'},
                 {src: 'resources/assets_template/images/fornecedores/fornecedor-0.png', dest: 'assets/images/fornecedores'},
@@ -80,8 +83,13 @@ export default defineConfig({
                 {src: 'resources/assets_template/images/megamenu-img.png', dest: 'assets/images'},
                 {src: 'resources/assets_template/images/profile-img.png', dest: 'assets/images'},
                 {src: 'resources/assets_template/images/welcome_logo.png', dest: 'assets/images'},
-
-                // {src: path.join(__dirname, 'resources/assets_template/images'), dest: path.join(__dirname, '/public')},
+                {src: 'resources/assets_template/images/proposta_topo.png', dest: 'assets/images'},
+                {src: 'resources/assets_template/images/proposta_topo_simples.jpg', dest: 'assets/images'},
+                {src: 'resources/assets_template/images/proposta_rodape.png', dest: 'assets/images'},
+                {src: 'resources/assets_template/images/proposta_logo_cbmerj.png', dest: 'assets/images'},
+                {src: 'resources/assets_template/images/proposta_logo_crea.png', dest: 'assets/images'},
+                {src: 'resources/assets_template/images/proposta_logo_gruposrmais.png', dest: 'assets/images'},
+                {src: 'resources/assets_template/images/proposta_logo_inmetro.png', dest: 'assets/images'},
             ]
         })
     ]
@@ -284,4 +292,19 @@ export default defineConfig({
 //     "file": "assets/scripts_logos.js",
 //         "isEntry": true,
 //         "src": "resources/assets_template/js/scripts_logos.js"
-// }
+// },
+// "resources/assets_template/js/scripts_servico_tipos.js": {
+//     "file": "assets/scripts_servico_tipos.js",
+//     "isEntry": true,
+//     "src": "resources/assets_template/js/scripts_servico_tipos.js"
+// },
+// "resources/assets_template/js/scripts_servicos.js": {
+//     "file": "assets/scripts_servicos.js",
+//     "isEntry": true,
+//     "src": "resources/assets_template/js/scripts_servicos.js"
+// },
+// "resources/assets_template/js/scripts_propostas.js": {
+//     "file": "assets/scripts_propostas.js",
+//     "isEntry": true,
+//     "src": "resources/assets_template/js/scripts_propostas.js"
+// },

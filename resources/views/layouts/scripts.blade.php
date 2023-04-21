@@ -167,6 +167,10 @@
                                 $('.fieldsViewEdit').hide();
                                 $('.fieldsCreate').show();
                             @endif
+
+                            @if($ajaxPrefixPermissaoSubmodulo == 'propostas')
+                                limparServicosGrade();
+                            @endif
                             //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
                         } else if (data.error_permissao) {
                             alertSwal('warning', "Permissão Negada", '', 'true', 2000);
@@ -259,6 +263,22 @@
                                 $('.fieldsViewEdit').show();
                                 $('.fieldsCreate').hide();
                                 $('#fieldUserName').val(data.success['userName']);
+                            @endif
+
+                            @if($ajaxPrefixPermissaoSubmodulo == 'propostas')
+                                proposta_servicos = data.success['proposta_servicos'];
+
+                                limparServicosGrade();
+
+                                $.each(proposta_servicos, function(i, item) {
+                                    //Dados para preenchera linha da grade
+                                    $('#ts_servico_id').val(item.servico_id);
+                                    $('#ts_servico_nome').val(item.servico_nome);
+                                    $('#ts_servico_valor').val(float2moeda(item.servico_valor));
+                                    $('#ts_servico_qtd').val(item.servico_quantidade);
+
+                                    atualizarServicoGrade(1);
+                                });
                             @endif
                             //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
                         } else if (data.error_not_found) {
@@ -380,6 +400,22 @@
                                 $('.fieldsViewEdit').show();
                                 $('.fieldsCreate').hide();
                                 $('#fieldUserName').val(data.success['userName']);
+                            @endif
+
+                            @if($ajaxPrefixPermissaoSubmodulo == 'propostas')
+                                proposta_servicos = data.success['proposta_servicos'];
+
+                                limparServicosGrade();
+
+                                $.each(proposta_servicos, function(i, item) {
+                                    //Dados para preenchera linha da grade
+                                    $('#ts_servico_id').val(item.servico_id);
+                                    $('#ts_servico_nome').val(item.servico_nome);
+                                    $('#ts_servico_valor').val(float2moeda(item.servico_valor));
+                                    $('#ts_servico_qtd').val(item.servico_quantidade);
+
+                                    atualizarServicoGrade(1);
+                                });
                             @endif
                             //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
                         } else if (data.error_not_found) {
