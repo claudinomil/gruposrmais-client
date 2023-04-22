@@ -80,9 +80,9 @@ class LoginController extends Controller
             }
 
             //Redirecionar
-            if (session('access_device') == 'desktop') {
+            //if (session('access_device') == 'desktop') {
                 return redirect('dashboards');
-            }
+            //}
         }
 
         if ($this->code == 2004) {
