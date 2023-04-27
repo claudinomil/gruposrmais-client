@@ -23,8 +23,8 @@
 {{--        <header><img src="{{ asset('build/assets/images/proposta_topo.png') }}" alt="" width="100%"></header>--}}
 {{--        <footer><img src="{{ asset('build/assets/images/proposta_rodape.png') }}" alt="" width="100%"></footer>--}}
 
-    <header><img src="http://sistema.gruposrmais.com.br/build/assets/images/proposta_topo.png" alt="" width="100%"></header>
-    <footer><img src="http://sistema.gruposrmais.com.br/build/assets/images/proposta_rodape.png" alt="" width="100%"></footer>
+    <header><img src="https://sistema.gruposrmais.com.br/build/assets/images/proposta_topo.png" alt="" width="100%"></header>
+    <footer><img src="https://sistema.gruposrmais.com.br/build/assets/images/proposta_rodape.png" alt="" width="100%"></footer>
 
 
 
