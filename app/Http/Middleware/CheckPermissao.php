@@ -41,10 +41,10 @@ class CheckPermissao
             $searchSubmodulo = $ultSubmodulo[0];
         }
 
-
-        if ($searchSubmodulo == 'mobile') {$searchSubmodulo = 'bancos';}
-
-
+        //Mudança nas rotas MOBILE''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+//        if ($searchSubmodulo == 'mobile') {$searchSubmodulo = 'dashboards';}
+//        if ($searchSubmodulo == 'mobile_clientes') {$searchSubmodulo = 'clientes';}
+        //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
         //Buscando dados Usuario/Permissões/Configurações/Ajax CRUD
         $response = ApiData::getData(0, $searchSubmodulo, '', '', '', '');
