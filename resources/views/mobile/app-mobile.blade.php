@@ -47,7 +47,7 @@
             <div class="row">
                 <div class="text-center col-12 py-2">
 {{--                    <div class="card bg-light mb-4" style="min-height: 500px;">--}}
-                        <div class="card-header bg-transparent border-bottom">Escolha uma opção</div>
+                        <div class="text-light pb-2">{{mb_strtoupper('Escolha uma opção')}}</div>
 {{--                        <div class="card-body">--}}
 {{--                            <blockquote class="card-blockquote mb-0">--}}
                                 <div class="row">
