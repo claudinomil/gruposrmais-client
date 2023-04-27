@@ -171,6 +171,26 @@
                             @if($ajaxPrefixPermissaoSubmodulo == 'propostas')
                                 limparServicosGrade();
                             @endif
+
+                            @if($ajaxPrefixPermissaoSubmodulo == 'clientes')
+                                //campos checkbox'''''''''''''''''''''''''''''''''''''''''''''''''''''
+                                $('.divLaudoExigencias').show();
+                                $('.divCertificadoAprovacao').show();
+
+                                $('#laudo_exigencias').attr('checked', false);
+                                $('#certificado_aprovacao').attr('checked', false);
+                                //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+                                //Deixar todos os checkbox de Medidas de Segurança'''''''''''''''''''
+                                $('.divSegurancaMedida').show();
+                                //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+                                //desmarcar checkbox'''''''''''''''''''''''''''''''''''''''''''''''''
+                                $('.cbSegurancaMedida').attr('checked', false);
+                                //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+                                pavimentosShowHide();
+                            @endif
                             //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
                         } else if (data.error_permissao) {
                             alertSwal('warning', "Permissão Negada", '', 'true', 2000);
@@ -279,6 +299,48 @@
 
                                     atualizarServicoGrade(1);
                                 });
+                            @endif
+
+                            @if($ajaxPrefixPermissaoSubmodulo == 'clientes')
+                                //campos checkbox'''''''''''''''''''''''''''''''''''''''''''''''''''''
+                                $('.divLaudoExigencias').hide();
+                                $('.divCertificadoAprovacao').hide();
+                                $('#laudo_exigencias').attr('checked', false);
+                                $('#certificado_aprovacao').attr('checked', false);
+
+
+                                if (data.success['laudo_exigencias'] == 1) {
+                                    $('#laudo_exigencias').attr('checked', true);
+                                    $('.divLaudoExigencias').show();
+                                }
+                                if (data.success['certificado_aprovacao'] == 1) {
+                                    $('#certificado_aprovacao').attr('checked', true);
+                                    $('.divCertificadoAprovacao').show();
+                                }
+                                //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+                                //desmarcar checkbox'''''''''''''''''''''''''''''''''''''''''''''''''
+                                $('.cbSegurancaMedida').attr('checked', false);
+                                //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+                                //Hide em todos os checkbox de Medidas de Segurança'''''''''''''''''''
+                                $('.divSegurancaMedida').hide();
+                                //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+                                //varrer os checkbox''''''''''''''''''''''''''''''''''''''''''''''''''
+                                cliente_seguranca_medidas = data.success['cliente_seguranca_medidas'];
+
+                                $.each(cliente_seguranca_medidas, function(i, item) {
+                                    //marcar como checado
+                                    $('#seguranca_medida_'+item.pavimento+'_'+item.seguranca_medida_id).attr('checked', true);
+
+                                    //dar show
+                                    $('.divSegurancaMedida'+item.pavimento+item.seguranca_medida_id).show();
+                                });
+                                //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+                                pavimentosShowHide();
+                                //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
                             @endif
                             //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
                         } else if (data.error_not_found) {
@@ -416,6 +478,35 @@
 
                                     atualizarServicoGrade(1);
                                 });
+                            @endif
+
+                            @if($ajaxPrefixPermissaoSubmodulo == 'clientes')
+                                //campos checkbox'''''''''''''''''''''''''''''''''''''''''''''''''''''
+                                $('.divLaudoExigencias').show();
+                                $('.divCertificadoAprovacao').show();
+                                $('#laudo_exigencias').attr('checked', false);
+                                $('#certificado_aprovacao').attr('checked', false);
+
+                                if (data.success['laudo_exigencias'] == 1) {$('#laudo_exigencias').attr('checked', true);}
+                                if (data.success['certificado_aprovacao'] == 1) {$('#certificado_aprovacao').attr('checked', true);}
+                                //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+                                //desmarcar checkbox'''''''''''''''''''''''''''''''''''''''''''''''''
+                                $('.cbSegurancaMedida').attr('checked', false);
+                                //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+                                //Deixar todos os checkbox de Medidas de Segurança'''''''''''''''''''
+                                $('.divSegurancaMedida').show();
+                                //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+                                cliente_seguranca_medidas = data.success['cliente_seguranca_medidas'];
+
+                                $.each(cliente_seguranca_medidas, function(i, item) {
+                                    //marcar como checado
+                                    $('#seguranca_medida_'+item.pavimento+'_'+item.seguranca_medida_id).attr('checked', true);
+                                });
+
+                                pavimentosShowHide();
                             @endif
                             //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
                         } else if (data.error_not_found) {
@@ -929,4 +1020,57 @@
         });
         //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     });
+</script>
+
+
+
+
+<script>
+    //DESENVOLVIMENTO (IRDIRETO PARA O FORMULARIO CREATE)'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    //DESENVOLVIMENTO (IRDIRETO PARA O FORMULARIO CREATE)'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    //DESENVOLVIMENTO (IRDIRETO PARA O FORMULARIO CREATE)'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    @if(isset($ajaxPrefixPermissaoSubmodulo))
+        @if($ajaxPrefixPermissaoSubmodulo == 'clientesxxxx')
+            $.get("{{$ajaxPrefixPermissaoSubmodulo}}/create", function (data) {
+                //Limpar validações
+                $('.is-invalid').removeClass('is-invalid');
+
+                //Limpar Formulário
+                $('#{{$ajaxNameFormSubmodulo}}').trigger('reset');
+
+                //Lendo dados
+                if (data.success) {
+                    //Campo hidden frm_operacao
+                    $('#frm_operacao').val('create');
+
+                    //Campos do Formulário - disabled true/false
+                    $('#fieldsetForm').prop('disabled', false);
+                    $('.select2').prop('disabled', false);
+
+                    //Botões do Modal
+                    $('#crudFormButtons1').show();
+                    $('#crudFormButtons2').hide();
+
+                    //Table Show/Hide
+                    $('#crudTable').hide();
+
+                    //Modal Show/Hide
+                    $('#crudForm').show();
+
+                    //Removendo Máscaras
+                    removeMask();
+
+                    //Restaurando Máscaras
+                    putMask();
+                } else if (data.error_permissao) {
+                    alertSwal('warning', "Permissão Negada", '', 'true', 2000);
+                } else {
+                    alert('Erro interno');
+                }
+            });
+        @endif
+    @endif
+    //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 </script>

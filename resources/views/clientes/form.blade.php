@@ -48,6 +48,7 @@
                         <fieldset disabled id="fieldsetForm">
                             <input type="hidden" id="frm_operacao" name="frm_operacao">
                             <input type="hidden" id="registro_id" name="registro_id">
+                            <input type="hidden" id="foto" name="foto" value="build/assets/images/clientes/cliente-0.png">
 
                             <div class="row mt-4">
                                 <div class="row pt-4">
@@ -279,6 +280,114 @@
                                         <label class="form-label">UF</label>
                                         <input type="text" class="form-control text-uppercase" id="uf_cobranca" name="uf_cobranca" readonly="readonly">
                                     </div>
+                                </div>
+
+                                <div class="row pt-4 pessoa_juridica">
+                                    <h5 class="pb-4 text-primary"><i class="fas fa-clipboard"></i> Classificação (DECRETO Nº 42, DE 17 DE DEZEMBRO DE 2018)</h5>
+                                    <div class="form-group col-6 col-md-2 pb-3">
+                                        <label class="form-label">Número Pavimentos</label>
+                                        <input type="number" class="form-control" id="numero_pavimentos" name="numero_pavimentos" min="1" step="1" value="1">
+                                    </div>
+                                    <div class="form-group col-6 col-md-2 pb-3">
+                                        <label class="form-label">Altura</label>
+                                        <input type="text" class="form-control mask_money" id="altura" name="altura">
+                                    </div>
+                                    <div class="form-group col-6 col-md-2 pb-3">
+                                        <label class="form-label">ATC (m²)</label>
+                                        <input type="text" class="form-control mask_money" id="area_total_construida" name="area_total_construida">
+                                    </div>
+                                    <div class="form-group col-6 col-md-2 pb-3">
+                                        <label class="form-label">Lotação</label>
+                                        <input type="number" class="form-control" id="lotacao" name="lotacao" min="1" step="1" value="1">
+                                    </div>
+                                    <div class="form-group col-6 col-md-2 pb-3">
+                                        <label class="form-label">Carga Incêndio</label>
+                                        <input type="number" class="form-control" id="carga_incendio" name="carga_incendio" step="1" value="">
+                                    </div>
+                                    <div class="form-group col-6 col-md-2 pb-3">
+                                        <label class="form-label">Risco Incêndio</label>
+                                        <select class="select2 form-control" name="incendio_risco_id" id="incendio_risco_id">
+                                            <option value="">Selecione...</option>
+
+                                            @foreach ($incendio_riscos as $key => $incendio_risco)
+                                                <option value="{{ $incendio_risco['id'] }}">{{ $incendio_risco['name'] }}</option>
+                                            @endforeach
+
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-12 col-md-12 pb-3">
+                                        <label class="form-label">Classificação Edificação</label>
+                                        <select class="select2 form-control" name="edificacao_classificacao_id" id="edificacao_classificacao_id">
+                                            <option value="">Selecione...</option>
+                                            @foreach ($edificacao_classificacoes as $key => $edificacao_classificacao)
+                                                <option value="{{ $edificacao_classificacao['id'] }}"
+                                                        data-grupo="{{ $edificacao_classificacao['grupo'] }}"
+                                                        data-ocupacao-uso="{{ $edificacao_classificacao['ocupacao_uso'] }}"
+                                                        data-divisao="{{ $edificacao_classificacao['divisao'] }}"
+                                                        data-descricao="{{ $edificacao_classificacao['descricao'] }}"
+                                                >{{ $edificacao_classificacao['divisao']. ' | '.$edificacao_classificacao['ocupacao_uso']. ' | '.$edificacao_classificacao['descricao'] }}</option>
+                                            @endforeach
+
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-6 col-md-2 pb-3">
+                                        <label class="form-label">Grupo</label>
+                                        <input type="text" class="form-control" id="grupo" name="grupo" readonly>
+                                    </div>
+                                    <div class="form-group col-6 col-md-2 pb-3">
+                                        <label class="form-label">Divisão</label>
+                                        <input type="text" class="form-control" id="divisao" name="divisao" readonly>
+                                    </div>
+                                    <div class="form-group col-12 col-md-3 pb-3">
+                                        <label class="form-label">Ocupação</label>
+                                        <input type="text" class="form-control" id="ocupacao_uso" name="ocupacao_uso" readonly>
+                                    </div>
+                                    <div class="form-group col-12 col-md-5 pb-3">
+                                        <label class="form-label">Descrição</label>
+                                        <input type="text" class="form-control" id="descricao" name="descricao" readonly>
+                                    </div>
+
+                                    <div class="row pt-3">
+                                        <h6 class="pb-3 text-success"><i class="fa fa-list"></i> Documentos</h6>
+                                        <div class="col-12 col-md-4 pb-3 divLaudoExigencias">
+                                            <div class="form-check form-switch mb-3 ps-5 alert alert-primary">
+                                                <input class="form-check-input" type="checkbox" id="laudo_exigencias" name="laudo_exigencias">
+                                                <label class="form-check-label" for="laudo_exigencias">Laudo de Exigências</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-4 pb-3 divCertificadoAprovacao">
+                                            <div class="form-check form-switch mb-3 ps-5 alert alert-primary">
+                                                <input class="form-check-input" type="checkbox" id="certificado_aprovacao" name="certificado_aprovacao">
+                                                <label class="form-check-label" for="certificado_aprovacao">Certificado de Aprovação</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Pegar maior id da tabela para fazer FOR na gravação dos registros -->
+                                    @php $maior_id_tabela_seguranca_medidas = 0; @endphp
+
+                                    @for($pavimento=1; $pavimento<=20; $pavimento++)
+                                        <div class="row pt-3" style="display:none;" id="divMedidasSeguranca{{$pavimento}}">
+                                            <h6 class="pb-3 text-success"><i class="fa fa-fire-extinguisher"></i> Medidas de Segurança - Pavimento {{$pavimento}}</h6>
+
+                                            @foreach ($seguranca_medidas as $key => $seguranca_medida)
+                                                @php
+                                                    if ($maior_id_tabela_seguranca_medidas < $seguranca_medida['id']) {
+                                                        $maior_id_tabela_seguranca_medidas = $seguranca_medida['id'];
+                                                    }
+                                                @endphp
+
+                                                <div class="col-12 col-md-4 pb-3 divSegurancaMedida divSegurancaMedida{{$pavimento.$seguranca_medida['id']}}" style="display: none;">
+                                                    <div class="form-check form-switch mb-3 ps-5 alert alert-primary">
+                                                        <input class="form-check-input cbSegurancaMedida" type="checkbox" id="seguranca_medida_{{$pavimento.'_'.$seguranca_medida['id']}}" name="seguranca_medida_{{$pavimento.'_'.$seguranca_medida['id']}}">
+                                                        <label class="form-check-label" for="seguranca_medida_{{$pavimento.'_'.$seguranca_medida['id']}}">{{ucfirst(mb_strtolower($seguranca_medida['name']))}}</label>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    @endfor
+
+                                    <input type="hidden" id="maior_id_tabela_seguranca_medidas" name="maior_id_tabela_seguranca_medidas" value="{{$maior_id_tabela_seguranca_medidas}}">
                                 </div>
                             </div>
                         </fieldset>

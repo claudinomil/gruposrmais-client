@@ -216,6 +216,72 @@ function funcionarioExtraData(id='') {
     });
 }
 
+function visitaTecnicaExtraData(id='') {
+    //Verificar se mandou id ou se veio do registro_id
+    if (id == '') {id = $('#registro_id').val();}
+
+    //URL
+    var url_atual = window.location.protocol+'//'+window.location.host+'/';
+
+    //Ajax
+    $.ajax({
+        processing: true,
+        serverSide: true,
+        type: "GET",
+        url: url_atual+"visita_tecnica/extradata/"+id,
+        data: {},
+        datatype: "json",
+        success: function (response) {
+            //Lendo json
+            let json = JSON.parse(response);
+
+            //Lendo dados
+            let visita_tecnica = json.visita_tecnica;
+
+            //Passando dados visita_tecnica
+            $('.jsonVisitaTecnicaFoto').attr('src', url_atual+visita_tecnica.foto);
+            $('.jsonVisitaTecnicaFuncao').html(visita_tecnica.funcaoName);
+            $('.jsonVisitaTecnicaEscolaridade').html(visita_tecnica.escolaridadeName);
+            $('.jsonVisitaTecnicaGenero').html(visita_tecnica.generoName);
+            $('.jsonVisitaTecnicaName').html(visita_tecnica.name);
+
+            $('.jsonVisitaTecnicaId').val(visita_tecnica.id);
+            $('.jsonVisitaTecnicaEmail').html(visita_tecnica.email);
+
+            //Lendo dados transacoes (Totais)
+            let transacoesCount = json.transacoesCount;
+
+            //Lendo dados transacoes (Tabela)
+            let transacoesTable = json.transacoesTable.transacoes;
+
+            var tbodyTransacoes = '';
+
+            if (transacoesTable != '') {
+                //Passando dados transacoes (Tabela)
+                var row = 0;
+
+                function montarTable(item) {
+                    row++;
+                    operacaoName = item;
+
+                    tbodyTransacoes += "<tr><th scope='row'>" + row + "</th><td>" + operacaoName + "</td></tr>";
+                }
+
+                transacoesTable.forEach(montarTable);
+            }
+
+            //Destruindo e iniciando (Simulando um Refresh)
+            $('.class-datatable-2').DataTable().destroy();
+            $('.jsonVisitaTecnicaTransacoesTable').html(tbodyTransacoes);
+            configurarDataTable(2);
+        },
+        complete: function () {},
+        error: function (response) {
+            alert('ERROR: '+response);
+        }
+    });
+}
+
 function notificacaoLerData(id) {
     //Buscar dados do Registro
     $.get("notificacoes/"+id, function (data) {
@@ -867,6 +933,33 @@ function atualizarValorTotalProposta(valor_global) {
 
     $('#valor_total').val(float2moeda(valor_global - valor_desconto));
     $('#valor_total_extenso').val(valorExtenso(valor_global - valor_desconto));
+}
+//''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+//Funções para o submódulo Clientes'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+function pavimentosShowHide() {
+    numero_pavimentos = $('#numero_pavimentos').val();
+
+    for(i=1; i<=50; i++) {
+        if (numero_pavimentos >= i) {
+            $('#divMedidasSeguranca' + i).show();
+        } else {
+            $('#divMedidasSeguranca'+i).hide();
+        }
+    }
+
+    // if (numero_pavimentos == '') {
+    //     alert('Preencha o Número de Pavimentos da Edificação.');
+    //     return;
+    // } else {
+    //     for(i=1; i<=50; i++) {
+    //         if (numero_pavimentos >= i) {
+    //             $('#divMedidasSeguranca' + i).show();
+    //         } else {
+    //             $('#divMedidasSeguranca'+i).hide();
+    //         }
+    //     }
+    // }
 }
 //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 

@@ -58,13 +58,17 @@
                                         <label class="form-label">Data</label>
                                         <input type="text" class="form-control mask_date" id="data_proposta" name="data_proposta">
                                     </div>
-                                    <div class="form-group col-12 col-md-6 pb-3">
+                                    <div class="form-group col-12 col-md-5 pb-3">
                                         <label class="form-label">Data Extenso</label>
                                         <input type="text" class="form-control" id="data_proposta_extenso" name="data_proposta_extenso" readonly>
                                     </div>
-                                    <div class="form-group col-12 col-md-3 pb-3">
-                                        <label class="form-label">Proposta</label>
-                                        <input type="text" class="form-control text-uppercase" id="numero_proposta" name="numero_proposta" readonly>
+                                    <div class="form-group col-12 col-md-2 pb-3">
+                                        <label class="form-label">Número</label>
+                                        <input type="text" class="form-control" id="numero_proposta" name="numero_proposta" readonly>
+                                    </div>
+                                    <div class="form-group col-12 col-md-2 pb-3">
+                                        <label class="form-label">Ano</label>
+                                        <input type="text" class="form-control" id="ano_proposta" name="ano_proposta" readonly>
                                     </div>
                                     <div class="form-group col-12 col-md-4 pb-3">
                                         <label class="form-label">Cliente</label>
@@ -118,7 +122,7 @@
                                         </div>
                                         <div class="form-group col-12 col-md-2 pb-3">
                                             <label class="form-label text-end">Valor</label>
-                                            <input type="text" class="form-control text-end" id="ts_servico_valor" name="ts_servico_valor" readonly>
+                                            <input type="text" class="form-control text-end mask_money" id="ts_servico_valor" name="ts_servico_valor">
                                         </div>
                                         <div class="form-group col-12 col-md-2 pb-3">
                                             <label class="form-label">Qtd</label>
@@ -182,7 +186,7 @@
                                     <h5 class="pb-4 text-primary"><i class="fas fa-dollar-sign"></i> Do Desconto</h5>
                                     <div class="form-group col-12 col-md-2 pb-3">
                                         <label class="form-label">Porcentagem (%)</label>
-                                        <input type="number" class="form-control" id="porcentagem_desconto" name="porcentagem_desconto" onchange="atualizarServicoGrade(0)" onblur="atualizarServicoGrade(0)" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
+                                        <input type="number" step=".01" class="form-control mask_numero_ponto" id="porcentagem_desconto" name="porcentagem_desconto" onchange="atualizarServicoGrade(0)" onblur="atualizarServicoGrade(0)" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
                                     </div>
                                     <div class="form-group col-12 col-md-2 pb-3">
                                         <label class="form-label">Valor</label>

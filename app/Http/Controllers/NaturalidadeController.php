@@ -49,7 +49,7 @@ class NaturalidadeController extends Controller
         }
     }
 
-    public function create()
+    public function create(Request $request)
     {
         //Requisição Ajax
         if ($request->ajax()) {

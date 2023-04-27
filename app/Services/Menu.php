@@ -39,7 +39,14 @@ class Menu
 
             foreach ($userLoggedMenuSubmodulos as $key3 => $submodulo) {
                 if ($modulo['id'] == $submodulo['modulo_id']) {
-                    if (Permissoes::permissao([$submodulo['prefix_permissao'] . '_list'], $userLoggedPermissoes)) {
+                    $permitido = Permissoes::permissao([$submodulo['prefix_permissao'] . '_list'], $userLoggedPermissoes);
+
+                    //negaralguns submodulos para fim de desenvolvimento
+                    if ($submodulo['id'] == 27) {$permitido = false;} //Deixar Submódulo Visita Técnica so para Desenvolvedor
+                    //'''''''''''''''''''''''''''''''''''''''''''''''''''
+
+
+                    if ($permitido) {
                         if ($modOk == 1) {
                             $modOk = 0;
 

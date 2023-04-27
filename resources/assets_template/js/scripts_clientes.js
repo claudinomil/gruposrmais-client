@@ -100,11 +100,11 @@ $(document).ready(function () {
                 },
                 telefone_1: {
                     required: false,
-                    telephoneMethod: true
+                    telefoneMethod: true
                 },
                 telefone_2: {
                     required: false,
-                    telephoneMethod: true
+                    telefoneMethod: true
                 },
                 celular_1: {
                     required: false,
@@ -359,4 +359,35 @@ $(document).ready(function () {
         });
         //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     });
+
+
+
+
+
+
+    //Numero Pavimentos
+    // $('#numero_pavimentos').on('blur', function() {
+    //     pavimentosShowHide();
+    // });
+
+    $('#numero_pavimentos').on('keyup change click', function() {
+        pavimentosShowHide();
+    });
+
+    //Edificação Classificação
+    $('#edificacao_classificacao_id').on('change', function() {
+        //Preenchendo dados da Classificação da Edificação
+        grupo = $(this).find("option:selected").attr('data-grupo');
+        ocupacao_uso = $(this).find("option:selected").attr('data-ocupacao-uso');
+        divisao = $(this).find("option:selected").attr('data-divisao');
+        descricao = $(this).find("option:selected").attr('data-descricao');
+
+        $('#grupo').val(grupo);
+        $('#ocupacao_uso').val(ocupacao_uso);
+        $('#divisao').val(divisao);
+        $('#descricao').val(descricao);
+    });
+
+    //Montar Classificação
+    pavimentosShowHide();
 });

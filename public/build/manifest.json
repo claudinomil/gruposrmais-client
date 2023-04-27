@@ -1,4 +1,20 @@
 {
+  "resources/assets_template/fonts/FuturaLT-Light.ttf": {
+    "file": "assets/FuturaLT-Light-a645a904.ttf",
+    "src": "resources/assets_template/fonts/FuturaLT-Light.ttf"
+  },
+  "resources/assets_template/fonts/FuturaLightCondensedBT.ttf": {
+    "file": "assets/FuturaLightCondensedBT-b3b15284.ttf",
+    "src": "resources/assets_template/fonts/FuturaLightCondensedBT.ttf"
+  },
+  "resources/assets_template/fonts/FuturaLtCnBT-Italic.ttf": {
+    "file": "assets/FuturaLtCnBT-Italic-038869ff.ttf",
+    "src": "resources/assets_template/fonts/FuturaLtCnBT-Italic.ttf"
+  },
+  "resources/assets_template/fonts/FuturaLtCnBTItalic.ttf": {
+    "file": "assets/FuturaLtCnBTItalic-2fe15ced.ttf",
+    "src": "resources/assets_template/fonts/FuturaLtCnBTItalic.ttf"
+  },
   "resources/assets_template/fonts/boxicons.eot": {
     "file": "assets/boxicons-802c3564.eot",
     "src": "resources/assets_template/fonts/boxicons.eot"
@@ -94,6 +110,14 @@
   "resources/assets_template/fonts/fa-solid-900.woff2": {
     "file": "assets/fa-solid-900-7f4d3fd0.woff2",
     "src": "resources/assets_template/fonts/fa-solid-900.woff2"
+  },
+  "resources/assets_template/fonts/futura_lt_cn_bt.eot": {
+    "file": "assets/futura_lt_cn_bt-65afcb6c.eot",
+    "src": "resources/assets_template/fonts/futura_lt_cn_bt.eot"
+  },
+  "resources/assets_template/fonts/futura_lt_cn_bt.ttf": {
+    "file": "assets/futura_lt_cn_bt-bbe71295.ttf",
+    "src": "resources/assets_template/fonts/futura_lt_cn_bt.ttf"
   },
   "resources/assets_template/fonts/materialdesignicons-webfont.eot": {
     "file": "assets/materialdesignicons-webfont-e1ad5120.eot",
@@ -377,5 +401,10 @@
         "file": "assets/scripts_propostas.js",
         "isEntry": true,
         "src": "resources/assets_template/js/scripts_propostas.js"
+    },
+    "resources/assets_template/js/scripts_visitas_tecnicas.js": {
+        "file": "assets/scripts_visitas_tecnicas.js",
+        "isEntry": true,
+        "src": "resources/assets_template/js/scripts_visitas_tecnicas.js"
     }
 }

@@ -10,6 +10,7 @@
         <!-- App favicon -->
         <link rel="shortcut icon" href="{{ asset('build/assets/images/image_favicon.png') }}" id="appFavicon">
 
+
         <style>
             @page {margin: 100px 50px 100px 50px;}
             header {position: fixed; top: -60px;    left: 0px; right: 0px; background-color: white; height: 120px;}
@@ -37,7 +38,7 @@
 
             <main>
                 @php $linhas++; @endphp
-                <table width="100%" style="font-size: 12px; padding-top: 100px;">
+                <table width="100%" style="font-size: 12px; padding-top: 80px;">
                     <tr>
                         <td align="left" style="width: 50%; height:20px; vertical-align: top;">{{$registro['data_proposta_extenso']}}</td>
                         <td align="right" style="width: 50%; height:20px; vertical-align: top;">Proposta nº. {{$registro['numero_proposta'].'/'.$registro['ano_proposta']}}.</td>
@@ -54,7 +55,7 @@
                 @php $linhas++; @endphp
                 <table width="100%" style="font-size: 12px;">
                     <tr>
-                        <td align="left" style="width: 50%; height:20px; vertical-align: top;">{{$registro['cliente_nome']}}</td>
+                        <td align="left" style="width: 50%; height:20px; vertical-align: top;"><b>{{$registro['cliente_nome']}}</b></td>
                         <td align="right" style="width: 50%; height:20px; vertical-align: top;">&nbsp;</td>
                     </tr>
                 </table>
@@ -78,7 +79,7 @@
                 @php $linhas++; @endphp
                 <table width="100%" style="font-size: 12px;">
                     <tr>
-                        <td align="left" style="width: 50%; height:20px; vertical-align: top;">A/C: {{$registro['aos_cuidados']}}</td>
+                        <td align="left" style="width: 50%; height:20px; vertical-align: top;"><b>A/C: {{$registro['aos_cuidados']}}</b></td>
                         <td align="right" style="width: 50%; height:20px; vertical-align: top;">&nbsp;</td>
                     </tr>
                 </table>
@@ -93,28 +94,21 @@
                 @php $linhas++; @endphp
                 <table width="100%" style="font-size: 12px;">
                     <tr>
-                        <td style="height:20px;">&nbsp;</td>
-                    </tr>
-                </table>
-
-                @php $linhas++; @endphp
-                <table width="100%" style="font-size: 12px;">
-                    <tr>
-                        <td align="left" style="width: 100%; height:20px; vertical-align: top;">{{$registro['texto_acima_tabela_servico']}}</td>
+                        <td align="left" style="width: 100%; height:20px; vertical-align: top;"><?php echo $registro['texto_acima_tabela_servico']; ?></td>
                     </tr>
                 </table>
 
                 @php $linhas++; @endphp
                 @php
                     //Parte inicial da tabela para ser repetida a cada quebra da tabela
-                    $t_inicial = '<table width="100%" style="border: 1px solid black; border-collapse: collapse; font-size: 12px;">
+                    $t_inicial = '<table width="100%" style="border: 1px solid #79829c; border-collapse: collapse; font-size: 11px;">
                                     <thead>
-                                        <tr style="background-color: #e3e6eb;">
-                                            <th align="center" style="border: 1px solid black; border-collapse: collapse; height:25px;">ITEM</th>
-                                            <th align="center" style="border: 1px solid black; border-collapse: collapse; height:25px;">DESCRIÇÃO DOS EQUIPAMENTOS PREVENTIVOS</th>
-                                            <th align="center" style="border: 1px solid black; border-collapse: collapse; height:25px;">VALOR UNITÁRIO</th>
-                                            <th align="center" style="border: 1px solid black; border-collapse: collapse; height:25px;">QUANTIDADE</th>
-                                            <th align="center" style="border: 1px solid black; border-collapse: collapse; height:25px;">VALOR TOTAL</th>
+                                        <tr style="background-color: #00feff;">
+                                            <th align="center" style="border: 1px solid #79829c; border-collapse: collapse; height:25px; vertical-align: middle;">&nbsp;<b>ITEM</b>&nbsp;</th>
+                                            <th align="center" style="border: 1px solid #79829c; border-collapse: collapse; height:25px; vertical-align: middle;">&nbsp;<b>DESCRIÇÃO DOS EQUIPAMENTOS PREVENTIVOS</b>&nbsp;</th>
+                                            <th align="center" style="border: 1px solid #79829c; border-collapse: collapse; height:25px; vertical-align: middle;">&nbsp;<b>VALOR UNITÁRIO</b>&nbsp;</th>
+                                            <th align="center" style="border: 1px solid #79829c; border-collapse: collapse; height:25px; vertical-align: middle;">&nbsp;<b>QUANTIDADE</b>&nbsp;</th>
+                                            <th align="center" style="border: 1px solid #79829c; border-collapse: collapse; height:25px; vertical-align: middle;">&nbsp;<b>VALOR TOTAL</b>&nbsp;</th>
                                         </tr>
                                     </thead>
                                     <tbody>';
@@ -139,11 +133,11 @@
 
                     @php $linhas++; @endphp
                     <tr>
-                        <th align="center" style="border: 1px solid black; border-collapse: collapse; height:20px;">{{$servico['servico_item']}}</th>
-                        <td align="left" style="border: 1px solid black; border-collapse: collapse; height:20px;">{{$servico['servico_nome']}}</td>
-                        <td align="right" style="border: 1px solid black; border-collapse: collapse; height:20px;">R$ {{number_format($servico['servico_valor'], '2', ',', '.')}}</td>
-                        <td align="center" style="border: 1px solid black; border-collapse: collapse; height:20px;">{{$servico['servico_quantidade']}}</td>
-                        <td align="right" style="border: 1px solid black; border-collapse: collapse; height:20px;">R$ {{number_format($servico['servico_valor_total'], '2', ',', '.')}}</td>
+                        <th align="center" style="border: 1px solid #79829c; border-collapse: collapse; height:20px;">&nbsp;{{$servico['servico_item']}}&nbsp;</th>
+                        <td align="left" style="border: 1px solid #79829c; border-collapse: collapse; height:20px;">&nbsp;{{$servico['servico_nome']}}&nbsp;</td>
+                        <td align="right" style="border: 1px solid #79829c; border-collapse: collapse; height:20px;">&nbsp;R$ {{number_format($servico['servico_valor'], '2', ',', '.')}}&nbsp;</td>
+                        <td align="center" style="border: 1px solid #79829c; border-collapse: collapse; height:20px;">&nbsp;{{$servico['servico_quantidade']}}&nbsp;</td>
+                        <td align="right" style="border: 1px solid #79829c; border-collapse: collapse; height:20px;">&nbsp;R$ {{number_format($servico['servico_valor_total'], '2', ',', '.')}}&nbsp;</td>
                     </tr>
 
                     @if($linhas == 28)
@@ -159,13 +153,23 @@
                 @endforeach
 
                     @php $linhas++; @endphp
-                    <tr style="background-color: #e3e6eb;">
-                        <th style="border: 1px solid black; border-collapse: collapse; height:25px;">&nbsp;</th>
-                        <th style="border: 1px solid black; border-collapse: collapse; height:25px;">&nbsp;</th>
-                        <th align="center" style="border: 1px solid black; border-collapse: collapse; height:25px;">VALOR GLOBAL</th>
-                        <th align="center" style="border: 1px solid black; border-collapse: collapse; height:25px;">R$</th>
-                        <th align="right" style="border: 1px solid black; border-collapse: collapse; height:25px;">R$ {{number_format($valor_global, '2', ',', '.')}}</th>
+                    <tr style="background-color: #00feff;">
+                        <th style="height:25px;">&nbsp;</th>
+                        <th align="right" colspan="2" style="border-right: 1px solid #79829c; border-collapse: collapse; height:25px;">&nbsp;<b>VALOR GLOBAL</b>&nbsp;</th>
+                        <th align="center" style="height:25px;">&nbsp;<b>R$</b>&nbsp;</th>
+                        <th align="center" style="height:25px;">&nbsp;<b>{{number_format($valor_global, '2', ',', '.')}}</b>&nbsp;</th>
                     </tr>
+
+                    @if($registro['valor_desconto'] > 0)
+
+                        @php $linhas++; @endphp
+                        <tr style="border-top: 1px solid #79829c; border-collapse: collapse; background-color: #00feff;">
+                            <th style="height:25px;">&nbsp;</th>
+                            <th align="right" colspan="2" style="border-right: 1px solid #79829c; border-collapse: collapse; height:25px;">&nbsp;<b>DESCONTO {{$registro['porcentagem_desconto']}}%</b>&nbsp;</th>
+                            <th align="center" style="height:25px;">&nbsp;<b>R$</b>&nbsp;</th>
+                            <th align="center" style="height:25px;">&nbsp;<b>{{$registro['valor_desconto']}}</b>&nbsp;</th>
+                        </tr>
+                    @endif
                 </table>
 
                 @if($linhas == 29)
@@ -192,63 +196,7 @@
                 @php $linhas++; @endphp
                 <table width="100%" style="font-size: 12px;">
                     <tr>
-                        <td style="height:20px;">&nbsp;</td>
-                    </tr>
-                </table>
-
-                @if($linhas == 29)
-                    <p>&nbsp;</p>
-                    <div style="padding-top: 100px;">&nbsp;</div>
-
-                    @php $linhas = 0; @endphp
-                @endif
-
-                @php $linhas++; @endphp
-                <table width="100%" style="font-size: 12px;">
-                    <tr>
-                        <td align="left" style="width: 100%; height:20px; vertical-align: top;">1. DO VALOR DESCONTO</td>
-                    </tr>
-                </table>
-
-                @if($linhas == 29)
-                    <p>&nbsp;</p>
-                    <div style="padding-top: 100px;">&nbsp;</div>
-
-                    @php $linhas = 0; @endphp
-                @endif
-
-                @php $linhas++; @endphp
-                <table width="100%" style="font-size: 12px;">
-                    <tr>
-                        <td align="left" style="width: 100%; height:20px; vertical-align: top;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;R$ {{$registro['valor_desconto']}} ({{$registro['valor_desconto_extenso']}})</td>
-                    </tr>
-                </table>
-
-                @if($linhas == 29)
-                    <p>&nbsp;</p>
-                    <div style="padding-top: 100px;">&nbsp;</div>
-
-                    @php $linhas = 0; @endphp
-                @endif
-
-                @php $linhas++; @endphp
-                <table width="100%" style="font-size: 12px;">
-                    <tr>
-                        <td style="height:20px;">&nbsp;</td>
-                    </tr>
-                </table>
-
-                @if($linhas == 29)
-                    <p>&nbsp;</p>
-                    <div style="padding-top: 100px;">&nbsp;</div>
-
-                    @php $linhas = 0; @endphp
-                @endif
-
-                @php $linhas++; @endphp
-                <table width="100%" style="font-size: 12px;">
-                    <tr>
-                        <td align="left" style="width: 100%; height:20px; vertical-align: top;">2. DO VALOR TOTAL</td>
+                        <td align="left" style="width: 100%; height:20px; vertical-align: top;"><b>1. DO VALOR DA PROPOSTA</b></td>
                     </tr>
                 </table>
 
@@ -290,7 +238,7 @@
                 @php $linhas++; @endphp
                 <table width="100%" style="font-size: 12px;">
                     <tr>
-                        <td align="left" style="width: 100%; height:20px; vertical-align: top;">3. DA FORMA E CONDIÇÕES DE PAGAMENTO</td>
+                        <td align="left" style="width: 100%; height:20px; vertical-align: top;"><b>2. DA FORMA E CONDIÇÕES DE PAGAMENTO</b></td>
                     </tr>
                 </table>
 
@@ -332,7 +280,7 @@
                 @php $linhas++; @endphp
                 <table width="100%" style="font-size: 12px;">
                     <tr>
-                        <td align="left" style="width: 100%; height:20px; vertical-align: top;">4. DAS GENERALIDADES</td>
+                        <td align="left" style="width: 100%; height:20px; vertical-align: top;"><b>3. DAS GENERALIDADES</b></td>
                     </tr>
                 </table>
 
@@ -351,7 +299,7 @@
                     @php $linhas++; @endphp
                     <table width="100%" style="font-size: 12px;">
                         <tr>
-                            <td style="width: 1%; height:20px; vertical-align: top;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4.{{$ln}}.&nbsp;</td>
+                            <td style="width: 1%; height:20px; vertical-align: top;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.{{$ln}}.&nbsp;</td>
                             <td style="width: 99%; height:20px; vertical-align: top;">{{$registro['paragrafo_1']}}</td>
                         </tr>
                     </table>
@@ -552,7 +500,7 @@
                 @php $linhas++; @endphp
                 <table width="100%" style="font-size: 12px;">
                     <tr>
-                        <td align="right" style="width: 100%; height:20px; vertical-align: top;">SRMAIS - COMÉRCIO E SERVIÇOS EIRELI LTDA</td>
+                        <td align="right" style="width: 100%; vertical-align: top;"><b>SRMAIS - COMÉRCIO E SERVIÇOS EIRELI LTDA</b></td>
                     </tr>
                 </table>
 
@@ -566,7 +514,7 @@
                 @php $linhas++; @endphp
                 <table width="100%" style="font-size: 12px;">
                     <tr>
-                        <td align="right" style="width: 100%; height:20px; vertical-align: top;">CBMERJ 02-408|CREA/RJ 2019201827</td>
+                        <td align="right" style="width: 100%; vertical-align: top;"><b>CBMERJ 02-408|CREA/RJ 2019201827</b></td>
                     </tr>
                 </table>
 
@@ -580,7 +528,7 @@
                 @php $linhas++; @endphp
                 <table width="100%" style="font-size: 12px;">
                     <tr>
-                        <td align="right" style="width: 100%; height:20px; vertical-align: top;">CONTRATADA</td>
+                        <td align="right" style="width: 100%; vertical-align: top;"><b>CONTRATADA</b></td>
                     </tr>
                 </table>
             </main>

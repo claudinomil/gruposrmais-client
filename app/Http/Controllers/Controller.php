@@ -69,6 +69,9 @@ class Controller extends BaseController
             if (isset($response['content']['contratacao_tipos'])) {$this->contratacao_tipos = $response['content']['contratacao_tipos'];}
             if (isset($response['content']['servico_tipos'])) {$this->servico_tipos = $response['content']['servico_tipos'];}
             if (isset($response['content']['servicos'])) {$this->servicos = $response['content']['servicos'];}
+            if (isset($response['content']['edificacao_classificacoes'])) {$this->edificacao_classificacoes = $response['content']['edificacao_classificacoes'];}
+            if (isset($response['content']['incendio_riscos'])) {$this->incendio_riscos = $response['content']['incendio_riscos'];}
+            if (isset($response['content']['seguranca_medidas'])) {$this->seguranca_medidas = $response['content']['seguranca_medidas'];}
         }
     }
 

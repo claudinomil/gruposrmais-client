@@ -678,4 +678,130 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal para mostrar Informações Visita Técnica -->
+    <div class="modal fade modal-visita-tecnica" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content" style="background-color: var(--bs-body-bg);">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xl-5">
+
+                            <!-- Card -->
+                            <div class="card overflow-hidden">
+                                <div class="bg-danger">
+                                    <div class="row">
+                                        <div class="col-7">
+                                            <div class="text-white p-3">
+                                                <h5 class="text-white">Extra</h5>
+                                                <p>Visita Técnica do Sistema</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-5 align-self-end">
+                                            <img src="{{ asset('build/assets/images/visita-tecnica-img.png') }}" alt="" class="img-fluid">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body pt-0">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div class="avatar-md profile-user-wid mb-4">
+                                                <img src="" alt="" class="img-thumbnail rounded-circle jsonVisitaTecnicaFoto" id="imgImageVisitaTecnicaExtraFoto">
+                                            </div>
+                                            <h5 class="font-size-15 text-truncate jsonVisitaTecnicaName"></h5>
+                                            <p class="text-muted mb-0 text-truncate jsonVisitaTecnicaFuncao"></p>
+                                        </div>
+
+                                        <div class="col-sm-8">
+                                            <div class="pt-4">
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <h5 class="font-size-15">Escolaridade</h5>
+                                                        <p class="text-muted mb-0 text-truncate jsonVisitaTecnicaEscolaridade"></p>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <h5 class="font-size-15">Gênero</h5>
+                                                        <p class="text-muted mb-0 text-truncate jsonVisitaTecnicaGenero"></p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-4 mt-4 px-0">
+                                                        @if(\App\Facades\Permissoes::permissao([$ajaxPrefixPermissaoSubmodulo.'_edit'], $userLoggedPermissoes))
+                                                            <button class="btn btn-danger waves-effect btn-label waves-light btn-sm float-end" id="buttonUploadVisitaTecnicaExtraFoto"><i class="fas fa-address-card label-icon"></i>Foto</button>
+                                                            <button class="btn btn-warning waves-effect btn-label waves-light btn-sm float-end" id="buttonUploadVisitaTecnicaExtraFotoClose" style="display: none;"><i class="fas fa-address-card label-icon"></i>Fechar</button>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-12 pt-4" id="divUploadVisitaTecnicaExtraFoto" style="display: none;">
+                                            <h4 class="text-success"><b>:: </b>Alterar Foto</h4>
+
+                                            <form method="post" enctype="multipart/form-data" id="frm_upload_visita_tecnica_extra_foto">
+                                                @csrf
+                                                @method('POST')
+
+                                                <input type="hidden" class="jsonVisitaTecnicaId" id="upload_visita_tecnica_extra_foto_visita_tecnica_id" name="upload_visita_tecnica_extra_foto_visita_tecnica_id" value="">
+
+                                                <div class="row mt-4">
+                                                    <div class="input-group">
+                                                        <input type="file" class="form-control" name="visita_tecnica_extra_foto_file" id="visita_tecnica_extra_foto_file">
+                                                        <button type="submit" class="input-group-text">Upload</button>
+                                                    </div>
+                                                </div>
+
+                                                <span class="col-12 text-danger text-center" id="frm-upload-visita-tecnica-extra-foto-error"></span>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Informações Pessoais -->
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title mb-4">Informações Pessoais</h4>
+                                    <div class="table-responsive">
+                                        <table class="table table-nowrap mb-0">
+                                            <tbody>
+                                            <tr>
+                                                <th scope="row">Name :</th>
+                                                <td class="jsonVisitaTecnicaName"></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">E-mail :</th>
+                                                <td class="jsonVisitaTecnicaEmail"></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-xl-7">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title mb-4">Transações</h4>
+                                    <div class="table-responsive">
+                                        <table class="table table-nowrap table-hover mb-0 class-datatable-2">
+                                            <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Operação</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody class="jsonVisitaTecnicaTransacoesTable"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

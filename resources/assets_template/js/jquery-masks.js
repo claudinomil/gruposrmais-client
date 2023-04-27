@@ -11,6 +11,7 @@ function putMask() {
     $('.mask_pis').mask('000.00000.00-0', {reverse: true});
     $('.mask_pasep').mask('000.00000.00-0', {reverse: true});
     $('.mask_cnpj').mask('00.000.000/0000-00', {reverse: true});
+    $('.mask_numero_ponto').mask('000.000.00', {reverse: true});
     $('.mask_money').mask('000.000.000.000.000,00', {reverse: true});
     $('.mask_money2').mask("#.##0,00", {reverse: true});
     $('.mask_percent').mask('##0,00%', {reverse: true});

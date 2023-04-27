@@ -17,7 +17,7 @@ jQuery.validator.addMethod("numberMethod", function(value, element) {
 }, "Informe um Número válido");
 
 //telefone
-jQuery.validator.addMethod("telephoneMethod", function(value, element) {
+jQuery.validator.addMethod("telefoneMethod", function(value, element) {
     value = value.replace(/\s+/g, "");
     return this.optional(element) || value.length > 9 && value.match(/\(\d{2}\)\d{4,5}\-\d{4}/);
 }, "Informe um Telefone válido");

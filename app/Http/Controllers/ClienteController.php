@@ -23,6 +23,9 @@ class ClienteController extends Controller
     public $bancos;
     public $identidade_orgaos;
     public $identidade_estados;
+    public $edificacao_classificacoes;
+    public $incendio_riscos;
+    public $seguranca_medidas;
 
     public function __construct()
     {
@@ -80,6 +83,9 @@ class ClienteController extends Controller
                 'bancos' => $this->bancos,
                 'identidade_orgaos' => $this->identidade_orgaos,
                 'identidade_estados' => $this->identidade_estados,
+                'edificacao_classificacoes' => $this->edificacao_classificacoes,
+                'incendio_riscos' => $this->incendio_riscos,
+                'seguranca_medidas' => $this->seguranca_medidas
             ]);
         }
     }
@@ -96,6 +102,10 @@ class ClienteController extends Controller
     {
         //Requisição Ajax
         if ($request->ajax()) {
+            //Acerto Request
+            if (isset($request['laudo_exigencias'])) {$request['laudo_exigencias'] = 1;} else {$request['laudo_exigencias'] = 0;}
+            if (isset($request['certificado_aprovacao'])) {$request['certificado_aprovacao'] = 1;} else {$request['certificado_aprovacao'] = 0;}
+
             //Buscando dados Api_Data() - Incluir Registro
             $this->responseApi(1, 4, 'clientes', '', '', '', $request->all());
 
@@ -166,6 +176,10 @@ class ClienteController extends Controller
     {
         //Requisição Ajax
         if ($request->ajax()) {
+            //Acerto Request
+            if (isset($request['laudo_exigencias'])) {$request['laudo_exigencias'] = 1;} else {$request['laudo_exigencias'] = 0;}
+            if (isset($request['certificado_aprovacao'])) {$request['certificado_aprovacao'] = 1;} else {$request['certificado_aprovacao'] = 0;}
+
             //Buscando dados Api_Data() - Alterar Registro
             $this->responseApi(1, 5, 'clientes', $id, '', '', $request->all());
 

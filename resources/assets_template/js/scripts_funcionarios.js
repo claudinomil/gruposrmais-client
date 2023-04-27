@@ -46,13 +46,13 @@ $(document).ready(function () {
                     required: false,
                     email: true
                 },
-                telephone_1: {
+                telefone_1: {
                     required: false,
-                    telephoneMethod: true
+                    telefoneMethod: true
                 },
-                telephone_2: {
+                telefone_2: {
                     required: false,
-                    telephoneMethod: true
+                    telefoneMethod: true
                 },
                 cellular_1: {
                     required: false,

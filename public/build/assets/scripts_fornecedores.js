@@ -100,11 +100,11 @@ $(document).ready(function () {
                 },
                 telefone_1: {
                     required: false,
-                    telephoneMethod: true
+                    telefoneMethod: true
                 },
                 telefone_2: {
                     required: false,
-                    telephoneMethod: true
+                    telefoneMethod: true
                 },
                 celular_1: {
                     required: false,

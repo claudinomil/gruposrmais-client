@@ -48,6 +48,7 @@
                         <fieldset disabled id="fieldsetForm">
                             <input type="hidden" id="frm_operacao" name="frm_operacao">
                             <input type="hidden" id="registro_id" name="registro_id">
+                            <input type="hidden" id="foto" name="foto" value="build/assets/images/funcionarios/funcionario-0.png">
 
                             <div class="row mt-4">
                                 <div class="row pt-4">
@@ -99,11 +100,11 @@
                                     </div>
                                     <div class="form-group col-12 col-md-3 pb-3">
                                         <label class="form-label">Telefone 1</label>
-                                        <input type="text" class="form-control mask_phone_with_ddd" id="telephone_1" name="telephone_1">
+                                        <input type="text" class="form-control mask_phone_with_ddd" id="telefone_1" name="telefone_1">
                                     </div>
                                     <div class="form-group col-12 col-md-3 pb-3">
                                         <label class="form-label">Telefone 2</label>
-                                        <input type="text" class="form-control mask_phone_with_ddd" id="telephone_2" name="telephone_2">
+                                        <input type="text" class="form-control mask_phone_with_ddd" id="telefone_2" name="telefone_2">
                                     </div>
                                     <div class="form-group col-12 col-md-3 pb-3">
                                         <label class="form-label">Celular 1</label>
