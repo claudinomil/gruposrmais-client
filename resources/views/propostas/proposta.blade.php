@@ -20,8 +20,8 @@
         </style>
     </head>
     <body>
-        <header><img src="build/assets/images/proposta_topo.png" alt="" width="100%"></header>
-        <footer><img src="build/assets/images/proposta_rodape.png" alt="" width="100%"></footer>
+        <header><img src="{{asset('build/assets/images/proposta_topo.png')}}" alt="" width="100%"></header>
+        <footer><img src="{{asset('build/assets/images/proposta_rodape.png')}}" alt="" width="100%"></footer>
 
         @if(isset($error))
             <div style="width: 100%; text-align: center; font-size: 20px; color: red; padding-top: 100px;">{{'Proposta não encontrada.'}}</div>
