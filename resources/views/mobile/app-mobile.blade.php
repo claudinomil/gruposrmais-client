@@ -46,10 +46,10 @@
             </div>
             <div class="row">
                 <div class="text-center col-12 py-2">
-                    <div class="card bg-light mb-4" style="min-height: 500px;">
-                        <div class="card-header bg-transparent border-bottom">Escolha uma opção</div>
-                        <div class="card-body">
-                            <blockquote class="card-blockquote mb-0">
+{{--                    <div class="card bg-light mb-4" style="min-height: 500px;">--}}
+{{--                        <div class="card-header bg-transparent border-bottom">Escolha uma opção</div>--}}
+{{--                        <div class="card-body">--}}
+{{--                            <blockquote class="card-blockquote mb-0">--}}
                                 <div class="row">
                                     <div class="col-6 px-1 py-2">
                                         <button type="button" class="btn btn-dark waves-effect btn-label waves-light font-size-10 col-12 py-3" style="height: 65px;"><i class="bx bx-loader label-icon "></i> {{mb_strtoupper('Meus Clientes')}}</button>
@@ -70,9 +70,9 @@
                                         <button type="button" class="btn btn-dark waves-effect btn-label waves-light font-size-10 col-12 py-3" style="height: 65px;"><i class="bx bx-loader label-icon "></i> {{mb_strtoupper('Dashboard')}}</button>
                                     </div>
                                 </div>
-                            </blockquote>
-                        </div>
-                    </div>
+{{--                            </blockquote>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
                 </div>
             </div>
             <div class="footer">
