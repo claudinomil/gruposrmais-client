@@ -93,6 +93,9 @@ export default defineConfig({
                 {src: 'resources/assets_template/images/proposta_logo_gruposrmais.png', dest: 'assets/images'},
                 {src: 'resources/assets_template/images/proposta_logo_inmetro.png', dest: 'assets/images'},
 
+                {src: 'resources/assets_template/images/proposta_topo.jpg', dest: 'assets/images'},
+                {src: 'resources/assets_template/images/proposta_rodape.jpg', dest: 'assets/images'},
+
                 {src: 'resources/assets_template/images/pictograma_1.png', dest: 'assets/images'},
                 {src: 'resources/assets_template/images/pictograma_2.png', dest: 'assets/images'},
                 {src: 'resources/assets_template/images/pictograma_5.png', dest: 'assets/images'},
