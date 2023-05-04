@@ -3,7 +3,7 @@
 @section('title') Redefinir senha @endsection
 
 @section('body')
-    <body>
+    <body style="background-color: #2a3042;">
 @endsection
 
 @section('content')

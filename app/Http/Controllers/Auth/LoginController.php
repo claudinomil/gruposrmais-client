@@ -69,20 +69,32 @@ class LoginController extends Controller
             $isTab = is_numeric(strpos(strtolower($_SERVER["HTTP_USER_AGENT"]), "tablet"));
             $isDesk = !$isMob && !$isTab;
 
-            if ($isMob) {
-                session(['access_device' => 'mobile']);
-            }
-            if ($isTab) {
-                session(['access_device' => 'tablet']);
-            }
-            if ($isDesk) {
-                session(['access_device' => 'desktop']);
+            if ($isMob) {session(['access_device' => 'mobile']);}
+            if ($isTab) {session(['access_device' => 'tablet']);}
+            if ($isDesk) {session(['access_device' => 'desktop']);}
+
+            //Buscar sistema_acesso_id do Usuário que acabou de se logar para redirecionar versão do Sistema (DESKTOP / MOBILE)
+            //Buscando dados Api_Data() - UsuárioLogado
+            $this->responseApi(1, 10, 'users/user/logged/data', '', '', '', '');
+
+            $sistema_acesso_id = $this->content['userData']['sistema_acesso_id'];
+
+            //1: Somente Desktop
+            if ($sistema_acesso_id == 1) {return redirect('dashboards');}
+
+            //2: Somente Mobile
+            if ($sistema_acesso_id == 2) {
+                if ($isMob) {return redirect('mobile');}
+                if ($isTab) {return redirect('mobile');}
+                if ($isDesk) {abort(500, 'Erro Interno => Acesso somente Mobile.');}
             }
 
-            //Redirecionar
-            //if (session('access_device') == 'desktop') {
-                return redirect('dashboards');
-            //}
+            //3: Desktop & Mobile
+            if ($sistema_acesso_id == 3) {
+                if ($isMob) {return redirect('mobile');}
+                if ($isTab) {return redirect('dashboards');}
+                if ($isDesk) {return redirect('dashboards');}
+            }
         }
 
         if ($this->code == 2004) {

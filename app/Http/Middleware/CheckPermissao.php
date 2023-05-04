@@ -58,6 +58,8 @@ class CheckPermissao
             $userLoggedFerramentas = $response['content']['ferramentas']; //Ferramentas
             $userLoggedUnreadNotificacoes = $response['content']['notificacoes']; //Notificações não lidas pelo Usuário logado
 
+            $userLoggedMenuSubmodulosMobile = $response['content']['menuSubmodulosMobile']; // Submódulos Mobile
+
             $ajaxPrefixPermissaoSubmodulo = $response['content']['ajaxPrefixPermissaoSubmodulo'][0]['prefix_permissao']; //Variavel prefix_permissao do Submodulo
             $ajaxNameSubmodulo = $response['content']['ajaxNameSubmodulo'][0]['name']; //Variavel name do Submodulo
             $ajaxNameFormSubmodulo = 'frm_' . $ajaxPrefixPermissaoSubmodulo;
@@ -79,7 +81,9 @@ class CheckPermissao
             }
         }
 
+        //Colocando dados no Request
         $request['userLoggedPermissoes'] = $userLoggedPermissoes;
+        $request['ctrl_responsavel_funcionario_id'] = $userLoggedData['funcionario_id'];
 
         //Gravar as Sessões de Breadcrumb
         Breadcrumb::sessionsBreadcrumb();
@@ -97,6 +101,8 @@ class CheckPermissao
             'ajaxNameSubmodulo' => $ajaxNameSubmodulo,
             'ajaxNameFormSubmodulo' => $ajaxNameFormSubmodulo,
             'ajaxNamesFieldsSubmodulo' => $ajaxNamesFieldsSubmodulo,
+
+            'userLoggedMenuSubmodulosMobile' => $userLoggedMenuSubmodulosMobile,
         ]);
 
         //Retornando

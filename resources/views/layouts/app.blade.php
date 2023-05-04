@@ -4,8 +4,6 @@
         <meta charset="utf-8" />
         <title> {{env('APP_NAME')}} | @yield('page_title')</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
-        <meta content="Themesbrand" name="author" />
 
         <!-- CSRF-TOKEN -->
         <meta name="csrf-token" content="{{ csrf_token() }}" />
@@ -81,6 +79,8 @@
 
         <!-- javascript -->
         @include('layouts.scripts')
+        @include('layouts.scripts-ajax')
+        @include('layouts.scripts-profile')
 
     </body>
 </html>

@@ -20,6 +20,9 @@ $(document).ready(function () {
                 },
                 situacao_id: {
                     required: true
+                },
+                sistema_acesso_id: {
+                    required: true
                 }
             },
             errorElement: 'span',

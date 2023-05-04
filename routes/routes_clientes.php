@@ -15,4 +15,6 @@ Route::prefix('clientes')->group(function () {
 
     Route::get('/extradata/{id}', [ClienteController::class, 'extradata']);
     Route::post('/uploadfoto', [ClienteController::class, 'uploadfoto'])->name('clientes.uploadfoto');
+
+    Route::get('/visita_tecnica/{id}', [ClienteController::class, 'visita_tecnica'])->name('clientes.visita_tecnica');
 });

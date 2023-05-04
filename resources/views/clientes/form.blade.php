@@ -349,6 +349,12 @@
 
                                     <div class="row pt-3">
                                         <h6 class="pb-3 text-success"><i class="fa fa-list"></i> Documentos</h6>
+                                        <div class="col-12 col-md-4 pb-3 divProjetoScip">
+                                            <div class="form-check form-switch mb-3 ps-5 alert alert-primary">
+                                                <input class="form-check-input" type="checkbox" id="projeto_scip" name="projeto_scip">
+                                                <label class="form-check-label" for="projeto_scip">Projeto SCIP</label>
+                                            </div>
+                                        </div>
                                         <div class="col-12 col-md-4 pb-3 divLaudoExigencias">
                                             <div class="form-check form-switch mb-3 ps-5 alert alert-primary">
                                                 <input class="form-check-input" type="checkbox" id="laudo_exigencias" name="laudo_exigencias">
@@ -359,6 +365,18 @@
                                             <div class="form-check form-switch mb-3 ps-5 alert alert-primary">
                                                 <input class="form-check-input" type="checkbox" id="certificado_aprovacao" name="certificado_aprovacao">
                                                 <label class="form-check-label" for="certificado_aprovacao">Certificado de Aprovação</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-4 pb-3 divCertificadoAprovacaoSimplificado">
+                                            <div class="form-check form-switch mb-3 ps-5 alert alert-primary">
+                                                <input class="form-check-input" type="checkbox" id="certificado_aprovacao_simplificado" name="certificado_aprovacao_simplificado">
+                                                <label class="form-check-label" for="certificado_aprovacao_simplificado">Certificado de Aprovação Simplificado</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-4 pb-3 divCertificadoAprovacaoAssistido">
+                                            <div class="form-check form-switch mb-3 ps-5 alert alert-primary">
+                                                <input class="form-check-input" type="checkbox" id="certificado_aprovacao_assistido" name="certificado_aprovacao_assistido">
+                                                <label class="form-check-label" for="certificado_aprovacao_assistido">Certificado de Aprovação Assistido</label>
                                             </div>
                                         </div>
                                     </div>

@@ -18,6 +18,7 @@
                                             </div>
                                         </div>
                                         <div class="col-5 align-self-end">
+                                            <button type="button" class="btn-close float-end px-1 py-1" data-bs-dismiss="modal" aria-label="Close"></button>
                                             <img src="{{ asset('build/assets/images/profile-img.png') }}" alt="" class="img-fluid">
                                         </div>
                                     </div>
@@ -279,6 +280,7 @@
                                             </div>
                                         </div>
                                         <div class="col-5 align-self-end">
+                                            <button type="button" class="btn-close float-end px-1 py-1" data-bs-dismiss="modal" aria-label="Close"></button>
                                             <img src="{{ asset('build/assets/images/cliente-img.png') }}" alt="" class="img-fluid">
                                         </div>
                                     </div>
@@ -409,6 +411,7 @@
                                             </div>
                                         </div>
                                         <div class="col-5 align-self-end">
+                                            <button type="button" class="btn-close float-end px-1 py-1" data-bs-dismiss="modal" aria-label="Close"></button>
                                             <img src="{{ asset('build/assets/images/fornecedor-img.png') }}" alt="" class="img-fluid">
                                         </div>
                                     </div>
@@ -539,6 +542,7 @@
                                             </div>
                                         </div>
                                         <div class="col-5 align-self-end">
+                                            <button type="button" class="btn-close float-end px-1 py-1" data-bs-dismiss="modal" aria-label="Close"></button>
                                             <img src="{{ asset('build/assets/images/funcionario-img.png') }}" alt="" class="img-fluid">
                                         </div>
                                     </div>
@@ -698,6 +702,7 @@
                                             </div>
                                         </div>
                                         <div class="col-5 align-self-end">
+                                            <button type="button" class="btn-close float-end px-1 py-1" data-bs-dismiss="modal" aria-label="Close"></button>
                                             <img src="{{ asset('build/assets/images/visita-tecnica-img.png') }}" alt="" class="img-fluid">
                                         </div>
                                     </div>
@@ -705,9 +710,6 @@
                                 <div class="card-body pt-0">
                                     <div class="row">
                                         <div class="col-sm-4">
-                                            <div class="avatar-md profile-user-wid mb-4">
-                                                <img src="" alt="" class="img-thumbnail rounded-circle jsonVisitaTecnicaFoto" id="imgImageVisitaTecnicaExtraFoto">
-                                            </div>
                                             <h5 class="font-size-15 text-truncate jsonVisitaTecnicaName"></h5>
                                             <p class="text-muted mb-0 text-truncate jsonVisitaTecnicaFuncao"></p>
                                         </div>
@@ -725,34 +727,9 @@
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-4 mt-4 px-0">
-                                                        @if(\App\Facades\Permissoes::permissao([$ajaxPrefixPermissaoSubmodulo.'_edit'], $userLoggedPermissoes))
-                                                            <button class="btn btn-danger waves-effect btn-label waves-light btn-sm float-end" id="buttonUploadVisitaTecnicaExtraFoto"><i class="fas fa-address-card label-icon"></i>Foto</button>
-                                                            <button class="btn btn-warning waves-effect btn-label waves-light btn-sm float-end" id="buttonUploadVisitaTecnicaExtraFotoClose" style="display: none;"><i class="fas fa-address-card label-icon"></i>Fechar</button>
-                                                        @endif
-                                                    </div>
+                                                    <div class="col-4 mt-4 px-0">&nbsp;</div>
                                                 </div>
                                             </div>
-                                        </div>
-
-                                        <div class="col-sm-12 pt-4" id="divUploadVisitaTecnicaExtraFoto" style="display: none;">
-                                            <h4 class="text-success"><b>:: </b>Alterar Foto</h4>
-
-                                            <form method="post" enctype="multipart/form-data" id="frm_upload_visita_tecnica_extra_foto">
-                                                @csrf
-                                                @method('POST')
-
-                                                <input type="hidden" class="jsonVisitaTecnicaId" id="upload_visita_tecnica_extra_foto_visita_tecnica_id" name="upload_visita_tecnica_extra_foto_visita_tecnica_id" value="">
-
-                                                <div class="row mt-4">
-                                                    <div class="input-group">
-                                                        <input type="file" class="form-control" name="visita_tecnica_extra_foto_file" id="visita_tecnica_extra_foto_file">
-                                                        <button type="submit" class="input-group-text">Upload</button>
-                                                    </div>
-                                                </div>
-
-                                                <span class="col-12 text-danger text-center" id="frm-upload-visita-tecnica-extra-foto-error"></span>
-                                            </form>
                                         </div>
                                     </div>
                                 </div>

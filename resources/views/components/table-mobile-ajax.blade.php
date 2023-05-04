@@ -1,4 +1,4 @@
-<div class="pt-5">
+<div>
     <table class="datatable-mobile-ajax cell-border {{ $tableClass }}">
         <thead class="table-light">
             <tr>

@@ -1,28 +1,22 @@
 $(document).ready(function () {
-    if ($('#frm_users').length) {
-        $('#frm_users').validate({
+    if ($('#frm_mobile_visitas_tecnicas').length) {
+        $('#frm_mobile_visitas_tecnicas').validate({
             rules: {
-                name: {
-                    required: true
-                },
-                email: {
+                visita_tecnica_status_id: {
                     required: true,
-                    email: true
+                    idMethod: true
                 },
-                layout_mode: {
-                    required: true
+                cliente_id: {
+                    required: true,
+                    idMethod: true
                 },
-                layout_style: {
-                    required: true
+                data_visita: {
+                    required: false,
+                    dateMethod: true
                 },
-                grupo_id: {
-                    required: true
-                },
-                situacao_id: {
-                    required: true
-                },
-                sistema_acesso_id: {
-                    required: true
+                responsavel_funcionario_id: {
+                    required: false,
+                    idMethod: true
                 }
             },
             errorElement: 'span',

@@ -13,17 +13,6 @@ class MobileClienteController extends Controller
     public $validation;
     public $content;
 
-    //Dados Auxiliares
-    public $principal_clientes;
-    public $responsavel_funcionarios;
-    public $generos;
-    public $bancos;
-    public $identidade_orgaos;
-    public $identidade_estados;
-    public $edificacao_classificacoes;
-    public $incendio_riscos;
-    public $seguranca_medidas;
-
     public function __construct()
     {
         $this->middleware('check-permissao:mobile_clientes_list', ['only' => ['index', 'search']]);
@@ -42,17 +31,14 @@ class MobileClienteController extends Controller
 
             //Dados recebidos com sucesso
             if ($this->code == 2000) {
+                //Filtar Responsável
+                $this->content = array_filter($this->content, function ($var) use ($request) {
+                    return ($var['responsavel_funcionario_id'] == $request['ctrl_responsavel_funcionario_id']);
+                });
+
+                //Montar Dados Tabela
                 $allData = DataTables::of($this->content)
                     ->addIndexColumn()
-                    ->editColumn('foto', function ($row) {
-                        $retorno = "<div class='text-center'>";
-                        $retorno .= "<img src='".asset($row['foto'])."' alt='' class='img-thumbnail rounded-circle avatar-sm'>";
-                        $retorno .= "<br>";
-                        $retorno .= "<a href='#' data-bs-toggle='modal' data-bs-target='.modal-cliente' onclick='clienteExtraData(".$row['id'].");'><span class='bg-success badge'><i class='bx bx-user font-size-16 align-middle me-1'></i>Perfil</span></a>";
-                        $retorno .= "</div>";
-
-                        return $retorno;
-                    })
                     ->addColumn('action', function ($row, Request $request) {
                         return $this->columnAction($row['id'], $request['userLoggedPermissoes']);
                     })
@@ -65,19 +51,8 @@ class MobileClienteController extends Controller
                 abort(500, 'Erro Interno Client');
             }
         } else {
-            //Buscando dados Api_Data() - Auxiliary Tables (Combobox)
-            $this->responseApi(2, 10, 'clientes/auxiliary/tables', '', '', '', '');
-
             return view('mobile.mobile-clientes', [
-                'principal_clientes' => $this->principal_clientes,
-                'responsavel_funcionarios' => $this->responsavel_funcionarios,
-                'generos' => $this->generos,
-                'bancos' => $this->bancos,
-                'identidade_orgaos' => $this->identidade_orgaos,
-                'identidade_estados' => $this->identidade_estados,
-                'edificacao_classificacoes' => $this->edificacao_classificacoes,
-                'incendio_riscos' => $this->incendio_riscos,
-                'seguranca_medidas' => $this->seguranca_medidas
+                'evento' => 'index'
             ]);
         }
     }

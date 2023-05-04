@@ -192,6 +192,7 @@
     "isEntry": true,
     "src": "resources/js/app.js"
   },
+
     "resources/assets_template/libs/jquery/jquery.min.js": {
         "file": "assets/jquery.min.js",
         "isEntry": true,
@@ -406,5 +407,10 @@
         "file": "assets/scripts_visitas_tecnicas.js",
         "isEntry": true,
         "src": "resources/assets_template/js/scripts_visitas_tecnicas.js"
+    },
+    "resources/assets_template/js/scripts_mobile_visitas_tecnicas.js": {
+        "file": "assets/scripts_mobile_visitas_tecnicas.js",
+        "isEntry": true,
+        "src": "resources/assets_template/js/scripts_mobile_visitas_tecnicas.js"
     }
 }

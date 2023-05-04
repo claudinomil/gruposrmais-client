@@ -57,7 +57,11 @@ class ClienteController extends Controller
                         return $retorno;
                     })
                     ->editColumn('data_nascimento', function ($row) {
-                        $retorno = date('d/m/Y', strtotime($row['data_nascimento']));
+                        if ($row['data_nascimento'] !== null) {
+                            $retorno = date('d/m/Y', strtotime($row['data_nascimento']));
+                        } else {
+                            $retorno = '';
+                        }
 
                         return $retorno;
                     })
@@ -103,8 +107,11 @@ class ClienteController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Acerto Request
+            if (isset($request['projeto_scip'])) {$request['projeto_scip'] = 1;} else {$request['projeto_scip'] = 0;}
             if (isset($request['laudo_exigencias'])) {$request['laudo_exigencias'] = 1;} else {$request['laudo_exigencias'] = 0;}
             if (isset($request['certificado_aprovacao'])) {$request['certificado_aprovacao'] = 1;} else {$request['certificado_aprovacao'] = 0;}
+            if (isset($request['certificado_aprovacao_simplificado'])) {$request['certificado_aprovacao_simplificado'] = 1;} else {$request['certificado_aprovacao_simplificado'] = 0;}
+            if (isset($request['certificado_aprovacao_assistido'])) {$request['certificado_aprovacao_assistido'] = 1;} else {$request['certificado_aprovacao_assistido'] = 0;}
 
             //Buscando dados Api_Data() - Incluir Registro
             $this->responseApi(1, 4, 'clientes', '', '', '', $request->all());
@@ -177,8 +184,11 @@ class ClienteController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Acerto Request
+            if (isset($request['projeto_scip'])) {$request['projeto_scip'] = 1;} else {$request['projeto_scip'] = 0;}
             if (isset($request['laudo_exigencias'])) {$request['laudo_exigencias'] = 1;} else {$request['laudo_exigencias'] = 0;}
             if (isset($request['certificado_aprovacao'])) {$request['certificado_aprovacao'] = 1;} else {$request['certificado_aprovacao'] = 0;}
+            if (isset($request['certificado_aprovacao_simplificado'])) {$request['certificado_aprovacao_simplificado'] = 1;} else {$request['certificado_aprovacao_simplificado'] = 0;}
+            if (isset($request['certificado_aprovacao_assistido'])) {$request['certificado_aprovacao_assistido'] = 1;} else {$request['certificado_aprovacao_assistido'] = 0;}
 
             //Buscando dados Api_Data() - Alterar Registro
             $this->responseApi(1, 5, 'clientes', $id, '', '', $request->all());
@@ -240,7 +250,11 @@ class ClienteController extends Controller
                         return $retorno;
                     })
                     ->editColumn('data_nascimento', function ($row) {
-                        $retorno = date('d/m/Y', strtotime($row['data_nascimento']));
+                        if ($row['data_nascimento'] !== null) {
+                            $retorno = date('d/m/Y', strtotime($row['data_nascimento']));
+                        } else {
+                            $retorno = '';
+                        }
 
                         return $retorno;
                     })
@@ -254,6 +268,24 @@ class ClienteController extends Controller
             }
         } else {
             return view('clientes.index');
+        }
+    }
+
+    public function visita_tecnica(Request $request, $id)
+    {
+        //Requisição Ajax
+        if ($request->ajax()) {
+            //Buscando dados Api_Data() - Registro pelo id
+            $this->responseApi(1, 10, 'clientes/visita_tecnica/'.$id, '', '', '', '');
+
+            //Registro recebido com sucesso
+            if ($this->code == 2000) {
+                return response()->json(['success' => $this->content]);
+            } else if ($this->code == 4040) { //Registro não encontrado
+                return response()->json(['error_not_found' => $this->message]);
+            } else {
+                abort(500, 'Erro Interno Client');
+            }
         }
     }
 

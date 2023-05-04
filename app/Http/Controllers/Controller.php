@@ -72,44 +72,62 @@ class Controller extends BaseController
             if (isset($response['content']['edificacao_classificacoes'])) {$this->edificacao_classificacoes = $response['content']['edificacao_classificacoes'];}
             if (isset($response['content']['incendio_riscos'])) {$this->incendio_riscos = $response['content']['incendio_riscos'];}
             if (isset($response['content']['seguranca_medidas'])) {$this->seguranca_medidas = $response['content']['seguranca_medidas'];}
+            if (isset($response['content']['visita_tecnica_status'])) {$this->visita_tecnica_status = $response['content']['visita_tecnica_status'];}
+            if (isset($response['content']['sistema_acessos'])) {$this->sistema_acessos = $response['content']['sistema_acessos'];}
         }
     }
 
     /*
      * Função para retornar Botões para a coluna Ações da tabela de registros do CRUD
      */
-    public function columnAction($id, $userLoggedPermissoes)
+    public function columnAction($id, $userLoggedPermissoes, $botoes=7, $btnType=4)
     {
-        $btnType = 4;
+        //PARAN: $botoes
+        //0: Nenhum Botão
+        //1: Somente Visualização
+        //2: Somente Alteração
+        //3: Somente Exclusão
+        //4: Visualização e Alteração
+        //5: Visualização e Exclusão
+        //6: Alteração e Exclusão
+        //7: Visualização, Alteração e Exclusão
+
+        //$btnType = 4;
 
         //Montando Coluna Ação
         $btn = '<td class="text-center" style="vertical-align:top; white-space:nowrap;"><div class="row">';
 
-        if (Permissoes::permissao(['modulos_show'], $userLoggedPermissoes)) {
-            if ($btnType == 1) {$btnClass = 'btn btn-info text-white text-center btn-sm'; $btnSize = '';}
-            if ($btnType == 2) {$btnClass = 'btn text-info text-center btn-sm'; $btnSize = 'font-size-18';}
-            if ($btnType == 3) {$btnClass = 'btn btn-outline-secondary btn-sm'; $btnSize = '';}
-            if ($btnType == 4) {$btnClass = 'btn btn-outline-info text-center btn-sm'; $btnSize = 'font-size-18';}
+        if ($botoes == 1 or $botoes == 4 or $botoes == 5 or $botoes == 7) {
+            if (Permissoes::permissao(['modulos_show'], $userLoggedPermissoes)) {
+                if ($btnType == 1) {$btnClass = 'btn btn-info text-white text-center btn-sm'; $btnSize = '';}
+                if ($btnType == 2) {$btnClass = 'btn text-info text-center btn-sm'; $btnSize = 'font-size-18';}
+                if ($btnType == 3) {$btnClass = 'btn btn-outline-secondary btn-sm'; $btnSize = '';}
+                if ($btnType == 4) {$btnClass = 'btn btn-outline-info text-center btn-sm'; $btnSize = 'font-size-18';}
 
-            $btn .= '<div class="col-4"><button type="button" class="viewRecord '.$btnClass.'" data-bs-toggle="tooltip" data-bs-placement="top" title="Visualizar Registro" data-id="'.$id.'"><i class="fa fa-eye '.$btnSize.'"></i></button></div>';
+                $btn .= '<div class="col-4"><button type="button" class="viewRecord '.$btnClass.'" data-bs-toggle="tooltip" data-bs-placement="top" title="Visualizar Registro" data-id="'.$id.'"><i class="fa fa-eye '.$btnSize.'"></i></button></div>';
+            }
         }
 
-        if (Permissoes::permissao(['modulos_edit'], $userLoggedPermissoes)) {
-            if ($btnType == 1) {$btnClass = 'btn btn-primary text-white text-center btn-sm'; $btnSize = '';}
-            if ($btnType == 2) {$btnClass = 'btn text-primary text-center btn-sm'; $btnSize = 'font-size-18';}
-            if ($btnType == 3) {$btnClass = 'btn btn-outline-secondary btn-sm'; $btnSize = '';}
-            if ($btnType == 4) {$btnClass = 'btn btn-outline-primary text-center btn-sm'; $btnSize = 'font-size-18';}
+        if ($botoes == 2 or $botoes == 4 or $botoes == 6 or $botoes == 7) {
+            if (Permissoes::permissao(['modulos_edit'], $userLoggedPermissoes)) {
+                if ($btnType == 1) {$btnClass = 'btn btn-primary text-white text-center btn-sm'; $btnSize = '';}
+                if ($btnType == 2) {$btnClass = 'btn text-primary text-center btn-sm'; $btnSize = 'font-size-18';}
+                if ($btnType == 3) {$btnClass = 'btn btn-outline-secondary btn-sm'; $btnSize = '';}
+                if ($btnType == 4) {$btnClass = 'btn btn-outline-primary text-center btn-sm'; $btnSize = 'font-size-18';}
 
-            $btn .= '<div class="col-4"><button type="button" class="editRecord '.$btnClass.'" data-bs-toggle="tooltip" data-bs-placement="top" title="Alterar Registro" data-id="'.$id.'"><i class="fas fa-pencil-alt '.$btnSize.'"></i></button></div>';
+                $btn .= '<div class="col-4"><button type="button" class="editRecord '.$btnClass.'" data-bs-toggle="tooltip" data-bs-placement="top" title="Alterar Registro" data-id="'.$id.'"><i class="fas fa-pencil-alt '.$btnSize.'"></i></button></div>';
+            }
         }
 
-        if (Permissoes::permissao(['modulos_destroy'], $userLoggedPermissoes)) {
-            if ($btnType == 1) {$btnClass = 'btn btn-danger text-white text-center btn-sm'; $btnSize = '';}
-            if ($btnType == 2) {$btnClass = 'btn text-danger text-center btn-sm'; $btnSize = 'font-size-18';}
-            if ($btnType == 3) {$btnClass = 'btn btn-outline-secondary btn-sm'; $btnSize = '';}
-            if ($btnType == 4) {$btnClass = 'btn btn-outline-danger text-center btn-sm'; $btnSize = 'font-size-18';}
+        if ($botoes == 3 or $botoes == 5 or $botoes == 6 or $botoes == 7) {
+            if (Permissoes::permissao(['modulos_destroy'], $userLoggedPermissoes)) {
+                if ($btnType == 1) {$btnClass = 'btn btn-danger text-white text-center btn-sm'; $btnSize = '';}
+                if ($btnType == 2) {$btnClass = 'btn text-danger text-center btn-sm'; $btnSize = 'font-size-18';}
+                if ($btnType == 3) {$btnClass = 'btn btn-outline-secondary btn-sm'; $btnSize = '';}
+                if ($btnType == 4) {$btnClass = 'btn btn-outline-danger text-center btn-sm'; $btnSize = 'font-size-18';}
 
-            $btn .= '<div class="col-4"><button type="button" class="deleteRecord '.$btnClass.'" data-bs-toggle="tooltip" data-bs-placement="top" title="Excluir Registro" data-id="'.$id.'"><i class="fa fa-trash-alt  '.$btnSize.'"></i></button></div>';
+                $btn .= '<div class="col-4"><button type="button" class="deleteRecord '.$btnClass.'" data-bs-toggle="tooltip" data-bs-placement="top" title="Excluir Registro" data-id="'.$id.'"><i class="fa fa-trash-alt  '.$btnSize.'"></i></button></div>';
+            }
         }
 
         $btn .= '</div></td>';

@@ -15,10 +15,9 @@ class VisitaTecnicaController extends Controller
     public $content;
 
     //Dados Auxiliares
+    public $visita_tecnica_status;
     public $clientes;
-    public $edificacao_classificacoes;
-    public $incendio_riscos;
-    public $seguranca_medidas;
+    public $funcionarios;
 
     public function __construct()
     {
@@ -40,8 +39,21 @@ class VisitaTecnicaController extends Controller
             if ($this->code == 2000) {
                 $allData = DataTables::of($this->content)
                     ->addIndexColumn()
+                    ->editColumn('visitaTecnicaStatusName', function ($row) {
+                        $retorno = "<div class='text-center'>";
+                        $retorno .= $row['visitaTecnicaStatusName'];
+                        $retorno .= "<br>";
+                        $retorno .= "<a href='#' data-bs-toggle='modal' data-bs-target='.modal-visita-tecnica' onclick='visitaTecnicaExtraData(".$row['id'].");'><span class='bg-success badge'><i class='bx bx-user font-size-16 align-middle me-1'></i>Perfil</span></a>";
+                        $retorno .= "</div>";
+
+                        return $retorno;
+                    })
                     ->editColumn('data_visita', function ($row) {
-                        $retorno = date('d/m/Y', strtotime($row['data_visita']));
+                        if ($row['data_visita'] !== null) {
+                            $retorno = date('d/m/Y', strtotime($row['data_visita']));
+                        } else {
+                            $retorno = '';
+                        }
 
                         return $retorno;
                     })
@@ -61,10 +73,9 @@ class VisitaTecnicaController extends Controller
             $this->responseApi(2, 10, 'visitas_tecnicas/auxiliary/tables', '', '', '', '');
 
             return view('visitas_tecnicas.index', [
+                'visita_tecnica_status' => $this->visita_tecnica_status,
                 'clientes' => $this->clientes,
-                'edificacao_classificacoes' => $this->edificacao_classificacoes,
-                'incendio_riscos' => $this->incendio_riscos,
-                'seguranca_medidas' => $this->seguranca_medidas
+                'funcionarios' => $this->funcionarios
             ]);
         }
     }
@@ -192,8 +203,21 @@ class VisitaTecnicaController extends Controller
             if ($this->code == 2000) {
                 $allData = DataTables::of($this->content)
                     ->addIndexColumn()
+                    ->editColumn('visitaTecnicaStatusName', function ($row) {
+                        $retorno = "<div class='text-center'>";
+                        $retorno .= $row['visitaTecnicaStatusName'];
+                        $retorno .= "<br>";
+                        $retorno .= "<a href='#' data-bs-toggle='modal' data-bs-target='.modal-visita-tecnica' onclick='visitaTecnicaExtraData(".$row['id'].");'><span class='bg-success badge'><i class='bx bx-user font-size-16 align-middle me-1'></i>Perfil</span></a>";
+                        $retorno .= "</div>";
+
+                        return $retorno;
+                    })
                     ->editColumn('data_visita', function ($row) {
-                        $retorno = date('d/m/Y', strtotime($row['data_visita']));
+                        if ($row['data_visita'] !== null) {
+                            $retorno = date('d/m/Y', strtotime($row['data_visita']));
+                        } else {
+                            $retorno = '';
+                        }
 
                         return $retorno;
                     })

@@ -22,6 +22,7 @@ class UserController extends Controller
     public $grupos;
     public $situacoes;
     public $funcionarios;
+    public $sistema_acessos;
 
     public function __construct()
     {
@@ -74,6 +75,7 @@ class UserController extends Controller
                 'grupos' => $this->grupos,
                 'situacoes' => $this->situacoes,
                 'funcionarios' => $this->funcionarios,
+                'sistema_acessos' => $this->sistema_acessos
             ]);
         }
     }

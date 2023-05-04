@@ -42,7 +42,7 @@ class Menu
                     $permitido = Permissoes::permissao([$submodulo['prefix_permissao'] . '_list'], $userLoggedPermissoes);
 
                     //negaralguns submodulos para fim de desenvolvimento
-                    if ($submodulo['id'] == 27) {$permitido = false;} //Deixar Submódulo Visita Técnica so para Desenvolvedor
+                    //if ($submodulo['id'] == 27) {$permitido = false;} //Deixar Submódulo Visita Técnica so para Desenvolvedor
                     //'''''''''''''''''''''''''''''''''''''''''''''''''''
 
 

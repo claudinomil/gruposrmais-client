@@ -49,14 +49,14 @@
 
                     <!-- Tabela (Componente Blade) -->
                     @php
-                        $colsNames = ['Cliente', 'Data Visita', 'Responsável'];
-                        $colsFields = ['clienteName', 'data_visita', 'userName'];
+                        $colsNames = ['Status', 'Cliente', 'Data Visita', 'Responsável'];
+                        $colsFields = ['visitaTecnicaStatusName', 'clienteName', 'data_visita', 'funcionarioName'];
                         $colActions = 'yes';
                     @endphp
 
                     <x-table-crud-ajax
                         :numCols="4"
-                        :class="'table table-bordered dt-responsive table-striped nowrap w-100 class-datatable-1'"
+                        :class="'table table-bordered dt-responsive table-striped w-100 class-datatable-1'"
                         :colsNames=$colsNames
                         :colsFields=$colsFields
                         :colActions=$colActions />

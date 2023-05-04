@@ -83,6 +83,17 @@
                                 <div class="row pt-4">
                                     <h5 class="pb-4 text-primary"><i class="fas fa-user"></i> Configurações</h5>
                                     <div class="form-group col-12 col-md-4 pb-3">
+                                        <label class="form-label">Acesso</label>
+                                        <select class="form-control select2" name="sistema_acesso_id" id="sistema_acesso_id" required="required">
+                                            <option value="">Selecione...</option>
+
+                                            @foreach ($sistema_acessos as $key => $sistema_acesso)
+                                                <option value="{{ $sistema_acesso['id'] }}">{{ $sistema_acesso['name'] }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group col-12 col-md-4 pb-3">
                                         <label class="form-label">Modo de layout</label>
                                         <select class="form-control select2" name="layout_mode" id="layout_mode" required="required">
                                             <option value=''>Selecione...</option>

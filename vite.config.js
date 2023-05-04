@@ -64,6 +64,7 @@ export default defineConfig({
                 {src: 'resources/assets_template/js/scripts_servicos.js', dest: 'assets'},
                 {src: 'resources/assets_template/js/scripts_propostas.js', dest: 'assets'},
                 {src: 'resources/assets_template/js/scripts_visitas_tecnicas.js', dest: 'assets'},
+                {src: 'resources/assets_template/js/scripts_mobile_visitas_tecnicas.js', dest: 'assets'},
 
                 {src: 'resources/assets_template/images/clientes/cliente-0.png', dest: 'assets/images/clientes'},
                 {src: 'resources/assets_template/images/fornecedores/fornecedor-0.png', dest: 'assets/images/fornecedores'},
@@ -322,4 +323,9 @@ export default defineConfig({
 //     "file": "assets/scripts_visitas_tecnicas.js",
 //     "isEntry": true,
 //     "src": "resources/assets_template/js/scripts_visitas_tecnicas.js"
+// },
+// "resources/assets_template/js/scripts_mobile_visitas_tecnicas.js": {
+//     "file": "assets/scripts_mobile_visitas_tecnicas.js",
+//     "isEntry": true,
+//     "src": "resources/assets_template/js/scripts_mobile_visitas_tecnicas.js"
 // },

@@ -56,7 +56,11 @@ class FuncionarioController extends Controller
                         return $retorno;
                     })
                     ->editColumn('data_nascimento', function ($row) {
-                        $retorno = date('d/m/Y', strtotime($row['data_nascimento']));
+                        if ($row['data_nascimento'] !== null) {
+                            $retorno = date('d/m/Y', strtotime($row['data_nascimento']));
+                        } else {
+                            $retorno = '';
+                        }
 
                         return $retorno;
                     })
@@ -259,7 +263,11 @@ class FuncionarioController extends Controller
                         return $retorno;
                     })
                     ->editColumn('data_nascimento', function ($row) {
-                        $retorno = date('d/m/Y', strtotime($row['data_nascimento']));
+                        if ($row['data_nascimento'] !== null) {
+                            $retorno = date('d/m/Y', strtotime($row['data_nascimento']));
+                        } else {
+                            $retorno = '';
+                        }
 
                         return $retorno;
                     })
