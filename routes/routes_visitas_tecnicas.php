@@ -16,4 +16,6 @@ Route::prefix('visitas_tecnicas')->group(function () {
     Route::get('/extradata/{id}', [VisitaTecnicaController::class, 'extradata']);
 
     Route::get('/medidas_seguranca/{np}/{atc}/{grupo}/{divisao}', [VisitaTecnicaController::class, 'medidas_seguranca'])->name('visitas_tecnicas.medidas_seguranca');
+
+    Route::post('/documentos_upload/{file}', [VisitaTecnicaController::class, 'documentos_upload'])->name('visitas_tecnicas.documentos_upload');
 });

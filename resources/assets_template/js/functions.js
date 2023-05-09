@@ -950,173 +950,310 @@ function pavimentosShowHide() {
 //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
 //Funções para o submódulo Visitas Técnicas'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-function montarClassificacaoCliente(cliente_id='', visita_tecnica_seguranca_medidas='') {
-    if (cliente_id == '') {
-        //Informações iniciais
-        $('#responsavel_funcionario_id').val('').trigger('change');
+//Limpar campos Classificação Cliente
+function montarClassificacaoHide() {
+    //divClienteClassificacao
+    $('#divClienteClassificacao').hide();
 
-        //Informações Gerais
-        $('#numero_pavimentos').val('');
-        $('#altura').val('');
-        $('#area_total_construida').val('');
-        $('#lotacao').val('');
-        $('#carga_incendio').val('');
-        $('#incendio_risco').val('');
-        $('#grupo').val('');
-        $('#divisao').val('');
-        $('#ocupacao_uso').val('');
-        $('#descricao').val('');
+    //Informações Gerais
+    $('#numero_pavimentos').val('');
+    $('#altura').val('');
+    $('#area_total_construida').val('');
+    $('#lotacao').val('');
+    $('#carga_incendio').val('');
+    $('#incendio_risco').val('');
+    $('#grupo').val('');
+    $('#divisao').val('');
+    $('#ocupacao_uso').val('');
+    $('#descricao').val('');
 
-        //Documentos
-        $('#divProjetoScip').hide();
-        $('#divLaudoExigencias').hide();
-        $('#divCertificadoAprovacao').hide();
-        $('#divCertificadoAprovacaoSimplificado').hide();
-        $('#divCertificadoAprovacaoAssistido').hide();
+    //Documentos
+    $('#divProjetoScip').hide();
+    $('#projeto_scip').val('0');
 
-        //Medidas de Segurança
+    $('#divLaudoExigencias').hide();
+    $('#laudo_exigencias').val('0');
+
+    $('#divCertificadoAprovacao').hide();
+    $('#certificado_aprovacao').val('0');
+
+    $('#divCertificadoAprovacaoSimplificado').hide();
+    $('#certificado_aprovacao_simplificado').val('0');
+
+    $('#divCertificadoAprovacaoAssistido').hide();
+    $('#certificado_aprovacao_assistido').val('0');
+
+    //Medidas de Segurança
+    $('#divMedidasSeguranca').hide();
+    $('#divMedidasSegurancaItens').html('');
+}
+
+function montarClassificacaoShow(dados) {
+    //Verificar se os campos vao ser readonly
+    if ($('#frm_operacao').val() == 'edit' && $('#visita_tecnica_status_id').val() == '2') {readonly = false;} else {readonly = true;}
+
+    //divClienteClassificacao
+    $('#divClienteClassificacao').show();
+
+    //Informações Gerais
+    $('#numero_pavimentos').val(dados.numero_pavimentos);
+    $('#altura').val(dados.altura);
+    $('#area_total_construida').val(dados.area_total_construida);
+    $('#lotacao').val(dados.lotacao);
+    $('#carga_incendio').val(dados.carga_incendio);
+    $('#incendio_risco').val(dados.incendio_risco);
+    $('#grupo').val(dados.grupo);
+    $('#divisao').val(dados.divisao);
+    $('#ocupacao_uso').val(dados.ocupacao_uso);
+    $('#descricao').val(dados.descricao);
+
+    //Documentos
+    if (dados.projeto_scip == 1) {
+        $('#divProjetoScip').show();
+        $('#projeto_scip').val('1');
+        $('#projeto_scip_numero').attr('readonly', readonly);
+    }
+    if (dados.laudo_exigencias == 1) {
+        $('#divLaudoExigencias').show();
+        $('#laudo_exigencias').val('1');
+        $('#laudo_exigencias_numero').attr('readonly', readonly);
+        $('#laudo_exigencias_data_emissao').attr('readonly', readonly);
+        $('#laudo_exigencias_data_vencimento').attr('readonly', readonly);
+    }
+    if (dados.certificado_aprovacao == 1) {
+        $('#divCertificadoAprovacao').show();
+        $('#certificado_aprovacao').val('1');
+        $('#certificado_aprovacao_numero').attr('readonly', readonly);
+    }
+    if (dados.certificado_aprovacao_simplificado == 1) {
+        $('#divCertificadoAprovacaoSimplificado').show();
+        $('#certificado_aprovacao_simplificado').val('1');
+        $('#certificado_aprovacao_simplificado_numero').attr('readonly', readonly);
+    }
+    if (dados.certificado_aprovacao_assistido == 1) {
+        $('#divCertificadoAprovacaoAssistido').show();
+        $('#certificado_aprovacao_assistido').val('1');
+        $('#certificado_aprovacao_assistido_numero').attr('readonly', readonly);
+    }
+
+    //Medidas de Segurança
+    numero_pavimentos = dados.numero_pavimentos;
+    cliente_seguranca_medidas = dados['cliente_seguranca_medidas'];
+    medidas_seguranca = '';
+
+    //verificar validacoes
+    if (numero_pavimentos == '' || numero_pavimentos == '0' || numero_pavimentos == 0) {
+        alert('Erro nos dados vindos do Cliente. Verifique o Número de Pavimentos.');
         $('#divMedidasSeguranca').hide();
-        $('#divMedidasSegurancaItens').html('');
-    } else {
-        //Header
-        $.ajaxSetup({headers:{'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')}});
+        return;
+    }
+    if (cliente_seguranca_medidas.length <= 0) {
+        alert('Erro nos dados vindos do Cliente. Verifique as Medidas de Segurança.');
+        $('#divMedidasSeguranca').hide();
+        return;
+    }
 
-        $.ajax({
-            type:'GET',
-            url: '/clientes/visita_tecnica/'+cliente_id,
-            data: '',
-            cache: false,
-            contentType: false,
-            processData: false,
-            success: function (response) {
-                cliente = response.success;
+    //Montar
+    for(pavimento=1; pavimento<=numero_pavimentos; pavimento++) {
+        ctrl = 0;
 
-                //Informações Iniciais''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-                $('#responsavel_funcionario_id').val(cliente.responsavel_funcionario_id).trigger('change');
-                //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+        medidas_seguranca += '<h6 class="pb-3 text-success"><i class="fa fa-fire-extinguisher"></i> Medidas de Segurança - Pavimento ' + '<span class="font-size-15">'+pavimento+'</span>' + '</h6>';
 
-                //Informações Gerais''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-                $('#numero_pavimentos').val(cliente.numero_pavimentos);
-                $('#altura').val(cliente.altura);
-                $('#area_total_construida').val(cliente.area_total_construida);
-                $('#lotacao').val(cliente.lotacao);
-                $('#carga_incendio').val(cliente.carga_incendio);
-                $('#incendio_risco').val(cliente.incendio_risco);
-                $('#grupo').val(cliente.grupo);
-                $('#divisao').val(cliente.divisao);
-                $('#ocupacao_uso').val(cliente.ocupacao_uso);
-                $('#descricao').val(cliente.descricao);
-                //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+        //Campos
+        $.each(cliente_seguranca_medidas, function(i, campo) {
+            if (pavimento == campo.pavimento) {
+                ctrl++;
 
-                //Documentos''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-                if (cliente.projeto_scip == 1) {
-                    $('#divProjetoScip').show();
-                    $('#projeto_scip').val('1');
+                seguranca_medida_id = campo.seguranca_medida_id;
+
+                if (campo.seguranca_medida_nome === null || campo.seguranca_medida_nome === undefined) {
+                    seguranca_medida_nome = '';
                 } else {
-                    $('#divProjetoScip').hide();
-                    $('#projeto_scip').val('0');
+                    seguranca_medida_nome = campo.seguranca_medida_nome;
                 }
-                if (cliente.laudo_exigencias == 1) {
-                    $('#divLaudoExigencias').show();
-                    $('#laudo_exigencias').val('1');
+                if (campo.seguranca_medida_quantidade === null || campo.seguranca_medida_quantidade === undefined) {
+                    seguranca_medida_quantidade = '';
                 } else {
-                    $('#divLaudoExigencias').hide();
-                    $('#laudo_exigencias').val('0');
+                    seguranca_medida_quantidade = campo.seguranca_medida_quantidade;
                 }
-                if (cliente.certificado_aprovacao == 1) {
-                    $('#divCertificadoAprovacao').show();
-                    $('#certificado_aprovacao').val('1');
+                if (campo.seguranca_medida_observacoes === null || campo.seguranca_medida_observacoes === undefined) {
+                    seguranca_medida_observacoes = '';
                 } else {
-                    $('#divCertificadoAprovacao').hide();
-                    $('#certificado_aprovacao').val('0');
-                }
-                if (cliente.certificado_aprovacao_simplificado == 1) {
-                    $('#divCertificadoAprovacaoSimplificado').show();
-                    $('#certificado_aprovacao_simplificado').val('1');
-                } else {
-                    $('#divCertificadoAprovacaoSimplificado').hide();
-                    $('#certificado_aprovacao_simplificado').val('0');
-                }
-                if (cliente.certificado_aprovacao_assistido == 1) {
-                    $('#divCertificadoAprovacaoAssistido').show();
-                    $('#certificado_aprovacao_assistido').val('1');
-                } else {
-                    $('#divCertificadoAprovacaoAssistido').hide();
-                    $('#certificado_aprovacao_assistido').val('0');
-                }
-                //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-
-                //Medidas de Segurança''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-                numero_pavimentos = cliente.numero_pavimentos;
-                cliente_seguranca_medidas = cliente.cliente_seguranca_medidas;
-                medidas_seguranca = '';
-
-                //verificar validacoes'''''''''''''''''''''''''''
-                if (numero_pavimentos == '' || numero_pavimentos == 0) {alert('Erro nos dados vindos do Cliente. Verifique o Número de Pavimentos.');}
-                if (cliente_seguranca_medidas.length <= 0) {alert('Erro nos dados vindos do Cliente. Verifique as Medidas de Segurança.');}
-                //'''''''''''''''''''''''''''''''''''''''''''''''
-
-                if (numero_pavimentos > 0) {$('#divMedidasSeguranca').show();} else {$('#divMedidasSeguranca').hide();}
-
-                for(pav=1; pav<=numero_pavimentos; pav++) {
-                    ctrl = 0;
-
-                    medidas_seguranca += '<h6 class="pb-3 text-success"><i class="fa fa-fire-extinguisher"></i> Medidas de Segurança - Pavimento ' + '<span class="font-size-15">'+pav+'</span>' + '</h6>';
-
-                    $.each(cliente_seguranca_medidas, function (i, item) {
-                        if (pav == item.pavimento) {
-                            ctrl++;
-
-                            //Campos
-                            if (visita_tecnica_seguranca_medidas == '') {
-                                //padrão para Inclusão
-                                seguranca_medida_id = item.id;
-                                seguranca_medida_nome = item.segurancaMedidaName;
-                                seguranca_medida_quantidade = '';
-                                seguranca_medida_observacoes = '';
-                            } else {
-                                //padrão para Visualização/Alteração
-                                $.each(visita_tecnica_seguranca_medidas, function(i, campo) {
-                                    if (campo.seguranca_medida_id == item.id) {
-                                        seguranca_medida_id = campo.seguranca_medida_id;
-
-                                        if (campo.seguranca_medida_nome === null) {seguranca_medida_nome = '';} else {seguranca_medida_nome = campo.seguranca_medida_nome;}
-                                        if (campo.seguranca_medida_quantidade === null) {seguranca_medida_quantidade = '';} else {seguranca_medida_quantidade = campo.seguranca_medida_quantidade;}
-                                        if (campo.seguranca_medida_observacoes === null) {seguranca_medida_observacoes = '';} else {seguranca_medida_observacoes = campo.seguranca_medida_observacoes;}
-                                    }
-                                });
-                            }
-
-                            //Div Medidas Segurança
-                            medidas_seguranca += '<div class="row alert alert-primary ms-3">';
-                            medidas_seguranca += '  <div class="form-group col-12 col-md-3 pb-3">';
-                            medidas_seguranca += '      <label class="form-label col-12">&nbsp;</label>';
-                            medidas_seguranca += '      <div class="text-primary font-size-11 fw-bold align-middle me-2"><span class="font-size-14">'+pav+'.'+ctrl+'</span>' + '&nbsp;'+item.segurancaMedidaName + '</div>';
-                            medidas_seguranca += '      <input type="hidden" id="seguranca_medida_id_' + item.pavimento + '_' + item.id + '" name="seguranca_medida_id_' + item.pavimento + '_' + item.id + '" value="' + seguranca_medida_id + '">';
-                            medidas_seguranca += '      <input type="hidden" id="seguranca_medida_nome_' + item.pavimento + '_' + item.id + '" name="seguranca_medida_nome_' + item.pavimento + '_' + item.id + '" value="' + seguranca_medida_nome + '">';
-                            medidas_seguranca += '      <input type="hidden" name="ids_seguranca_medidas[]" value="' + item.id + '">';
-                            medidas_seguranca += '  </div>';
-                            medidas_seguranca += '  <div class="form-group col-12 col-md-2 pb-3">';
-                            medidas_seguranca += '      <label class="form-label">Quantidade</label>';
-                            medidas_seguranca += '      <input type="number" class="form-control" id="seguranca_medida_quantidade_' + item.pavimento + '_' + item.id + '" name="seguranca_medida_quantidade_' + item.pavimento + '_' + item.id + '" value="' + seguranca_medida_quantidade + '" readonly>';
-                            medidas_seguranca += '  </div>';
-                            medidas_seguranca += '  <div class="form-group col-12 col-md-7 pb-3">';
-                            medidas_seguranca += '      <label class="form-label">Observações</label>';
-                            medidas_seguranca += '      <textarea class="form-control" id="seguranca_medida_observacoes_' + item.pavimento + '_' + item.id + '" name="seguranca_medida_observacoes_' + item.pavimento + '_' + item.id + '" readonly>' + seguranca_medida_observacoes + '</textarea>';
-                            medidas_seguranca += '  </div>';
-                            medidas_seguranca += '</div>';
-                        }
-                    });
+                    seguranca_medida_observacoes = campo.seguranca_medida_observacoes;
                 }
 
-                $('#divMedidasSegurancaItens').html(medidas_seguranca);
-                //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-            },
-            error: function(response){
-                alert(response);
+                medidas_seguranca += montarClassificacaoMedidaSeguranca(ctrl, pavimento, seguranca_medida_id, seguranca_medida_nome, seguranca_medida_quantidade, seguranca_medida_observacoes);
             }
         });
     }
+
+    $('#divMedidasSeguranca').show();
+    $('#divMedidasSegurancaItens').html(medidas_seguranca);
+}
+
+//Div Medidas Segurança
+function montarClassificacaoMedidaSeguranca(ctrl, pavimento, seguranca_medida_id, seguranca_medida_nome, seguranca_medida_quantidade, seguranca_medida_observacoes) {
+    //Verificar se os campos vao ser readonly
+    if ($('#frm_operacao').val() == 'edit' && $('#visita_tecnica_status_id').val() == '2') {readonly = '';} else {readonly = 'readonly';}
+
+    var medidas_seguranca;
+
+    medidas_seguranca = '<div class="row alert alert-primary ms-3">';
+    medidas_seguranca += '  <div class="form-group col-12 col-md-3 pb-3">';
+    medidas_seguranca += '      <label class="form-label col-12">&nbsp;</label>';
+    medidas_seguranca += '      <div class="text-primary font-size-11 fw-bold align-middle me-2"><span class="font-size-14">'+pavimento+'.'+ctrl+'</span>' + '&nbsp;'+seguranca_medida_nome+ '</div>';
+    medidas_seguranca += '      <input type="hidden" id="seguranca_medida_id_' + pavimento + '_' + seguranca_medida_id + '" name="seguranca_medida_id_' + pavimento + '_' + seguranca_medida_id + '" value="' + seguranca_medida_id + '">';
+    medidas_seguranca += '      <input type="hidden" id="seguranca_medida_nome_' + pavimento + '_' + seguranca_medida_id + '" name="seguranca_medida_nome_' + pavimento + '_' + seguranca_medida_id + '" value="' + seguranca_medida_nome + '">';
+    medidas_seguranca += '      <input type="hidden" name="ids_seguranca_medidas[]" value="' + seguranca_medida_id + '">';
+    medidas_seguranca += '  </div>';
+    medidas_seguranca += '  <div class="form-group col-12 col-md-2 pb-3">';
+    medidas_seguranca += '      <label class="form-label">Quantidade</label>';
+    medidas_seguranca += '      <input type="number" class="form-control" id="seguranca_medida_quantidade_' + pavimento + '_' + seguranca_medida_id + '" name="seguranca_medida_quantidade_' + pavimento + '_' + seguranca_medida_id + '" value="' + seguranca_medida_quantidade + '" '+readonly+'>';
+    medidas_seguranca += '  </div>';
+    medidas_seguranca += '  <div class="form-group col-12 col-md-7 pb-3">';
+    medidas_seguranca += '      <label class="form-label">Observações</label>';
+    medidas_seguranca += '      <textarea class="form-control" id="seguranca_medida_observacoes_' + pavimento + '_' + seguranca_medida_id + '" name="seguranca_medida_observacoes_' + pavimento + '_' + seguranca_medida_id + '" '+readonly+'>' + seguranca_medida_observacoes + '</textarea>';
+    medidas_seguranca += '  </div>';
+    medidas_seguranca += '</div>';
+
+    return medidas_seguranca;
+}
+
+function montarFormVisitaGetCliente(cliente_id) {
+    if (cliente_id == '') {
+        //Limpar Classificação
+        montarClassificacaoHide();
+
+        return;
+    }
+
+    //Header
+    $.ajaxSetup({headers:{'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')}});
+
+    $.ajax({
+        type:'GET',
+        url: '/clientes/visita_tecnica/'+cliente_id,
+        data: '',
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function (response) {
+            cliente = response.success;
+
+            //Limpar Classificação
+            montarClassificacaoHide();
+
+            //Popular Classificação
+            montarClassificacaoShow(cliente);
+
+
+            /*
+
+            //Medidas de Segurança''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+            numero_pavimentos = cliente.numero_pavimentos;
+            cliente_seguranca_medidas = cliente.cliente_seguranca_medidas;
+            medidas_seguranca = '';
+
+            //verificar validacoes
+            if (numero_pavimentos == '' || numero_pavimentos == '0' || numero_pavimentos == 0) {
+                alert('Erro nos dados vindos do Cliente. Verifique o Número de Pavimentos.');
+                $('#divMedidasSeguranca').hide();
+                return;
+            }
+            if (cliente_seguranca_medidas.length <= 0) {
+                alert('Erro nos dados vindos do Cliente. Verifique as Medidas de Segurança.');
+                $('#divMedidasSeguranca').hide();
+                return;
+            }
+
+            //Montar
+            $('#divMedidasSeguranca').show();
+
+            for(pavimento=1; pavimento<=numero_pavimentos; pavimento++) {
+                ctrl = 0;
+
+                medidas_seguranca += '<h6 class="pb-3 text-success"><i class="fa fa-fire-extinguisher"></i> Medidas de Segurança - Pavimento ' + '<span class="font-size-15">'+pavimento+'</span>' + '</h6>';
+
+                $.each(cliente_seguranca_medidas, function (i, item) {
+                    if (pavimento == item.pavimento) {
+                        ctrl++;
+
+                        //Campos
+                        seguranca_medida_id = item.id;
+                        seguranca_medida_nome = item.segurancaMedidaName;
+                        seguranca_medida_quantidade = '';
+                        seguranca_medida_observacoes = '';
+
+                        //Div Medidas Segurança
+                        medidas_seguranca += montarClassificacaoMedidaSeguranca(ctrl, pavimento, seguranca_medida_id, seguranca_medida_nome, seguranca_medida_quantidade, seguranca_medida_observacoes);
+                    }
+                });
+            }
+
+            $('#divMedidasSegurancaItens').html(medidas_seguranca);
+
+            */
+
+        },
+        error: function(response){
+            alert(response);
+        }
+    });
+}
+
+function montarFormVisitaGetVisita(dados) {
+    //Limpar Classificação
+    montarClassificacaoHide();
+
+    //Popular Classificação
+    montarClassificacaoShow(dados);
+
+    /*
+
+    //Medidas de Segurança''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    numero_pavimentos = dados.numero_pavimentos;
+    cliente_seguranca_medidas = dados['cliente_seguranca_medidas'];
+    medidas_seguranca = '';
+
+    //verificar validacoes
+    if (numero_pavimentos == '' || numero_pavimentos == '0' || numero_pavimentos == 0) {
+        alert('Erro nos dados vindos do Cliente. Verifique o Número de Pavimentos.');
+        $('#divMedidasSeguranca').hide();
+        return;
+    }
+    if (cliente_seguranca_medidas.length <= 0) {
+        alert('Erro nos dados vindos do Cliente. Verifique as Medidas de Segurança.');
+        $('#divMedidasSeguranca').hide();
+        return;
+    }
+
+    //Montar
+    $('#divMedidasSeguranca').show();
+
+    for(pavimento=1; pavimento<=numero_pavimentos; pavimento++) {
+        ctrl = 0;
+
+        medidas_seguranca += '<h6 class="pb-3 text-success"><i class="fa fa-fire-extinguisher"></i> Medidas de Segurança - Pavimento ' + '<span class="font-size-15">'+pavimento+'</span>' + '</h6>';
+
+        //Campos
+        $.each(cliente_seguranca_medidas, function(i, campo) {
+            if (pavimento == campo.pavimento) {
+                ctrl++;
+
+                seguranca_medida_id = campo.seguranca_medida_id;
+
+                if (campo.seguranca_medida_nome === null) {seguranca_medida_nome = '';} else {seguranca_medida_nome = campo.seguranca_medida_nome;}
+                if (campo.seguranca_medida_quantidade === null) {seguranca_medida_quantidade = '';} else {seguranca_medida_quantidade = campo.seguranca_medida_quantidade;}
+                if (campo.seguranca_medida_observacoes === null) {seguranca_medida_observacoes = '';} else {seguranca_medida_observacoes = campo.seguranca_medida_observacoes;}
+
+                medidas_seguranca += montarClassificacaoMedidaSeguranca(ctrl, pavimento, seguranca_medida_id, seguranca_medida_nome, seguranca_medida_quantidade, seguranca_medida_observacoes);
+            }
+        });
+    }
+
+    $('#divMedidasSegurancaItens').html(medidas_seguranca);
+
+    */
 
 }
 //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''

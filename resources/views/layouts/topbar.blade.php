@@ -4,7 +4,7 @@
             <div class="navbar-brand-box">
                 <a href="index" class="logo" id="aLogoDark">
                     <span class="logo-sm">
-                        <img src="{{ asset('build/assets/images/image_logo_layout_dark_menu_min.png') }}" alt="" height="35" id="appImgLogoLayoutDarkMenuMin">
+                        <img src="{{ asset('build/assets/images/image_logo_layout_dark_menu_min.png') }}" alt="" height="70" id="appImgLogoLayoutDarkMenuMin">
                     </span>
                     <span class="logo-lg">
                         <img src="{{ asset('build/assets/images/image_logo_layout_dark_menu.png') }}" alt="" height="35" id="appImgLogoLayoutDarkMenu">
@@ -13,7 +13,7 @@
 
                 <a href="index" class="logo" id="aLogoLight">
                     <span class="logo-sm">
-                        <img src="{{ asset('build/assets/images/image_logo_layout_light_menu_min.png') }}" alt="" height="35" id="appImgLogoLayoutLightMenuMin">
+                        <img src="{{ asset('build/assets/images/image_logo_layout_light_menu_min.png') }}" alt="" height="70" id="appImgLogoLayoutLightMenuMin">
                     </span>
                     <span class="logo-lg">
                         <img src="{{ asset('build/assets/images/image_logo_layout_light_menu.png') }}" alt="" height="35" id="appImgLogoLayoutLightMenu">
@@ -70,11 +70,15 @@
                     </form>
                 </div>
             </div>
-            <div class="dropdown d-inline-block">
-                <button type="button" class="btn header-item noti-icon right-bar-toggle waves-effect">
-                    <i class="bx bx-cog bx-spin"></i>
-                </button>
-            </div>
+
+            @if(session('access_device') == 'desktop')
+                <div class="dropdown d-inline-block">
+                    <button type="button" class="btn header-item noti-icon right-bar-toggle waves-effect">
+                        <i class="bx bx-cog bx-spin"></i>
+                    </button>
+                </div>
+            @endif
+
         </div>
     </div>
 </header>

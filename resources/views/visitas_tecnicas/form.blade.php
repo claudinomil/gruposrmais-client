@@ -44,17 +44,17 @@
                     </div>
 
                     <!-- Formulário - Form -->
-                    <form id="{{$ajaxNameFormSubmodulo}}" name="{{$ajaxNameFormSubmodulo}}">
-                        <fieldset disabled id="fieldsetForm">
+                    <form id="{{$ajaxNameFormSubmodulo}}" name="{{$ajaxNameFormSubmodulo}}" enctype="multipart/form-data">
+                        <fieldset>
                             <input type="hidden" id="frm_operacao" name="frm_operacao">
                             <input type="hidden" id="registro_id" name="registro_id">
 
                             <div class="row mt-4">
                                 <div class="row pt-4">
                                     <h5 class="pb-4 text-primary"><i class="fas fa-list"></i> Informa&ccedil;&otilde;es Gerais</h5>
-                                    <div class="form-group col-12 col-md-3 pb-3">
+                                    <div class="form-group col-12 col-md-3 pb-3" id="divVisitaTecnicaStatusId" style="display:nonex;">
                                         <label class="form-label">Status</label>
-                                        <select class="select2 form-control" name="visita_tecnica_status_id" id="visita_tecnica_status_id" required="required">
+                                        <select class="form-select" name="visita_tecnica_status_id" id="visita_tecnica_status_id" required="required">
                                             <option value="">Selecione...</option>
 
                                             @foreach ($visita_tecnica_status as $key => $status)
@@ -63,7 +63,7 @@
 
                                         </select>
                                     </div>
-                                    <div class="form-group col-12 col-md-9 pb-3">
+                                    <div class="form-group col-12 col-md-12 pb-3">
                                         <label class="form-label">Cliente</label>
                                         <select class="select2 form-control" name="cliente_id" id="cliente_id" required="required">
                                             <option value="">Selecione...</option>
@@ -73,10 +73,6 @@
                                             @endforeach
 
                                         </select>
-                                    </div>
-                                    <div class="form-group col-6 col-md-3 pb-3">
-                                        <label class="form-label">Data Visita</label>
-                                        <input type="text" class="form-control mask_date" id="data_visita" name="data_visita">
                                     </div>
                                     <div class="form-group col-12 col-md-9 pb-3">
                                         <label class="form-label">Responsável</label>
@@ -89,9 +85,13 @@
 
                                         </select>
                                     </div>
+                                    <div class="form-group col-12 col-md-3 pb-3">
+                                        <label class="form-label">Data Visita</label>
+                                        <input type="text" class="form-control mask_date" id="data_visita" name="data_visita" required>
+                                    </div>
                                 </div>
 
-                                <div class="row pt-4">
+                                <div class="row pt-4" id="divClienteClassificacao" style="display:none;">
                                     <h5 class="pb-4 text-primary"><i class="fas fa-clipboard"></i> Classificação (DECRETO Nº 42, DE 17 DE DEZEMBRO DE 2018)</h5>
 
                                     <div class="row pt-3 ps-4">
@@ -145,6 +145,18 @@
                                             <label class="form-label">Número</label>
                                             <input type="text" class="form-control" id="projeto_scip_numero" name="projeto_scip_numero" readonly>
                                         </div>
+
+                                        <div class="form-group col-12 col-md-3 pb-3 div_projeto_scip_pdf">
+                                            <label class="form-label">Arquivo PDF</label>
+                                            <div class="row">
+                                                <div class="input-group">
+                                                    <input type="file" class="form-control input_projeto_scip_pdf" name="projeto_scip_pdf" id="projeto_scip_pdf">
+                                                    <button type="button" class="input-group-text btn_projeto_scip_pdf_upload" title="Fazer Upload do Documento"><i class="fa fa-upload font-size-14 text-dark"></i></button>
+                                                    &nbsp;&nbsp;&nbsp;
+                                                    <button type="button" class="input-group-text btn_projeto_scip_pdf_view" title="Visualizar Documento"><i class='fa fa-file-pdf font-size-18 text-primary'></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
 
                                     <input type="hidden" id="laudo_exigencias" name="laudo_exigencias" value="0">
@@ -162,6 +174,17 @@
                                             <label class="form-label">Vencimento</label>
                                             <input type="text" class="form-control" id="laudo_exigencias_data_vencimento" name="laudo_exigencias_data_vencimento" readonly>
                                         </div>
+                                        <div class="form-group col-12 col-md-3 pb-3 div_laudo_exigencias_pdf">
+                                            <label class="form-label">Arquivo PDF</label>
+                                            <div class="row">
+                                                <div class="input-group">
+                                                    <input type="file" class="form-control input_laudo_exigencias_pdf" name="laudo_exigencias_pdf" id="laudo_exigencias_pdf">
+                                                    <button type="button" class="input-group-text btn_laudo_exigencias_pdf_upload" title="Fazer Upload do Documento"><i class="fa fa-upload font-size-14 text-dark"></i></button>
+                                                    &nbsp;&nbsp;&nbsp;
+                                                    <button type="button" class="input-group-text btn_laudo_exigencias_pdf_view" title="Visualizar Documento"><i class='fa fa-file-pdf font-size-18 text-primary'></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
 
                                     <input type="hidden" id="certificado_aprovacao" name="certificado_aprovacao" value="0">
@@ -170,6 +193,17 @@
                                         <div class="form-group col-12 col-md-3 pb-3">
                                             <label class="form-label">Número</label>
                                             <input type="text" class="form-control" id="certificado_aprovacao_numero" name="certificado_aprovacao_numero" readonly>
+                                        </div>
+                                        <div class="form-group col-12 col-md-3 pb-3 div_certificado_aprovacao_pdf">
+                                            <label class="form-label">Arquivo PDF</label>
+                                            <div class="row">
+                                                <div class="input-group">
+                                                    <input type="file" class="form-control input_certificado_aprovacao_pdf" name="certificado_aprovacao_pdf" id="certificado_aprovacao_pdf">
+                                                    <button type="button" class="input-group-text btn_certificado_aprovacao_pdf_upload" title="Fazer Upload do Documento"><i class="fa fa-upload font-size-14 text-dark"></i></button>
+                                                    &nbsp;&nbsp;&nbsp;
+                                                    <button type="button" class="input-group-text btn_certificado_aprovacao_pdf_view" title="Visualizar Documento"><i class='fa fa-file-pdf font-size-18 text-primary'></i></button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -180,6 +214,17 @@
                                             <label class="form-label">Número</label>
                                             <input type="text" class="form-control" id="certificado_aprovacao_simplificado_numero" name="certificado_aprovacao_simplificado_numero" readonly>
                                         </div>
+                                        <div class="form-group col-12 col-md-3 pb-3 div_certificado_aprovacao_simplificado_pdf">
+                                            <label class="form-label">Arquivo PDF</label>
+                                            <div class="row">
+                                                <div class="input-group">
+                                                    <input type="file" class="form-control input_certificado_aprovacao_simplificado_pdf" name="certificado_aprovacao_simplificado_pdf" id="certificado_aprovacao_simplificado_pdf">
+                                                    <button type="button" class="input-group-text btn_certificado_aprovacao_simplificado_pdf_upload" title="Fazer Upload do Documento"><i class="fa fa-upload font-size-14 text-dark"></i></button>
+                                                    &nbsp;&nbsp;&nbsp;
+                                                    <button type="button" class="input-group-text btn_certificado_aprovacao_simplificado_pdf_view" title="Visualizar Documento"><i class='fa fa-file-pdf font-size-18 text-primary'></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
 
                                     <input type="hidden" id="certificado_aprovacao_assistido" name="certificado_aprovacao_assistido" value="0">
@@ -188,6 +233,17 @@
                                         <div class="form-group col-12 col-md-3 pb-3">
                                             <label class="form-label">Número</label>
                                             <input type="text" class="form-control" id="certificado_aprovacao_assistido_numero" name="certificado_aprovacao_assistido_numero" readonly>
+                                        </div>
+                                        <div class="form-group col-12 col-md-3 pb-3 div_certificado_aprovacao_assistido_pdf">
+                                            <label class="form-label">Arquivo PDF</label>
+                                            <div class="row">
+                                                <div class="input-group">
+                                                    <input type="file" class="form-control input_certificado_aprovacao_assistido_pdf" name="certificado_aprovacao_assistido_pdf" id="certificado_aprovacao_assistido_pdf">
+                                                    <button type="button" class="input-group-text btn_certificado_aprovacao_assistido_pdf_upload" title="Fazer Upload do Documento"><i class="fa fa-upload font-size-14 text-dark"></i></button>
+                                                    &nbsp;&nbsp;&nbsp;
+                                                    <button type="button" class="input-group-text btn_certificado_aprovacao_assistido_pdf_view" title="Visualizar Documento"><i class='fa fa-file-pdf font-size-18 text-primary'></i></button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
 

@@ -42,7 +42,7 @@
 
                     <!-- Formulário - Form -->
                     <form id="{{$ajaxNameFormSubmodulo}}" name="{{$ajaxNameFormSubmodulo}}">
-                        <fieldset disabled id="fieldsetForm">
+                        <fieldset>
                             <input type="hidden" id="frm_operacao" name="frm_operacao">
                             <input type="hidden" id="registro_id" name="registro_id">
 
@@ -50,6 +50,10 @@
                                 <div class="form-group col-12 col-md-4 pb-3">
                                     <label class="form-label">Nome</label>
                                     <input type="text" class="form-control text-uppercase" id="name" name="name" required="required">
+                                </div>
+                                <div class="form-group col-12 col-md-4 pb-3">
+                                    <label class="form-label">Número</label>
+                                    <input type="text" class="form-control" id="numero" name="numero" required="required">
                                 </div>
                             </div>
                         </fieldset>

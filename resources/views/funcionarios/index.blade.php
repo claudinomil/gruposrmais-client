@@ -38,8 +38,8 @@
                                                 <option value="funcionarios.cpf">CPF</option>
                                                 <option value="generos.name">Gênero</option>
                                                 <option value="estados_civis.name">Estado Civil</option>
-                                                <option value="funcionarios.pai">Pai</option>
                                                 <option value="funcionarios.mae">Mãe</option>
+                                                <option value="funcionarios.pai">Pai</option>
                                                 <option value="funcionarios.email">E-mail</option>
                                             </select>
                                         </div>
@@ -57,8 +57,8 @@
 
                     <!-- Tabela (Componente Blade) -->
                     @php
-                        $colsNames = ['#', 'Nome', 'Nascimento', 'Gênero', 'Estado Civil'];
-                        $colsFields = ['foto', 'name', 'data_nascimento', 'generoName', 'estado_civilName'];
+                        $colsNames = ['#', 'Nome', 'Nascimento', 'Departamento', 'Função'];
+                        $colsFields = ['foto', 'name', 'data_nascimento', 'departamentoName', 'funcaoName'];
                         $colActions = 'yes';
                     @endphp
 

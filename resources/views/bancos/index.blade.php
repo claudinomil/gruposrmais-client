@@ -49,8 +49,8 @@
 
                     <!-- Tabela (Componente Blade) -->
                     @php
-                        $colsNames = ['Nome'];
-                        $colsFields = ['name'];
+                        $colsNames = ['Nome', 'Número'];
+                        $colsFields = ['name', 'numero'];
                         $colActions = 'yes';
                     @endphp
 

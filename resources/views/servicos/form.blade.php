@@ -42,7 +42,7 @@
 
                     <!-- Formulário - Form -->
                     <form id="{{$ajaxNameFormSubmodulo}}" name="{{$ajaxNameFormSubmodulo}}">
-                        <fieldset disabled id="fieldsetForm">
+                        <fieldset>
                             <input type="hidden" id="frm_operacao" name="frm_operacao">
                             <input type="hidden" id="registro_id" name="registro_id">
 

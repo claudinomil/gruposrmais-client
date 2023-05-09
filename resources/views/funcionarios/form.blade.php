@@ -45,7 +45,7 @@
 
                     <!-- Formulário - Form -->
                     <form id="{{$ajaxNameFormSubmodulo}}" name="{{$ajaxNameFormSubmodulo}}">
-                        <fieldset disabled id="fieldsetForm">
+                        <fieldset>
                             <input type="hidden" id="frm_operacao" name="frm_operacao">
                             <input type="hidden" id="registro_id" name="registro_id">
                             <input type="hidden" id="foto" name="foto" value="build/assets/images/funcionarios/funcionario-0.png">
@@ -64,6 +64,17 @@
 
                                             @foreach ($contratacao_tipos as $key => $contratacao_tipo)
                                                 <option value="{{ $contratacao_tipo['id'] }}">{{ $contratacao_tipo['name'] }}</option>
+                                            @endforeach
+
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-12 col-md-4 pb-3">
+                                        <label class="form-label">Departamento</label>
+                                        <select class="form-control select2" name="departamento_id" id="departamento_id">
+                                            <option value="">Selecione...</option>
+
+                                            @foreach ($departamentos as $key => $departamento)
+                                                <option value="{{ $departamento['id'] }}">{{ $departamento['name'] }}</option>
                                             @endforeach
 
                                         </select>
@@ -163,12 +174,12 @@
                                         </select>
                                     </div>
                                     <div class="form-group col-12 col-md-4 pb-3">
-                                        <label class="form-label">Pai</label>
-                                        <input type="text" class="form-control text-uppercase" id="pai" name="pai">
-                                    </div>
-                                    <div class="form-group col-12 col-md-4 pb-3">
                                         <label class="form-label">Mãe</label>
                                         <input type="text" class="form-control text-uppercase" id="mae" name="mae">
+                                    </div>
+                                    <div class="form-group col-12 col-md-4 pb-3">
+                                        <label class="form-label">Pai</label>
+                                        <input type="text" class="form-control text-uppercase" id="pai" name="pai">
                                     </div>
                                 </div>
 

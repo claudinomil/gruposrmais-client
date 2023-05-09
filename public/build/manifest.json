@@ -192,7 +192,6 @@
     "isEntry": true,
     "src": "resources/js/app.js"
   },
-
     "resources/assets_template/libs/jquery/jquery.min.js": {
         "file": "assets/jquery.min.js",
         "isEntry": true,

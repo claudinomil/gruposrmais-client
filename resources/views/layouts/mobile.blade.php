@@ -39,7 +39,7 @@
     <!-- Begin page -->
     <div id="layout-wrapper">
 
-        <!-- Topbar -->
+    <!-- Topbar -->
     @include('layouts.topbar')
 
     <!-- Layout Vertical -->

@@ -82,8 +82,8 @@ class CheckPermissao
         }
 
         //Colocando dados no Request
+        $request['userLoggedData'] = $userLoggedData;
         $request['userLoggedPermissoes'] = $userLoggedPermissoes;
-        $request['ctrl_responsavel_funcionario_id'] = $userLoggedData['funcionario_id'];
 
         //Gravar as Sessões de Breadcrumb
         Breadcrumb::sessionsBreadcrumb();

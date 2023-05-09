@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.mobile')
 
 @section('title') Modulos @endsection
 

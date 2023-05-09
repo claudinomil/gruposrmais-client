@@ -23,6 +23,7 @@ class FuncionarioController extends Controller
     public $naturalidades;
     public $identidade_orgaos;
     public $identidade_estados;
+    public $departamentos;
     public $funcoes;
     public $bancos;
 
@@ -88,6 +89,7 @@ class FuncionarioController extends Controller
                 'naturalidades' => $this->naturalidades,
                 'identidade_orgaos' => $this->identidade_orgaos,
                 'identidade_estados' => $this->identidade_estados,
+                'departamentos' => $this->departamentos,
                 'funcoes' => $this->funcoes,
                 'bancos' => $this->bancos,
             ]);

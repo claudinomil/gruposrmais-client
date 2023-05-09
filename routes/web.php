@@ -4,6 +4,11 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\CriarSubmodulos;
 
+Route::get('/teste', function () {
+    return view('teste');
+});
+
+
 //Rota inicial
 Route::get('/', function () {
     return view('welcome');

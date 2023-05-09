@@ -2,7 +2,7 @@
     <!-- Script para CRUD Ajax -->
     <!-- Alguns Submódulos não tem CRUD, então entra na exceção -->
     <!-- Submódulos que não vão usar: Dashboards, Logos -->
-    @if($ajaxPrefixPermissaoSubmodulo != 'dashboards' and $ajaxPrefixPermissaoSubmodulo != 'logos')
+    @if($ajaxPrefixPermissaoSubmodulo != 'dashboards' and $ajaxPrefixPermissaoSubmodulo != 'logos' and $ajaxPrefixPermissaoSubmodulo != 'mobile')
         {{-- Script para CRUD Ajax --}}
         <script type="text/javascript">
             $(function () {
@@ -91,7 +91,9 @@
                             $('#frm_operacao').val('create');
 
                             //Campos do Formulário - disabled true/false
-                            $('#fieldsetForm').prop('disabled', false);
+                            $('input').prop('disabled', false);
+                            $('textarea').prop('disabled', false);
+                            $('select').prop('disabled', false);
                             $('.select2').prop('disabled', false);
 
                             //Botões do Modal
@@ -167,16 +169,45 @@
                             @endif
 
                             @if($ajaxPrefixPermissaoSubmodulo == 'visitas_tecnicas')
-                                //limpando campos iniciais''''''''''''''''''''''''''''''''''''''
-                                $('#visita_tecnica_status_id').val('').trigger('change');
-                                $('#cliente_id').val('').trigger('change');
-                                $('#data_visita').val('');
-                                $('#responsavel_funciionario_id').val('').trigger('change');
-                                //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+                            //Configurando campos iniciais''''''''''''''''''''''''''''''''''
+                            $('#visita_tecnica_status_id').val('1');
+                            $('#divVisitaTecnicaStatusId').hide();
+                            $('#cliente_id').val('').trigger('change');
+                            $('#data_visita').val('');
+                            $('#responsavel_funcionario_id').val('').trigger('change');
+                            //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-                                //montando Classificação para o Cliente'''''''''''''''''''''''''
-                                montarClassificacaoCliente();
-                                //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+                            //Configurando campos input file''''''''''''''''''''''''''''''''
+                            $('.div_projeto_scip_pdf').hide();
+                            $('.input_projeto_scip_pdf').hide();
+                            $('.btn_projeto_scip_pdf_upload').hide();
+                            $('.btn_projeto_scip_pdf_view').hide();
+
+                            $('.div_laudo_exigencias_pdf').hide();
+                            $('.input_laudo_exigencias_pdf').hide();
+                            $('.btn_laudo_exigencias_pdf_upload').hide();
+                            $('.btn_laudo_exigencias_pdf_view').hide();
+
+                            $('.div_certificado_aprovacao_pdf').hide();
+                            $('.input_certificado_aprovacao_pdf').hide();
+                            $('.btn_certificado_aprovacao_pdf_upload').hide();
+                            $('.btn_certificado_aprovacao_pdf_view').hide();
+
+                            $('.div_certificado_aprovacao_simplificado_pdf').hide();
+                            $('.input_certificado_aprovacao_simplificado_pdf').hide();
+                            $('.btn_certificado_aprovacao_simplificado_pdf_upload').hide();
+                            $('.btn_certificado_aprovacao_simplificado_pdf_view').hide();
+
+                            $('.div_certificado_aprovacao_assistido_pdf').hide();
+                            $('.input_certificado_aprovacao_assistido_pdf').hide();
+                            $('.btn_certificado_aprovacao_assistido_pdf_upload').hide();
+                            $('.btn_certificado_aprovacao_assistido_pdf_view').hide();
+                            //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+                            @endif
+
+                            @if($ajaxPrefixPermissaoSubmodulo == 'funcionarios')
+                            //Setando campo nacionalidade_id como Brasileira
+                            $('#nacionalidade_id').val('3').trigger('change');
                             @endif
                             //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
                         } else if (data.error_permissao) {
@@ -219,7 +250,9 @@
                             $('#frm_operacao').val('view');
 
                             //Campos do Formulário - disabled true/false
-                            $('#fieldsetForm').prop('disabled', true);
+                            $('input').prop('disabled', true);
+                            $('textarea').prop('disabled', true);
+                            $('select').prop('disabled', true);
                             $('.select2').prop('disabled', true);
 
                             //Botões do Modal
@@ -349,11 +382,51 @@
                             @endif
 
                             @if($ajaxPrefixPermissaoSubmodulo == 'visitas_tecnicas')
-                                //montando Classificação para o Cliente'''''''''''''''''''''''''
-                                visita_tecnica_seguranca_medidas = data.success['visita_tecnica_seguranca_medidas'];
-
-                                montarClassificacaoCliente($('#cliente_id').val(), visita_tecnica_seguranca_medidas);
+                                //Configurando campos iniciais''''''''''''''''''''''''''''''''''
+                                $('#divVisitaTecnicaStatusId').show();
                                 //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+                                //montando Classificação para o Cliente'''''''''''''''''''''''''
+                                if ($('#visita_tecnica_status_id').val() == 1) {
+                                    montarFormVisitaGetCliente($('#cliente_id').val());
+                                }
+
+                                if ($('#visita_tecnica_status_id').val() == 2) {
+                                    montarFormVisitaGetVisita(data.success);
+                                }
+                                //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+                            //Configurando campos input file''''''''''''''''''''''''''''''''
+                            $('.div_projeto_scip_pdf').show();
+                            $('.input_projeto_scip_pdf').hide();
+                            $('.btn_projeto_scip_pdf_upload').hide();
+                            $('.btn_projeto_scip_pdf_view').show();
+                            $('.btn_projeto_scip_pdf_view').prop('disabled', false);
+
+                            $('.div_laudo_exigencias_pdf').show();
+                            $('.input_laudo_exigencias_pdf').hide();
+                            $('.btn_laudo_exigencias_pdf_upload').hide();
+                            $('.btn_laudo_exigencias_pdf_view').show();
+                            $('.btn_laudo_exigencias_pdf_view').prop('disabled', false);
+
+                            $('.div_certificado_aprovacao_pdf').show();
+                            $('.input_certificado_aprovacao_pdf').hide();
+                            $('.btn_certificado_aprovacao_pdf_upload').hide();
+                            $('.btn_certificado_aprovacao_pdf_view').show();
+                            $('.btn_certificado_aprovacao_pdf_view').prop('disabled', false);
+
+                            $('.div_certificado_aprovacao_simplificado_pdf').show();
+                            $('.input_certificado_aprovacao_simplificado_pdf').hide();
+                            $('.btn_certificado_aprovacao_simplificado_pdf_upload').hide();
+                            $('.btn_certificado_aprovacao_simplificado_pdf_view').show();
+                            $('.btn_certificado_aprovacao_simplificado_pdf_view').prop('disabled', false);
+
+                            $('.div_certificado_aprovacao_assistido_pdf').show();
+                            $('.input_certificado_aprovacao_assistido_pdf').hide();
+                            $('.btn_certificado_aprovacao_assistido_pdf_upload').hide();
+                            $('.btn_certificado_aprovacao_assistido_pdf_view').show();
+                            $('.btn_certificado_aprovacao_assistido_pdf_view').prop('disabled', false);
+                            //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
                             @endif
                             //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
                         } else if (data.error_not_found) {
@@ -418,7 +491,9 @@
                             $('#frm_operacao').val('edit');
 
                             //Campos do Formulário - disabled true/false
-                            $('#fieldsetForm').prop('disabled', false);
+                            $('input').prop('disabled', false);
+                            $('textarea').prop('disabled', false);
+                            $('select').prop('disabled', false);
                             $('.select2').prop('disabled', false);
 
                             //Botões do Modal
@@ -533,13 +608,142 @@
                             @endif
 
                             @if($ajaxPrefixPermissaoSubmodulo == 'visitas_tecnicas')
-                                //montando Classificação para o Cliente'''''''''''''''''''''''''
-                                visita_tecnica_seguranca_medidas = data.success['visita_tecnica_seguranca_medidas'];
-
-                                montarClassificacaoCliente($('#cliente_id').val(), visita_tecnica_seguranca_medidas);
+                                //Configurando campos iniciais''''''''''''''''''''''''''''''''''
+                                $('#divVisitaTecnicaStatusId').hide();
                                 //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+                                //Montando Classificações do Cliente''''''''''''''''''''''''''''
+                                if ($('#visita_tecnica_status_id').val() == 1) {
+                                    montarFormVisitaGetCliente($('#cliente_id').val());
+                                }
+
+                                if ($('#visita_tecnica_status_id').val() == 2) {
+                                    montarFormVisitaGetVisita(data.success);
+                                }
+                                //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+                            //Configurando campos input file''''''''''''''''''''''''''''''''
+                            $('.div_projeto_scip_pdf').show();
+                            $('.input_projeto_scip_pdf').show();
+                            $('.btn_projeto_scip_pdf_upload').show();
+                            $('.btn_projeto_scip_pdf_view').show();
+
+                            $('.div_laudo_exigencias_pdf').show();
+                            $('.input_laudo_exigencias_pdf').show();
+                            $('.btn_laudo_exigencias_pdf_upload').show();
+                            $('.btn_laudo_exigencias_pdf_view').show();
+
+                            $('.div_certificado_aprovacao_pdf').show();
+                            $('.input_certificado_aprovacao_pdf').show();
+                            $('.btn_certificado_aprovacao_pdf_upload').show();
+                            $('.btn_certificado_aprovacao_pdf_view').show();
+
+                            $('.div_certificado_aprovacao_simplificado_pdf').show();
+                            $('.input_certificado_aprovacao_simplificado_pdf').show();
+                            $('.btn_certificado_aprovacao_simplificado_pdf_upload').show();
+                            $('.btn_certificado_aprovacao_simplificado_pdf_view').show();
+
+                            $('.div_certificado_aprovacao_assistido_pdf').show();
+                            $('.input_certificado_aprovacao_assistido_pdf').show();
+                            $('.btn_certificado_aprovacao_assistido_pdf_upload').show();
+                            $('.btn_certificado_aprovacao_assistido_pdf_view').show();
+                            //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
                             @endif
                             //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+                        } else if (data.error_not_found) {
+                            //Removendo Máscaras
+                            removeMask();
+
+                            //Restaurando Máscaras
+                            putMask();
+
+                            alertSwal('warning', "Registro não encontrado", '', 'true', 2000);
+                        } else if (data.error_permissao) {
+                            //Removendo Máscaras
+                            removeMask();
+
+                            //Restaurando Máscaras
+                            putMask();
+
+                            alertSwal('warning', "Permissão Negada", '', 'true', 2000);
+                        } else {
+                            //Removendo Máscaras
+                            removeMask();
+
+                            //Restaurando Máscaras
+                            putMask();
+
+                            alert('Erro interno');
+                        }
+                    });
+                });
+
+                //Edit (Executar Visita Técnica)
+                $('body').on('click', '.editExecutarVisita', function () {
+                    //Campo hidden registro_id
+                    if ($(this).data('id') != 0) {
+                        $('#registro_id').val($(this).data('id'));
+                    }
+
+                    //Buscar dados do Registro
+                    $.get("{{$ajaxPrefixPermissaoSubmodulo}}/"+$('#registro_id').val()+"/edit", function (data) {
+                        //Limpar validações
+                        $('.is-invalid').removeClass('is-invalid');
+
+                        //Limpar Formulário
+                        $('#{{$ajaxNameFormSubmodulo}}').trigger('reset');
+
+                        //Lendo dados
+                        if (data.success) {
+                            //preencher formulário
+                            @foreach($ajaxNamesFieldsSubmodulo as $field)
+                                @if($field == 'id')
+                                    $('#registro_id').val(data.success.id);
+                                @else
+                                if ($('#{{$field}}').hasClass('select2')) {
+                                    $('#{{$field}}').val(data.success['{{$field}}']).trigger('change');
+                                } else {
+                                    $('#{{$field}}').val(data.success['{{$field}}']);
+                                }
+                                @endif
+                            @endforeach
+
+                            //Campo hidden frm_operacao
+                            $('#frm_operacao').val('edit');
+
+                            //Campos do Formulário - disabled true/false
+                            $('input').prop('disabled', false);
+                            $('textarea').prop('disabled', false);
+                            $('select').prop('disabled', false);
+                            $('.select2').prop('disabled', false);
+
+                            //Botões do Modal
+                            $('#crudFormButtons1').show();
+                            $('#crudFormButtons2').hide();
+
+                            //Table Show/Hide
+                            $('#crudTable').hide();
+
+                            //Modal Show/Hide
+                            $('#crudForm').show();
+
+                            //Removendo Máscaras
+                            removeMask();
+
+                            //Restaurando Máscaras
+                            putMask();
+
+                            //Configurando campos iniciais''''''''''''''''''''''''''''''''''
+                            $('#divVisitaTecnicaStatusId').hide();
+                            //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+                            //Alterando campo visita_tecnica_status_id''''''''''''''''''''''
+                            $('#visita_tecnica_status_id').val('2');
+                            //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+                            //Montando Classificações do Cliente''''''''''''''''''''''''''''
+                            montarFormVisitaGetVisita(data.success);
+                            //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
                         } else if (data.error_not_found) {
                             //Removendo Máscaras
                             removeMask();
@@ -864,7 +1068,9 @@
                     $('#frm_operacao').val('create');
 
                     //Campos do Formulário - disabled true/false
-                    $('#fieldsetForm').prop('disabled', false);
+                    $('input').prop('disabled', false);
+                    $('textarea').prop('disabled', false);
+                    $('select').prop('disabled', false);
                     $('.select2').prop('disabled', false);
 
                     //Botões do Modal

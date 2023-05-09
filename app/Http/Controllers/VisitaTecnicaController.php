@@ -58,7 +58,18 @@ class VisitaTecnicaController extends Controller
                         return $retorno;
                     })
                     ->addColumn('action', function ($row, Request $request) {
-                        return $this->columnAction($row['id'], $request['userLoggedPermissoes']);
+                        //verificar se responsável pela visita é o usuário logado e se pode colocar o botão executar visita'
+                        $btnExecVis = 0;
+                        if ($row['visita_tecnica_status_id'] != '' and $row['cliente_id'] != '' and $row['responsavel_funcionario_id'] != '' and $row['data_visita'] != '') {
+                            if ($row['visita_tecnica_status_id'] == '1') {
+                                if ($request['userLoggedData']['funcionario_id'] == $row['responsavel_funcionario_id']) {
+                                    $btnExecVis = 1;
+                                }
+                            }
+                        }
+                        //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+                        return $this->columnAction($row['id'], $request['userLoggedPermissoes'], 7, 4, $btnExecVis);
                     })
                     ->rawColumns(['action'])
                     ->escapeColumns([])
@@ -268,6 +279,58 @@ class VisitaTecnicaController extends Controller
             } else {
                 abort(500, 'Erro Interno Visita Técnica');
             }
+        }
+    }
+
+    public function documentos_upload(Request $request, $file)
+    {
+        //Requisição Ajax
+        if ($request->ajax()) {
+            //Variavel controle
+            $error = true;
+            $message = 'Erro: Upload não realizado, tente novamente.';
+
+            //Verificando se foi selecionado um arquivo
+            if ($request->hasFile($file)) {
+                //pegando id do registro
+                $id = $request['registro_id'];
+
+                //buscar dados formulario
+                $arquivo_tmp = $_FILES[$file]['tmp_name'];
+                $arquivo_real = $_FILES[$file]['name'];
+                $arquivo_real = utf8_decode($arquivo_real);
+                $arquivo_type = $_FILES[$file]['type'];
+                $arquivo_size = $_FILES[$file]['size'];
+
+                //verificando se o arquivo selecionado é um pdf
+                if ($arquivo_type == 'application/pdf') {
+                    //copiando arquivo selecionado
+                    if (copy($arquivo_tmp, "build/assets/pdfs/visitas_tecnicas/$arquivo_real")) {
+                        //confirmar se realmente foi copiado para a pasto
+                        if (file_exists("build/assets/pdfs/visitas_tecnicas/" . $arquivo_real)) {
+                            //renomear para nome $file_$id
+                            $pdf = "build/assets/pdfs/visitas_tecnicas/".$file.'_'.$id.'.'.pathinfo($arquivo_real, PATHINFO_EXTENSION);
+                            $de = "build/assets/pdfs/visitas_tecnicas/$arquivo_real";
+                            $pa = $pdf;
+
+                            rename($de, $pa);
+
+                            //confirmar se realmente foi renomeado
+                            if (file_exists($pdf)) {
+                                $error = false;
+                                $message = 'Upload realizado com sucesso.';
+                            }
+                        }
+                    }
+                } else {
+                    $message = 'Erro: Arquivo não é PDF';
+                }
+            } else {
+                $message = 'Erro: Escolha um arquivo PDF';
+            }
+
+            //Retornar
+            echo $message;
         }
     }
 }

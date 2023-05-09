@@ -46,6 +46,7 @@ class Controller extends BaseController
             if (isset($response['content']['naturalidades'])) {$this->naturalidades = $response['content']['naturalidades'];}
             if (isset($response['content']['identidade_orgaos'])) {$this->identidade_orgaos = $response['content']['identidade_orgaos'];}
             if (isset($response['content']['identidade_estados'])) {$this->identidade_estados = $response['content']['identidade_estados'];}
+            if (isset($response['content']['departamentos'])) {$this->departamentos = $response['content']['departamentos'];}
             if (isset($response['content']['funcoes'])) {$this->funcoes = $response['content']['funcoes'];}
             if (isset($response['content']['bancos'])) {$this->bancos = $response['content']['bancos'];}
             if (isset($response['content']['departamentos'])) {$this->departamentos = $response['content']['departamentos'];}
@@ -80,7 +81,7 @@ class Controller extends BaseController
     /*
      * Função para retornar Botões para a coluna Ações da tabela de registros do CRUD
      */
-    public function columnAction($id, $userLoggedPermissoes, $botoes=7, $btnType=4)
+    public function columnAction($id, $userLoggedPermissoes, $botoes=7, $btnType=4, $btnExecVis=0)
     {
         //PARAN: $botoes
         //0: Nenhum Botão
@@ -91,6 +92,8 @@ class Controller extends BaseController
         //5: Visualização e Exclusão
         //6: Alteração e Exclusão
         //7: Visualização, Alteração e Exclusão
+
+        //$btnExecVis = 1: Coloca um Botão "Executar Visita" no Submódulo "Visitas Técnicas"
 
         //$btnType = 4;
 
@@ -127,6 +130,12 @@ class Controller extends BaseController
                 if ($btnType == 4) {$btnClass = 'btn btn-outline-danger text-center btn-sm'; $btnSize = 'font-size-18';}
 
                 $btn .= '<div class="col-4"><button type="button" class="deleteRecord '.$btnClass.'" data-bs-toggle="tooltip" data-bs-placement="top" title="Excluir Registro" data-id="'.$id.'"><i class="fa fa-trash-alt  '.$btnSize.'"></i></button></div>';
+            }
+        }
+
+        if ($btnExecVis == 1) {
+            if (Permissoes::permissao(['modulos_edit'], $userLoggedPermissoes)) {
+                $btn .= '<div class="col-12 text-center px-2 py-2"><button type="button" class="btn btn-secondary text-white text-center btn-sm text-center editExecutarVisita" data-bs-toggle="tooltip" data-bs-placement="top" title="Executar Visita" data-id="'.$id.'">Executar Visita</button></div>';
             }
         }
 

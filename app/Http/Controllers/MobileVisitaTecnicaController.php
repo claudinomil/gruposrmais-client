@@ -36,11 +36,6 @@ class MobileVisitaTecnicaController extends Controller
 
             //Dados recebidos com sucesso
             if ($this->code == 2000) {
-                //Filtar Responsável
-                $this->content = array_filter($this->content, function ($var) use ($request) {
-                    return ($var['responsavel_funcionario_id'] == $request['ctrl_responsavel_funcionario_id']);
-                });
-
                 //Montar Dados Tabela
                 $allData = DataTables::of($this->content)
                     ->addIndexColumn()
