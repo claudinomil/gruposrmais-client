@@ -103,7 +103,10 @@ $(document).ready(function () {
             if ($(this).hasClass('btn_certificado_aprovacao_assistido_pdf_view')) {documento = 'certificado_aprovacao_assistido_pdf_'+$('#registro_id').val()+'.pdf';}
 
             if (documento != '') {
-                window.open("http://gruposrmais-client.test/build/assets/pdfs/visitas_tecnicas/"+documento, "_blank");
+                //URL
+                var url_atual = window.location.protocol+'//'+window.location.host+'/';
+
+                window.open(url_atual+"build/assets/pdfs/visitas_tecnicas/"+documento, "_blank");
             } else {
                 alert('Documento não existe.');
             }
