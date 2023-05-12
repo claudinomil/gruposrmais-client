@@ -570,7 +570,7 @@
           /.*?cpu os ([0-9]+)_([0-9]+).*/
         ],
         search: function (uastring) {
-          return (contains(uastring, 'safari') || contains(uastring, 'mobile/')) && contains(uastring, 'applewebkit');
+          return (contains(uastring, 'safari') || contains(uastring, 'Mobile/')) && contains(uastring, 'applewebkit');
         }
       }
     ];
@@ -1107,7 +1107,7 @@
       });
     };
 
-    var attr = 'data-ephox-mobile-fullscreen-style';
+    var attr = 'data-ephox-Mobile-fullscreen-style';
     var siblingStyles = 'display:none!important;';
     var ancestorPosition = 'position:absolute!important;';
     var ancestorStyles = 'top:0!important;left:0!important;margin:0!important;padding:0!important;width:100%!important;height:100%!important;overflow:visible!important;';

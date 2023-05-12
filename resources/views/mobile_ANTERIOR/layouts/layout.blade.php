@@ -14,7 +14,7 @@
         <!-- Styles -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-        @include('mobile.layouts.styles')
+        @include('Mobile.layouts.styles')
     </head>
     <body style="background-color: #2a3042;">
         <div class="container">
@@ -25,7 +25,7 @@
                     </span>
                 </div>
                 <div class="" id="divLogoTopoReturn" style="display: none;">
-                    <a href="#" onclick="window.location='{{route('mobile.index')}}'">
+                    <a href="#" onclick="window.location='{{route('Mobile')}}'">
                         <i class="fa fa-arrow-left text-white font-size-12 px-2 py-2"></i>
                         <span class="logo-lg">
                             <img src="{{ asset('build/assets/images/image_logo_layout_light_menu_min.png') }}" alt="" width="72">
@@ -83,8 +83,8 @@
         @include('layouts.modals')
 
         <!-- javascript -->
-        @include('mobile.layouts.scripts')
-        @include('mobile.layouts.scripts-ajax')
+        @include('Mobile.layouts.scripts')
+        @include('Mobile.layouts.scripts-ajax')
         @include('layouts.scripts-profile')
     </body>
 </html>

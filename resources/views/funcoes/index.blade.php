@@ -67,7 +67,7 @@
 </div>
 
 <!-- Modal -->
-@include('Funcoes.form')
+@include('funcoes.form')
 @endsection
 
 @section('script')

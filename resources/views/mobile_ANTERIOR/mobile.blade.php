@@ -1,4 +1,4 @@
-@extends('mobile.layouts.layout')
+@extends('Mobile.layouts.layout')
 
 @section('content')
     <div class="row">

@@ -64,7 +64,6 @@ export default defineConfig({
                 {src: 'resources/assets_template/js/scripts_servicos.js', dest: 'assets'},
                 {src: 'resources/assets_template/js/scripts_propostas.js', dest: 'assets'},
                 {src: 'resources/assets_template/js/scripts_visitas_tecnicas.js', dest: 'assets'},
-                {src: 'resources/assets_template/js/scripts_mobile_visitas_tecnicas.js', dest: 'assets'},
 
                 {src: 'resources/assets_template/images/clientes/cliente-0.png', dest: 'assets/images/clientes'},
                 {src: 'resources/assets_template/images/fornecedores/fornecedor-0.png', dest: 'assets/images/fornecedores'},
@@ -72,10 +71,12 @@ export default defineConfig({
                 {src: 'resources/assets_template/images/users/avatar-0.png', dest: 'assets/images/users'},
 
                 {src: 'resources/assets_template/images/cliente-img.png', dest: 'assets/images'},
+                {src: 'resources/assets_template/images/proposta-img.png', dest: 'assets/images'},
+                {src: 'resources/assets_template/images/visita_tecnica-img.png', dest: 'assets/images'},
                 {src: 'resources/assets_template/images/error-img.png', dest: 'assets/images'},
                 {src: 'resources/assets_template/images/fornecedor-img.png', dest: 'assets/images'},
                 {src: 'resources/assets_template/images/funcionario-img.png', dest: 'assets/images'},
-                {src: 'resources/assets_template/images/visita-tecnica-img.png', dest: 'assets/images'},
+                {src: 'resources/assets_template/images/visita_tecnica-img.png', dest: 'assets/images'},
                 {src: 'resources/assets_template/images/image_favicon.png', dest: 'assets/images'},
                 {src: 'resources/assets_template/images/image_logo_layout_dark_menu.png', dest: 'assets/images'},
                 {src: 'resources/assets_template/images/image_logo_layout_dark_menu_min.png', dest: 'assets/images'},
@@ -101,6 +102,8 @@ export default defineConfig({
                 {src: 'resources/assets_template/images/pictograma_2.png', dest: 'assets/images'},
                 {src: 'resources/assets_template/images/pictograma_5.png', dest: 'assets/images'},
                 {src: 'resources/assets_template/images/pictograma_7.png', dest: 'assets/images'},
+
+                {src: 'resources/assets_template/pdfs/visitas_tecnicas/pdf.pdf', dest: 'assets/pdfs/visitas_tecnicas'},
             ]
         })
     ]
@@ -323,9 +326,4 @@ export default defineConfig({
 //     "file": "assets/scripts_visitas_tecnicas.js",
 //     "isEntry": true,
 //     "src": "resources/assets_template/js/scripts_visitas_tecnicas.js"
-// },
-// "resources/assets_template/js/scripts_mobile_visitas_tecnicas.js": {
-//     "file": "assets/scripts_mobile_visitas_tecnicas.js",
-//     "isEntry": true,
-//     "src": "resources/assets_template/js/scripts_mobile_visitas_tecnicas.js"
 // },

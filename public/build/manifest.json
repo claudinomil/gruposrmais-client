@@ -406,10 +406,5 @@
         "file": "assets/scripts_visitas_tecnicas.js",
         "isEntry": true,
         "src": "resources/assets_template/js/scripts_visitas_tecnicas.js"
-    },
-    "resources/assets_template/js/scripts_mobile_visitas_tecnicas.js": {
-        "file": "assets/scripts_mobile_visitas_tecnicas.js",
-        "isEntry": true,
-        "src": "resources/assets_template/js/scripts_mobile_visitas_tecnicas.js"
     }
 }

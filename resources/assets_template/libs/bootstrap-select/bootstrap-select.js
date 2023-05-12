@@ -2988,7 +2988,7 @@
     },
 
     mobile: function () {
-      this.$element[0].classList.add('mobile-device');
+      this.$element[0].classList.add('Mobile-device');
     },
 
     refresh: function () {

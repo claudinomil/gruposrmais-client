@@ -273,7 +273,7 @@
   color: #eceff1;
 }
 .tinymce-mobile-toolstrip .tinymce-mobile-toolbar.tinymce-mobile-context-toolbar {
-  /* Note, this file is imported inside .tinymce-mobile-context-toolbar, so that prefix is on everything here. */
+  /* Note, this file is imported inside .tinymce-Mobile-context-toolbar, so that prefix is on everything here. */
 }
 .tinymce-mobile-toolstrip .tinymce-mobile-toolbar.tinymce-mobile-context-toolbar .tinymce-mobile-toolbar-group {
   align-items: center;

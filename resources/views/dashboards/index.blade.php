@@ -1,3 +1,9 @@
+{{--@php if (session('access_device') == 'Mobile') {$extend = 'Mobile.layouts.app';} @endphp--}}
+{{--@php if (session('access_device') == 'tablet') {$extend = 'Mobile.layouts.app';} @endphp--}}
+{{--@php if (session('access_device') == 'desktop') {$extend = 'layouts.app';} @endphp--}}
+
+{{--@extends($extend)--}}
+
 @extends('layouts.app')
 
 @section('title') Dashboards @endsection

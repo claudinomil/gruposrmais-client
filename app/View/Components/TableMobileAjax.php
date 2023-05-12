@@ -23,6 +23,6 @@ class TableMobileAjax extends Component
 
     public function render()
     {
-        return view('components.table-mobile-ajax');
+        return view('components.table-Mobile-ajax');
     }
 }

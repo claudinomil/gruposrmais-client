@@ -1,4 +1,4 @@
-@extends('mobile.layouts.layout')
+@extends('Mobile.layouts.app')
 
 @section('content')
     <div id="crudTable">
@@ -11,8 +11,8 @@
             @if($evento == 'index')
                 <!-- Tabela (Componente Blade) -->
                 @php
-                    $colsNames = ['Nome', 'Pavimentos', 'Altura', 'ATC', 'Lotação', 'Carga Incêndio'];
-                    $colsFields = ['name', 'numero_pavimentos', 'altura', 'area_total_construida', 'lotacao', 'carga_incendio'];
+                    $colsNames = ['Nome'];
+                    $colsFields = ['name'];
                     $colActions = 'no';
                 @endphp
 

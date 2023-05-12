@@ -14,7 +14,7 @@
     <!-- Styles -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    @include('layouts.head-css')
+    @include('Mobile.layouts.head-css')
 </head>
 
 @section('body')
@@ -40,33 +40,31 @@
     <div id="layout-wrapper">
 
         <!-- Topbar -->
-    @include('layouts.topbar')
+    @include('Mobile.layouts.topbar')
 
     <!-- Layout Vertical -->
-    @include('layouts.sidebar')
+    @include('Mobile.layouts.sidebar')
 
     <!-- Layout Horizontal -->
-    @include('layouts.horizontal')
-
-    <!-- Settings User -->
-    @include('layouts.settings-user')
+{{--    @include('Mobile.layouts.horizontal')--}}
 
     <!-- Start right Content here -->
         <div class="main-content">
             <div class="page-content">
-                <div class="container-fluid">
+{{--                <div class="container-fluid">--}}
+                    <h5 class="">{{ \App\Facades\Breadcrumb::getCurrentPageTitle() }}</h5>
                     @yield('content')
-                </div>
+{{--                </div>--}}
             </div>
 
-            @include('layouts.footer')
+            @include('Mobile.layouts.footer')
         </div>
     </div>
 
-    @include('layouts.modals')
+    @include('Mobile.layouts.modals')
 
     <!-- Right Sidebar -->
-    @include('layouts.right-sidebar')
+    @include('Mobile.layouts.right-sidebar')
 
     <!-- Verificar Mode e Style (Serve para customizar a tela do sistema) -->
     <script>
@@ -78,8 +76,8 @@
     </script>
 
     <!-- javascript -->
-    @include('layouts.scripts')
-    @include('layouts.scripts-ajax')
-    @include('layouts.scripts-profile')
+    @include('Mobile.layouts.scripts')
+    @include('Mobile.layouts.scripts-ajax')
+    @include('Mobile.layouts.scripts-profile')
     </body>
 </html>

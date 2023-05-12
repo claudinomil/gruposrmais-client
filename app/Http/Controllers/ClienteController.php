@@ -80,7 +80,16 @@ class ClienteController extends Controller
             //Buscando dados Api_Data() - Auxiliary Tables (Combobox)
             $this->responseApi(2, 10, 'clientes/auxiliary/tables', '', '', '', '');
 
-            return view('clientes.index', [
+            //Verificar qual view vai chamar Mobile/Desktop
+            if (session('access_device') == 'Mobile' or session('access_device') == 'tablet') {
+                $view = 'Mobile.Mobile-clientes';
+            } else {
+                $view = 'clientes.index';
+            }
+
+            //chamar view
+            return view($view, [
+                'evento' => 'index',
                 'principal_clientes' => $this->principal_clientes,
                 'responsavel_funcionarios' => $this->responsavel_funcionarios,
                 'generos' => $this->generos,

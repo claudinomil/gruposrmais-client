@@ -13,7 +13,7 @@
   e(".image-popup-vertical-fit").magnificPopup({
     type: "image",
     closeOnContentClick: !0,
-    mainClass: "mfp-img-mobile",
+    mainClass: "mfp-img-Mobile",
     image: {
       verticalFit: !0
     }
@@ -34,7 +34,7 @@
     delegate: "a",
     type: "image",
     tLoading: "Loading image #%curr%...",
-    mainClass: "mfp-img-mobile",
+    mainClass: "mfp-img-Mobile",
     gallery: {
       enabled: !0,
       navigateByImgClick: !0,
@@ -48,7 +48,7 @@
     type: "image",
     closeOnContentClick: !1,
     closeBtnInside: !1,
-    mainClass: "mfp-with-zoom mfp-img-mobile",
+    mainClass: "mfp-with-zoom mfp-img-Mobile",
     image: {
       verticalFit: !0,
       titleSrc: function titleSrc(e) {

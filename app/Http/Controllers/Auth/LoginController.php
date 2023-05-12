@@ -65,11 +65,11 @@ class LoginController extends Controller
             session(['access_token' => $response['access_token']]);
 
             //Gravar dispositivo que usuário acessou de MOBILE TABLE DESKTOP
-            $isMob = is_numeric(strpos(strtolower($_SERVER["HTTP_USER_AGENT"]), "mobile"));
+            $isMob = is_numeric(strpos(strtolower($_SERVER["HTTP_USER_AGENT"]), "Mobile"));
             $isTab = is_numeric(strpos(strtolower($_SERVER["HTTP_USER_AGENT"]), "tablet"));
             $isDesk = !$isMob && !$isTab;
 
-            if ($isMob) {session(['access_device' => 'mobile']);}
+            if ($isMob) {session(['access_device' => 'Mobile']);}
             if ($isTab) {session(['access_device' => 'tablet']);}
             if ($isDesk) {session(['access_device' => 'desktop']);}
 
@@ -79,19 +79,28 @@ class LoginController extends Controller
 
             $sistema_acesso_id = $this->content['userData']['sistema_acesso_id'];
 
+            //FORÇANDO MOBILE PARA FAZER O CODIGODESENVOLVIMENTO''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+            //FORÇANDO MOBILE PARA FAZER O CODIGODESENVOLVIMENTO''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+            //FORÇANDO MOBILE PARA FAZER O CODIGODESENVOLVIMENTO''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+            //session(['access_device' => 'Mobile']);
+            //return redirect('Mobile');
+            //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+            //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+            //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
             //1: Somente Desktop
             if ($sistema_acesso_id == 1) {return redirect('dashboards');}
 
             //2: Somente Mobile
             if ($sistema_acesso_id == 2) {
-                if ($isMob) {return redirect('mobile');}
-                if ($isTab) {return redirect('mobile');}
+                if ($isMob) {return redirect('Mobile');}
+                if ($isTab) {return redirect('Mobile');}
                 if ($isDesk) {abort(500, 'Erro Interno => Acesso somente Mobile.');}
             }
 
             //3: Desktop & Mobile
             if ($sistema_acesso_id == 3) {
-                if ($isMob) {return redirect('mobile');}
+                if ($isMob) {return redirect('Mobile');}
                 if ($isTab) {return redirect('dashboards');}
                 if ($isDesk) {return redirect('dashboards');}
             }

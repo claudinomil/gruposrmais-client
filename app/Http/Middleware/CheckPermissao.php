@@ -41,11 +41,6 @@ class CheckPermissao
             $searchSubmodulo = $ultSubmodulo[0];
         }
 
-        //Mudança nas rotas MOBILE''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-//        if ($searchSubmodulo == 'mobile') {$searchSubmodulo = 'dashboards';}
-//        if ($searchSubmodulo == 'mobile_clientes') {$searchSubmodulo = 'clientes';}
-        //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-
         //Buscando dados Usuario/Permissões/Configurações/Ajax CRUD
         $response = ApiData::getData(0, $searchSubmodulo, '', '', '', '');
         //dd($response->json());   //TRAZER ERRO NA DEPURAÇÃO
@@ -54,12 +49,44 @@ class CheckPermissao
             $userLoggedData = $response['content']['userData']; //Dados do Usuário Logado
             $userLoggedPermissoes = $response['content']['userPermissoes']; //Permissões do Usuário Logado
             $userLoggedMenuModulos = $response['content']['menuModulos']; //Módulos Menu
+
             $userLoggedMenuSubmodulos = $response['content']['menuSubmodulos']; // Submódulos Menu
+
+            //Caso o acesso tenha sido via Mobile ou Tablet'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+            if (session('access_device') == 'Mobile') {
+                //Filtrar Submódulos e deixar somente os que vão ser liberados para o Menu Mobile/Tablet''''''''''''''''
+                $userLoggedMenuSubmodulos = array_filter($userLoggedMenuSubmodulos, function ($userLoggedMenuSubmodulo) {
+                    return $userLoggedMenuSubmodulo['Mobile'] == 1;
+                });
+                //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+                //Verificar se o usuário entrou em um submódulo diferente dos permitidos'
+                $submod_permitido = false;
+
+                foreach ($userLoggedMenuSubmodulos as $submod) {
+                    if ($submod['prefix_route'] == $searchSubmodulo) {
+                        $submod_permitido = true;
+                        break;
+                    }
+                }
+
+                if ($searchSubmodulo == 'Mobile') { //se for Mobile deixa passar pois é a view de Menu da versão Mobile
+                    $submod_permitido = true;
+                }
+
+                if (!$submod_permitido) {
+                    if ($request->ajax()) {
+                        return response()->json(['error_permissao' => 'Permissão Negada']);
+                    } else {
+                        abort(403, 'Permissão Negada');
+                    }
+                }
+                //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+            }
+            //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
             $userLoggedFerramentas = $response['content']['ferramentas']; //Ferramentas
             $userLoggedUnreadNotificacoes = $response['content']['notificacoes']; //Notificações não lidas pelo Usuário logado
-
-            $userLoggedMenuSubmodulosMobile = $response['content']['menuSubmodulosMobile']; // Submódulos Mobile
-
             $ajaxPrefixPermissaoSubmodulo = $response['content']['ajaxPrefixPermissaoSubmodulo'][0]['prefix_permissao']; //Variavel prefix_permissao do Submodulo
             $ajaxNameSubmodulo = $response['content']['ajaxNameSubmodulo'][0]['name']; //Variavel name do Submodulo
             $ajaxNameFormSubmodulo = 'frm_' . $ajaxPrefixPermissaoSubmodulo;
@@ -100,9 +127,7 @@ class CheckPermissao
             'ajaxPrefixPermissaoSubmodulo' => $ajaxPrefixPermissaoSubmodulo,
             'ajaxNameSubmodulo' => $ajaxNameSubmodulo,
             'ajaxNameFormSubmodulo' => $ajaxNameFormSubmodulo,
-            'ajaxNamesFieldsSubmodulo' => $ajaxNamesFieldsSubmodulo,
-
-            'userLoggedMenuSubmodulosMobile' => $userLoggedMenuSubmodulosMobile,
+            'ajaxNamesFieldsSubmodulo' => $ajaxNamesFieldsSubmodulo
         ]);
 
         //Retornando

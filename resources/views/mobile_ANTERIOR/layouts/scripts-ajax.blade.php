@@ -1,6 +1,6 @@
 @if(isset($ajaxPrefixPermissaoSubmodulo))
     <!-- Script para MOBILE Ajax -->
-    @if($ajaxPrefixPermissaoSubmodulo != 'mobile' and $ajaxPrefixPermissaoSubmodulo != 'yyyyy')
+    @if($ajaxPrefixPermissaoSubmodulo != 'Mobile' and $ajaxPrefixPermissaoSubmodulo != 'yyyyy')
         <script type="text/javascript">
             $(function () {
                 //Header
@@ -15,7 +15,7 @@
                     tableContent('{{$ajaxPrefixPermissaoSubmodulo}}');
 
                     function tableContent(route) {
-                        $('.datatable-mobile-ajax').DataTable({
+                        $('.datatable-Mobile-ajax').DataTable({
                             language: {
                                 pageLength: {},
                                 //lengthMenu: 'Exibir _MENU_ resultados por página',
@@ -548,7 +548,7 @@
     </script>
 
     <!-- Configurações Individuais -->
-    @if($ajaxPrefixPermissaoSubmodulo == 'mobile')
+    @if($ajaxPrefixPermissaoSubmodulo == 'Mobile')
         <script>
             $('#divLogoTopoPrincipal').show();
             $('#divLogoTopoReturn').hide();

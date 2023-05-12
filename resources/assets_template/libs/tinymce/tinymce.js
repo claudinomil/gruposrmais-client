@@ -871,7 +871,7 @@
           /.*?cpu os ([0-9]+)_([0-9]+).*/
         ],
         search: function (uastring) {
-          return (contains$2(uastring, 'safari') || contains$2(uastring, 'mobile/')) && contains$2(uastring, 'applewebkit');
+          return (contains$2(uastring, 'safari') || contains$2(uastring, 'Mobile/')) && contains$2(uastring, 'applewebkit');
         }
       }
     ];

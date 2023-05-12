@@ -227,7 +227,7 @@ var __webpack_exports__ = {};
     a.draw();
     var o = this;
     !function t() {
-      a.setData([o.randomData()]), a.draw(), setTimeout(t, (n("html").hasClass("mobile-device"), 1e3));
+      a.setData([o.randomData()]), a.draw(), setTimeout(t, (n("html").hasClass("Mobile-device"), 1e3));
     }();
     this.createDonutGraph("#donut-chart #donut-chart-container", ["Desktops", "Laptops", "Tablets"], [29, 20, 18], ["#f0f1f4", "#556ee6", "#34c38f"]);
   }, n.FlotChart = new t(), n.FlotChart.Constructor = t;
