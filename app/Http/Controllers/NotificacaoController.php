@@ -39,7 +39,7 @@ class NotificacaoController extends Controller
                         return $retorno;
                     })
                     ->addColumn('action', function ($row, Request $request) {
-                        return $this->columnAction($row['id'], $request['userLoggedPermissoes']);
+                        return $this->columnAction($row['id'], $request['ajaxPrefixPermissaoSubmodulo'], $request['userLoggedPermissoes']);
                     })
                     ->rawColumns(['action'])
                     ->escapeColumns([])
@@ -168,7 +168,7 @@ class NotificacaoController extends Controller
                 $allData = DataTables::of($this->content)
                     ->addIndexColumn()
                     ->addColumn('action', function ($row, Request $request) {
-                        return $this->columnAction($row['id'], $request['userLoggedPermissoes']);
+                        return $this->columnAction($row['id'], $request['ajaxPrefixPermissaoSubmodulo'], $request['userLoggedPermissoes']);
                     })
                     ->editColumn('date', function ($row) {
                         $retorno = date('d/m/Y', strtotime($row['date']));

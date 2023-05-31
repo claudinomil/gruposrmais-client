@@ -53,7 +53,7 @@ class CheckPermissao
             $userLoggedMenuSubmodulos = $response['content']['menuSubmodulos']; // Submódulos Menu
 
             //Caso o acesso tenha sido via Mobile ou Tablet'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-            if (session('access_device') == 'Mobile') {
+            if (session('access_device') == 'mobile') {
                 //Filtrar Submódulos e deixar somente os que vão ser liberados para o Menu Mobile/Tablet''''''''''''''''
                 $userLoggedMenuSubmodulos = array_filter($userLoggedMenuSubmodulos, function ($userLoggedMenuSubmodulo) {
                     return $userLoggedMenuSubmodulo['Mobile'] == 1;
@@ -111,6 +111,7 @@ class CheckPermissao
         //Colocando dados no Request
         $request['userLoggedData'] = $userLoggedData;
         $request['userLoggedPermissoes'] = $userLoggedPermissoes;
+        $request['ajaxPrefixPermissaoSubmodulo'] = $ajaxPrefixPermissaoSubmodulo;
 
         //Gravar as Sessões de Breadcrumb
         Breadcrumb::sessionsBreadcrumb();

@@ -66,7 +66,7 @@ class ClienteController extends Controller
                         return $retorno;
                     })
                     ->addColumn('action', function ($row, Request $request) {
-                        return $this->columnAction($row['id'], $request['userLoggedPermissoes']);
+                        return $this->columnAction($row['id'], $request['ajaxPrefixPermissaoSubmodulo'], $request['userLoggedPermissoes']);
                     })
                     ->rawColumns(['action'])
                     ->escapeColumns([])
@@ -81,7 +81,7 @@ class ClienteController extends Controller
             $this->responseApi(2, 10, 'clientes/auxiliary/tables', '', '', '', '');
 
             //Verificar qual view vai chamar Mobile/Desktop
-            if (session('access_device') == 'Mobile' or session('access_device') == 'tablet') {
+            if (session('access_device') == 'mobile' or session('access_device') == 'tablet') {
                 $view = 'Mobile.Mobile-clientes';
             } else {
                 $view = 'clientes.index';
@@ -247,7 +247,7 @@ class ClienteController extends Controller
                 $allData = DataTables::of($this->content)
                     ->addIndexColumn()
                     ->addColumn('action', function ($row, Request $request) {
-                        return $this->columnAction($row['id'], $request['userLoggedPermissoes']);
+                        return $this->columnAction($row['id'], $request['ajaxPrefixPermissaoSubmodulo'], $request['userLoggedPermissoes']);
                     })
                     ->editColumn('foto', function ($row) {
                         $retorno = "<div class='text-center'>";

@@ -69,7 +69,7 @@ class VisitaTecnicaController extends Controller
                         }
                         //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-                        return $this->columnAction($row['id'], $request['userLoggedPermissoes'], 7, 4, $btnExecVis);
+                        return $this->columnAction($row['id'], $request['ajaxPrefixPermissaoSubmodulo'], $request['userLoggedPermissoes'], 7, 4, $btnExecVis);
                     })
                     ->rawColumns(['action'])
                     ->escapeColumns([])
@@ -233,7 +233,7 @@ class VisitaTecnicaController extends Controller
                         return $retorno;
                     })
                     ->addColumn('action', function ($row, Request $request) {
-                        return $this->columnAction($row['id'], $request['userLoggedPermissoes']);
+                        return $this->columnAction($row['id'], $request['ajaxPrefixPermissaoSubmodulo'], $request['userLoggedPermissoes']);
                     })
                     ->rawColumns(['action'])
                     ->escapeColumns([])

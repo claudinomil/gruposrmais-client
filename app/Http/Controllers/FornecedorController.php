@@ -60,7 +60,7 @@ class FornecedorController extends Controller
                         return $retorno;
                     })
                     ->addColumn('action', function ($row, Request $request) {
-                        return $this->columnAction($row['id'], $request['userLoggedPermissoes']);
+                        return $this->columnAction($row['id'], $request['ajaxPrefixPermissaoSubmodulo'], $request['userLoggedPermissoes']);
                     })
                     ->rawColumns(['action'])
                     ->escapeColumns([])
@@ -213,7 +213,7 @@ class FornecedorController extends Controller
                 $allData = DataTables::of($this->content)
                     ->addIndexColumn()
                     ->addColumn('action', function ($row, Request $request) {
-                        return $this->columnAction($row['id'], $request['userLoggedPermissoes']);
+                        return $this->columnAction($row['id'], $request['ajaxPrefixPermissaoSubmodulo'], $request['userLoggedPermissoes']);
                     })
                     ->editColumn('foto', function ($row) {
                         $retorno = "<div class='text-center'>";

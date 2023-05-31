@@ -40,7 +40,7 @@ class PropostaController extends Controller
                 $allData = DataTables::of($this->content)
                     ->addIndexColumn()
                     ->addColumn('action', function ($row, Request $request) {
-                        return $this->columnAction($row['id'], $request['userLoggedPermissoes']);
+                        return $this->columnAction($row['id'], $request['ajaxPrefixPermissaoSubmodulo'], $request['userLoggedPermissoes']);
                     })
                     ->editColumn('numero_proposta', function ($row) {
                         $retorno = "<div>";
@@ -239,7 +239,7 @@ class PropostaController extends Controller
                 $allData = DataTables::of($this->content)
                     ->addIndexColumn()
                     ->addColumn('action', function ($row, Request $request) {
-                        return $this->columnAction($row['id'], $request['userLoggedPermissoes']);
+                        return $this->columnAction($row['id'], $request['ajaxPrefixPermissaoSubmodulo'], $request['userLoggedPermissoes']);
                     })
                     ->editColumn('numero_proposta', function ($row) {
                         $retorno = "<div>";

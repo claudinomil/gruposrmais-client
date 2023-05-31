@@ -66,7 +66,7 @@ class FuncionarioController extends Controller
                         return $retorno;
                     })
                     ->addColumn('action', function ($row, Request $request) {
-                        return $this->columnAction($row['id'], $request['userLoggedPermissoes']);
+                        return $this->columnAction($row['id'], $request['ajaxPrefixPermissaoSubmodulo'], $request['userLoggedPermissoes']);
                     })
                     ->rawColumns(['action'])
                     ->escapeColumns([])
@@ -274,7 +274,7 @@ class FuncionarioController extends Controller
                         return $retorno;
                     })
                     ->addColumn('action', function ($row, Request $request) {
-                        return $this->columnAction($row['id'], $request['userLoggedPermissoes']);
+                        return $this->columnAction($row['id'], $request['ajaxPrefixPermissaoSubmodulo'], $request['userLoggedPermissoes']);
                     })
                     ->rawColumns(['action'])
                     ->escapeColumns([])

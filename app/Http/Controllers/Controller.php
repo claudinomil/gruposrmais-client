@@ -81,7 +81,7 @@ class Controller extends BaseController
     /*
      * Função para retornar Botões para a coluna Ações da tabela de registros do CRUD
      */
-    public function columnAction($id, $userLoggedPermissoes, $botoes=7, $btnType=4, $btnExecVis=0)
+    public function columnAction($id, $ajaxPrefixPermissaoSubmodulo, $userLoggedPermissoes, $botoes=7, $btnType=4, $btnExecVis=0)
     {
         //PARAN: $botoes
         //0: Nenhum Botão
@@ -101,7 +101,7 @@ class Controller extends BaseController
         $btn = '<td class="text-center" style="vertical-align:top; white-space:nowrap;"><div class="row">';
 
         if ($botoes == 1 or $botoes == 4 or $botoes == 5 or $botoes == 7) {
-            if (Permissoes::permissao(['modulos_show'], $userLoggedPermissoes)) {
+            if (Permissoes::permissao([$ajaxPrefixPermissaoSubmodulo.'_show'], $userLoggedPermissoes)) {
                 if ($btnType == 1) {$btnClass = 'btn btn-info text-white text-center btn-sm'; $btnSize = '';}
                 if ($btnType == 2) {$btnClass = 'btn text-info text-center btn-sm'; $btnSize = 'font-size-18';}
                 if ($btnType == 3) {$btnClass = 'btn btn-outline-secondary btn-sm'; $btnSize = '';}
@@ -112,7 +112,7 @@ class Controller extends BaseController
         }
 
         if ($botoes == 2 or $botoes == 4 or $botoes == 6 or $botoes == 7) {
-            if (Permissoes::permissao(['modulos_edit'], $userLoggedPermissoes)) {
+            if (Permissoes::permissao([$ajaxPrefixPermissaoSubmodulo.'_edit'], $userLoggedPermissoes)) {
                 if ($btnType == 1) {$btnClass = 'btn btn-primary text-white text-center btn-sm'; $btnSize = '';}
                 if ($btnType == 2) {$btnClass = 'btn text-primary text-center btn-sm'; $btnSize = 'font-size-18';}
                 if ($btnType == 3) {$btnClass = 'btn btn-outline-secondary btn-sm'; $btnSize = '';}
@@ -123,7 +123,7 @@ class Controller extends BaseController
         }
 
         if ($botoes == 3 or $botoes == 5 or $botoes == 6 or $botoes == 7) {
-            if (Permissoes::permissao(['modulos_destroy'], $userLoggedPermissoes)) {
+            if (Permissoes::permissao([$ajaxPrefixPermissaoSubmodulo.'_destroy'], $userLoggedPermissoes)) {
                 if ($btnType == 1) {$btnClass = 'btn btn-danger text-white text-center btn-sm'; $btnSize = '';}
                 if ($btnType == 2) {$btnClass = 'btn text-danger text-center btn-sm'; $btnSize = 'font-size-18';}
                 if ($btnType == 3) {$btnClass = 'btn btn-outline-secondary btn-sm'; $btnSize = '';}
@@ -134,7 +134,7 @@ class Controller extends BaseController
         }
 
         if ($btnExecVis == 1) {
-            if (Permissoes::permissao(['modulos_edit'], $userLoggedPermissoes)) {
+            if (Permissoes::permissao([$ajaxPrefixPermissaoSubmodulo.'_edit'], $userLoggedPermissoes)) {
                 $btn .= '<div class="col-12 text-center px-2 py-2"><button type="button" class="btn btn-secondary text-white text-center btn-sm text-center editExecutarVisita" data-bs-toggle="tooltip" data-bs-placement="top" title="Executar Visita" data-id="'.$id.'">Executar Visita</button></div>';
             }
         }

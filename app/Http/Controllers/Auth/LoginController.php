@@ -69,7 +69,7 @@ class LoginController extends Controller
             $isTab = is_numeric(strpos(strtolower($_SERVER["HTTP_USER_AGENT"]), "tablet"));
             $isDesk = !$isMob && !$isTab;
 
-            if ($isMob) {session(['access_device' => 'Mobile']);}
+            if ($isMob) {session(['access_device' => 'mobile']);}
             if ($isTab) {session(['access_device' => 'tablet']);}
             if ($isDesk) {session(['access_device' => 'desktop']);}
 
@@ -82,8 +82,8 @@ class LoginController extends Controller
             //FORÇANDO MOBILE PARA FAZER O CODIGODESENVOLVIMENTO''''''''''''''''''''''''''''''''''''''''''''''''''''''''
             //FORÇANDO MOBILE PARA FAZER O CODIGODESENVOLVIMENTO''''''''''''''''''''''''''''''''''''''''''''''''''''''''
             //FORÇANDO MOBILE PARA FAZER O CODIGODESENVOLVIMENTO''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-            //session(['access_device' => 'Mobile']);
-            //return redirect('Mobile');
+            //session(['access_device' => 'mobile']);
+            //return redirect('mobile');
             //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
             //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
             //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''

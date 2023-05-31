@@ -1,4 +1,4 @@
-{{--@php if (session('access_device') == 'Mobile') {$extend = 'Mobile.layouts.app';} @endphp--}}
+{{--@php if (session('access_device') == 'mobile') {$extend = 'Mobile.layouts.app';} @endphp--}}
 {{--@php if (session('access_device') == 'tablet') {$extend = 'Mobile.layouts.app';} @endphp--}}
 {{--@php if (session('access_device') == 'desktop') {$extend = 'layouts.app';} @endphp--}}
 
