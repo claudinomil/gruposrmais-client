@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Facades\SuporteFacade;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -14,9 +15,11 @@ class LoginController extends Controller
     public $validation;
     public $content;
 
-    public function login(Request $request)
+    public function login()
     {
-        return view('auth.login');
+        $empresas = Http::get(env('PASSPORT_API_URL') . 'empresas_grupo_srmais')->json();
+
+        return view('auth.login', compact('empresas'));
     }
 
     public function loginApi(Request $request)
@@ -24,10 +27,12 @@ class LoginController extends Controller
         //Validando dados
         $request->validate(
             [
+                'empresa_id' => 'required',
                 'email' => 'required|email',
                 'password' => 'required',
             ],
             [
+                'empresa_id.required' => 'Escolha a Empresa.',
                 'email.required' => 'Digite seu E-mail.',
                 'email.email' => 'E-mail inválido',
                 'password.required' => 'Digite sua Senha.'
@@ -55,57 +60,47 @@ class LoginController extends Controller
             ]);
             //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
+            //dd($response->json());
+
             //Se o retorno for um Error
             if (isset($response['error'])) {
                 $error = $response['message'];
-                return view('auth.login', compact('error'));
+                $empresas = Http::get(env('PASSPORT_API_URL') . 'empresas_grupo_srmais')->json();
+
+                return view('auth.login', compact('error', 'empresas'));
             }
 
             //Gravar access_token em ums session
             session(['access_token' => $response['access_token']]);
 
-            //Gravar dispositivo que usuário acessou de MOBILE TABLE DESKTOP
-            $isMob = is_numeric(strpos(strtolower($_SERVER["HTTP_USER_AGENT"]), "Mobile"));
-            $isTab = is_numeric(strpos(strtolower($_SERVER["HTTP_USER_AGENT"]), "tablet"));
-            $isDesk = !$isMob && !$isTab;
+            //Ver de onde está acessando 'access_device' (mobile, tablet, desktop)
+            SuporteFacade::setUserAcessDevice();
 
-            if ($isMob) {session(['access_device' => 'mobile']);}
-            if ($isTab) {session(['access_device' => 'tablet']);}
-            if ($isDesk) {session(['access_device' => 'desktop']);}
+            //Buscar dados de Configuração do Usuário logado (Conforme Empresa escolhida)
+            if (!SuporteFacade::setUserConfiguracao($request['empresa_id'])) {
+                abort(500, 'Erro Interno => Acesso/Configuração.');
+            } else {
+                //Verificar sistema_acesso_id do Usuário que acabou de se logar para redirecionar versão do Sistema (DESKTOP / MOBILE)
+                //1: Somente Desktop
+                if (session('userLogged_sistema_acesso_id') == 1) {return redirect('dashboards');}
 
-            //Buscar sistema_acesso_id do Usuário que acabou de se logar para redirecionar versão do Sistema (DESKTOP / MOBILE)
-            //Buscando dados Api_Data() - UsuárioLogado
-            $this->responseApi(1, 10, 'users/user/logged/data', '', '', '', '');
+                //2: Somente Mobile
+                if (session('userLogged_sistema_acesso_id') == 2) {
+                    if (session('access_device') == 'mobile') {return redirect('Mobile');}
+                    if (session('access_device') == 'tablet') {return redirect('Mobile');}
+                    if (session('access_device') == 'desktop') {abort(500, 'Erro Interno => Acesso somente Mobile.');}
+                }
 
-            $sistema_acesso_id = $this->content['userData']['sistema_acesso_id'];
-
-            //FORÇANDO MOBILE PARA FAZER O CODIGODESENVOLVIMENTO''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-            //FORÇANDO MOBILE PARA FAZER O CODIGODESENVOLVIMENTO''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-            //FORÇANDO MOBILE PARA FAZER O CODIGODESENVOLVIMENTO''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-            //session(['access_device' => 'mobile']);
-            //return redirect('mobile');
-            //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-            //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-            //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-
-            //1: Somente Desktop
-            if ($sistema_acesso_id == 1) {return redirect('dashboards');}
-
-            //2: Somente Mobile
-            if ($sistema_acesso_id == 2) {
-                if ($isMob) {return redirect('Mobile');}
-                if ($isTab) {return redirect('Mobile');}
-                if ($isDesk) {abort(500, 'Erro Interno => Acesso somente Mobile.');}
-            }
-
-            //3: Desktop & Mobile
-            if ($sistema_acesso_id == 3) {
-                if ($isMob) {return redirect('Mobile');}
-                if ($isTab) {return redirect('dashboards');}
-                if ($isDesk) {return redirect('dashboards');}
+                //3: Desktop & Mobile
+                if (session('userLogged_sistema_acesso_id') == 3) {
+                    if (session('access_device') == 'mobile') {return redirect('Mobile');}
+                    if (session('access_device') == 'tablet') {return redirect('dashboards');}
+                    if (session('access_device') == 'desktop') {return redirect('dashboards');}
+                }
             }
         }
 
+        //E-mail não confirmado
         if ($this->code == 2004) {
             $email = $request->email;
 
@@ -113,11 +108,13 @@ class LoginController extends Controller
             return redirect('/confirm-email')->with('email', $email);
         }
 
+        //E-mail não encontrado
         if ($this->code == 2005) {
             $error = 'E-mail não encontrado!';
 
             //Retorno para a view
-            return view('auth.login', compact('error'));
+            $empresas = Http::get(env('PASSPORT_API_URL') . 'empresas_grupo_srmais')->json();
+            return view('auth.login', compact('error', 'empresas'));
         }
     }
 

@@ -4,17 +4,17 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <div class="modal-buttons" id="crudFormButtons1">
+                    <div class="modal-buttons crudFormButtons1">
                         <!-- store or update -->
                         @if(\App\Facades\Permissoes::permissao([$ajaxPrefixPermissaoSubmodulo.'_create', $ajaxPrefixPermissaoSubmodulo.'_edit'], $userLoggedPermissoes))
                             <!-- Botão Confirnar Operação -->
-                                <button type="button" class="btn btn-success waves-effect btn-label waves-light" data-bs-toggle="tooltip" data-bs-placement="top" title="Confirmar Operação" id="crudFormConfirmOperacao"><i class="fa fa-save label-icon"></i> Confirmar</button>
+                            <button type="button" class="btn btn-success waves-effect btn-label waves-light crudFormConfirmOperacao" data-bs-toggle="tooltip" data-bs-placement="top" title="Confirmar Operação"><i class="fa fa-save label-icon"></i> Confirmar</button>
                         @endif
 
                         <!-- Botão Cancelar Operação -->
                         <button type="button" class="btn btn-secondary waves-effect btn-label waves-light crudFormCancelOperacao" data-bs-toggle="tooltip" data-bs-placement="top" title="Cancelar Operação"><i class="fa fa-arrow-left label-icon"></i> Cancelar</button>
                     </div>
-                    <div class="modal-buttons" id="crudFormButtons2">
+                    <div class="modal-buttons crudFormButtons2">
                         <!-- edit or delete -->
                         @if(\App\Facades\Permissoes::permissao([$ajaxPrefixPermissaoSubmodulo.'_edit'], $userLoggedPermissoes))
                             <!-- Botão Alterar Registro -->
@@ -48,7 +48,6 @@
                         <fieldset>
                             <input type="hidden" id="frm_operacao" name="frm_operacao">
                             <input type="hidden" id="registro_id" name="registro_id">
-                            <input type="hidden" id="foto" name="foto" value="build/assets/images/clientes/cliente-0.png">
 
                             <div class="row mt-4">
                                 <div class="row pt-4">
@@ -108,17 +107,6 @@
 
                                             @foreach ($principal_clientes as $key => $principal_cliente)
                                                 <option value="{{ $principal_cliente['id'] }}">{{ $principal_cliente['name'] }}</option>
-                                            @endforeach
-
-                                        </select>
-                                    </div>
-                                    <div class="form-group col-12 col-md-4 pb-3">
-                                        <label class="form-label">Funcionário Responsável</label>
-                                        <select class="select2 form-control" name="responsavel_funcionario_id" id="responsavel_funcionario_id">
-                                            <option value="">Selecione...</option>
-
-                                            @foreach ($responsavel_funcionarios as $key => $responsavel_funcionario)
-                                                <option value="{{ $responsavel_funcionario['id'] }}">{{ $responsavel_funcionario['name'] }}</option>
                                             @endforeach
 
                                         </select>
@@ -381,35 +369,69 @@
                                         </div>
                                     </div>
 
-                                    <!-- Pegar maior id da tabela para fazer FOR na gravação dos registros -->
-                                    @php $maior_id_tabela_seguranca_medidas = 0; @endphp
-
-                                    @for($pavimento=1; $pavimento<=20; $pavimento++)
+                                    @for($pavimento=1; $pavimento<=50; $pavimento++)
                                         <div class="row pt-3" style="display:none;" id="divMedidasSeguranca{{$pavimento}}">
                                             <h6 class="pb-3 text-success"><i class="fa fa-fire-extinguisher"></i> Medidas de Segurança - Pavimento {{$pavimento}}</h6>
 
                                             @foreach ($seguranca_medidas as $key => $seguranca_medida)
-                                                @php
-                                                    if ($maior_id_tabela_seguranca_medidas < $seguranca_medida['id']) {
-                                                        $maior_id_tabela_seguranca_medidas = $seguranca_medida['id'];
-                                                    }
-                                                @endphp
-
-                                                <div class="col-12 col-md-4 pb-3 divSegurancaMedida divSegurancaMedida{{$pavimento.$seguranca_medida['id']}}" style="display: none;">
-                                                    <div class="form-check form-switch mb-3 ps-5 alert alert-primary">
-                                                        <input class="form-check-input cbSegurancaMedida" type="checkbox" id="seguranca_medida_{{$pavimento.'_'.$seguranca_medida['id']}}" name="seguranca_medida_{{$pavimento.'_'.$seguranca_medida['id']}}">
-                                                        <label class="form-check-label" for="seguranca_medida_{{$pavimento.'_'.$seguranca_medida['id']}}">{{ucfirst(mb_strtolower($seguranca_medida['name']))}}</label>
+                                                <div class="col-12 col-md-6 pb-3 divSegurancaMedida divSegurancaMedida{{$pavimento.$seguranca_medida['id']}}" style="display: none;">
+                                                    <div class="col-12 alert alert-primary">
+                                                        <div class="form-check form-switch mb-3">
+                                                            <input class="form-check-input cbSegurancaMedida" type="checkbox" id="seguranca_medida_{{$pavimento.'_'.$seguranca_medida['id']}}" name="seguranca_medida_{{$pavimento.'_'.$seguranca_medida['id']}}">
+                                                            <label class="form-check-label" for="seguranca_medida_{{$pavimento.'_'.$seguranca_medida['id']}}">{{ucfirst(mb_strtolower($seguranca_medida['name']))}}</label>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="form-group col-12 col-md-3 pb-3">
+                                                                <label class="form-label">Qtd</label>
+                                                                <input type="number" class="form-control text-small quantidadeSegurancaMedida" id="quantidade_{{$pavimento.'_'.$seguranca_medida['id']}}" name="quantidade_{{$pavimento.'_'.$seguranca_medida['id']}}" step="1">
+                                                            </div>
+                                                            <div class="form-group col-12 col-md-9 pb-3">
+                                                                <label class="form-label">Tipo</label>
+                                                                <input type="text" class="form-control text-uppercase tipoSegurancaMedida" id="tipo_{{$pavimento.'_'.$seguranca_medida['id']}}" name="tipo_{{$pavimento.'_'.$seguranca_medida['id']}}">
+                                                            </div>
+                                                            <div class="form-group col-12 col-md-12 pb-3">
+                                                                <label class="form-label">Observação</label>
+                                                                <textarea class="form-control observacaoSegurancaMedida" id="observacao_{{$pavimento.'_'.$seguranca_medida['id']}}" name="observacao_{{$pavimento.'_'.$seguranca_medida['id']}}" rows="2"></textarea>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             @endforeach
                                         </div>
                                     @endfor
-
-                                    <input type="hidden" id="maior_id_tabela_seguranca_medidas" name="maior_id_tabela_seguranca_medidas" value="{{$maior_id_tabela_seguranca_medidas}}">
                                 </div>
                             </div>
                         </fieldset>
                     </form>
+
+                    <div class="modal-buttons crudFormButtons1">
+                        <!-- store or update -->
+                    @if(\App\Facades\Permissoes::permissao([$ajaxPrefixPermissaoSubmodulo.'_create', $ajaxPrefixPermissaoSubmodulo.'_edit'], $userLoggedPermissoes))
+                        <!-- Botão Confirnar Operação -->
+                            <button type="button" class="btn btn-success waves-effect btn-label waves-light crudFormConfirmOperacao" data-bs-toggle="tooltip" data-bs-placement="top" title="Confirmar Operação"><i class="fa fa-save label-icon"></i> Confirmar</button>
+                    @endif
+
+                    <!-- Botão Cancelar Operação -->
+                        <button type="button" class="btn btn-secondary waves-effect btn-label waves-light crudFormCancelOperacao" data-bs-toggle="tooltip" data-bs-placement="top" title="Cancelar Operação"><i class="fa fa-arrow-left label-icon"></i> Cancelar</button>
+                    </div>
+                    <div class="modal-buttons crudFormButtons2">
+                        <!-- edit or delete -->
+                    @if(\App\Facades\Permissoes::permissao([$ajaxPrefixPermissaoSubmodulo.'_edit'], $userLoggedPermissoes))
+                        <!-- Botão Alterar Registro -->
+                            <button type="button" class="btn btn-primary waves-effect btn-label waves-light editRecord" data-bs-toggle="tooltip" data-bs-placement="top" data-id="0" title="Alterar Registro"><i class="fas fa-pencil-alt label-icon"></i> Alterar</button>
+                    @endif
+
+                    @if(\App\Facades\Permissoes::permissao([$ajaxPrefixPermissaoSubmodulo.'_destroy'], $userLoggedPermissoes))
+                        <!-- Botão Excluir Registro -->
+                            <button type="button" class="btn btn-danger waves-effect btn-label waves-light deleteRecord" data-bs-toggle="tooltip" data-bs-placement="top" data-id="0" title="Excluir Registro"><i class="fa fa-trash-alt label-icon"></i> Excluir</button>
+                    @endif
+
+                    <!-- Botão Extra -->
+                        <button type="button" class="btn btn-warning waves-effect btn-label waves-light" data-bs-toggle="modal" data-bs-target=".modal-cliente" onclick="clienteExtraData();" data-id="0"><i class="bx bx-photo-album label-icon"></i> Extra</button>
+
+                        <!-- Botão Cancelar Operação -->
+                        <button type="button" class="btn btn-secondary waves-effect btn-label waves-light crudFormCancelOperacao" data-bs-toggle="tooltip" data-bs-placement="top" title="Cancelar Operação"><i class="fa fa-arrow-left label-icon"></i> Cancelar</button>
+                    </div>
                 </div>
             </div>
         </div>

@@ -84,6 +84,7 @@
 
                         //Limpar Formulário
                         $('#{{$ajaxNameFormSubmodulo}}').trigger('reset');
+                        $('.select2').val('').trigger('change');
 
                         //Lendo dados
                         if (data.success) {
@@ -97,8 +98,8 @@
                             $('.select2').prop('disabled', false);
 
                             //Botões do Modal
-                            $('#crudFormButtons1').show();
-                            $('#crudFormButtons2').hide();
+                            $('.crudFormButtons1').show();
+                            $('.crudFormButtons2').hide();
 
                             //Table Show/Hide
                             $('#crudTable').hide();
@@ -126,6 +127,18 @@
 
                                 //Desabilitar/Habilitar opções de Create/Edit
                                 $('.tdCreateEdit').show();
+                            @endif
+
+                            @if($ajaxPrefixPermissaoSubmodulo == 'users')
+                                //voltar configurações de campos apos passar pelo edit
+                                $('#email').prop('readonly', false);
+                                $('#funcionario_id').prop('disabled', false);
+                            @endif
+
+                            @if($ajaxPrefixPermissaoSubmodulo == 'servicos')
+                                //voltar configurações de campos apos passar pelo edit
+                                $('#name').prop('readonly', false);
+                                $('#servico_tipo_id').prop('disabled', false);
                             @endif
 
                             @if($ajaxPrefixPermissaoSubmodulo == 'ferramentas')
@@ -168,46 +181,22 @@
                                 pavimentosShowHide();
                             @endif
 
-                            @if($ajaxPrefixPermissaoSubmodulo == 'visitas_tecnicas')
-                            //Configurando campos iniciais''''''''''''''''''''''''''''''''''
-                            $('#visita_tecnica_status_id').val('1');
-                            $('#divVisitaTecnicaStatusId').hide();
-                            $('#cliente_id').val('').trigger('change');
-                            $('#data_visita').val('');
-                            $('#responsavel_funcionario_id').val('').trigger('change');
-                            //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+                            @if($ajaxPrefixPermissaoSubmodulo == 'funcionarios')
+                                //Setando campo nacionalidade_id como Brasileira
+                                $('#nacionalidade_id').val('3').trigger('change');
 
-                            //Configurando campos input file''''''''''''''''''''''''''''''''
-                            $('.div_projeto_scip_pdf').hide();
-                            $('.input_projeto_scip_pdf').hide();
-                            $('.btn_projeto_scip_pdf_upload').hide();
-                            $('.btn_projeto_scip_pdf_view').hide();
+                                //Funcionario Documentos
+                                $('#tbodyDocumentoUpload').html('');
 
-                            $('.div_laudo_exigencias_pdf').hide();
-                            $('.input_laudo_exigencias_pdf').hide();
-                            $('.btn_laudo_exigencias_pdf_upload').hide();
-                            $('.btn_laudo_exigencias_pdf_view').hide();
-
-                            $('.div_certificado_aprovacao_pdf').hide();
-                            $('.input_certificado_aprovacao_pdf').hide();
-                            $('.btn_certificado_aprovacao_pdf_upload').hide();
-                            $('.btn_certificado_aprovacao_pdf_view').hide();
-
-                            $('.div_certificado_aprovacao_simplificado_pdf').hide();
-                            $('.input_certificado_aprovacao_simplificado_pdf').hide();
-                            $('.btn_certificado_aprovacao_simplificado_pdf_upload').hide();
-                            $('.btn_certificado_aprovacao_simplificado_pdf_view').hide();
-
-                            $('.div_certificado_aprovacao_assistido_pdf').hide();
-                            $('.input_certificado_aprovacao_assistido_pdf').hide();
-                            $('.btn_certificado_aprovacao_assistido_pdf_upload').hide();
-                            $('.btn_certificado_aprovacao_assistido_pdf_view').hide();
-                            //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+                                //Display divArquivosPdf
+                                $('#divArquivosPdf').hide();
+                                $('#divArquivosPdfUpload').hide();
                             @endif
 
-                            @if($ajaxPrefixPermissaoSubmodulo == 'funcionarios')
-                            //Setando campo nacionalidade_id como Brasileira
-                            $('#nacionalidade_id').val('3').trigger('change');
+                            @if($ajaxPrefixPermissaoSubmodulo == 'clientes_servicos')
+                                //Brigada de Incêndio'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+                                bi_limparGradeBrigadistas();
+                                //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
                             @endif
                             //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
                         } else if (data.error_permissao) {
@@ -230,6 +219,7 @@
 
                         //Limpar Formulário
                         $('#{{$ajaxNameFormSubmodulo}}').trigger('reset');
+                        $('.select2').val('').trigger('change');
 
                         //Lendo dados
                         if (data.success) {
@@ -255,9 +245,15 @@
                             $('select').prop('disabled', true);
                             $('.select2').prop('disabled', true);
 
+                            //Campos do Formulário - disabled true/false (Campos Padrões)
+                            $('#pesquisar_field').prop('disabled', false);
+                            $('#pesquisar_value').prop('disabled', false);
+                            $('.fildFilterTable').prop('disabled', false);
+                            $('.fildLengthTable').prop('disabled', false);
+
                             //Botões do Modal
-                            $('#crudFormButtons1').hide();
-                            $('#crudFormButtons2').show();
+                            $('.crudFormButtons1').hide();
+                            $('.crudFormButtons2').show();
 
                             //Table Show/Hide
                             $('#crudTable').hide();
@@ -372,6 +368,11 @@
                                     //marcar como checado
                                     $('#seguranca_medida_'+item.pavimento+'_'+item.seguranca_medida_id).attr('checked', true);
 
+                                    //Outros campos
+                                    $('#quantidade_'+item.pavimento+'_'+item.seguranca_medida_id).val(item.quantidade);
+                                    $('#tipo_'+item.pavimento+'_'+item.seguranca_medida_id).val(item.tipo);
+                                    $('#observacao_'+item.pavimento+'_'+item.seguranca_medida_id).val(item.observacao);
+
                                     //dar show
                                     $('.divSegurancaMedida'+item.pavimento+item.seguranca_medida_id).show();
                                 });
@@ -382,51 +383,94 @@
                             @endif
 
                             @if($ajaxPrefixPermissaoSubmodulo == 'visitas_tecnicas')
-                                //Configurando campos iniciais''''''''''''''''''''''''''''''''''
-                                $('#divVisitaTecnicaStatusId').show();
-                                //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-
-                                //montando Classificação para o Cliente'''''''''''''''''''''''''
-                                if ($('#visita_tecnica_status_id').val() == 1) {
-                                    montarFormVisitaGetCliente($('#cliente_id').val());
+                                //Verificar botões''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+                                //Se servico_status_id for igual a 1(EXECUTADO) : Somente Visualização
+                                if (data.success.clientes_servicos_servico.servico_status_id == 1) {
+                                    $('.crudFormButtons2 .editRecord').hide();
+                                } else {
+                                    $('.crudFormButtons2 .editRecord').show();
                                 }
+                                //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-                                if ($('#visita_tecnica_status_id').val() == 2) {
-                                    montarFormVisitaGetVisita(data.success);
+                                vt_configurarFormulario(data.success);
+                                vt_preencherFormulario(data.success);
+
+                                //Alert para marcar Serviço como Finalizado'''''''''''''''''''''''''''''''''''''''''''''
+                                $('#hrServicoExecutado').hide();
+                                $('#spanServicoExecutado').hide();
+
+                                $('#executado_data').val(data.success.executado_data);
+                                $('#executado_user_funcionario').val(data.success.executado_user_funcionario);
+                                $('#executado_user_id').val(data.success.executado_user_id);
+
+                                if (data.success.executado_data == '' || data.success.executado_data === null) {
+                                    $('#servico_executado').prop('checked', false);
+                                    $('#labelServicoExecutado').html('Visita não Finalizada');
+                                } else {
+                                    $('#servico_executado').prop('checked', true);
+                                    $('#labelServicoExecutado').html('Visita Finalizada');
                                 }
-                                //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+                                //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+                            @endif
 
-                            //Configurando campos input file''''''''''''''''''''''''''''''''
-                            $('.div_projeto_scip_pdf').show();
-                            $('.input_projeto_scip_pdf').hide();
-                            $('.btn_projeto_scip_pdf_upload').hide();
-                            $('.btn_projeto_scip_pdf_view').show();
-                            $('.btn_projeto_scip_pdf_view').prop('disabled', false);
+                            @if($ajaxPrefixPermissaoSubmodulo == 'brigadas')
+                            bi_preencherFormulario(data.success);
+                            @endif
 
-                            $('.div_laudo_exigencias_pdf').show();
-                            $('.input_laudo_exigencias_pdf').hide();
-                            $('.btn_laudo_exigencias_pdf_upload').hide();
-                            $('.btn_laudo_exigencias_pdf_view').show();
-                            $('.btn_laudo_exigencias_pdf_view').prop('disabled', false);
+                            @if($ajaxPrefixPermissaoSubmodulo == 'funcionarios')
+                                //Display divArquivosPdf
+                                $('#divArquivosPdf').show();
+                                $('#divArquivosPdfUpload').hide();
 
-                            $('.div_certificado_aprovacao_pdf').show();
-                            $('.input_certificado_aprovacao_pdf').hide();
-                            $('.btn_certificado_aprovacao_pdf_upload').hide();
-                            $('.btn_certificado_aprovacao_pdf_view').show();
-                            $('.btn_certificado_aprovacao_pdf_view').prop('disabled', false);
+                                //FuncionarioDocumentos
+                                funcionarioDocumentos = data.success['funcionarioDocumentos'];
 
-                            $('.div_certificado_aprovacao_simplificado_pdf').show();
-                            $('.input_certificado_aprovacao_simplificado_pdf').hide();
-                            $('.btn_certificado_aprovacao_simplificado_pdf_upload').hide();
-                            $('.btn_certificado_aprovacao_simplificado_pdf_view').show();
-                            $('.btn_certificado_aprovacao_simplificado_pdf_view').prop('disabled', false);
+                                montar_grade_documentos_funcionario(1);
+                            @endif
 
-                            $('.div_certificado_aprovacao_assistido_pdf').show();
-                            $('.input_certificado_aprovacao_assistido_pdf').hide();
-                            $('.btn_certificado_aprovacao_assistido_pdf_upload').hide();
-                            $('.btn_certificado_aprovacao_assistido_pdf_view').show();
-                            $('.btn_certificado_aprovacao_assistido_pdf_view').prop('disabled', false);
-                            //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+                            @if($ajaxPrefixPermissaoSubmodulo == 'users')
+                                users_configuracoes = data.success['users_configuracoes'];
+
+                                $.each(users_configuracoes, function(i, item) {
+                                    $('#grupo_id_'+item.empresa_id).val(item.grupo_id).trigger('change');
+                                    $('#situacao_id_'+item.empresa_id).val(item.situacao_id).trigger('change');
+                                    $('#sistema_acesso_id_'+item.empresa_id).val(item.sistema_acesso_id).trigger('change');
+                                    $('#layout_mode_'+item.empresa_id).val(item.layout_mode).trigger('change');
+                                    $('#layout_style_'+item.empresa_id).val(item.layout_style).trigger('change');
+                                });
+                            @endif
+
+                            @if($ajaxPrefixPermissaoSubmodulo == 'clientes_servicos')
+                                //Verificar botões''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+                                //Se servico_status_id for igual a 1(EXECUTADO) : Somente Visualização
+                                if (data.success.servico_status_id == 1) {
+                                    $('.crudFormButtons2 .editRecord').hide();
+                                    $('.crudFormButtons2 .deleteRecord').hide();
+                                } else {
+                                    $('.crudFormButtons2 .editRecord').show();
+                                    $('.crudFormButtons2 .deleteRecord').show();
+                                }
+                                //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+                                //Brigada de Incêndio'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+                                //Configuração conforme escala escolhida
+                                bi_configuracaoConformeEscala($('#bi_escala_tipo_id').val());
+
+                                //Preencher Grade Brigadistas
+                                cliente_servicos_brigadistas = data.success['cliente_servicos_brigadistas'];
+
+                                bi_limparGradeBrigadistas();
+
+                                $.each(cliente_servicos_brigadistas, function(i, item) {
+                                    //Dados para preenchera linha da grade
+                                    $('#bi_grade_funcionario_id').val(item.funcionario_id);
+                                    $('#bi_grade_funcionario_nome').val(item.funcionario_nome);
+                                    $('#bi_grade_ala').val(item.ala);
+
+                                    bi_gradeBrigadistasAtualizar(1);
+                                });
+                                //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
                             @endif
                             //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
                         } else if (data.error_not_found) {
@@ -471,6 +515,7 @@
 
                         //Limpar Formulário
                         $('#{{$ajaxNameFormSubmodulo}}').trigger('reset');
+                        $('.select2').val('').trigger('change');
 
                         //Lendo dados
                         if (data.success) {
@@ -497,8 +542,8 @@
                             $('.select2').prop('disabled', false);
 
                             //Botões do Modal
-                            $('#crudFormButtons1').show();
-                            $('#crudFormButtons2').hide();
+                            $('.crudFormButtons1').show();
+                            $('.crudFormButtons2').hide();
 
                             //Table Show/Hide
                             $('#crudTable').hide();
@@ -537,7 +582,32 @@
                             @endif
 
                             @if($ajaxPrefixPermissaoSubmodulo == 'users')
+                                //Não deixar alterar E-mail pelo submódulo Users
                                 $('#email').prop('readonly', true);
+
+                                //Verificar se pode alterar campo funcionario_id
+                                var user_operacoes_qtd = data.success['user_operacoes_qtd'];
+                                if (user_operacoes_qtd > 0) {$('#funcionario_id').prop('disabled', true);}
+
+                                //User Configurações
+                                var users_configuracoes = data.success['users_configuracoes'];
+
+                                $.each(users_configuracoes, function(i, item) {
+                                    $('#grupo_id_'+item.empresa_id).val(item.grupo_id).trigger('change');
+                                    $('#situacao_id_'+item.empresa_id).val(item.situacao_id).trigger('change');
+                                    $('#sistema_acesso_id_'+item.empresa_id).val(item.sistema_acesso_id).trigger('change');
+                                    $('#layout_mode_'+item.empresa_id).val(item.layout_mode).trigger('change');
+                                    $('#layout_style_'+item.empresa_id).val(item.layout_style).trigger('change');
+                                });
+                            @endif
+
+                            @if($ajaxPrefixPermissaoSubmodulo == 'servicos')
+                                //Verificar se pode alterar os campos name e servico_tipo_id - para não afetar outros submódulos
+                                var servico_readonly_campos = data.success['servico_readonly_campos'];
+                                if (servico_readonly_campos === true) {
+                                    $('#name').prop('readonly', true);
+                                    $('#servico_tipo_id').prop('disabled', true);
+                                }
                             @endif
 
                             @if($ajaxPrefixPermissaoSubmodulo == 'ferramentas')
@@ -602,148 +672,100 @@
                                 $.each(cliente_seguranca_medidas, function(i, item) {
                                     //marcar como checado
                                     $('#seguranca_medida_'+item.pavimento+'_'+item.seguranca_medida_id).attr('checked', true);
+
+                                    //Outros campos
+                                    $('#quantidade_'+item.pavimento+'_'+item.seguranca_medida_id).val(item.quantidade);
+                                    $('#tipo_'+item.pavimento+'_'+item.seguranca_medida_id).val(item.tipo);
+                                    $('#observacao_'+item.pavimento+'_'+item.seguranca_medida_id).val(item.observacao);
                                 });
 
                                 pavimentosShowHide();
                             @endif
 
                             @if($ajaxPrefixPermissaoSubmodulo == 'visitas_tecnicas')
-                                //Configurando campos iniciais''''''''''''''''''''''''''''''''''
-                                $('#divVisitaTecnicaStatusId').hide();
-                                //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+                                vt_configurarFormulario(data.success);
 
-                                //Montando Classificações do Cliente''''''''''''''''''''''''''''
-                                if ($('#visita_tecnica_status_id').val() == 1) {
-                                    montarFormVisitaGetCliente($('#cliente_id').val());
+                                if (!vt_preencherFormulario(data.success)) {
+                                    //Modal Show/Hide
+                                    $('#crudForm').hide();
+
+                                    //Table Show/Hide
+                                    $('#crudTable').show();
                                 }
 
-                                if ($('#visita_tecnica_status_id').val() == 2) {
-                                    montarFormVisitaGetVisita(data.success);
+                                //Alert para marcar Serviço como Finalizado'''''''''''''''''''''''''''''''''''''''''''''
+                                $('#executado_data').prop('disabled', true).prop('readonly', false);
+                                $('#executado_user_funcionario').prop('disabled', true).prop('readonly', false);
+                                $('#executado_user_id').prop('disabled', true).prop('readonly', false);
+
+                                $('#hrServicoExecutado').hide();
+                                $('#spanServicoExecutado').hide();
+
+                                if (data.success.executado_data == '' || data.success.executado_data === null) {
+                                    $('#executado_data').val(data.success.dados_servico_executado.executado_data);
+                                    $('#executado_user_funcionario').val(data.success.dados_servico_executado.executado_user_funcionario);
+                                    $('#executado_user_id').val(data.success.dados_servico_executado.executado_user_id);
+
+                                    $('#servico_executado').prop('checked', false);
+                                    $('#labelServicoExecutado').html('Visita não Finalizada');
+
+                                    $('#hrServicoExecutado').show();
+                                    $('#spanServicoExecutado').show();
+                                    $('#spanServicoExecutado').html('Ao verificar as Medidas de Segurança finalize a Visita aqui e confirme.');
+                                } else {
+                                    $('#executado_data').val(data.success.executado_data);
+                                    $('#executado_user_funcionario').val(data.success.executado_user_funcionario);
+                                    $('#executado_user_id').val(data.success.executado_user_id);
+
+                                    $('#servico_executado').prop('checked', true);
+                                    $('#labelServicoExecutado').html('Visita Finalizada');
                                 }
-                                //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+                                //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+                            @endif
 
-                            //Configurando campos input file''''''''''''''''''''''''''''''''
-                            $('.div_projeto_scip_pdf').show();
-                            $('.input_projeto_scip_pdf').show();
-                            $('.btn_projeto_scip_pdf_upload').show();
-                            $('.btn_projeto_scip_pdf_view').show();
+                            @if($ajaxPrefixPermissaoSubmodulo == 'funcionarios')
+                                //Display divArquivosPdf
+                                $('#divArquivosPdf').show();
+                                $('#divArquivosPdfUpload').show();
 
-                            $('.div_laudo_exigencias_pdf').show();
-                            $('.input_laudo_exigencias_pdf').show();
-                            $('.btn_laudo_exigencias_pdf_upload').show();
-                            $('.btn_laudo_exigencias_pdf_view').show();
+                                //FuncionarioDocumentos
+                                funcionarioDocumentos = data.success['funcionarioDocumentos'];
 
-                            $('.div_certificado_aprovacao_pdf').show();
-                            $('.input_certificado_aprovacao_pdf').show();
-                            $('.btn_certificado_aprovacao_pdf_upload').show();
-                            $('.btn_certificado_aprovacao_pdf_view').show();
+                                montar_grade_documentos_funcionario(2);
+                            @endif
 
-                            $('.div_certificado_aprovacao_simplificado_pdf').show();
-                            $('.input_certificado_aprovacao_simplificado_pdf').show();
-                            $('.btn_certificado_aprovacao_simplificado_pdf_upload').show();
-                            $('.btn_certificado_aprovacao_simplificado_pdf_view').show();
+                            @if($ajaxPrefixPermissaoSubmodulo == 'clientes_servicos')
+                                //Não deixar alterar o campo servico_id e cliente_id''''''''''''''''''''''''''''''''''''
+                                $('#servico_id').prop('disabled', true);
+                                //$('#cliente_id').prop('disabled', true);
+                                //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-                            $('.div_certificado_aprovacao_assistido_pdf').show();
-                            $('.input_certificado_aprovacao_assistido_pdf').show();
-                            $('.btn_certificado_aprovacao_assistido_pdf_upload').show();
-                            $('.btn_certificado_aprovacao_assistido_pdf_view').show();
-                            //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+
+
+
+
+                                //Brigada de Incêndio'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+                                //Configuração conforme escala escolhida
+                                bi_configuracaoConformeEscala($('#bi_escala_tipo_id').val());
+
+                                //Preencher Grade Brigadistas
+                                cliente_servicos_brigadistas = data.success['cliente_servicos_brigadistas'];
+
+                                bi_limparGradeBrigadistas();
+
+                                $.each(cliente_servicos_brigadistas, function(i, item) {
+                                    //Dados para preenchera linha da grade
+                                    $('#bi_grade_funcionario_id').val(item.funcionario_id);
+                                    $('#bi_grade_funcionario_nome').val(item.funcionario_nome);
+                                    $('#bi_grade_ala').val(item.ala);
+
+                                    bi_gradeBrigadistasAtualizar(1);
+                                });
+                                //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
                             @endif
                             //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-                        } else if (data.error_not_found) {
-                            //Removendo Máscaras
-                            removeMask();
-
-                            //Restaurando Máscaras
-                            putMask();
-
-                            alertSwal('warning', "Registro não encontrado", '', 'true', 2000);
-                        } else if (data.error_permissao) {
-                            //Removendo Máscaras
-                            removeMask();
-
-                            //Restaurando Máscaras
-                            putMask();
-
-                            alertSwal('warning', "Permissão Negada", '', 'true', 2000);
-                        } else {
-                            //Removendo Máscaras
-                            removeMask();
-
-                            //Restaurando Máscaras
-                            putMask();
-
-                            alert('Erro interno');
-                        }
-                    });
-                });
-
-                //Edit (Executar Visita Técnica)
-                $('body').on('click', '.editExecutarVisita', function () {
-                    //Campo hidden registro_id
-                    if ($(this).data('id') != 0) {
-                        $('#registro_id').val($(this).data('id'));
-                    }
-
-                    //Buscar dados do Registro
-                    $.get("{{$ajaxPrefixPermissaoSubmodulo}}/"+$('#registro_id').val()+"/edit", function (data) {
-                        //Limpar validações
-                        $('.is-invalid').removeClass('is-invalid');
-
-                        //Limpar Formulário
-                        $('#{{$ajaxNameFormSubmodulo}}').trigger('reset');
-
-                        //Lendo dados
-                        if (data.success) {
-                            //preencher formulário
-                            @foreach($ajaxNamesFieldsSubmodulo as $field)
-                                @if($field == 'id')
-                                    $('#registro_id').val(data.success.id);
-                                @else
-                                if ($('#{{$field}}').hasClass('select2')) {
-                                    $('#{{$field}}').val(data.success['{{$field}}']).trigger('change');
-                                } else {
-                                    $('#{{$field}}').val(data.success['{{$field}}']);
-                                }
-                                @endif
-                            @endforeach
-
-                            //Campo hidden frm_operacao
-                            $('#frm_operacao').val('edit');
-
-                            //Campos do Formulário - disabled true/false
-                            $('input').prop('disabled', false);
-                            $('textarea').prop('disabled', false);
-                            $('select').prop('disabled', false);
-                            $('.select2').prop('disabled', false);
-
-                            //Botões do Modal
-                            $('#crudFormButtons1').show();
-                            $('#crudFormButtons2').hide();
-
-                            //Table Show/Hide
-                            $('#crudTable').hide();
-
-                            //Modal Show/Hide
-                            $('#crudForm').show();
-
-                            //Removendo Máscaras
-                            removeMask();
-
-                            //Restaurando Máscaras
-                            putMask();
-
-                            //Configurando campos iniciais''''''''''''''''''''''''''''''''''
-                            $('#divVisitaTecnicaStatusId').hide();
-                            //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-
-                            //Alterando campo visita_tecnica_status_id''''''''''''''''''''''
-                            $('#visita_tecnica_status_id').val('2');
-                            //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-
-                            //Montando Classificações do Cliente''''''''''''''''''''''''''''
-                            montarFormVisitaGetVisita(data.success);
-                            //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
                         } else if (data.error_not_found) {
                             //Removendo Máscaras
                             removeMask();
@@ -782,12 +804,21 @@
                     //Confirmação de Delete
                     alertSwalConfirmacao(function (confirmed) {
                         if (confirmed) {
+                            //Settings'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+                            @if($ajaxPrefixPermissaoSubmodulo == 'clientes_servicos')
+                                //Confirmar exclusão, pois vai deletar a Visita Técnica''''''''''''''''
+                                var resultado = confirm("Essa operação irá afetar o que se refere a este Serviço. Confirma operação?");
+                                if (resultado == false) {return false;}
+                                //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+                            @endif
+                            //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
                             $.ajax({
                                 type: "DELETE",
                                 url: "{{$ajaxPrefixPermissaoSubmodulo}}/" + $('#registro_id').val(),
                                 beforeSend: function () {
                                     //Retirar DIV Botões e colocar DIV Loading
-                                    $('#crudFormButtons2').hide();
+                                    $('.crudFormButtons2').hide();
                                     $('#crudFormAjaxLoading').show();
                                 },
                                 success: function (response) {
@@ -804,7 +835,7 @@
                                         //Table
                                         tableContent('{{$ajaxPrefixPermissaoSubmodulo}}');
                                     } else if (response.error) {
-                                        alertSwal('success', "{{$ajaxNameSubmodulo}}", response.error, 'true', 2000);
+                                        alertSwal('error', "{{$ajaxNameSubmodulo}}", response.error, 'true', 2000);
 
                                         //Modal Show/Hide
                                         $('#crudForm').hide();
@@ -826,7 +857,7 @@
                                 complete: function () {
                                     //Retirar DIV Loading e colocar DIV Botões
                                     $('#crudFormAjaxLoading').hide()
-                                    $('#crudFormButtons2').show();
+                                    $('.crudFormButtons2').show();
                                 }
                             });
                         }
@@ -834,158 +865,108 @@
                 });
 
                 //Confirm Operacao
-                $('#crudFormConfirmOperacao').click(function (e) {
+                $('.crudFormConfirmOperacao').click(function (e) {
                     e.preventDefault();
 
                     //Verificar Validação feita com sucesso
                     if ($('#{{$ajaxNameFormSubmodulo}}').valid()) {
-                        //Removendo Máscaras
-                        removeMask();
+                        var executar = 1;
 
-                        //Confirm Operacao - Create
-                        if ($('#frm_operacao').val() == 'create') {
-                            $.ajax({
-                                data: $('#{{$ajaxNameFormSubmodulo}}').serialize(),
-                                url: "{{route($ajaxPrefixPermissaoSubmodulo.'.store')}}",
-                                type: "POST",
-                                dataType: "json",
-                                beforeSend: function () {
-                                    //Retirar DIV Botões e colocar DIV Loading
-                                    $('#crudFormButtons1').hide();
-                                    $('#crudFormAjaxLoading').show();
-                                },
-                                success: function (response) {
-                                    //Lendo dados
-                                    if (response.success) {
-                                        alertSwal('success', "{{$ajaxNameSubmodulo}}", response.success, 'true', 2000);
+                        @if($ajaxPrefixPermissaoSubmodulo == 'clientes_servicos')
+                            //Serviço Tipo 1: Brigada de Incêndio - Verificação''''''''''''''''''''''''''''''''''''''''''''''
+                            if ($('#servico_id option[value="'+$('#servico_id').val()+'"]').attr('data-servico_tipo_id') == 1) {
+                                if (bi_gradeBrigadistasVerificacao(2) === false) {executar = 0;}
+                            }
+                            //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-                                        //Limpar validações
-                                        $('.is-invalid').removeClass('is-invalid');
+                            //Serviço Tipo 3: Visita Técnica - Verificação'''''''''''''''''''''''''''''''''''''''''''''''''''
+                            if ($('#servico_id option[value="'+$('#servico_id').val()+'"]').attr('data-servico_tipo_id') == 3) {
+                                if (vt_verificacao() === false) {executar = 0;}
+                            }
+                            //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+                        @endif
 
-                                        //Limpar Formulário
-                                        $('#{{$ajaxNameFormSubmodulo}}').trigger('reset');
+                        if (executar == 1) {
+                            //Removendo Máscaras
+                            removeMask();
 
-                                        //Modal Show/Hide
-                                        $('#crudForm').hide();
+                            //Confirm Operacao - Create
+                            if ($('#frm_operacao').val() == 'create') {
+                                $.ajax({
+                                    data: $('#{{$ajaxNameFormSubmodulo}}').serialize(),
+                                    url: "{{$ajaxPrefixPermissaoSubmodulo}}",
+                                    type: "POST",
+                                    dataType: "json",
+                                    beforeSend: function () {
+                                        //Retirar DIV Botões e colocar DIV Loading
+                                        $('.crudFormButtons1').hide();
+                                        $('#crudFormAjaxLoading').show();
+                                    },
+                                    success: function (response) {
+                                        //Lendo dados
+                                        if (response.success) {
+                                            //Enviar E-mail'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+                                            @if($ajaxPrefixPermissaoSubmodulo == 'users')
+                                                email = $("#email").val();
+                                            senha = response.content;
+                                            senha = senha.substring(4, 14);
+                                            $.get("enviar_email/users/primeiro_acesso/" + email + "/" + senha);
+                                            @endif
+                                            //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-                                        //Table Show/Hide
-                                        $('#crudTable').show();
+                                            alertSwal('success', "{{$ajaxNameSubmodulo}}", response.success, 'true', 2000);
 
-                                        //Table
-                                        tableContent('{{$ajaxPrefixPermissaoSubmodulo}}');
-                                    } else if (response.error_validation) {
-                                        //Removendo Máscaras
-                                        removeMask();
+                                            //Limpar validações
+                                            $('.is-invalid').removeClass('is-invalid');
 
-                                        //Restaurando Máscaras
-                                        putMask();
+                                            //Limpar Formulário
+                                            $('#{{$ajaxNameFormSubmodulo}}').trigger('reset');
+                                            $('.select2').val('').trigger('change');
 
-                                        //Montar mensage de erro de Validação
-                                        message = '<div class="pt-3">';
-                                        $.each(response.error_validation, function (index, value) {
-                                            message += '<div class="col-12 text-start font-size-12"><b>></b> ' + value + '</div>';
-                                        });
-                                        message += '</div>';
+                                            //Modal Show/Hide
+                                            $('#crudForm').hide();
 
-                                        alertSwal('warning', "Validação", message, 'true', 20000);
-                                    } else if (response.error_permissao) {
-                                        //Removendo Máscaras
-                                        removeMask();
+                                            //Table Show/Hide
+                                            $('#crudTable').show();
 
-                                        //Restaurando Máscaras
-                                        putMask();
+                                            //Table
+                                            tableContent('{{$ajaxPrefixPermissaoSubmodulo}}');
+                                        } else if (response.error_validation) {
+                                            //Removendo Máscaras
+                                            removeMask();
 
-                                        alertSwal('warning', "Permissão Negada", '', 'true', 2000);
-                                    } else {
-                                        //Removendo Máscaras
-                                        removeMask();
+                                            //Restaurando Máscaras
+                                            putMask();
 
-                                        //Restaurando Máscaras
-                                        putMask();
+                                            //Montar mensage de erro de Validação
+                                            message = '<div class="pt-3">';
+                                            $.each(response.error_validation, function (index, value) {
+                                                message += '<div class="col-12 text-start font-size-12"><b>></b> ' + value + '</div>';
+                                            });
+                                            message += '</div>';
 
-                                        alert('Erro interno');
-                                    }
-                                },
-                                error: function (data) {
-                                    //Removendo Máscaras
-                                    removeMask();
+                                            alertSwal('warning', "Validação", message, 'true', 20000);
+                                        } else if (response.error_permissao) {
+                                            //Removendo Máscaras
+                                            removeMask();
 
-                                    //Restaurando Máscaras
-                                    putMask();
+                                            //Restaurando Máscaras
+                                            putMask();
 
-                                    alert('Erro interno');
-                                },
-                                complete: function () {
-                                    //Retirar DIV Loading e colocar DIV Botões
-                                    $('#crudFormAjaxLoading').hide()
-                                    $('#crudFormButtons1').show();
-                                }
-                            });
-                        }
+                                            alertSwal('warning', "Permissão Negada", '', 'true', 2000);
+                                        } else if (response.error) {
+                                            alertSwal('warning', "{{$ajaxNameSubmodulo}}", response.error, 'true', 20000);
+                                        } else {
+                                            //Removendo Máscaras
+                                            removeMask();
 
-                        //Confirm Operacao - Edit
-                        if ($('#frm_operacao').val() == 'edit') {
-                            $.ajax({
-                                data: $('#{{$ajaxNameFormSubmodulo}}').serialize(),
-                                url: "{{$ajaxPrefixPermissaoSubmodulo}}/"+$('#registro_id').val(),
-                                type: "PUT",
-                                dataType: "json",
-                                beforeSend: function () {
-                                    //Retirar DIV Botões e colocar DIV Loading
-                                    $('#crudFormButtons1').hide();
-                                    $('#crudFormAjaxLoading').show();
-                                },
-                                success: function (response) {
-                                    //Lendo dados
-                                    if (response.success) {
-                                        alertSwal('success', "{{$ajaxNameSubmodulo}}", response.success, 'true', 2000);
+                                            //Restaurando Máscaras
+                                            putMask();
 
-                                        //Limpar validações
-                                        $('.is-invalid').removeClass('is-invalid');
-
-                                        //Limpar Formulário
-                                        $('#{{$ajaxNameFormSubmodulo}}').trigger('reset');
-
-                                        //Modal Show/Hide
-                                        $('#crudForm').hide();
-
-                                        //Table Show/Hide
-                                        $('#crudTable').show();
-
-                                        //Table
-                                        tableContent('{{$ajaxPrefixPermissaoSubmodulo}}');
-                                    } else if (response.error_validation) {
-                                        //Removendo Máscaras
-                                        removeMask();
-
-                                        //Restaurando Máscaras
-                                        putMask();
-
-                                        //Montar mensage de erro de Validação
-                                        message = '<div class="pt-3">';
-                                        $.each(response.error_validation, function (index, value) {
-                                            message += '<div class="col-12 text-start font-size-12"><b>></b> ' + value + '</div>';
-                                        });
-                                        message += '</div>';
-
-                                        alertSwal('warning', "Validação", message, 'true', 20000);
-                                    } else if (response.error_not_found) {
-                                        //Removendo Máscaras
-                                        removeMask();
-
-                                        //Restaurando Máscaras
-                                        putMask();
-
-                                        alertSwal('warning', "Registro não encontrado", '', 'true', 2000);
-                                    } else if (response.error_permissao) {
-                                        //Removendo Máscaras
-                                        removeMask();
-
-                                        //Restaurando Máscaras
-                                        putMask();
-
-                                        alertSwal('warning', "Permissão Negada", '', 'true', 2000);
-                                    } else {
+                                            alert('Erro interno');
+                                        }
+                                    },
+                                    error: function (data) {
                                         //Removendo Máscaras
                                         removeMask();
 
@@ -993,23 +974,121 @@
                                         putMask();
 
                                         alert('Erro interno');
+                                    },
+                                    complete: function () {
+                                        //Retirar DIV Loading e colocar DIV Botões
+                                        $('#crudFormAjaxLoading').hide()
+                                        $('.crudFormButtons1').show();
                                     }
-                                },
-                                error: function (data) {
-                                    //Removendo Máscaras
-                                    removeMask();
+                                });
+                            }
 
-                                    //Restaurando Máscaras
-                                    putMask();
+                            //Confirm Operacao - Edit
+                            if ($('#frm_operacao').val() == 'edit') {
+                                //Settings'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+                                @if($ajaxPrefixPermissaoSubmodulo == 'clientes_servicos')
+                                    //Não deixar alterar o campo servico_id e cliente_id (revertendo)'''''''''''''''''''
+                                    $('#servico_id').prop('disabled', false);
+                                    //$('#cliente_id').prop('disabled', false);
+                                    //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-                                    alert('Erro interno');
-                                },
-                                complete: function () {
-                                    //Retirar DIV Loading e colocar DIV Botões
-                                    $('#crudFormAjaxLoading').hide()
-                                    $('#crudFormButtons1').show();
-                                }
-                            });
+                                    //Confirmar alteração, pois pode afetar a Visita Técnica''''''''''''''''''''''''''''
+                                    var resultado = confirm("Essa operação irá afetar o que se refere a este Serviço. Confirma operação?");
+                                    if (resultado == false) {return false;}
+                                    //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+                                @endif
+                                //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+                                $.ajax({
+                                    data: $('#{{$ajaxNameFormSubmodulo}}').serialize(),
+                                    url: "{{$ajaxPrefixPermissaoSubmodulo}}/" + $('#registro_id').val(),
+                                    type: "PUT",
+                                    dataType: "json",
+                                    beforeSend: function () {
+                                        //Retirar DIV Botões e colocar DIV Loading
+                                        $('.crudFormButtons1').hide();
+                                        $('#crudFormAjaxLoading').show();
+                                    },
+                                    success: function (response) {
+                                        //Lendo dados
+                                        if (response.success) {
+                                            alertSwal('success', "{{$ajaxNameSubmodulo}}", response.success, 'true', 2000);
+
+                                            //Limpar validações
+                                            $('.is-invalid').removeClass('is-invalid');
+
+                                            //Limpar Formulário
+                                            $('#{{$ajaxNameFormSubmodulo}}').trigger('reset');
+                                            $('.select2').val('').trigger('change');
+
+                                            //Modal Show/Hide
+                                            $('#crudForm').hide();
+
+                                            //Table Show/Hide
+                                            $('#crudTable').show();
+
+                                            //Table
+                                            tableContent('{{$ajaxPrefixPermissaoSubmodulo}}');
+                                        } else if (response.error_validation) {
+                                            //Removendo Máscaras
+                                            removeMask();
+
+                                            //Restaurando Máscaras
+                                            putMask();
+
+                                            //Montar mensage de erro de Validação
+                                            message = '<div class="pt-3">';
+                                            $.each(response.error_validation, function (index, value) {
+                                                message += '<div class="col-12 text-start font-size-12"><b>></b> ' + value + '</div>';
+                                            });
+                                            message += '</div>';
+
+                                            alertSwal('warning', "Validação", message, 'true', 20000);
+                                        } else if (response.error_not_found) {
+                                            //Removendo Máscaras
+                                            removeMask();
+
+                                            //Restaurando Máscaras
+                                            putMask();
+
+                                            alertSwal('warning', "Registro não encontrado", '', 'true', 2000);
+                                        } else if (response.error_permissao) {
+                                            //Removendo Máscaras
+                                            removeMask();
+
+                                            //Restaurando Máscaras
+                                            putMask();
+
+                                            alertSwal('warning', "Permissão Negada", '', 'true', 2000);
+                                        } else if (response.error) {
+                                            alertSwal('warning', "{{$ajaxNameSubmodulo}}", response.error, 'true', 20000);
+                                        } else {
+                                            //Removendo Máscaras
+                                            removeMask();
+
+                                            //Restaurando Máscaras
+                                            putMask();
+
+                                            alert('Erro interno');
+                                        }
+                                    },
+                                    error: function (data) {
+                                        //Removendo Máscaras
+                                        removeMask();
+
+                                        //Restaurando Máscaras
+                                        putMask();
+
+                                        alert('Erro interno');
+                                    },
+                                    complete: function () {
+                                        //Retirar DIV Loading e colocar DIV Botões
+                                        $('#crudFormAjaxLoading').hide()
+                                        $('.crudFormButtons1').show();
+                                    }
+                                });
+                            }
                         }
                     }
                 });
@@ -1025,7 +1104,7 @@
                     $('#crudTable').show();
                 });
 
-                //Configurações'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+                //Configurações'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
                 //Select2
                 if ($('select').hasClass('select2')) {
@@ -1054,13 +1133,14 @@
     //DESENVOLVIMENTO (IRDIRETO PARA O FORMULARIO CREATE)'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     //DESENVOLVIMENTO (IRDIRETO PARA O FORMULARIO CREATE)'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     @if(isset($ajaxPrefixPermissaoSubmodulo))
-        @if($ajaxPrefixPermissaoSubmodulo == 'visitas_tecnicasxxx')
+        @if($ajaxPrefixPermissaoSubmodulo == 'xxxxxx')
             $.get("{{$ajaxPrefixPermissaoSubmodulo}}/create", function (data) {
                 //Limpar validações
                 $('.is-invalid').removeClass('is-invalid');
 
                 //Limpar Formulário
                 $('#{{$ajaxNameFormSubmodulo}}').trigger('reset');
+                $('.select2').val('').trigger('change');
 
                 //Lendo dados
                 if (data.success) {
@@ -1074,8 +1154,8 @@
                     $('.select2').prop('disabled', false);
 
                     //Botões do Modal
-                    $('#crudFormButtons1').show();
-                    $('#crudFormButtons2').hide();
+                    $('.crudFormButtons1').show();
+                    $('.crudFormButtons2').hide();
 
                     //Table Show/Hide
                     $('#crudTable').hide();

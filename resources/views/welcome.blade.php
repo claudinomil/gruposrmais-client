@@ -23,15 +23,13 @@
                         <span class="text-light">Sistema de Administração e Controle</span>
                     </div>
 
-                    <form id="frm_login" method="get" action="{{ route('login') }}">
-                        @csrf
-
-                        <div class="col-12 pt-5">
-                            <h1 class="text-center">
-                                <a class="text-light" href="javascript:frm_login.submit()">Login</a>
-                            </h1>
+                    <div class="col-12 text-center pt-5">
+                        <div class="row">
+                            <div class="col">
+                                <a class="text-light font-size-24" href="{{route('login')}}">Login</a>
+                            </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>

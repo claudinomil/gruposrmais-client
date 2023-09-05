@@ -9,6 +9,9 @@ $(document).ready(function () {
                 servico_tipo_id: {
                     required: true,
                     idMethod: true
+                },
+                valor: {
+                    required: true
                 }
             },
             errorElement: 'span',

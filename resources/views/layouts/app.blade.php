@@ -24,7 +24,7 @@
 
         <!-- Loader -->
         <div id="preloader">
-            <div id="status">
+            <div id="statusPreloader">
                 <div class="spinner-chase">
                     <div class="chase-dot"></div>
                     <div class="chase-dot"></div>
@@ -74,7 +74,12 @@
             sessionStorage.setItem("is_visited_mode", "{{$userLoggedData['layout_mode']}}");
 
             //Style
-            sessionStorage.setItem("is_visited_style", "{{$userLoggedData['layout_style']}}");
+            @if(session('access_device') == 'desktop')
+                sessionStorage.setItem("is_visited_style", "{{$userLoggedData['layout_style']}}");
+            @else
+                //se for acesso pelo mobile forçar menu superior
+                sessionStorage.setItem("is_visited_style", "layout_style_horizontal_boxed_width");
+            @endif
         </script>
 
         <!-- javascript -->

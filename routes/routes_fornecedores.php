@@ -14,5 +14,4 @@ Route::prefix('fornecedores')->group(function () {
     Route::get('/search/{field}/{value}', [FornecedorController::class, 'search'])->name('fornecedores.search');
 
     Route::get('/extradata/{id}', [FornecedorController::class, 'extradata']);
-    Route::post('/uploadfoto', [FornecedorController::class, 'uploadfoto'])->name('fornecedores.uploadfoto');
 });

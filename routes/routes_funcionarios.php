@@ -15,4 +15,7 @@ Route::prefix('funcionarios')->group(function () {
 
     Route::get('/extradata/{id}', [FuncionarioController::class, 'extradata']);
     Route::post('/uploadfoto', [FuncionarioController::class, 'uploadfoto'])->name('funcionarios.uploadfoto');
+
+    Route::post('/documento_upload/{documento_upload_descricao}', [FuncionarioController::class, 'documento_upload'])->name('funcionarios.documento_upload');
+    Route::delete('/deletar_documento/{funcionario_documento_id}', [FuncionarioController::class, 'deletar_documento'])->name('funcionarios.deletar_documento');
 });

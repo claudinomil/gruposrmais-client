@@ -4,30 +4,22 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <div class="modal-buttons" id="crudFormButtons1">
-                        <!-- store or update -->
-                        @if(\App\Facades\Permissoes::permissao([$ajaxPrefixPermissaoSubmodulo.'_create', $ajaxPrefixPermissaoSubmodulo.'_edit'], $userLoggedPermissoes))
+                    <div class="modal-buttons crudFormButtons1">
+                        <!-- update -->
+                        @if(\App\Facades\Permissoes::permissao([$ajaxPrefixPermissaoSubmodulo.'_edit'], $userLoggedPermissoes))
                             <!-- Botão Confirnar Operação -->
-                            <button type="button" class="btn btn-success waves-effect btn-label waves-light" data-bs-toggle="tooltip" data-bs-placement="top" title="Confirmar Operação" id="crudFormConfirmOperacao"><i class="fa fa-save label-icon"></i> Confirmar</button>
+                            <button type="button" class="btn btn-success waves-effect btn-label waves-light crudFormConfirmOperacao" data-bs-toggle="tooltip" data-bs-placement="top" title="Confirmar Operação"><i class="fa fa-save label-icon"></i> Confirmar</button>
                         @endif
 
                         <!-- Botão Cancelar Operação -->
                         <button type="button" class="btn btn-secondary waves-effect btn-label waves-light crudFormCancelOperacao" data-bs-toggle="tooltip" data-bs-placement="top" title="Cancelar Operação"><i class="fa fa-arrow-left label-icon"></i> Cancelar</button>
                     </div>
-                    <div class="modal-buttons" id="crudFormButtons2">
-                        <!-- edit or delete -->
+                    <div class="modal-buttons crudFormButtons2">
+                        <!-- edit -->
                         @if(\App\Facades\Permissoes::permissao([$ajaxPrefixPermissaoSubmodulo.'_edit'], $userLoggedPermissoes))
                             <!-- Botão Alterar Registro -->
-                                <button type="button" class="btn btn-primary waves-effect btn-label waves-light editRecord" data-bs-toggle="tooltip" data-bs-placement="top" data-id="0" title="Alterar Registro"><i class="fas fa-pencil-alt label-icon"></i> Alterar</button>
+                            <button type="button" class="btn btn-primary waves-effect btn-label waves-light editRecord" data-bs-toggle="tooltip" data-bs-placement="top" data-id="0" title="Alterar Registro"><i class="fas fa-pencil-alt label-icon"></i> Alterar</button>
                         @endif
-
-                        @if(\App\Facades\Permissoes::permissao([$ajaxPrefixPermissaoSubmodulo.'_destroy'], $userLoggedPermissoes))
-                            <!-- Botão Excluir Registro -->
-                                <button type="button" class="btn btn-danger waves-effect btn-label waves-light deleteRecord" data-bs-toggle="tooltip" data-bs-placement="top" data-id="0" title="Excluir Registro"><i class="fa fa-trash-alt label-icon"></i> Excluir</button>
-                        @endif
-
-                        <!-- Botão Extra -->
-                        <button type="button" class="btn btn-warning waves-effect btn-label waves-light" data-bs-toggle="modal" data-bs-target=".modal-visita-tecnica" onclick="visitaTecnicaExtraData();" data-id="0"><i class="bx bx-photo-album label-icon"></i> Extra</button>
 
                         <!-- Botão Cancelar Operação -->
                         <button type="button" class="btn btn-secondary waves-effect btn-label waves-light crudFormCancelOperacao" data-bs-toggle="tooltip" data-bs-placement="top" title="Cancelar Operação"><i class="fa fa-arrow-left label-icon"></i> Cancelar</button>
@@ -50,51 +42,66 @@
                             <input type="hidden" id="registro_id" name="registro_id">
 
                             <div class="row mt-4">
-                                <div class="row pt-4">
-                                    <h5 class="pb-4 text-primary"><i class="fas fa-list"></i> Informa&ccedil;&otilde;es Gerais</h5>
-                                    <div class="form-group col-12 col-md-3 pb-3" id="divVisitaTecnicaStatusId" style="display:nonex;">
-                                        <label class="form-label">Status</label>
-                                        <select class="form-select" name="visita_tecnica_status_id" id="visita_tecnica_status_id" required="required">
-                                            <option value="">Selecione...</option>
-
-                                            @foreach ($visita_tecnica_status as $key => $status)
-                                                <option value="{{ $status['id'] }}">{{ $status['name'] }}</option>
-                                            @endforeach
-
-                                        </select>
+                                <div class="row pt-4" id="divInformacoesServico">
+                                    <h5 class="pb-4 text-primary"><i class="fas fa-list"></i> Informa&ccedil;&otilde;es do Serviço</h5>
+                                    <div class="form-group col-12 col-md-5 pb-3">
+                                        <label class="form-label col-12">Cliente</label>
+                                        <input type="text" class="form-control" id="is_cliente" name="is_cliente" readonly>
                                     </div>
-                                    <div class="form-group col-12 col-md-12 pb-3">
-                                        <label class="form-label">Cliente</label>
-                                        <select class="select2 form-control" name="cliente_id" id="cliente_id" required="required">
-                                            <option value="">Selecione...</option>
-
-                                            @foreach ($clientes as $key => $cliente)
-                                                <option value="{{ $cliente['id'] }}">{{ $cliente['name'] }}</option>
-                                            @endforeach
-
-                                        </select>
+                                    <div class="form-group col-12 col-md-2 pb-3">
+                                        <label class="form-label col-12">Status do Serviço</label>
+                                        <input type="text" class="form-control" id="is_servico_status" name="is_servico_status" readonly>
                                     </div>
-                                    <div class="form-group col-12 col-md-9 pb-3">
-                                        <label class="form-label">Responsável</label>
-                                        <select class="select2 form-control" name="responsavel_funcionario_id" id="responsavel_funcionario_id">
-                                            <option value="">Selecione...</option>
-
-                                            @foreach ($funcionarios as $key => $funcionario)
-                                                <option value="{{ $funcionario['id'] }}">{{ $funcionario['name'] }}</option>
-                                            @endforeach
-
-                                        </select>
+                                    <div class="form-group col-12 col-md-5 pb-3">
+                                        <label class="form-label col-12">Funcionário Responsável</label>
+                                        <input type="text" class="form-control" id="is_responsavel_funcionario" name="is_responsavel_funcionario" readonly>
                                     </div>
-                                    <div class="form-group col-12 col-md-3 pb-3">
-                                        <label class="form-label">Data Visita</label>
-                                        <input type="text" class="form-control mask_date" id="data_visita" name="data_visita" required>
+                                    <div class="form-group col-12 col-md-2 pb-3">
+                                        <label class="form-label">Data Início</label>
+                                        <input type="text" class="form-control mask_date" id="is_data_inicio" name="is_data_inicio" readonly>
                                     </div>
+                                    <div class="form-group col-12 col-md-2 pb-3">
+                                        <label class="form-label">Data Fim</label>
+                                        <input type="text" class="form-control mask_date" id="is_data_fim" name="is_data_fim" readonly>
+                                    </div>
+                                    <div class="form-group col-12 col-md-2 pb-3">
+                                        <label class="form-label">Data Vencimento</label>
+                                        <input type="text" class="form-control mask_date" id="is_data_vencimento" name="is_data_vencimento" readonly>
+                                    </div>
+                                    <div class="form-group col-12 col-md-2 pb-3">
+                                        <label class="form-label text-end">Valor</label>
+                                        <input type="text" class="form-control text-end mask_money" id="is_valor" name="is_valor" readonly>
+                                    </div>
+
+                                    <!-- Alert para marcar Serviço como Finalizado -->
+                                    <div class="alert alert-success mx-2" role="alert">
+                                        <div class="row">
+                                            <div class="form-group col-12 col-md-4">
+                                                <div class="form-check form-switch form-switch-lg" dir="ltr">
+                                                    <input class="form-check-input" type="checkbox" id="servico_executado" name="servico_executado">
+                                                    <label class="form-label" for="servico_executado" id="labelServicoExecutado"></label>
+                                                    <hr class="mt-0 mb-0" id="hrServicoExecutado">
+                                                    <span class="small" id="spanServicoExecutado"></span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-12 col-md-2">
+                                                <label class="form-label">Data da Execução</label>
+                                                <input type="text" class="form-control mask_date" id="executado_data" name="executado_data" disabled="true" readonly="true">
+                                            </div>
+                                            <div class="form-group col-12 col-md-6">
+                                                <label class="form-label">Funcionário que Executou</label>
+                                                <input type="text" class="form-control" id="executado_user_funcionario" name="executado_user_funcionario" disabled="true" readonly="true">
+                                                <input type="text" id="executado_user_id" name="executado_user_id" disabled="true" readonly="true">
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
 
-                                <div class="row pt-4" id="divClienteClassificacao" style="display:none;">
+                                <div class="row pt-4" id="divClassificacaoDecreto">
                                     <h5 class="pb-4 text-primary"><i class="fas fa-clipboard"></i> Classificação (DECRETO Nº 42, DE 17 DE DEZEMBRO DE 2018)</h5>
 
-                                    <div class="row pt-3 ps-4">
+                                    <div class="row pt-3 ps-4" id="divClassificacaoDecretoInformacoesGerais">
                                         <h6 class="pb-3 text-success"><i class="fa fa-list"></i> Informações Gerais</h6>
                                         <div class="form-group col-6 col-md-2 pb-3">
                                             <label class="form-label">Número Pavimentos</label>
@@ -139,14 +146,14 @@
                                     </div>
 
                                     <input type="hidden" id="projeto_scip" name="projeto_scip" value="0">
-                                    <div class="row pt-3 ps-4" id="divProjetoScip" style="display: none;">
+                                    <div class="row pt-3 ps-4" id="divProjetoScip">
                                         <h6 class="pb-3 text-success"><i class="fa fa-list"></i> Projeto SCIP</h6>
                                         <div class="form-group col-12 col-md-3 pb-3">
                                             <label class="form-label">Número</label>
-                                            <input type="text" class="form-control" id="projeto_scip_numero" name="projeto_scip_numero" readonly>
+                                            <input type="text" class="form-control" id="projeto_scip_numero" name="projeto_scip_numero">
                                         </div>
 
-                                        <div class="form-group col-12 col-md-3 pb-3 div_projeto_scip_pdf">
+                                        <div class="form-group col-12 col-md-6 pb-3">
                                             <label class="form-label">Arquivo PDF</label>
                                             <div class="row">
                                                 <div class="input-group">
@@ -160,21 +167,21 @@
                                     </div>
 
                                     <input type="hidden" id="laudo_exigencias" name="laudo_exigencias" value="0">
-                                    <div class="row pt-3 ps-4" id="divLaudoExigencias" style="display: none;">
+                                    <div class="row pt-3 ps-4" id="divLaudoExigencias">
                                         <h6 class="pb-3 text-success"><i class="fa fa-list"></i> Laudo de Exigências</h6>
                                         <div class="form-group col-12 col-md-3 pb-3">
                                             <label class="form-label">Número</label>
-                                            <input type="text" class="form-control" id="laudo_exigencias_numero" name="laudo_exigencias_numero" readonly>
+                                            <input type="text" class="form-control" id="laudo_exigencias_numero" name="laudo_exigencias_numero">
                                         </div>
-                                        <div class="form-group col-6 col-md-3 pb-3">
+                                        <div class="form-group col-6 col-md-2 pb-3">
                                             <label class="form-label">Emissão</label>
-                                            <input type="text" class="form-control" id="laudo_exigencias_data_emissao" name="laudo_exigencias_data_emissao" readonly>
+                                            <input type="text" class="form-control mask_date" id="laudo_exigencias_data_emissao" name="laudo_exigencias_data_emissao">
                                         </div>
-                                        <div class="form-group col-6 col-md-3 pb-3">
+                                        <div class="form-group col-6 col-md-2 pb-3">
                                             <label class="form-label">Vencimento</label>
-                                            <input type="text" class="form-control" id="laudo_exigencias_data_vencimento" name="laudo_exigencias_data_vencimento" readonly>
+                                            <input type="text" class="form-control mask_date" id="laudo_exigencias_data_vencimento" name="laudo_exigencias_data_vencimento">
                                         </div>
-                                        <div class="form-group col-12 col-md-3 pb-3 div_laudo_exigencias_pdf">
+                                        <div class="form-group col-12 col-md-5 pb-3">
                                             <label class="form-label">Arquivo PDF</label>
                                             <div class="row">
                                                 <div class="input-group">
@@ -188,13 +195,13 @@
                                     </div>
 
                                     <input type="hidden" id="certificado_aprovacao" name="certificado_aprovacao" value="0">
-                                    <div class="row pt-3 ps-4" id="divCertificadoAprovacao" style="display: none;">
+                                    <div class="row pt-3 ps-4" id="divCertificadoAprovacao">
                                         <h6 class="pb-3 text-success"><i class="fa fa-list"></i> Certificado de Aprovação</h6>
                                         <div class="form-group col-12 col-md-3 pb-3">
                                             <label class="form-label">Número</label>
-                                            <input type="text" class="form-control" id="certificado_aprovacao_numero" name="certificado_aprovacao_numero" readonly>
+                                            <input type="text" class="form-control" id="certificado_aprovacao_numero" name="certificado_aprovacao_numero">
                                         </div>
-                                        <div class="form-group col-12 col-md-3 pb-3 div_certificado_aprovacao_pdf">
+                                        <div class="form-group col-12 col-md-6 pb-3">
                                             <label class="form-label">Arquivo PDF</label>
                                             <div class="row">
                                                 <div class="input-group">
@@ -208,13 +215,13 @@
                                     </div>
 
                                     <input type="hidden" id="certificado_aprovacao_simplificado" name="certificado_aprovacao_simplificado" value="0">
-                                    <div class="row pt-3 ps-4" id="divCertificadoAprovacaoSimplificado" style="display: none;">
+                                    <div class="row pt-3 ps-4" id="divCertificadoAprovacaoSimplificado">
                                         <h6 class="pb-3 text-success"><i class="fa fa-list"></i> Certificado de Aprovação Simplificado</h6>
                                         <div class="form-group col-12 col-md-3 pb-3">
                                             <label class="form-label">Número</label>
-                                            <input type="text" class="form-control" id="certificado_aprovacao_simplificado_numero" name="certificado_aprovacao_simplificado_numero" readonly>
+                                            <input type="text" class="form-control" id="certificado_aprovacao_simplificado_numero" name="certificado_aprovacao_simplificado_numero">
                                         </div>
-                                        <div class="form-group col-12 col-md-3 pb-3 div_certificado_aprovacao_simplificado_pdf">
+                                        <div class="form-group col-12 col-md-6 pb-3">
                                             <label class="form-label">Arquivo PDF</label>
                                             <div class="row">
                                                 <div class="input-group">
@@ -228,13 +235,13 @@
                                     </div>
 
                                     <input type="hidden" id="certificado_aprovacao_assistido" name="certificado_aprovacao_assistido" value="0">
-                                    <div class="row pt-3 ps-4" id="divCertificadoAprovacaoAssistido" style="display: none;">
+                                    <div class="row pt-3 ps-4" id="divCertificadoAprovacaoAssistido">
                                         <h6 class="pb-3 text-success"><i class="fa fa-list"></i> Certificado de Aprovação Assistido</h6>
                                         <div class="form-group col-12 col-md-3 pb-3">
                                             <label class="form-label">Número</label>
-                                            <input type="text" class="form-control" id="certificado_aprovacao_assistido_numero" name="certificado_aprovacao_assistido_numero" readonly>
+                                            <input type="text" class="form-control" id="certificado_aprovacao_assistido_numero" name="certificado_aprovacao_assistido_numero">
                                         </div>
-                                        <div class="form-group col-12 col-md-3 pb-3 div_certificado_aprovacao_assistido_pdf">
+                                        <div class="form-group col-12 col-md-6 pb-3">
                                             <label class="form-label">Arquivo PDF</label>
                                             <div class="row">
                                                 <div class="input-group">
@@ -256,6 +263,27 @@
                             </div>
                         </fieldset>
                     </form>
+
+                    <div class="modal-buttons crudFormButtons1">
+                        <!-- update -->
+                        @if(\App\Facades\Permissoes::permissao([$ajaxPrefixPermissaoSubmodulo.'_edit'], $userLoggedPermissoes))
+                            <!-- Botão Confirnar Operação -->
+                            <button type="button" class="btn btn-success waves-effect btn-label waves-light crudFormConfirmOperacao" data-bs-toggle="tooltip" data-bs-placement="top" title="Confirmar Operação"><i class="fa fa-save label-icon"></i> Confirmar</button>
+                        @endif
+
+                        <!-- Botão Cancelar Operação -->
+                        <button type="button" class="btn btn-secondary waves-effect btn-label waves-light crudFormCancelOperacao" data-bs-toggle="tooltip" data-bs-placement="top" title="Cancelar Operação"><i class="fa fa-arrow-left label-icon"></i> Cancelar</button>
+                    </div>
+                    <div class="modal-buttons crudFormButtons2">
+                        <!-- edit -->
+                        @if(\App\Facades\Permissoes::permissao([$ajaxPrefixPermissaoSubmodulo.'_edit'], $userLoggedPermissoes))
+                            <!-- Botão Alterar Registro -->
+                            <button type="button" class="btn btn-primary waves-effect btn-label waves-light editRecord" data-bs-toggle="tooltip" data-bs-placement="top" data-id="0" title="Alterar Registro"><i class="fas fa-pencil-alt label-icon"></i> Alterar</button>
+                        @endif
+
+                        <!-- Botão Cancelar Operação -->
+                        <button type="button" class="btn btn-secondary waves-effect btn-label waves-light crudFormCancelOperacao" data-bs-toggle="tooltip" data-bs-placement="top" title="Cancelar Operação"><i class="fa fa-arrow-left label-icon"></i> Cancelar</button>
+                    </div>
                 </div>
             </div>
         </div>

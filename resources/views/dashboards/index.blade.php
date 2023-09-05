@@ -1,9 +1,3 @@
-{{--@php if (session('access_device') == 'mobile') {$extend = 'Mobile.layouts.app';} @endphp--}}
-{{--@php if (session('access_device') == 'tablet') {$extend = 'Mobile.layouts.app';} @endphp--}}
-{{--@php if (session('access_device') == 'desktop') {$extend = 'layouts.app';} @endphp--}}
-
-{{--@extends($extend)--}}
-
 @extends('layouts.app')
 
 @section('title') Dashboards @endsection
@@ -37,7 +31,11 @@
 
                                     @foreach($content['dashboardsUsersGrupos'] as $grupo)
                                         @php
+                                        if ($content['dashboardsUsersQtd'] != 0) {
                                             $percentual = ($grupo['qtd'] / $content['dashboardsUsersQtd']) * 100;
+                                        } else {
+                                            $percentual = 0;
+                                        }
                                         @endphp
 
                                         <tr>
@@ -61,7 +59,11 @@
 
                                     @foreach($content['dashboardsUsersSituacoes'] as $situacao)
                                         @php
+                                        if ($content['dashboardsUsersQtd'] != 0) {
                                             $percentual = ($situacao['qtd'] / $content['dashboardsUsersQtd']) * 100;
+                                        } else {
+                                            $percentual = 0;
+                                        }
                                         @endphp
 
                                         <tr>
@@ -102,7 +104,11 @@
 
                                     @foreach($content['dashboardsFuncionariosFuncoes'] as $funcao)
                                         @php
+                                        if ($content['dashboardsFuncionariosQtd'] != 0) {
                                             $percentual = ($funcao['qtd'] / $content['dashboardsFuncionariosQtd']) * 100;
+                                        } else {
+                                            $percentual = 0;
+                                        }
                                         @endphp
 
                                         <tr>
@@ -126,7 +132,11 @@
 
                                     @foreach($content['dashboardsFuncionariosGeneros'] as $genero)
                                         @php
+                                        if ($content['dashboardsFuncionariosQtd'] != 0) {
                                             $percentual = ($genero['qtd'] / $content['dashboardsFuncionariosQtd']) * 100;
+                                        } else {
+                                            $percentual = 0;
+                                        }
                                         @endphp
 
                                         <tr>
@@ -171,7 +181,11 @@
                                             if ($status['status'] == 1) {$status_name = 'Ativo';}
                                             if ($status['status'] == 2) {$status_name = 'Inativo';}
 
-                                            $percentual = ($status['qtd'] / $content['dashboardsClientesQtd']) * 100;
+                                            if ($content['dashboardsClientesQtd'] != 0) {
+                                                $percentual = ($status['qtd'] / $content['dashboardsClientesQtd']) * 100;
+                                            } else {
+                                                $percentual = 0;
+                                            }
                                         @endphp
 
                                         <tr>
@@ -199,7 +213,11 @@
                                             if ($tipo['tipo'] == 1) {$tipo_name = 'Pessoa Jurídica';}
                                             if ($tipo['tipo'] == 2) {$tipo_name = 'Pessoa Física';}
 
-                                            $percentual = ($tipo['qtd'] / $content['dashboardsClientesQtd']) * 100;
+                                            if ($content['dashboardsClientesQtd'] != 0) {
+                                                $percentual = ($tipo['qtd'] / $content['dashboardsClientesQtd']) * 100;
+                                            } else {
+                                                $percentual = 0;
+                                            }
                                         @endphp
 
                                         <tr>

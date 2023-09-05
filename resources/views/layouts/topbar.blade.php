@@ -62,8 +62,23 @@
                     <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                 </button>
                 <div class="dropdown-menu dropdown-menu-end">
+                    {{-- Menu Perfil --}}
                     <a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target=".modal-profile" onclick="userProfileData(2,{{$userLoggedData['id']}});"><i class="bx bx-user font-size-16 align-middle me-1"></i> <span key="t-profile">Perfil</span></a>
+
+                    {{-- Menu Empresas --}}
+                    @if(isset($userLoggedEmpresas))
+                        @if(count($userLoggedEmpresas) > 0)
+                            @foreach($userLoggedEmpresas as $key => $empresa)
+                                @if(session('userLogged_empresa_id') != $empresa['id'])
+                                    <a href="{{route('users.escolher_empresa', $empresa['id'])}}" class="dropdown-item text-success"><i class="bx bx-repost text-success font-size-16 align-middle me-1"></i> <span>Ir para {{$empresa['name']}}</span></a>
+                                @endif
+                            @endforeach
+                        @endif
+                    @endif
+
                     <div class="dropdown-divider"></div>
+
+                    {{-- Menu Logout --}}
                     <a class="dropdown-item text-danger" href="javascript:void();" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> <span key="t-logout">Logout</span></a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                         @csrf

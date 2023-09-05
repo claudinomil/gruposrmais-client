@@ -58,7 +58,7 @@
                     <!-- Tabela (Componente Blade) -->
                     @php
                         $colsNames = ['#', 'Nome', 'Nascimento'];
-                        $colsFields = ['foto', 'name', 'data_nascimento'];
+                        $colsFields = ['perfil', 'name', 'data_nascimento'];
                         $colActions = 'yes';
                     @endphp
 

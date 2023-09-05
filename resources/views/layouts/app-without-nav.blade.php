@@ -18,12 +18,7 @@
     </head>
 
     @yield('body')
-
         @yield('content')
-
-{{--        @include('layouts.modals')--}}
-
         @include('layouts.scripts')
-
     </body>
 </html>

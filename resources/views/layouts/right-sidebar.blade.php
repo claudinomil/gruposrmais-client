@@ -18,63 +18,36 @@
         <h6 class="ps-4 mb-0">Modo de layout</h6>
 
         <div class="p-4">
-            <div class="form-check form-switch mb-3">
-                <input class="form-check-input theme-choice" type="radio" name="choose_layout_mode" id="layout_mode_light" checked>
-                <label class="form-check-label" for="layout_mode_light">Modo Claro</label>
-            </div>
-            <div class="form-check form-switch mb-3">
-                <input class="form-check-input theme-choice" type="radio" name="choose_layout_mode" id="layout_mode_dark" data-bsStyle="build/assets/bootstrap-dark.min.css" data-appStyle="build/assets/app-dark.min.css">
-                <label class="form-check-label" for="layout_mode_dark">Modo Escuro</label>
-            </div>
+            @foreach ($layouts_modes as $key => $layout_mode)
+                @if($layout_mode['ativo'] == 1)
+                    @if($layout_mode['name'] == 'layout_mode_light')
+                        <div class="form-check form-switch mb-3">
+                            <input class="form-check-input theme-choice" type="radio" name="choose_layout_mode" id="layout_mode_light" checked>
+                            <label class="form-check-label" for="layout_mode_light">Modo Claro</label>
+                        </div>
+                    @endif
+
+                    @if($layout_mode['name'] == 'layout_mode_dark')
+                        <div class="form-check form-switch mb-3">
+                            <input class="form-check-input theme-choice" type="radio" name="choose_layout_mode" id="layout_mode_dark" data-bsStyle="build/assets/bootstrap-dark.min.css" data-appStyle="build/assets/app-dark.min.css">
+                            <label class="form-check-label" for="layout_mode_dark">Modo Escuro</label>
+                        </div>
+                    @endif
+                @endif
+            @endforeach
         </div>
 
         <h6 class="ps-4 mb-0">Estilo de Layout</h6>
 
         <div class="p-4">
-            <div class="form-check form-switch mb-3">
-                <input class="form-check-input theme-choice" type="radio" name="choose_layout_menu" id="layout_style_vertical_light_sidebar">
-                <label class="form-check-label" for="layout_style_vertical_light_sidebar">Vertical - Barra Lateral Leve</label>
-            </div>
-            <div class="form-check form-switch mb-3">
-                <input class="form-check-input theme-choice" type="radio" name="choose_layout_menu" id="layout_style_vertical_compact_sidebar">
-                <label class="form-check-label" for="layout_style_vertical_compact_sidebar">Vertical - Barra Lateral Compacta</label>
-            </div>
-            <div class="form-check form-switch mb-3">
-                <input class="form-check-input theme-choice" type="radio" name="choose_layout_menu" id="layout_style_vertical_icon_sidebar">
-                <label class="form-check-label" for="layout_style_vertical_icon_sidebar">Vertical - Barra lateral de ícones</label>
-            </div>
-            <div class="form-check form-switch mb-3">
-                <input class="form-check-input theme-choice" type="radio" name="choose_layout_menu" id="layout_style_vertical_boxed_width">
-                <label class="form-check-label" for="layout_style_vertical_boxed_width">Vertical - Largura da Caixa</label>
-            </div>
-            <div class="form-check form-switch mb-3">
-                <input class="form-check-input theme-choice" type="radio" name="choose_layout_menu" id="layout_style_vertical_colored_sidebar">
-                <label class="form-check-label" for="layout_style_vertical_colored_sidebar">Vertical - Barra Lateral Colorida</label>
-            </div>
-            <div class="form-check form-switch mb-3">
-                <input class="form-check-input theme-choice" type="radio" name="choose_layout_menu" id="layout_style_vertical_scrollable">
-                <label class="form-check-label" for="layout_style_vertical_scrollable">Vertical - Rolável</label>
-            </div>
-            <div class="form-check form-switch mb-3">
-                <input class="form-check-input theme-choice" type="radio" name="choose_layout_menu" id="layout_style_horizontal_horizontal">
-                <label class="form-check-label" for="layout_style_horizontal_horizontal">Horizontal - Horizontal</label>
-            </div>
-            <div class="form-check form-switch mb-3">
-                <input class="form-check-input theme-choice" type="radio" name="choose_layout_menu" id="layout_style_horizontal_topbar_light">
-                <label class="form-check-label" for="layout_style_horizontal_topbar_light">Horizontal - Luz da Barra Superior</label>
-            </div>
-            <div class="form-check form-switch mb-3">
-                <input class="form-check-input theme-choice" type="radio" name="choose_layout_menu" id="layout_style_horizontal_boxed_width">
-                <label class="form-check-label" for="layout_style_horizontal_boxed_width">Horizontal - Largura da Caixa</label>
-            </div>
-            <div class="form-check form-switch mb-3">
-                <input class="form-check-input theme-choice" type="radio" name="choose_layout_menu" id="layout_style_horizontal_colored_header">
-                <label class="form-check-label" for="layout_style_horizontal_colored_header">Horizontal - Cabeçalho Colorido</label>
-            </div>
-            <div class="form-check form-switch mb-3">
-                <input class="form-check-input theme-choice" type="radio" name="choose_layout_menu" id="layout_style_horizontal_scrollable">
-                <label class="form-check-label" for="layout_style_horizontal_scrollable">Horizontal - Rolável</label>
-            </div>
+            @foreach ($layouts_styles as $key => $layout_style)
+                @if($layout_style['ativo'] == 1)
+                    <div class="form-check form-switch mb-3">
+                        <input class="form-check-input theme-choice" type="radio" name="choose_layout_menu" id="{{ $layout_style['name'] }}">
+                        <label class="form-check-label" for="{{ $layout_style['name'] }}">{{ $layout_style['descricao'] }}</label>
+                    </div>
+                @endif
+            @endforeach
         </div>
     </div>
 </div>

@@ -15,17 +15,12 @@ class VisitaTecnicaController extends Controller
     public $content;
 
     //Dados Auxiliares
-    public $visita_tecnica_status;
-    public $clientes;
-    public $funcionarios;
 
     public function __construct()
     {
-        $this->middleware('check-permissao:visitas_tecnicas_list', ['only' => ['index', 'search', 'extradata']]);
-        $this->middleware('check-permissao:visitas_tecnicas_create', ['only' => ['create', 'store']]);
+        $this->middleware('check-permissao:visitas_tecnicas_list', ['only' => ['index', 'search']]);
         $this->middleware('check-permissao:visitas_tecnicas_show', ['only' => ['show']]);
         $this->middleware('check-permissao:visitas_tecnicas_edit', ['only' => ['edit', 'update']]);
-        $this->middleware('check-permissao:visitas_tecnicas_destroy', ['only' => ['destroy']]);
     }
 
     public function index(Request $request)
@@ -39,37 +34,16 @@ class VisitaTecnicaController extends Controller
             if ($this->code == 2000) {
                 $allData = DataTables::of($this->content)
                     ->addIndexColumn()
-                    ->editColumn('visitaTecnicaStatusName', function ($row) {
-                        $retorno = "<div class='text-center'>";
-                        $retorno .= $row['visitaTecnicaStatusName'];
-                        $retorno .= "<br>";
-                        $retorno .= "<a href='#' data-bs-toggle='modal' data-bs-target='.modal-visita-tecnica' onclick='visitaTecnicaExtraData(".$row['id'].");'><span class='bg-success badge'><i class='bx bx-user font-size-16 align-middle me-1'></i>Perfil</span></a>";
-                        $retorno .= "</div>";
-
-                        return $retorno;
-                    })
-                    ->editColumn('data_visita', function ($row) {
-                        if ($row['data_visita'] !== null) {
-                            $retorno = date('d/m/Y', strtotime($row['data_visita']));
-                        } else {
-                            $retorno = '';
-                        }
-
-                        return $retorno;
-                    })
                     ->addColumn('action', function ($row, Request $request) {
-                        //verificar se responsável pela visita é o usuário logado e se pode colocar o botão executar visita'
-                        $btnExecVis = 0;
-                        if ($row['visita_tecnica_status_id'] != '' and $row['cliente_id'] != '' and $row['responsavel_funcionario_id'] != '' and $row['data_visita'] != '') {
-                            if ($row['visita_tecnica_status_id'] == '1') {
-                                if ($request['userLoggedData']['funcionario_id'] == $row['responsavel_funcionario_id']) {
-                                    $btnExecVis = 1;
-                                }
-                            }
+                        //Se servico_status_id for igual a 1(EXECUTADO) : Somente Visualização
+                        if ($row['servico_status_id'] == 1) {
+                            $botoes = 1;
+                        } else {
+                            //Se servico_status_id for diferente de 1(EXECUTADO) : Visualização e Alteração
+                            $botoes = 4;
                         }
-                        //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-                        return $this->columnAction($row['id'], $request['ajaxPrefixPermissaoSubmodulo'], $request['userLoggedPermissoes'], 7, 4, $btnExecVis);
+                        return $this->columnAction($row['id'], $request['ajaxPrefixPermissaoSubmodulo'], $request['userLoggedPermissoes'], $botoes, 4);
                     })
                     ->rawColumns(['action'])
                     ->escapeColumns([])
@@ -80,40 +54,13 @@ class VisitaTecnicaController extends Controller
                 abort(500, 'Erro Interno Visita Técnica');
             }
         } else {
+            //pegando o empresa_id
+            $empresa_id = session('userLogged_empresa_id');
+
             //Buscando dados Api_Data() - Auxiliary Tables (Combobox)
-            $this->responseApi(2, 10, 'visitas_tecnicas/auxiliary/tables', '', '', '', '');
+            $this->responseApi(2, 10, 'visitas_tecnicas/auxiliary/tables/'.$empresa_id, '', '', '', '');
 
-            return view('visitas_tecnicas.index', [
-                'visita_tecnica_status' => $this->visita_tecnica_status,
-                'clientes' => $this->clientes,
-                'funcionarios' => $this->funcionarios
-            ]);
-        }
-    }
-
-    public function create(Request $request)
-    {
-        //Requisição Ajax
-        if ($request->ajax()) {
-            return response()->json(['success' => true]);
-        }
-    }
-
-    public function store(Request $request)
-    {
-        //Requisição Ajax
-        if ($request->ajax()) {
-            //Buscando dados Api_Data() - Incluir Registro
-            $this->responseApi(1, 4, 'visitas_tecnicas', '', '', '', $request->all());
-
-            //Registro criado com sucesso
-            if ($this->code == 2010) {
-                return response()->json(['success' => $this->message]);
-            } else if ($this->code == 2020) { //Falha na validação dos dados
-                return response()->json(['error_validation' => $this->validation]);
-            } else {
-                abort(500, 'Erro Interno Visita Técnica');
-            }
+            return view('visitas_tecnicas.index');
         }
     }
 
@@ -126,11 +73,6 @@ class VisitaTecnicaController extends Controller
 
             //Registro recebido com sucesso
             if ($this->code == 2000) {
-                //Preparando Dados para a View
-                if ($this->content['data_visita'] != '') {
-                    $this->content['data_visita'] = Carbon::createFromFormat('Y-m-d', substr($this->content['data_visita'], 0, 10))->format('d/m/Y');
-                }
-
                 return response()->json(['success' => $this->content]);
             } else if ($this->code == 4040) { //Registro não encontrado
                 return response()->json(['error_not_found' => $this->message]);
@@ -149,11 +91,6 @@ class VisitaTecnicaController extends Controller
 
             //Registro recebido com sucesso
             if ($this->code == 2000) {
-                //Preparando Dados para a View
-                if ($this->content['data_visita'] != '') {
-                    $this->content['data_visita'] = Carbon::createFromFormat('Y-m-d', substr($this->content['data_visita'], 0, 10))->format('d/m/Y');
-                }
-
                 return response()->json(['success' => $this->content]);
             } else if ($this->code == 4040) { //Registro não encontrado
                 return response()->json(['error_not_found' => $this->message]);
@@ -183,26 +120,6 @@ class VisitaTecnicaController extends Controller
         }
     }
 
-    public function destroy(Request $request, $id)
-    {
-        //Requisição Ajax
-        if ($request->ajax()) {
-            //Buscando dados Api_Data() - Deletar Registro
-            $this->responseApi(1, 6, 'visitas_tecnicas', $id, '', '', '');
-
-            //Registro deletado com sucesso
-            if ($this->code == 2000) {
-                return response()->json(['success' => $this->message]);
-            } else if ($this->code == 2040) { //Registro não excluído - pertence a relacionamento com outra(s) tabela(s)
-                return response()->json(['error' => $this->message]);
-            } else if ($this->code == 4040) { //Registro não encontrado
-                return response()->json(['error' => $this->message]);
-            } else {
-                abort(500, 'Erro Interno Visita Técnica');
-            }
-        }
-    }
-
     public function search(Request $request, $field = '', $value = '')
     {
         //Requisição Ajax
@@ -214,26 +131,8 @@ class VisitaTecnicaController extends Controller
             if ($this->code == 2000) {
                 $allData = DataTables::of($this->content)
                     ->addIndexColumn()
-                    ->editColumn('visitaTecnicaStatusName', function ($row) {
-                        $retorno = "<div class='text-center'>";
-                        $retorno .= $row['visitaTecnicaStatusName'];
-                        $retorno .= "<br>";
-                        $retorno .= "<a href='#' data-bs-toggle='modal' data-bs-target='.modal-visita-tecnica' onclick='visitaTecnicaExtraData(".$row['id'].");'><span class='bg-success badge'><i class='bx bx-user font-size-16 align-middle me-1'></i>Perfil</span></a>";
-                        $retorno .= "</div>";
-
-                        return $retorno;
-                    })
-                    ->editColumn('data_visita', function ($row) {
-                        if ($row['data_visita'] !== null) {
-                            $retorno = date('d/m/Y', strtotime($row['data_visita']));
-                        } else {
-                            $retorno = '';
-                        }
-
-                        return $retorno;
-                    })
                     ->addColumn('action', function ($row, Request $request) {
-                        return $this->columnAction($row['id'], $request['ajaxPrefixPermissaoSubmodulo'], $request['userLoggedPermissoes']);
+                        return $this->columnAction($row['id'], $request['ajaxPrefixPermissaoSubmodulo'], $request['userLoggedPermissoes'], 4, 4);
                     })
                     ->rawColumns(['action'])
                     ->escapeColumns([])
@@ -245,24 +144,6 @@ class VisitaTecnicaController extends Controller
             }
         } else {
             return view('visitas_tecnicas.index');
-        }
-    }
-
-    public function extradata(Request $request, $id)
-    {
-        //Requisição Ajax
-        if ($request->ajax()) {
-            //Buscando dados Api_Data() - Registro pelo id
-            $this->responseApi(1, 10, 'visitas_tecnicas/extradata/' . $id, '', '', '', '');
-
-            //Registro recebido com sucesso
-            if ($this->code == 2000) {
-                return json_encode($this->content);
-            } else if ($this->code == 4040) { //Registro não encontrado
-                echo 'Registro não encontrado.';
-            } else {
-                echo 'Erro Interno Visita Técnica.';
-            }
         }
     }
 

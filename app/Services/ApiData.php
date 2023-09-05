@@ -21,34 +21,35 @@ class ApiData
                 ]
             );
 
+            //pegando o empresa_id
+            $empresa_id = session('userLogged_empresa_id');
+
             //Dados Usuario/Permissões/Configurações
-            if ($type == 0) {$response = $httpHeaders->get('users/user/permissoes/settings/'.$submodulo);}
+            if ($type == 0) {$response = $httpHeaders->get('users/user/permissoes/settings/'.$submodulo.'/'.$empresa_id);}
 
             //Lista de Registros
-            if ($type == 1) {$response = $httpHeaders->get($submodulo.'/index');}
+            if ($type == 1) {$response = $httpHeaders->get($submodulo.'/index/'.$empresa_id);}
 
             //Registro pelo id
             if ($type == 2) {$response = $httpHeaders->get($submodulo.'/show/'.$id);}
 
             //Lista por pesquisa
-            if ($type == 3) {$response = $httpHeaders->get($submodulo.'/search/'.$search_field.'/'.$search_value);}
+            if ($type == 3) {$response = $httpHeaders->get($submodulo.'/search/'.$search_field.'/'.$search_value.'/'.$empresa_id);}
 
             //Incluir Registro
-            if ($type == 4) {
-                $response = $httpHeaders->post($submodulo.'/store', $request);
-            }
+            if ($type == 4) {$response = $httpHeaders->post($submodulo.'/store'.'/'.$empresa_id, $request);}
 
             //Alterar Registro
-            if ($type == 5) {$response = $httpHeaders->put($submodulo.'/update/'.$id, $request);}
+            if ($type == 5) {$response = $httpHeaders->put($submodulo.'/update/'.$id.'/'.$empresa_id, $request);}
 
             //Deletar Registro
-            if ($type == 6) {$response = $httpHeaders->delete($submodulo.'/destroy/'.$id);}
+            if ($type == 6) {$response = $httpHeaders->delete($submodulo.'/destroy/'.$id.'/'.$empresa_id);}
 
             //Logout
             if ($type == 7) {$response = $httpHeaders->post('users/logout');}
 
             //Dashboard
-            if ($type == 8) {$response = $httpHeaders->get($submodulo.'/index/'.$id);}
+            if ($type == 8) {$response = $httpHeaders->get($submodulo.'/index/'.$id.'/'.$empresa_id);}
 
             //Direto para uma url enviada pela variavel $submodulo : GET
             if ($type == 10) {$response = $httpHeaders->get($submodulo);}
@@ -58,6 +59,9 @@ class ApiData
 
             //Direto para uma url enviada pela variavel $submodulo + Request : POST
             if ($type == 12) {$response = $httpHeaders->post($submodulo, $request);}
+
+            //Direto para uma url enviada pela variavel $submodulo : DELETE
+            if ($type == 13) {$response = $httpHeaders->delete($submodulo);}
 
             //dd($response->json());   //TRAZER ERRO NA DEPURAÇÃO
 

@@ -39,6 +39,7 @@ class Controller extends BaseController
 
         //Dados de Retorno (Auxiliares/Combobox)
         if ($op == 2) {
+            if (isset($response['content']['empresas'])) {$this->empresas = $response['content']['empresas'];}
             if (isset($response['content']['generos'])) {$this->generos = $response['content']['generos'];}
             if (isset($response['content']['estados_civis'])) {$this->estados_civis = $response['content']['estados_civis'];}
             if (isset($response['content']['escolaridades'])) {$this->escolaridades = $response['content']['escolaridades'];}
@@ -69,19 +70,21 @@ class Controller extends BaseController
             if (isset($response['content']['responsavel_funcionarios'])) {$this->responsavel_funcionarios = $response['content']['responsavel_funcionarios'];}
             if (isset($response['content']['contratacao_tipos'])) {$this->contratacao_tipos = $response['content']['contratacao_tipos'];}
             if (isset($response['content']['servico_tipos'])) {$this->servico_tipos = $response['content']['servico_tipos'];}
+            if (isset($response['content']['servico_status'])) {$this->servico_status = $response['content']['servico_status'];}
             if (isset($response['content']['servicos'])) {$this->servicos = $response['content']['servicos'];}
             if (isset($response['content']['edificacao_classificacoes'])) {$this->edificacao_classificacoes = $response['content']['edificacao_classificacoes'];}
             if (isset($response['content']['incendio_riscos'])) {$this->incendio_riscos = $response['content']['incendio_riscos'];}
             if (isset($response['content']['seguranca_medidas'])) {$this->seguranca_medidas = $response['content']['seguranca_medidas'];}
             if (isset($response['content']['visita_tecnica_status'])) {$this->visita_tecnica_status = $response['content']['visita_tecnica_status'];}
             if (isset($response['content']['sistema_acessos'])) {$this->sistema_acessos = $response['content']['sistema_acessos'];}
+            if (isset($response['content']['escala_tipos'])) {$this->escala_tipos = $response['content']['escala_tipos'];}
         }
     }
 
     /*
      * Função para retornar Botões para a coluna Ações da tabela de registros do CRUD
      */
-    public function columnAction($id, $ajaxPrefixPermissaoSubmodulo, $userLoggedPermissoes, $botoes=7, $btnType=4, $btnExecVis=0)
+    public function columnAction(string $id, $ajaxPrefixPermissaoSubmodulo, $userLoggedPermissoes, $botoes=7, $btnType=4)
     {
         //PARAN: $botoes
         //0: Nenhum Botão
@@ -92,15 +95,14 @@ class Controller extends BaseController
         //5: Visualização e Exclusão
         //6: Alteração e Exclusão
         //7: Visualização, Alteração e Exclusão
-
-        //$btnExecVis = 1: Coloca um Botão "Executar Visita" no Submódulo "Visitas Técnicas"
+        //8: Visualização e Escalas
 
         //$btnType = 4;
 
         //Montando Coluna Ação
         $btn = '<td class="text-center" style="vertical-align:top; white-space:nowrap;"><div class="row">';
 
-        if ($botoes == 1 or $botoes == 4 or $botoes == 5 or $botoes == 7) {
+        if ($botoes == 1 or $botoes == 4 or $botoes == 5 or $botoes == 7 or $botoes == 8) {
             if (Permissoes::permissao([$ajaxPrefixPermissaoSubmodulo.'_show'], $userLoggedPermissoes)) {
                 if ($btnType == 1) {$btnClass = 'btn btn-info text-white text-center btn-sm'; $btnSize = '';}
                 if ($btnType == 2) {$btnClass = 'btn text-info text-center btn-sm'; $btnSize = 'font-size-18';}
@@ -133,9 +135,14 @@ class Controller extends BaseController
             }
         }
 
-        if ($btnExecVis == 1) {
+        if ($botoes == 8) {
             if (Permissoes::permissao([$ajaxPrefixPermissaoSubmodulo.'_edit'], $userLoggedPermissoes)) {
-                $btn .= '<div class="col-12 text-center px-2 py-2"><button type="button" class="btn btn-secondary text-white text-center btn-sm text-center editExecutarVisita" data-bs-toggle="tooltip" data-bs-placement="top" title="Executar Visita" data-id="'.$id.'">Executar Visita</button></div>';
+                if ($btnType == 1) {$btnClass = 'btn btn-primary text-white text-center btn-sm'; $btnSize = '';}
+                if ($btnType == 2) {$btnClass = 'btn text-primary text-center btn-sm'; $btnSize = 'font-size-18';}
+                if ($btnType == 3) {$btnClass = 'btn btn-outline-secondary btn-sm'; $btnSize = '';}
+                if ($btnType == 4) {$btnClass = 'btn btn-outline-primary text-center btn-sm'; $btnSize = 'font-size-18';}
+
+                $btn .= '<div class="col-4"><button type="button" class="escalasBrigada '.$btnClass.'" data-bs-toggle="tooltip" data-bs-placement="top" title="Escalas" data-id="'.$id.'"><i class="far fa-calendar-alt  '.$btnSize.'"></i></button></div>';
             }
         }
 

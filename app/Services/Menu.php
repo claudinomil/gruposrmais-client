@@ -20,7 +20,7 @@ class Menu
         //Menu Verticarl
         if ($tp == 1) {
             $menu .= "<ul class='metismenu list-unstyled' id='side-menu'>
-                            <li class='menu-title' key='t-menu'>Menu</li>";
+                            <li class='text-light text-center font-size-22 pb-2'>".session('userLogged_empresa')."</li>";
         }
 
         //Menu Horizontal
@@ -41,10 +41,9 @@ class Menu
                 if ($modulo['id'] == $submodulo['modulo_id']) {
                     $permitido = Permissoes::permissao([$submodulo['prefix_permissao'] . '_list'], $userLoggedPermissoes);
 
-                    //negaralguns submodulos para fim de desenvolvimento
-                    //if ($submodulo['id'] == 27) {$permitido = false;} //Deixar Submódulo Visita Técnica so para Desenvolvedor
+                    //negar alguns submodulos para fim de desenvolvimento
+                    //if ($submodulo['id'] == 27) {$permitido = false;}
                     //'''''''''''''''''''''''''''''''''''''''''''''''''''
-
 
                     if ($permitido) {
                         if ($modOk == 1) {

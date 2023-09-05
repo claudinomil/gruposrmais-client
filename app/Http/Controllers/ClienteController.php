@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\ConsultarSpeedioApi;
+use App\Facades\Permissoes;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 use Yajra\DataTables\Facades\DataTables;
 
 class ClienteController extends Controller
@@ -18,7 +17,6 @@ class ClienteController extends Controller
 
     //Dados Auxiliares
     public $principal_clientes;
-    public $responsavel_funcionarios;
     public $generos;
     public $bancos;
     public $identidade_orgaos;
@@ -32,7 +30,7 @@ class ClienteController extends Controller
         $this->middleware('check-permissao:clientes_list', ['only' => ['index', 'search', 'extradata']]);
         $this->middleware('check-permissao:clientes_create', ['only' => ['create', 'store']]);
         $this->middleware('check-permissao:clientes_show', ['only' => ['show']]);
-        $this->middleware('check-permissao:clientes_edit', ['only' => ['edit', 'update', 'uploadfoto']]);
+        $this->middleware('check-permissao:clientes_edit', ['only' => ['edit', 'update']]);
         $this->middleware('check-permissao:clientes_destroy', ['only' => ['destroy']]);
     }
 
@@ -47,10 +45,8 @@ class ClienteController extends Controller
             if ($this->code == 2000) {
                 $allData = DataTables::of($this->content)
                     ->addIndexColumn()
-                    ->editColumn('foto', function ($row) {
+                    ->editColumn('perfil', function ($row) {
                         $retorno = "<div class='text-center'>";
-                        $retorno .= "<img src='".asset($row['foto'])."' alt='' class='img-thumbnail rounded-circle avatar-sm'>";
-                        $retorno .= "<br>";
                         $retorno .= "<a href='#' data-bs-toggle='modal' data-bs-target='.modal-cliente' onclick='clienteExtraData(".$row['id'].");'><span class='bg-success badge'><i class='bx bx-user font-size-16 align-middle me-1'></i>Perfil</span></a>";
                         $retorno .= "</div>";
 
@@ -77,21 +73,16 @@ class ClienteController extends Controller
                 abort(500, 'Erro Interno Client');
             }
         } else {
-            //Buscando dados Api_Data() - Auxiliary Tables (Combobox)
-            $this->responseApi(2, 10, 'clientes/auxiliary/tables', '', '', '', '');
+            //pegando o empresa_id
+            $empresa_id = session('userLogged_empresa_id');
 
-            //Verificar qual view vai chamar Mobile/Desktop
-            if (session('access_device') == 'mobile' or session('access_device') == 'tablet') {
-                $view = 'Mobile.Mobile-clientes';
-            } else {
-                $view = 'clientes.index';
-            }
+            //Buscando dados Api_Data() - Auxiliary Tables (Combobox)
+            $this->responseApi(2, 10, 'clientes/auxiliary/tables/'.$empresa_id, '', '', '', '');
 
             //chamar view
-            return view($view, [
+            return view('clientes.index', [
                 'evento' => 'index',
                 'principal_clientes' => $this->principal_clientes,
-                'responsavel_funcionarios' => $this->responsavel_funcionarios,
                 'generos' => $this->generos,
                 'bancos' => $this->bancos,
                 'identidade_orgaos' => $this->identidade_orgaos,
@@ -246,13 +237,8 @@ class ClienteController extends Controller
             if ($this->code == 2000) {
                 $allData = DataTables::of($this->content)
                     ->addIndexColumn()
-                    ->addColumn('action', function ($row, Request $request) {
-                        return $this->columnAction($row['id'], $request['ajaxPrefixPermissaoSubmodulo'], $request['userLoggedPermissoes']);
-                    })
-                    ->editColumn('foto', function ($row) {
+                    ->editColumn('perfil', function ($row) {
                         $retorno = "<div class='text-center'>";
-                        $retorno .= "<img src='".asset($row['foto'])."' alt='' class='img-thumbnail rounded-circle avatar-sm'>";
-                        $retorno .= "<br>";
                         $retorno .= "<a href='#' data-bs-toggle='modal' data-bs-target='.modal-cliente' onclick='clienteExtraData(".$row['id'].");'><span class='bg-success badge'><i class='bx bx-user font-size-16 align-middle me-1'></i>Perfil</span></a>";
                         $retorno .= "</div>";
 
@@ -266,6 +252,9 @@ class ClienteController extends Controller
                         }
 
                         return $retorno;
+                    })
+                    ->addColumn('action', function ($row, Request $request) {
+                        return $this->columnAction($row['id'], $request['ajaxPrefixPermissaoSubmodulo'], $request['userLoggedPermissoes']);
                     })
                     ->rawColumns(['action'])
                     ->escapeColumns([])
@@ -294,70 +283,6 @@ class ClienteController extends Controller
                 return response()->json(['error_not_found' => $this->message]);
             } else {
                 abort(500, 'Erro Interno Client');
-            }
-        }
-    }
-
-    public function uploadfoto(Request $request)
-    {
-        //Requisição Ajax
-        if ($request->ajax()) {
-            //Variavel controle
-            $error = false;
-
-            //Foto padrão do Sistema
-            $foto = "build/assets/images/clientes/cliente-0.png";
-
-            //Verificando e fazendo Upload da Foto novo
-            if ($request->hasFile('cliente_extra_foto_file')) {
-                //cliente_id
-                $id = $request['upload_cliente_extra_foto_cliente_id'];
-
-                //buscar dados formulario
-                $arquivo_tmp = $_FILES["cliente_extra_foto_file"]["tmp_name"];
-                $arquivo_real = $_FILES["cliente_extra_foto_file"]["name"];
-                $arquivo_real = utf8_decode($arquivo_real);
-                $arquivo_type = $_FILES["cliente_extra_foto_file"]["type"];
-                $arquivo_size = $_FILES['cliente_extra_foto_file']['size'];
-
-                if ($arquivo_type == 'image/jpg' or $arquivo_type == 'image/jpeg' or $arquivo_type == 'image/png') {
-                    if (copy($arquivo_tmp, "build/assets/images/clientes/$arquivo_real")) {
-                        if (file_exists("build/assets/images/clientes/" . $arquivo_real)) {
-                            //apagar foto no diretorio
-                            if (file_exists('build/assets/images/clientes/cliente-' . $id . '.png')) {
-                                unlink('build/assets/images/clientes/cliente-' . $id . '.png');
-                            }
-                            if (file_exists('build/assets/images/clientes/cliente-' . $id . '.jpg')) {
-                                unlink('build/assets/images/clientes/cliente-' . $id . '.jpg');
-                            }
-                            if (file_exists('build/assets/images/clientes/cliente-' . $id . '.jpeg')) {
-                                unlink('build/assets/images/clientes/cliente-' . $id . '.jpeg');
-                            }
-
-                            //Gravar novo
-                            $foto = "build/assets/images/clientes/cliente-" . $id . '.' . pathinfo($arquivo_real, PATHINFO_EXTENSION);
-                            $de = "build/assets/images/clientes/$arquivo_real";
-                            $pa = $foto;
-
-                            try {
-                                rename($de, $pa);
-                            } catch (\Exception $e) {
-                                $error = true;
-                            }
-                        }
-                    }
-                }
-            }
-
-            if (!$error) {
-                //Buscando dados Api_Data() - Alterar Registro
-                $data = array();
-                $data['foto'] = $foto;
-                $this->responseApi(1, 11, 'clientes/updatefoto/' . $id, '', '', '', $data);
-
-                echo $this->message;
-            } else {
-                echo 'Imagem (Nome, Tamanho ou Tipo) inválida.';
             }
         }
     }

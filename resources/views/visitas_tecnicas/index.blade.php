@@ -21,11 +21,7 @@
                         <div class="col-12">
                             <div class="row">
                                 <!-- Botões -->
-                                <div class="col-12 col-md-8 pb-2">
-                                    @if (\App\Facades\Permissoes::permissao([$ajaxPrefixPermissaoSubmodulo.'_create'], $userLoggedPermissoes))
-                                        <x-button op="1" id="createNewRecord" />
-                                    @endif
-                                </div>
+                                <div class="col-12 col-md-8 pb-2">&nbsp;</div>
 
                                 <!-- Pesquisar no Banco -->
                                 <div class="col-12 col-md-4 float-end">
@@ -49,13 +45,13 @@
 
                     <!-- Tabela (Componente Blade) -->
                     @php
-                        $colsNames = ['Status', 'Cliente', 'Data Visita', 'Responsável'];
-                        $colsFields = ['visitaTecnicaStatusName', 'clienteName', 'data_visita', 'funcionarioName'];
+                        $colsNames = ['Status', 'Cliente', 'Responsável', 'Data Início', 'Data Execução'];
+                        $colsFields = ['servicoStatusName', 'clienteName', 'funcionarioName', 'data_inicio', 'executado_data'];
                         $colActions = 'yes';
                     @endphp
 
                     <x-table-crud-ajax
-                        :numCols="4"
+                        :numCols="6"
                         :class="'table table-bordered dt-responsive table-striped w-100 class-datatable-1'"
                         :colsNames=$colsNames
                         :colsFields=$colsFields

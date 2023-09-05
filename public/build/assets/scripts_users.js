@@ -9,21 +9,23 @@ $(document).ready(function () {
                     required: true,
                     email: true
                 },
-                layout_mode: {
-                    required: true
-                },
-                layout_style: {
-                    required: true
-                },
-                grupo_id: {
-                    required: true
-                },
-                situacao_id: {
-                    required: true
-                },
-                sistema_acesso_id: {
-                    required: true
-                }
+
+                // grupo_id: {
+                //     required: true
+                // },
+                // situacao_id: {
+                //     required: true
+                // },
+                // sistema_acesso_id: {
+                //     required: true
+                // },
+                // layout_mode: {
+                //     required: true
+                // },
+                // layout_style: {
+                //     required: true
+                // },
+
             },
             errorElement: 'span',
             errorPlacement: function (error, element) {

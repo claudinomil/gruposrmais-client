@@ -77,8 +77,11 @@ class FuncionarioController extends Controller
                 abort(500, 'Erro Interno Funcionário');
             }
         } else {
+            //pegando o empresa_id
+            $empresa_id = session('userLogged_empresa_id');
+
             //Buscando dados Api_Data() - Auxiliary Tables (Combobox)
-            $this->responseApi(2, 10, 'funcionarios/auxiliary/tables', '', '', '', '');
+            $this->responseApi(2, 10, 'funcionarios/auxiliary/tables/'.$empresa_id, '', '', '', '');
 
             return view('funcionarios.index', [
                 'contratacao_tipos' => $this->contratacao_tipos,
@@ -369,5 +372,74 @@ class FuncionarioController extends Controller
                 echo 'Erro Interno Funcionários.';
             }
         }
+    }
+
+    public function documento_upload(Request $request, $documento_upload_descricao)
+    {
+        //Requisição Ajax
+        if ($request->ajax()) {
+            //Variavel controle
+            $error = true;
+            $message = 'Erro: Upload não realizado, tente novamente.';
+
+            //Verificando se foi selecionado um arquivo
+            if ($request->hasFile('documento_upload_arquivo')) {
+                //pegando id do registro
+                $id = $request['registro_id'];
+
+                //buscar dados formulario
+                $arquivo_tmp = $_FILES['documento_upload_arquivo']['tmp_name'];
+                $arquivo_real = $_FILES['documento_upload_arquivo']['name'];
+                $arquivo_real = utf8_decode($arquivo_real);
+                $arquivo_type = $_FILES['documento_upload_arquivo']['type'];
+                $arquivo_size = $_FILES['documento_upload_arquivo']['size'];
+
+                //verificando se o arquivo selecionado é um pdf
+                if ($arquivo_type == 'application/pdf') {
+                    //copiando arquivo selecionado
+                    if (copy($arquivo_tmp, "build/assets/pdfs/funcionarios/$arquivo_real")) {
+                        //confirmar se realmente foi copiado para a pasto
+                        if (file_exists("build/assets/pdfs/funcionarios/" . $arquivo_real)) {
+                            //renomear para nome funcionario_$id_YmdHis
+                            $name = 'funcionario_'.$id.'_'.date('YmdHis');
+                            $pdf = "build/assets/pdfs/funcionarios/".$name.'.'.pathinfo($arquivo_real, PATHINFO_EXTENSION);
+                            $de = "build/assets/pdfs/funcionarios/$arquivo_real";
+                            $pa = $pdf;
+
+                            rename($de, $pa);
+
+                            //confirmar se realmente foi renomeado
+                            if (file_exists($pdf)) {
+                                $error = false;
+                                $message = 'Upload realizado com sucesso.';
+
+                                //Salvar Dados na tabela funcionarios_documentos
+                                $data = array();
+                                $data['funcionario_id'] = $id;
+                                $data['name'] = $name;
+                                $data['descricao'] = $documento_upload_descricao;
+                                $data['caminho'] = $pdf;
+
+                                //Buscando dados Api_Data() - Incluir Registro
+                                $this->responseApi(1, 12, 'funcionarios/store_documentos/documentos', '', '', '', $data);
+                            }
+                        }
+                    }
+                } else {
+                    $message = 'Erro: Arquivo não é PDF';
+                }
+            } else {
+                $message = 'Erro: Escolha um arquivo PDF';
+            }
+
+            //Retornar
+            echo $message;
+        }
+    }
+
+    public function deletar_documento($funcionario_documento_id)
+    {
+        //Buscando dados Api_Data() - Deletar Registro
+        $this->responseApi(1, 6, 'funcionarios/deletar_documento', $funcionario_documento_id, '', '', '');
     }
 }

@@ -406,5 +406,35 @@
         "file": "assets/scripts_visitas_tecnicas.js",
         "isEntry": true,
         "src": "resources/assets_template/js/scripts_visitas_tecnicas.js"
+    },
+    "resources/assets_template/js/scripts_brigadas.js": {
+        "file": "assets/scripts_brigadas.js",
+        "isEntry": true,
+        "src": "resources/assets_template/js/scripts_brigadas.js"
+    },
+    "resources/assets_template/js/scripts_brigadas_escalas.js": {
+        "file": "assets/scripts_brigadas_escalas.js",
+        "isEntry": true,
+        "src": "resources/assets_template/js/scripts_brigadas_escalas.js"
+    },
+    "resources/assets_template/js/scripts_brigadas_rondas.js": {
+        "file": "assets/scripts_brigadas_rondas.js",
+        "isEntry": true,
+        "src": "resources/assets_template/js/scripts_brigadas_rondas.js"
+    },
+    "resources/assets_template/js/scripts_clientes_servicos.js": {
+        "file": "assets/scripts_clientes_servicos.js",
+        "isEntry": true,
+        "src": "resources/assets_template/js/scripts_clientes_servicos.js"
+    },
+    "resources/assets_template/js/scripts_clientes_servicos_qrcode_informacoes.js": {
+        "file": "assets/scripts_clientes_servicos_qrcode_informacoes.js",
+        "isEntry": true,
+        "src": "resources/assets_template/js/scripts_clientes_servicos_qrcode_informacoes.js"
+    },
+    "resources/assets_template/js/scripts_clientes_servicos_qrcode_brigada_presenca.js": {
+        "file": "assets/scripts_clientes_servicos_qrcode_brigada_presenca.js",
+        "isEntry": true,
+        "src": "resources/assets_template/js/scripts_clientes_servicos_qrcode_brigada_presenca.js"
     }
 }

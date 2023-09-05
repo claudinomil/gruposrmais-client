@@ -237,5 +237,42 @@ $(document).ready(function () {
             });
         });
         //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+        //Fazer Upload do Documento'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+        $('.btn_documento_upload_upload').click(function () {
+            let formData = new FormData($('#frm_funcionarios')[0]);
+
+            //Verificando se digitou o campo Nome do Documento PDF (documento_upload_descricao)
+            if ($('#documento_upload_descricao').val() == '') {
+                alert('Digite a Descrição para o Documento PDF.');
+                return;
+            }
+
+            //Ajax
+            $.ajax({
+                type: 'POST',
+                url: '/funcionarios/documento_upload/'+$('#documento_upload_descricao').val(),
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response.substring(0, 4) != 'Erro') {
+                        $('#documento_upload_arquivo').val('');
+                        $('#documento_upload_descricao').val('');
+
+                        $('#tbodyDocumentoUpload').html('');
+
+                        montar_grade_documentos_funcionario(2);
+                    }
+
+                    alert(response);
+                },
+                error: function (response) {
+                    alert(response);
+                }
+            });
+        });
+        //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     });
 });

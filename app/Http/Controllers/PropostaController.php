@@ -59,8 +59,11 @@ class PropostaController extends Controller
                 abort(500, 'Erro Interno Client');
             }
         } else {
+            //pegando o empresa_id
+            $empresa_id = session('userLogged_empresa_id');
+
             //Buscando dados Api_Data() - Auxiliary Tables (Combobox)
-            $this->responseApi(2, 10, 'propostas/auxiliary/tables', '', '', '', '');
+            $this->responseApi(2, 10, 'propostas/auxiliary/tables/'.$empresa_id, '', '', '', '');
 
             return view('propostas.index', [
                 'clientes' => $this->clientes,

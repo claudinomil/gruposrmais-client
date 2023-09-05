@@ -40,10 +40,17 @@ class TransacaoController extends Controller
                     })
                     ->editColumn('submoduloName', function ($row) {
                         $submodulo = $row['submoduloName'];
+
+                        //Operação
+                        if ($row['operacao_id'] == 1) {$corOperacao = 'text-success';} //Inclusão
+                        if ($row['operacao_id'] == 2) {$corOperacao = 'text-primary';} //Alteração
+                        if ($row['operacao_id'] == 3) {$corOperacao = 'text-danger';} //Exclusão
+
                         $operacao = $row['operacaoName'];
 
+                        //Retorno
                         $retorno = "<h5 class='text-truncate font-size-14'>".$submodulo."</h5>";
-                        $retorno .= "<p class='text-muted mb-0'>".$operacao."</p>";
+                        $retorno .= "<p class='".$corOperacao." mb-0'>".$operacao."</p>";
 
                         return $retorno;
                     })

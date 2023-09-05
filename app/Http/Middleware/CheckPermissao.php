@@ -47,50 +47,18 @@ class CheckPermissao
 
         if (isset($response['content'])) {
             $userLoggedData = $response['content']['userData']; //Dados do Usuário Logado
+            $userLoggedEmpresas = $response['content']['userEmpresas']; //Empresas do Usuário Logado
             $userLoggedPermissoes = $response['content']['userPermissoes']; //Permissões do Usuário Logado
             $userLoggedMenuModulos = $response['content']['menuModulos']; //Módulos Menu
-
             $userLoggedMenuSubmodulos = $response['content']['menuSubmodulos']; // Submódulos Menu
-
-            //Caso o acesso tenha sido via Mobile ou Tablet'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-            if (session('access_device') == 'mobile') {
-                //Filtrar Submódulos e deixar somente os que vão ser liberados para o Menu Mobile/Tablet''''''''''''''''
-                $userLoggedMenuSubmodulos = array_filter($userLoggedMenuSubmodulos, function ($userLoggedMenuSubmodulo) {
-                    return $userLoggedMenuSubmodulo['Mobile'] == 1;
-                });
-                //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-
-                //Verificar se o usuário entrou em um submódulo diferente dos permitidos'
-                $submod_permitido = false;
-
-                foreach ($userLoggedMenuSubmodulos as $submod) {
-                    if ($submod['prefix_route'] == $searchSubmodulo) {
-                        $submod_permitido = true;
-                        break;
-                    }
-                }
-
-                if ($searchSubmodulo == 'Mobile') { //se for Mobile deixa passar pois é a view de Menu da versão Mobile
-                    $submod_permitido = true;
-                }
-
-                if (!$submod_permitido) {
-                    if ($request->ajax()) {
-                        return response()->json(['error_permissao' => 'Permissão Negada']);
-                    } else {
-                        abort(403, 'Permissão Negada');
-                    }
-                }
-                //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-            }
-            //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-
             $userLoggedFerramentas = $response['content']['ferramentas']; //Ferramentas
             $userLoggedUnreadNotificacoes = $response['content']['notificacoes']; //Notificações não lidas pelo Usuário logado
             $ajaxPrefixPermissaoSubmodulo = $response['content']['ajaxPrefixPermissaoSubmodulo'][0]['prefix_permissao']; //Variavel prefix_permissao do Submodulo
             $ajaxNameSubmodulo = $response['content']['ajaxNameSubmodulo'][0]['name']; //Variavel name do Submodulo
             $ajaxNameFormSubmodulo = 'frm_' . $ajaxPrefixPermissaoSubmodulo;
             $ajaxNamesFieldsSubmodulo = $response['content']['ajaxNamesFieldsSubmodulo']; //Array com os nomes dos campos da tabela
+            $layouts_modes = $response['content']['layouts_modes']; //Layouts Modes
+            $layouts_styles = $response['content']['layouts_styles']; //Layouts Styles
         } else {
             if ($request->ajax()) {
                 return response()->json(['error_permissao' => 'Permissão Negada']);
@@ -120,6 +88,7 @@ class CheckPermissao
         View::share([
             'controllerMethod' => $controllerMethod,
             'userLoggedData' => $userLoggedData,
+            'userLoggedEmpresas' => $userLoggedEmpresas,
             'userLoggedPermissoes' => $userLoggedPermissoes,
             'userLoggedMenuModulos' => $userLoggedMenuModulos,
             'userLoggedMenuSubmodulos' => $userLoggedMenuSubmodulos,
@@ -128,7 +97,9 @@ class CheckPermissao
             'ajaxPrefixPermissaoSubmodulo' => $ajaxPrefixPermissaoSubmodulo,
             'ajaxNameSubmodulo' => $ajaxNameSubmodulo,
             'ajaxNameFormSubmodulo' => $ajaxNameFormSubmodulo,
-            'ajaxNamesFieldsSubmodulo' => $ajaxNamesFieldsSubmodulo
+            'ajaxNamesFieldsSubmodulo' => $ajaxNamesFieldsSubmodulo,
+            'layouts_modes' => $layouts_modes,
+            'layouts_styles' => $layouts_styles
         ]);
 
         //Retornando

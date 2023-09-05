@@ -75,7 +75,7 @@ class NaturalidadeController extends Controller
         }
     }
 
-    public function show($id)
+    public function show(Request $request, $id)
     {
         //Requisição Ajax
         if ($request->ajax()) {
@@ -93,7 +93,7 @@ class NaturalidadeController extends Controller
         }
     }
 
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
         //Requisição Ajax
         if ($request->ajax()) {
@@ -131,7 +131,7 @@ class NaturalidadeController extends Controller
         }
     }
 
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         //Requisição Ajax
         if ($request->ajax()) {

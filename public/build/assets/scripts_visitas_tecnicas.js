@@ -2,22 +2,7 @@ $(document).ready(function () {
     if ($('#frm_visitas_tecnicas').length) {
         $('#frm_visitas_tecnicas').validate({
             rules: {
-                visita_tecnica_status_id: {
-                    required: true,
-                    idMethod: true
-                },
-                cliente_id: {
-                    required: true,
-                    idMethod: true
-                },
-                data_visita: {
-                    required: true,
-                    dateMethod: true
-                },
-                responsavel_funcionario_id: {
-                    required: false,
-                    idMethod: true
-                }
+
             },
             errorElement: 'span',
             errorPlacement: function (error, element) {
@@ -34,21 +19,6 @@ $(document).ready(function () {
     }
 
     //Funções para o formulário'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    //Buscar dados do Cliente escolhido
-    $('#cliente_id').on('change', function() {
-        if ($('#frm_operacao').val() == 'create') {
-            montarFormVisitaGetCliente($('#cliente_id').val());
-        } else if ($('#frm_operacao').val() == 'edit') {
-            if ($('#visita_tecnica_status_id').val() == 1) {
-                montarFormVisitaGetCliente($('#cliente_id').val());
-            }
-        } else if ($('#frm_operacao').val() == 'view') {
-            // if ($('#visita_tecnica_status_id').val() == 1) {
-            //     montarFormVisitaGetCliente($('#cliente_id').val());
-            // }
-        }
-    });
-
     $(function () {
         //Header
         $.ajaxSetup({
@@ -103,12 +73,43 @@ $(document).ready(function () {
             if ($(this).hasClass('btn_certificado_aprovacao_assistido_pdf_view')) {documento = 'certificado_aprovacao_assistido_pdf_'+$('#registro_id').val()+'.pdf';}
 
             if (documento != '') {
-                //URL
-                var url_atual = window.location.protocol+'//'+window.location.host+'/';
+                //URL do documento
+                var urlDocumento = window.location.protocol + '//' + window.location.host + '/' + 'build/assets/pdfs/visitas_tecnicas/' + documento;
 
-                window.open(url_atual+"build/assets/pdfs/visitas_tecnicas/"+documento, "_blank");
+                //Verificar se existe arquivo na pasta
+                fetch(urlDocumento).then(response => {
+                    if (response.ok) {
+                        window.open(urlDocumento, '_blank');
+                    } else {
+                        alert('Documento não existe.');
+                    }
+                });
             } else {
                 alert('Documento não existe.');
+            }
+        });
+
+        //Checkbox servico_executado
+        $('#servico_executado').click(function () {
+            $('#hrServicoExecutado').hide();
+            $('#spanServicoExecutado').hide();
+            $('#spanServicoExecutado').html('');
+
+            if ($('#servico_executado').is(':checked')) {
+                $('#labelServicoExecutado').html('Visita Finalizada');
+
+                $('#executado_data').prop('disabled', false).prop('readonly', true);
+                $('#executado_user_funcionario').prop('disabled', false).prop('readonly', true);
+                $('#executado_user_id').prop('disabled', false).prop('readonly', true);
+            } else {
+                $('#hrServicoExecutado').show();
+                $('#spanServicoExecutado').show();
+                $('#spanServicoExecutado').html('Ao verificar as Medidas de Segurança finalize a Visita aqui e confirme.');
+                $('#labelServicoExecutado').html('Visita não Finalizada');
+
+                $('#executado_data').prop('disabled', true).prop('readonly', false);
+                $('#executado_user_funcionario').prop('disabled', true).prop('readonly', false);
+                $('#executado_user_id').prop('disabled', true).prop('readonly', false);
             }
         });
     });

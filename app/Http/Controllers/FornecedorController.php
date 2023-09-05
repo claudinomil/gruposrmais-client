@@ -26,7 +26,7 @@ class FornecedorController extends Controller
         $this->middleware('check-permissao:fornecedores_list', ['only' => ['index', 'search', 'extradata']]);
         $this->middleware('check-permissao:fornecedores_create', ['only' => ['create', 'store']]);
         $this->middleware('check-permissao:fornecedores_show', ['only' => ['show']]);
-        $this->middleware('check-permissao:fornecedores_edit', ['only' => ['edit', 'update', 'uploadfoto']]);
+        $this->middleware('check-permissao:fornecedores_edit', ['only' => ['edit', 'update']]);
         $this->middleware('check-permissao:fornecedores_destroy', ['only' => ['destroy']]);
     }
 
@@ -41,10 +41,8 @@ class FornecedorController extends Controller
             if ($this->code == 2000) {
                 $allData = DataTables::of($this->content)
                     ->addIndexColumn()
-                    ->editColumn('foto', function ($row) {
+                    ->editColumn('perfil', function ($row) {
                         $retorno = "<div class='text-center'>";
-                        $retorno .= "<img src='".asset($row['foto'])."' alt='' class='img-thumbnail rounded-circle avatar-sm'>";
-                        $retorno .= "<br>";
                         $retorno .= "<a href='#' data-bs-toggle='modal' data-bs-target='.modal-fornecedor' onclick='fornecedorExtraData(".$row['id'].");'><span class='bg-success badge'><i class='bx bx-user font-size-16 align-middle me-1'></i>Perfil</span></a>";
                         $retorno .= "</div>";
 
@@ -71,8 +69,11 @@ class FornecedorController extends Controller
                 abort(500, 'Erro Interno Fornecedor');
             }
         } else {
-            //Buscando dados Api_Data() - Auxiliary Tables (Combobox)
-            $this->responseApi(2, 10, 'fornecedores/auxiliary/tables', '', '', '', '');
+            //pegando o empresa_id
+            $empresa_id = session('userLogged_empresa_id');
+
+            //Buscando dados Api_Data()auxiliary - Auxiliary Tables (Combobox)
+            $this->responseApi(2, 10, 'fornecedores/auxiliary/tables/'.$empresa_id, '', '', '', '');
 
             return view('fornecedores.index', [
                 'generos' => $this->generos,
@@ -215,10 +216,8 @@ class FornecedorController extends Controller
                     ->addColumn('action', function ($row, Request $request) {
                         return $this->columnAction($row['id'], $request['ajaxPrefixPermissaoSubmodulo'], $request['userLoggedPermissoes']);
                     })
-                    ->editColumn('foto', function ($row) {
+                    ->editColumn('perfil', function ($row) {
                         $retorno = "<div class='text-center'>";
-                        $retorno .= "<img src='".asset($row['foto'])."' alt='' class='img-thumbnail rounded-circle avatar-sm'>";
-                        $retorno .= "<br>";
                         $retorno .= "<a href='#' data-bs-toggle='modal' data-bs-target='.modal-fornecedor' onclick='fornecedorExtraData(".$row['id'].");'><span class='bg-success badge'><i class='bx bx-user font-size-16 align-middle me-1'></i>Perfil</span></a>";
                         $retorno .= "</div>";
 
@@ -243,70 +242,6 @@ class FornecedorController extends Controller
             }
         } else {
             return view('fornecedores.index');
-        }
-    }
-
-    public function uploadfoto(Request $request)
-    {
-        //Requisição Ajax
-        if ($request->ajax()) {
-            //Variavel controle
-            $error = false;
-
-            //Foto padrão do Sistema
-            $foto = "build/assets/images/fornecedores/fornecedor-0.png";
-
-            //Verificando e fazendo Upload da Foto novo
-            if ($request->hasFile('fornecedor_extra_foto_file')) {
-                //fornecedor_id
-                $id = $request['upload_fornecedor_extra_foto_fornecedor_id'];
-
-                //buscar dados formulario
-                $arquivo_tmp = $_FILES["fornecedor_extra_foto_file"]["tmp_name"];
-                $arquivo_real = $_FILES["fornecedor_extra_foto_file"]["name"];
-                $arquivo_real = utf8_decode($arquivo_real);
-                $arquivo_type = $_FILES["fornecedor_extra_foto_file"]["type"];
-                $arquivo_size = $_FILES['fornecedor_extra_foto_file']['size'];
-
-                if ($arquivo_type == 'image/jpg' or $arquivo_type == 'image/jpeg' or $arquivo_type == 'image/png') {
-                    if (copy($arquivo_tmp, "build/assets/images/fornecedores/$arquivo_real")) {
-                        if (file_exists("build/assets/images/fornecedores/" . $arquivo_real)) {
-                            //apagar foto no diretorio
-                            if (file_exists('build/assets/images/fornecedores/fornecedor-' . $id . '.png')) {
-                                unlink('build/assets/images/fornecedores/fornecedor-' . $id . '.png');
-                            }
-                            if (file_exists('build/assets/images/fornecedores/fornecedor-' . $id . '.jpg')) {
-                                unlink('build/assets/images/fornecedores/fornecedor-' . $id . '.jpg');
-                            }
-                            if (file_exists('build/assets/images/fornecedores/fornecedor-' . $id . '.jpeg')) {
-                                unlink('build/assets/images/fornecedores/fornecedor-' . $id . '.jpeg');
-                            }
-
-                            //Gravar novo
-                            $foto = "build/assets/images/fornecedores/fornecedor-" . $id . '.' . pathinfo($arquivo_real, PATHINFO_EXTENSION);
-                            $de = "build/assets/images/fornecedores/$arquivo_real";
-                            $pa = $foto;
-
-                            try {
-                                rename($de, $pa);
-                            } catch (\Exception $e) {
-                                $error = true;
-                            }
-                        }
-                    }
-                }
-            }
-
-            if (!$error) {
-                //Buscando dados Api_Data() - Alterar Registro
-                $data = array();
-                $data['foto'] = $foto;
-                $this->responseApi(1, 11, 'fornecedores/updatefoto/' . $id, '', '', '', $data);
-
-                echo $this->message;
-            } else {
-                echo 'Imagem (Nome, Tamanho ou Tipo) inválida.';
-            }
         }
     }
 

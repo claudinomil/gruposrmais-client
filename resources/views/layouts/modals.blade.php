@@ -8,13 +8,13 @@
                         <div class="col-xl-5">
 
                             <!-- Card -->
-                            <div class="card overflow-hidden">
+                            <div class="card" style="min-height: 200px;">
                                 <div class="bg-primary bg-soft">
                                     <div class="row">
                                         <div class="col-7">
                                             <div class="text-primary p-3">
-                                                <h5 class="text-primary">Perfil</h5>
-                                                <p>Usuário do Sistema</p>
+                                                <h5 class="text-primary">Usuário</h5>
+                                                <p class="font-size-15 jsonUser jsonUserName"></p>
                                             </div>
                                         </div>
                                         <div class="col-5 align-self-end">
@@ -29,8 +29,6 @@
                                             <div class="avatar-md profile-user-wid mb-4">
                                                 <img src="" alt="" class="img-thumbnail rounded-circle jsonUserAvatar" id="imgImageAvatar">
                                             </div>
-                                            <h5 class="font-size-15 text-truncate jsonUserName"></h5>
-                                            <p class="text-muted mb-0 text-truncate jsonUserFunction"></p>
                                         </div>
 
                                         <div class="col-sm-8">
@@ -38,11 +36,11 @@
                                                 <div class="row">
                                                     <div class="col-6">
                                                         <h5 class="font-size-15">Grupo</h5>
-                                                        <p class="text-muted mb-0 text-truncate jsonUserGroup"></p>
+                                                        <p class="text-muted mb-0 text-truncate jsonUser jsonUserGrupo"></p>
                                                     </div>
                                                     <div class="col-6">
                                                         <h5 class="font-size-15">Situação</h5>
-                                                        <p class="text-muted mb-0 text-truncate jsonUserSituacao"></p>
+                                                        <p class="text-muted mb-0 text-truncate jsonUser jsonUserSituacao"></p>
                                                     </div>
                                                 </div>
                                                 <div class="row" id="modal-profile-botoes">
@@ -155,7 +153,7 @@
                             </div>
 
                             <!-- Informações Pessoais -->
-                            <div class="card">
+                            <div class="card font-size-11" style="min-height: 270px;">
                                 <div class="card-body">
                                     <h4 class="card-title mb-4">Informações Pessoais</h4>
                                     <div class="table-responsive">
@@ -163,15 +161,15 @@
                                             <tbody>
                                             <tr>
                                                 <th scope="row">Name :</th>
-                                                <td class="jsonUserName"></td>
+                                                <td class="jsonUser jsonUserName"></td>
                                             </tr>
                                             <tr>
                                                 <th scope="row">E-mail :</th>
-                                                <td class="jsonUserEmail"></td>
+                                                <td class="jsonUser jsonUserEmail"></td>
                                             </tr>
                                             <tr>
                                                 <th scope="row">Localização :</th>
-                                                <td class="jsonUserLocalizacao"></td>
+                                                <td class="jsonUser jsonUserLocalizacao"></td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -236,11 +234,11 @@
                                 </div>
                             </div>
 
-                            <div class="card">
+                            <div class="card" style="min-height: 400px;">
                                 <div class="card-body">
                                     <h4 class="card-title mb-4">Log de Transações</h4>
                                     <div class="table-responsive">
-                                        <table class="table table-nowrap table-hover mb-0 class-datatable-2">
+                                        <table class="table table-nowrap table-hover mb-0 class-datatable-2 font-size-11">
                                             <thead>
                                                 <tr>
                                                     <th scope="col">#</th>
@@ -269,17 +267,17 @@
                     <div class="row">
                         <div class="col-xl-5">
 
-                            <!-- Card -->
-                            <div class="card overflow-hidden">
+                            <!-- Principal -->
+                            <div class="card" style="min-height: 200px;">
                                 <div class="bg-success">
                                     <div class="row">
-                                        <div class="col-7">
+                                        <div class="col-8">
                                             <div class="text-white p-3">
-                                                <h5 class="text-white">Extra</h5>
-                                                <p>Cliente do Sistema</p>
+                                                <h5 class="text-white">Cliente</h5>
+                                                <p class="jsonCliente jsonClienteName"></p>
                                             </div>
                                         </div>
-                                        <div class="col-5 align-self-end">
+                                        <div class="col-4 align-self-end">
                                             <button type="button" class="btn-close float-end px-1 py-1" data-bs-dismiss="modal" aria-label="Close"></button>
                                             <img src="{{ asset('build/assets/images/cliente-img.png') }}" alt="" class="img-fluid">
                                         </div>
@@ -287,100 +285,75 @@
                                 </div>
                                 <div class="card-body pt-0">
                                     <div class="row">
-                                        <div class="col-sm-4">
-                                            <div class="avatar-md profile-user-wid mb-4">
-                                                <img src="" alt="" class="img-thumbnail rounded-circle jsonClienteFoto" id="imgImageClienteExtraFoto">
-                                            </div>
-                                            <h5 class="font-size-15 text-truncate jsonClienteName"></h5>
-                                            <p class="text-muted mb-0 text-truncate jsonClienteStatus"></p>
-                                        </div>
-
-                                        <div class="col-sm-8">
+                                        <div class="col-sm-12">
                                             <div class="pt-4">
                                                 <div class="row">
-                                                    <div class="col-6">
+                                                    <div class="col-3">
+                                                        <h5 class="font-size-15">Status</h5>
+                                                        <p class="text-muted mb-0 text-truncate jsonCliente jsonClienteStatus"></p>
+                                                    </div>
+                                                    <div class="col-4">
                                                         <h5 class="font-size-15">Tipo</h5>
-                                                        <p class="text-muted mb-0 text-truncate jsonClienteTipo"></p>
+                                                        <p class="text-muted mb-0 text-truncate jsonCliente jsonClienteTipo"></p>
                                                     </div>
-                                                    <div class="col-6">
-                                                        <h5 class="font-size-15">Gênero</h5>
-                                                        <p class="text-muted mb-0 text-truncate jsonClienteGenero"></p>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-4 mt-4 px-0">
-                                                        @if(\App\Facades\Permissoes::permissao([$ajaxPrefixPermissaoSubmodulo.'_edit'], $userLoggedPermissoes))
-                                                            <button class="btn btn-success waves-effect btn-label waves-light btn-sm float-end" id="buttonUploadClienteExtraFoto"><i class="fas fa-address-card label-icon"></i>Foto</button>
-                                                            <button class="btn btn-warning waves-effect btn-label waves-light btn-sm float-end" id="buttonUploadClienteExtraFotoClose" style="display: none;"><i class="fas fa-address-card label-icon"></i>Fechar</button>
-                                                        @endif
+                                                    <div class="col-5">
+                                                        <h5 class="font-size-15 labelClienteCnpjCpf">CNPJ/CPF</h5>
+                                                        <p class="text-muted mb-0 text-truncate jsonCliente jsonClienteCnpj"></p>
+                                                        <p class="text-muted mb-0 text-truncate jsonCliente jsonClienteCpf"></p>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-
-                                        <div class="col-sm-12 pt-4" id="divUploadClienteExtraFoto" style="display: none;">
-                                            <h4 class="text-success"><b>:: </b>Alterar Foto</h4>
-
-                                            <form method="post" enctype="multipart/form-data" id="frm_upload_cliente_extra_foto">
-                                                @csrf
-                                                @method('POST')
-
-                                                <input type="hidden" class="jsonClienteId" id="upload_cliente_extra_foto_cliente_id" name="upload_cliente_extra_foto_cliente_id" value="">
-
-                                                <div class="row mt-4">
-                                                    <div class="input-group">
-                                                        <input type="file" class="form-control" name="cliente_extra_foto_file" id="cliente_extra_foto_file">
-                                                        <button type="submit" class="input-group-text">Upload</button>
-                                                    </div>
-                                                </div>
-
-                                                <span class="col-12 text-danger text-center" id="frm-upload-cliente-extra-foto-error"></span>
-                                            </form>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
                             <!-- Informações Pessoais -->
-                            <div class="card">
+                            <div class="card font-size-11" style="min-height: 250px;">
                                 <div class="card-body">
-                                    <h4 class="card-title mb-4">Informações Pessoais</h4>
+                                    <h4 class="card-title mb-4">Informações Gerais</h4>
                                     <div class="table-responsive">
                                         <table class="table table-nowrap mb-0">
                                             <tbody>
-                                            <tr>
-                                                <th scope="row">Name :</th>
-                                                <td class="jsonClienteName"></td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">E-mail :</th>
-                                                <td class="jsonClienteEmail"></td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">Site :</th>
-                                                <td class="jsonClienteSite"></td>
-                                            </tr>
+                                                <tr>
+                                                    <th scope="row">Cliente Principal :</th>
+                                                    <td class="jsonCliente jsonClienteClientePrincipal"></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Email :</th>
+                                                    <td class="jsonCliente jsonClienteEmail"></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Contato :</th>
+                                                    <td>
+                                                        <span class="jsonCliente jsonClienteContatoTelefone1"></span>
+                                                        <span class="jsonCliente jsonClienteContatoTelefone2"></span>
+                                                        <span class="jsonCliente jsonClienteContatoCelular1"></span>
+                                                        <span class="jsonCliente jsonClienteContatoCelular2"></span>
+                                                    </td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
 
                         <div class="col-xl-7">
-                            <div class="card">
+                            <!-- Tabela -->
+                            <div class="card" style="min-height: 475px;">
                                 <div class="card-body">
-                                    <h4 class="card-title mb-4">Transações</h4>
-                                    <div class="table-responsive">
-                                        <table class="table table-nowrap table-hover mb-0 class-datatable-2">
+                                    <h5 class="card-title text-success mb-4">Serviços</h5>
+                                    <div class="/*table-responsive*/">
+                                        <table class="table /*table-nowrap*/ table-hover mb-0 class-datatable-2 font-size-11">
                                             <thead>
-                                            <tr>
-                                                <th scope="col">#</th>
-                                                <th scope="col">Operação</th>
-                                            </tr>
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">Status</th>
+                                                    <th scope="col">Serviço</th>
+                                                </tr>
                                             </thead>
-                                            <tbody class="jsonClienteTransacoesTable"></tbody>
+                                            <tbody class="jsonCliente jsonClienteServicosTable"></tbody>
                                         </table>
                                     </div>
                                 </div>
@@ -400,17 +373,17 @@
                     <div class="row">
                         <div class="col-xl-5">
 
-                            <!-- Card -->
-                            <div class="card overflow-hidden">
+                            <!-- Principal -->
+                            <div class="card" style="min-height: 200px;">
                                 <div class="bg-primary">
                                     <div class="row">
-                                        <div class="col-7">
+                                        <div class="col-8">
                                             <div class="text-white p-3">
-                                                <h5 class="text-white">Extra</h5>
-                                                <p>Fornecedor do Sistema</p>
+                                                <h5 class="text-white">Fornecedor</h5>
+                                                <p class="jsonFornecedor jsonFornecedorName"></p>
                                             </div>
                                         </div>
-                                        <div class="col-5 align-self-end">
+                                        <div class="col-4 align-self-end">
                                             <button type="button" class="btn-close float-end px-1 py-1" data-bs-dismiss="modal" aria-label="Close"></button>
                                             <img src="{{ asset('build/assets/images/fornecedor-img.png') }}" alt="" class="img-fluid">
                                         </div>
@@ -418,100 +391,75 @@
                                 </div>
                                 <div class="card-body pt-0">
                                     <div class="row">
-                                        <div class="col-sm-4">
-                                            <div class="avatar-md profile-user-wid mb-4">
-                                                <img src="" alt="" class="img-thumbnail rounded-circle jsonFornecedorFoto" id="imgImageFornecedorExtraFoto">
-                                            </div>
-                                            <h5 class="font-size-15 text-truncate jsonFornecedorName"></h5>
-                                            <p class="text-muted mb-0 text-truncate jsonFornecedorStatus"></p>
-                                        </div>
-
-                                        <div class="col-sm-8">
+                                        <div class="col-sm-12">
                                             <div class="pt-4">
                                                 <div class="row">
-                                                    <div class="col-6">
+                                                    <div class="col-3">
+                                                        <h5 class="font-size-15">Status</h5>
+                                                        <p class="text-muted mb-0 text-truncate jsonFornecedor jsonFornecedorStatus"></p>
+                                                    </div>
+                                                    <div class="col-4">
                                                         <h5 class="font-size-15">Tipo</h5>
-                                                        <p class="text-muted mb-0 text-truncate jsonFornecedorTipo"></p>
+                                                        <p class="text-muted mb-0 text-truncate jsonFornecedor jsonFornecedorTipo"></p>
                                                     </div>
-                                                    <div class="col-6">
-                                                        <h5 class="font-size-15">Gênero</h5>
-                                                        <p class="text-muted mb-0 text-truncate jsonFornecedorGenero"></p>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-4 mt-4 px-0">
-                                                        @if(\App\Facades\Permissoes::permissao([$ajaxPrefixPermissaoSubmodulo.'_edit'], $userLoggedPermissoes))
-                                                            <button class="btn btn-primary waves-effect btn-label waves-light btn-sm float-end" id="buttonUploadFornecedorExtraFoto"><i class="fas fa-address-card label-icon"></i>Foto</button>
-                                                            <button class="btn btn-warning waves-effect btn-label waves-light btn-sm float-end" id="buttonUploadFornecedorExtraFotoClose" style="display: none;"><i class="fas fa-address-card label-icon"></i>Fechar</button>
-                                                        @endif
+                                                    <div class="col-5">
+                                                        <h5 class="font-size-15 labelFornecedorCnpjCpf">CNPJ/CPF</h5>
+                                                        <p class="text-muted mb-0 text-truncate jsonFornecedor jsonFornecedorCnpj"></p>
+                                                        <p class="text-muted mb-0 text-truncate jsonFornecedor jsonFornecedorCpf"></p>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-
-                                        <div class="col-sm-12 pt-4" id="divUploadFornecedorExtraFoto" style="display: none;">
-                                            <h4 class="text-success"><b>:: </b>Alterar Foto</h4>
-
-                                            <form method="post" enctype="multipart/form-data" id="frm_upload_fornecedor_extra_foto">
-                                                @csrf
-                                                @method('POST')
-
-                                                <input type="hidden" class="jsonFornecedorId" id="upload_fornecedor_extra_foto_fornecedor_id" name="upload_fornecedor_extra_foto_fornecedor_id" value="">
-
-                                                <div class="row mt-4">
-                                                    <div class="input-group">
-                                                        <input type="file" class="form-control" name="fornecedor_extra_foto_file" id="fornecedor_extra_foto_file">
-                                                        <button type="submit" class="input-group-text">Upload</button>
-                                                    </div>
-                                                </div>
-
-                                                <span class="col-12 text-danger text-center" id="frm-upload-fornecedor-extra-foto-error"></span>
-                                            </form>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
                             <!-- Informações Pessoais -->
-                            <div class="card">
+                            <div class="card font-size-11" style="min-height: 250px;">
                                 <div class="card-body">
-                                    <h4 class="card-title mb-4">Informações Pessoais</h4>
+                                    <h4 class="card-title mb-4">Informações Gerais</h4>
                                     <div class="table-responsive">
                                         <table class="table table-nowrap mb-0">
                                             <tbody>
                                             <tr>
-                                                <th scope="row">Name :</th>
-                                                <td class="jsonFornecedorName"></td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">E-mail :</th>
-                                                <td class="jsonFornecedorEmail"></td>
-                                            </tr>
-                                            <tr>
                                                 <th scope="row">Site :</th>
-                                                <td class="jsonFornecedorSite"></td>
+                                                <td class="jsonFornecedor jsonFornecedorSite"></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Email :</th>
+                                                <td class="jsonFornecedor jsonFornecedorEmail"></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Contato :</th>
+                                                <td>
+                                                    <span class="jsonFornecedor jsonFornecedorContatoTelefone1"></span>
+                                                    <span class="jsonFornecedor jsonFornecedorContatoTelefone2"></span>
+                                                    <span class="jsonFornecedor jsonFornecedorContatoCelular1"></span>
+                                                    <span class="jsonFornecedor jsonFornecedorContatoCelular2"></span>
+                                                </td>
                                             </tr>
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
 
                         <div class="col-xl-7">
-                            <div class="card">
+                            <!-- Tabela -->
+                            <div class="card" style="min-height: 475px;">
                                 <div class="card-body">
-                                    <h4 class="card-title mb-4">Transações</h4>
-                                    <div class="table-responsive">
-                                        <table class="table table-nowrap table-hover mb-0 class-datatable-2">
+                                    <h5 class="card-title text-primary mb-4">Compras</h5>
+                                    <div class="/*table-responsive*/">
+                                        <table class="table /*table-nowrap*/ table-hover mb-0 class-datatable-2 font-size-11">
                                             <thead>
                                             <tr>
                                                 <th scope="col">#</th>
-                                                <th scope="col">Operação</th>
+                                                <th scope="col">Status</th>
+                                                <th scope="col">Compra</th>
                                             </tr>
                                             </thead>
-                                            <tbody class="jsonFornecedorTransacoesTable"></tbody>
+                                            <tbody class="jsonFornecedor jsonFornecedorComprasTable"></tbody>
                                         </table>
                                     </div>
                                 </div>
@@ -530,18 +478,17 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-xl-5">
-
                             <!-- Card -->
-                            <div class="card overflow-hidden">
+                            <div class="card" style="min-height: 200px;">
                                 <div class="bg-danger">
                                     <div class="row">
-                                        <div class="col-7">
+                                        <div class="col-8">
                                             <div class="text-white p-3">
-                                                <h5 class="text-white">Extra</h5>
-                                                <p>Funcionario do Sistema</p>
+                                                <h5 class="text-white">Funcionário</h5>
+                                                <p class="jsonFuncionario jsonFuncionarioName"></p>
                                             </div>
                                         </div>
-                                        <div class="col-5 align-self-end">
+                                        <div class="col-4 align-self-end">
                                             <button type="button" class="btn-close float-end px-1 py-1" data-bs-dismiss="modal" aria-label="Close"></button>
                                             <img src="{{ asset('build/assets/images/funcionario-img.png') }}" alt="" class="img-fluid">
                                         </div>
@@ -551,22 +498,20 @@
                                     <div class="row">
                                         <div class="col-sm-4">
                                             <div class="avatar-md profile-user-wid mb-4">
-                                                <img src="" alt="" class="img-thumbnail rounded-circle jsonFuncionarioFoto" id="imgImageFuncionarioExtraFoto">
+                                                <img src="" alt="" class="img-thumbnail rounded-circle jsonFuncionario jsonFuncionarioFoto" id="imgImageFuncionarioExtraFoto">
                                             </div>
-                                            <h5 class="font-size-15 text-truncate jsonFuncionarioName"></h5>
-                                            <p class="text-muted mb-0 text-truncate jsonFuncionarioFuncao"></p>
                                         </div>
 
                                         <div class="col-sm-8">
                                             <div class="pt-4">
                                                 <div class="row">
                                                     <div class="col-6">
-                                                        <h5 class="font-size-15">Escolaridade</h5>
-                                                        <p class="text-muted mb-0 text-truncate jsonFuncionarioEscolaridade"></p>
+                                                        <h5 class="font-size-15">Função</h5>
+                                                        <p class="text-muted mb-0 text-truncate jsonFuncionario jsonFuncionarioFuncao"></p>
                                                     </div>
                                                     <div class="col-6">
                                                         <h5 class="font-size-15">Gênero</h5>
-                                                        <p class="text-muted mb-0 text-truncate jsonFuncionarioGenero"></p>
+                                                        <p class="text-muted mb-0 text-truncate jsonFuncionario jsonFuncionarioGenero"></p>
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -587,7 +532,7 @@
                                                 @csrf
                                                 @method('POST')
 
-                                                <input type="hidden" class="jsonFuncionarioId" id="upload_funcionario_extra_foto_funcionario_id" name="upload_funcionario_extra_foto_funcionario_id" value="">
+                                                <input type="hidden" class="jsonFuncionario jsonFuncionarioId" id="upload_funcionario_extra_foto_funcionario_id" name="upload_funcionario_extra_foto_funcionario_id" value="">
 
                                                 <div class="row mt-4">
                                                     <div class="input-group">
@@ -604,7 +549,7 @@
                             </div>
 
                             <!-- Informações Pessoais -->
-                            <div class="card">
+                            <div class="card" style="min-height: 250px;">
                                 <div class="card-body">
                                     <h4 class="card-title mb-4">Informações Pessoais</h4>
                                     <div class="table-responsive">
@@ -612,11 +557,11 @@
                                             <tbody>
                                             <tr>
                                                 <th scope="row">Name :</th>
-                                                <td class="jsonFuncionarioName"></td>
+                                                <td class="jsonFuncionario jsonFuncionarioName"></td>
                                             </tr>
                                             <tr>
                                                 <th scope="row">E-mail :</th>
-                                                <td class="jsonFuncionarioEmail"></td>
+                                                <td class="jsonFuncionario jsonFuncionarioEmail"></td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -627,11 +572,11 @@
                         </div>
 
                         <div class="col-xl-7">
-                            <div class="card">
+                            <div class="card" style="min-height: 530px;">
                                 <div class="card-body">
-                                    <h4 class="card-title mb-4">Transações</h4>
+                                    <h5 class="card-title text-danger mb-4">Transações</h5>
                                     <div class="table-responsive">
-                                        <table class="table table-nowrap table-hover mb-0 class-datatable-2">
+                                        <table class="table table-nowrap table-hover mb-0 class-datatable-2 font-size-11">
                                             <thead>
                                             <tr>
                                                 <th scope="col">#</th>
@@ -763,7 +708,7 @@
                                 <div class="card-body">
                                     <h4 class="card-title mb-4">Transações</h4>
                                     <div class="table-responsive">
-                                        <table class="table table-nowrap table-hover mb-0 class-datatable-2">
+                                        <table class="table table-nowrap table-hover mb-0 class-datatable-2 font-size-11">
                                             <thead>
                                             <tr>
                                                 <th scope="col">#</th>

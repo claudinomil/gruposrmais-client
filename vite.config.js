@@ -64,7 +64,12 @@ export default defineConfig({
                 {src: 'resources/assets_template/js/scripts_servicos.js', dest: 'assets'},
                 {src: 'resources/assets_template/js/scripts_propostas.js', dest: 'assets'},
                 {src: 'resources/assets_template/js/scripts_visitas_tecnicas.js', dest: 'assets'},
-
+                {src: 'resources/assets_template/js/scripts_brigadas.js', dest: 'assets'},
+                {src: 'resources/assets_template/js/scripts_brigadas_escalas.js', dest: 'assets'},
+                {src: 'resources/assets_template/js/scripts_brigadas_rondas.js', dest: 'assets'},
+                {src: 'resources/assets_template/js/scripts_clientes_servicos.js', dest: 'assets'},
+                {src: 'resources/assets_template/js/scripts_clientes_servicos_qrcode_informacoes.js', dest: 'assets'},
+                {src: 'resources/assets_template/js/scripts_clientes_servicos_qrcode_brigada_presenca.js', dest: 'assets'},
                 {src: 'resources/assets_template/images/clientes/cliente-0.png', dest: 'assets/images/clientes'},
                 {src: 'resources/assets_template/images/fornecedores/fornecedor-0.png', dest: 'assets/images/fornecedores'},
                 {src: 'resources/assets_template/images/funcionarios/funcionario-0.png', dest: 'assets/images/funcionarios'},
@@ -74,6 +79,8 @@ export default defineConfig({
                 {src: 'resources/assets_template/images/proposta-img.png', dest: 'assets/images'},
                 {src: 'resources/assets_template/images/visita_tecnica-img.png', dest: 'assets/images'},
                 {src: 'resources/assets_template/images/error-img.png', dest: 'assets/images'},
+                {src: 'resources/assets_template/images/verification-img.png', dest: 'assets/images'},
+
                 {src: 'resources/assets_template/images/fornecedor-img.png', dest: 'assets/images'},
                 {src: 'resources/assets_template/images/funcionario-img.png', dest: 'assets/images'},
                 {src: 'resources/assets_template/images/visita_tecnica-img.png', dest: 'assets/images'},
@@ -83,6 +90,7 @@ export default defineConfig({
                 {src: 'resources/assets_template/images/image_logo_layout_light_menu.png', dest: 'assets/images'},
                 {src: 'resources/assets_template/images/image_logo_layout_light_menu_min.png', dest: 'assets/images'},
                 {src: 'resources/assets_template/images/image_logo_login.png', dest: 'assets/images'},
+                {src: 'resources/assets_template/images/image_logo_qrcode.png', dest: 'assets/images'},
                 {src: 'resources/assets_template/images/image_logo_relatorio.png', dest: 'assets/images'},
                 {src: 'resources/assets_template/images/megamenu-img.png', dest: 'assets/images'},
                 {src: 'resources/assets_template/images/profile-img.png', dest: 'assets/images'},
@@ -94,6 +102,7 @@ export default defineConfig({
                 {src: 'resources/assets_template/images/proposta_logo_crea.png', dest: 'assets/images'},
                 {src: 'resources/assets_template/images/proposta_logo_gruposrmais.png', dest: 'assets/images'},
                 {src: 'resources/assets_template/images/proposta_logo_inmetro.png', dest: 'assets/images'},
+                {src: 'resources/assets_template/images/image_logo_email.png', dest: 'assets/images'},
 
                 {src: 'resources/assets_template/images/proposta_topo.jpg', dest: 'assets/images'},
                 {src: 'resources/assets_template/images/proposta_rodape.jpg', dest: 'assets/images'},
@@ -104,6 +113,9 @@ export default defineConfig({
                 {src: 'resources/assets_template/images/pictograma_7.png', dest: 'assets/images'},
 
                 {src: 'resources/assets_template/pdfs/visitas_tecnicas/pdf.pdf', dest: 'assets/pdfs/visitas_tecnicas'},
+                {src: 'resources/assets_template/pdfs/funcionarios/pdf.pdf', dest: 'assets/pdfs/funcionarios'},
+
+                {src: 'resources/assets_template/qrcodes/clientes_servicos/qrcode.pdf', dest: 'assets/qrcodes/clientes_servicos'},
             ]
         })
     ]
@@ -326,4 +338,34 @@ export default defineConfig({
 //     "file": "assets/scripts_visitas_tecnicas.js",
 //     "isEntry": true,
 //     "src": "resources/assets_template/js/scripts_visitas_tecnicas.js"
+// },
+// "resources/assets_template/js/scripts_brigadas.js": {
+//     "file": "assets/scripts_brigadas.js",
+//     "isEntry": true,
+//     "src": "resources/assets_template/js/scripts_brigadas.js"
+// },
+// "resources/assets_template/js/scripts_brigadas_escalas.js": {
+//     "file": "assets/scripts_brigadas_escalas.js",
+//     "isEntry": true,
+//     "src": "resources/assets_template/js/scripts_brigadas_escalas.js"
+// },
+// "resources/assets_template/js/scripts_brigadas_rondas.js": {
+//     "file": "assets/scripts_brigadas_rondas.js",
+//     "isEntry": true,
+//     "src": "resources/assets_template/js/scripts_brigadas_rondas.js"
+// },
+// "resources/assets_template/js/scripts_clientes_servicos.js": {
+//     "file": "assets/scripts_clientes_servicos.js",
+//     "isEntry": true,
+//     "src": "resources/assets_template/js/scripts_clientes_servicos.js"
+// },
+// "resources/assets_template/js/scripts_clientes_servicos_qrcode_informacoes.js": {
+//     "file": "assets/scripts_clientes_servicos_qrcode_informacoes.js",
+//     "isEntry": true,
+//     "src": "resources/assets_template/js/scripts_clientes_servicos_qrcode_informacoes.js"
+// },
+// "resources/assets_template/js/scripts_clientes_servicos_qrcode_brigada_presenca.js": {
+//     "file": "assets/scripts_clientes_servicos_qrcode_brigada_presenca.js",
+//     "isEntry": true,
+//     "src": "resources/assets_template/js/scripts_clientes_servicos_qrcode_brigada_presenca.js"
 // },

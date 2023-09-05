@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -49,11 +48,14 @@ class ServicoController extends Controller
                 abort(500, 'Erro Interno Client');
             }
         } else {
+            //pegando o empresa_id
+            $empresa_id = session('userLogged_empresa_id');
+
             //Buscando dados Api_Data() - Auxiliary Tables (Combobox)
-            $this->responseApi(2, 10, 'servicos/auxiliary/tables', '', '', '', '');
+            $this->responseApi(2, 10, 'servicos/auxiliary/tables/'.$empresa_id, '', '', '', '');
 
             return view('servicos.index', [
-                'servico_tipos' => $this->servico_tipos,
+                'servico_tipos' => $this->servico_tipos
             ]);
         }
     }
@@ -94,7 +96,7 @@ class ServicoController extends Controller
             //Registro recebido com sucesso
             if ($this->code == 2000) {
                 //Preparando Dados para a View''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-                $this->content['valor'] = number_format($this->content['valor'], 2, ",", ".");
+                //$this->content['valor'] = number_format($this->content['valor'], 2, ",", ".");
                 //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
                 return response()->json(['success' => $this->content]);
@@ -115,10 +117,6 @@ class ServicoController extends Controller
 
             //Registro recebido com sucesso
             if ($this->code == 2000) {
-                //Preparando Dados para a View''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-                $this->content['valor'] = number_format($this->content['valor'], 2, ",", ".");
-                //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-
                 return response()->json(['success' => $this->content]);
             } else if ($this->code == 4040) { //Registro não encontrado
                 return response()->json(['error_not_found' => $this->message]);

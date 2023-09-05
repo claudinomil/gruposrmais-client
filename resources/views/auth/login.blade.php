@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-    <div class="account-pages my-5 pt-sm-5">
+    <div class="account-pages my-4">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-8 col-lg-6 col-xl-5">
@@ -28,7 +28,7 @@
                             <div class="auth-logo">
                                 <img src="{{ asset('build/assets/images/image_logo_login.png') }}" style="margin-top: -90px;">
                             </div>
-                            <div class="p-2">
+                            <div class="p-0">
 
                                 <!-- Erros -->
                                 @if (isset($error) and $error != '')
@@ -45,14 +45,25 @@
                                     @csrf
 
                                     <div class="mb-3">
+                                        <label class="form-label">Empresa</label>
+                                        <select class="form-control" name="empresa_id" id="empresa_id" required>
+                                            <option value="">Selecione...</option>
+
+                                            @foreach ($empresas as $key => $empresa)
+                                                <option value="{{ $empresa['id'] }}">{{ $empresa['name'] }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('empresa_id') <div class="text-danger">{{ $message }}</div> @enderror
+                                    </div>
+                                    <div class="mb-3">
                                         <label for="email" class="form-label">E-mail</label>
-                                        <input type="email" class="form-control" id="email" name="email" placeholder="Entre com o Usuário" required autofocus value="">
+                                        <input type="email" class="form-control" id="email" name="email" placeholder="Entre com o Usuário" required autofocus>
                                         @error('email') <div class="text-danger">{{ $message }}</div> @enderror
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Senha</label>
                                         <div class="input-group auth-pass-inputgroup">
-                                            <input type="password" class="form-control" id="password" name="password" placeholder="Entre com a Senha" aria-label="Password" aria-describedby="password-addon" required value="">
+                                            <input type="password" class="form-control" id="password" name="password" placeholder="Entre com a Senha" aria-label="Password" aria-describedby="password-addon" required>
                                             <button class="btn btn-light " type="button" id="password-addon"><i class="mdi mdi-eye-outline"></i></button>
                                         </div>
                                         @error('password') <div class="text-danger">{{ $message }}</div> @enderror

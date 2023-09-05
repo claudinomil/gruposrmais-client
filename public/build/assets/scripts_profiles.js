@@ -1,4 +1,7 @@
 function userProfileData(local, id) {
+    //Limpando dados
+    $('.jsonUser').html('');
+
     var url_atual = window.location.protocol+'//'+window.location.host+'/';
 
     //verificar local : 1- Grade de Usuários ou 2 - Perfil Usuário Logado
@@ -21,8 +24,8 @@ function userProfileData(local, id) {
 
             //Passando dados user
             $('.jsonUserAvatar').attr('src', url_atual+user.avatar);
-            $('.jsonUserGroup').html(user.grupoName+' Truncate');
-            $('.jsonUserSituacao').html(user.situacaoName+' Truncate');
+            $('.jsonUserGrupo').html(user.grupoName);
+            $('.jsonUserSituacao').html(user.situacaoName);
             $('.jsonUserName').html(user.name);
             $('.jsonUserFunction').html('FUNÇÃO');
             $('.jsonUserId').val(user.id);
@@ -62,7 +65,11 @@ function userProfileData(local, id) {
             //Destruindo e iniciando (Simulando um Refresh)
             $('.class-datatable-2').DataTable().destroy();
             $('.jsonTransacoesTable').html(tbodyTransacoes);
+
             configurarDataTable(2);
+
+            //Alterar tamanho do input Pesquisar da tabela
+            $('.dataTables_filter .fildFilterTable').attr('style',  'width:150px');
         },
         complete: function () {},
         error: function (response) {

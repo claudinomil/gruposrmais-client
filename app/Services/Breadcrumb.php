@@ -11,28 +11,32 @@ class Breadcrumb
     {
         if (session()->exists('breadcrumbPreviousPageTitle')) {return session('breadcrumbPreviousPageTitle');}
 
-        return 'Previous Title';
+        //return 'Previous Title';
+        return '';
     }
 
     public function getPreviousPageRoute()
     {
         if (session()->exists('breadcrumbPreviousPageRoute')) {return session('breadcrumbPreviousPageRoute');}
 
-        return 'Previous Route';
+        //return 'Previous Route';
+        return '';
     }
 
     public function getCurrentPageTitle()
     {
         if (session()->exists('breadcrumbCurrentPageTitle')) {return session('breadcrumbCurrentPageTitle');}
 
-        return 'Current Title';
+        //return 'Current Title';
+        return '';
     }
 
     public function getCurrentPageRoute()
     {
         if (session()->exists('breadcrumbCurrentPageRoute')) {return session('breadcrumbCurrentPageRoute');}
 
-        return 'Current Route';
+        //return 'Current Route';
+        return '';
     }
 
     public function sessionsBreadcrumb()
@@ -54,6 +58,7 @@ class Breadcrumb
         $fieldSearch = 'menu_route';
 
         $fieldValue = Route::getFacadeRoot()->current()->uri();
+
         if (strpos($fieldValue, '/')) {
             $fieldValue = explode('/', $fieldValue);
             $fieldValue = $fieldValue[0];
@@ -61,7 +66,9 @@ class Breadcrumb
 
         $fieldReturn = 'name';
 
-        $response = ApiData::getData(10, 'submodulos/research/'.$fieldSearch.'/'.$fieldValue.'/'.$fieldReturn, '', '', '', '');
+        $empresa_id = session('userLogged_empresa_id');
+
+        $response = ApiData::getData(10, 'submodulos/research/'.$fieldSearch.'/'.$fieldValue.'/'.$fieldReturn.'/'.$empresa_id, '', '', '', '');
         //dd($response->json());   //TRAZER ERRO NA DEPURAÇÃO
 
         if (isset($response['content'][0]['name'])) {

@@ -168,59 +168,6 @@ $(document).ready(function () {
             }
         });
 
-        //Update Foto'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-        $('#buttonUploadClienteExtraFoto').click(function () {
-            //Preparar
-            $('#divUploadClienteExtraFoto').show();
-            $('#buttonUploadClienteExtraFoto').hide();
-            $('#buttonUploadClienteExtraFotoClose').show();
-        });
-
-        $('#buttonUploadClienteExtraFotoClose').click(function () {
-            //Preparar
-            $('#divUploadClienteExtraFoto').hide();
-            $('#buttonUploadClienteExtraFoto').show();
-            $('#buttonUploadClienteExtraFotoClose').hide();
-        });
-
-        $('#frm_upload_cliente_extra_foto').submit(function(e) {
-            e.preventDefault();
-            let formData = new FormData(this);
-            $('#frm-upload-cliente-extra-foto-error').text('');
-
-            $.ajax({
-                type:'POST',
-                url: '/clientes/uploadfoto',
-                data: formData,
-                cache: false,
-                contentType: false,
-                processData: false,
-                success: function (response) {
-                    if (response.error_permissao) {
-                        alert(response.error_permissao);
-                    } else {
-                        alert(response);
-
-                        //colocando a imagem na view
-                        var file = $("#cliente_extra_foto_file").get(0).files[0];
-                        if (file) {
-                            var reader = new FileReader();
-                            reader.onload = function () {
-                                $("#imgImageClienteExtraFoto").attr("src", reader.result);
-                                $(".header-profile-user").attr("src", reader.result);
-                            }
-                            reader.readAsDataURL(file);
-                        }
-                    }
-                },
-                error: function(response){
-                    alert(response);
-                    $('#frm-upload-cliente-extra-foto-error').text('Foto inválida!!!');
-                }
-            });
-        });
-        //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-
         //API CNPJ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         $('#link_api_buscar').click(function () {
             //Buscando valor
@@ -360,16 +307,7 @@ $(document).ready(function () {
         //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     });
 
-
-
-
-
-
     //Numero Pavimentos
-    // $('#numero_pavimentos').on('blur', function() {
-    //     pavimentosShowHide();
-    // });
-
     $('#numero_pavimentos').on('keyup change click', function() {
         pavimentosShowHide();
     });

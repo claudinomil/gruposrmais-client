@@ -18,6 +18,8 @@ Route::prefix('users')->group(function () {
     Route::post('/editemail', [UserController::class, 'editemail'])->name('users.editemail');
 
     Route::put('/editmodestyle/{mode}/{style}/{id}', [UserController::class, 'editmodestyle'])->name('users.editmodestyle');
+
+    Route::get('/escolher_empresa/{empresa_id}', [UserController::class, 'escolher_empresa'])->name('users.escolher_empresa');
 });
 
 Route::get('/profiledata', [UserController::class, 'profiledata']);

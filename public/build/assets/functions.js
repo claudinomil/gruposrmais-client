@@ -1,4 +1,7 @@
 function clienteExtraData(id='') {
+    //Limpando dados
+    $('.jsonCliente').html('');
+
     //Verificar se mandou id ou se veio do registro_id
     if (id == '') {id = $('#registro_id').val();}
 
@@ -20,54 +23,66 @@ function clienteExtraData(id='') {
             //Lendo dados cliente
             let cliente = json.cliente;
 
-
-            alert(cliente.foto);
-
-
             //Passando dados cliente
-            $('.jsonClienteFoto').attr('src', url_atual+cliente.foto);
+            $('.jsonClienteName').html(cliente.name);
 
             if (cliente.status == '1') {nameStatus = 'Ativo';}
             if (cliente.status == '2') {nameStatus = 'Inativo';}
             $('.jsonClienteStatus').html(nameStatus);
 
-            if (cliente.tipo == '1') {nameTipo = 'Pessoa Jurídica';}
-            if (cliente.tipo == '2') {nameTipo = 'Pessoa Física';}
-            $('.jsonClienteTipo').html(nameTipo);
-
-            $('.jsonClienteGenero').html(cliente.generoName);
-            $('.jsonClienteName').html(cliente.name);
-
-            $('.jsonClienteId').val(cliente.id);
-            $('.jsonClienteEmail').html(cliente.email);
-            $('.jsonClienteSite').html(cliente.site);
-
-            //Lendo dados transacoes (Totais)
-            let transacoesCount = json.transacoesCount;
-
-            //Lendo dados transacoes (Tabela)
-            let transacoesTable = json.transacoesTable.transacoes;
-
-            var tbodyTransacoes = '';
-
-            if (transacoesTable != '') {
-                //Passando dados transacoes (Tabela)
-                var row = 0;
-
-                function montarTable(item) {
-                    row++;
-                    operacaoName = item;
-
-                    tbodyTransacoes += "<tr><th scope='row'>" + row + "</th><td>" + operacaoName + "</td></tr>";
-                }
-
-                transacoesTable.forEach(montarTable);
+            if (cliente.tipo == '1') {
+                $('.jsonClienteTipo').html('Pessoa Jurídica');
+                $('.labelClienteCnpjCpf').html('CNPJ');
+                $('.jsonClienteCnpj').html(aplicarMascaraJs(cliente.cnpj, '##.###.###/####-##'));
             }
+
+            if (cliente.tipo == '2') {
+                $('.jsonClienteTipo').html('Pessoa Física');
+                $('.labelClienteCnpjCpf').html('CPF');
+                $('.jsonClienteCpf').html(aplicarMascaraJs(cliente.cpf, '###.###.###-##'));
+            }
+
+            //Informações Gerais
+            $('.jsonClienteClientePrincipal').html(cliente.principalClienteName);
+            $('.jsonClienteEmail').html(cliente.email);
+
+            if (cliente.telefone_1 != '' && cliente.telefone_1 !== null) {$('.jsonClienteContatoTelefone1').html(aplicarMascaraJs(cliente.telefone_1, '(##) #####-####'));}
+            if (cliente.telefone_2 != '' && cliente.telefone_2 !== null) {$('.jsonClienteContatoTelefone2').html(aplicarMascaraJs(cliente.telefone_2, '(##) #####-####'));}
+            if (cliente.celular_1 != '' && cliente.celular_1 !== null) {$('.jsonClienteContatoCelular1').html(aplicarMascaraJs(cliente.celular_1, '(##) #####-####'));}
+            if (cliente.celular_2 != '' && cliente.celular_2 !== null) {$('.jsonClienteContatoCelular2').html(aplicarMascaraJs(cliente.celular_2, '(##) #####-####'));}
+
+            //Lendo dados servicos''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+            let cliente_servicos = json.cliente_servicos;
+
+            var tbodyServicos = '';
+
+            //Passando dados servicos (Tabela)
+            var row = 0;
+
+            function montarTable(item) {
+                row++;
+
+                statusName = item.status;
+                servicoName = item.servicoName;
+
+                tbodyServicos += "<tr>";
+                tbodyServicos += "<th scope='row'>" + row + "</th>";
+                tbodyServicos += "<td>" + statusName + "</td>";
+                tbodyServicos += "<td>" + servicoName + "</td>";
+                tbodyServicos += "</tr>";
+            }
+
+            cliente_servicos.forEach(montarTable);
 
             //Destruindo e iniciando (Simulando um Refresh)
             $('.class-datatable-2').DataTable().destroy();
-            $('.jsonClienteTransacoesTable').html(tbodyTransacoes);
+            $('.jsonClienteServicosTable').html(tbodyServicos);
+
             configurarDataTable(2);
+
+            //Alterar tamanho do input Pesquisar da tabela
+            $('.dataTables_filter .fildFilterTable').attr('style',  'width:150px');
+            //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         },
         complete: function () {},
         error: function (response) {
@@ -77,6 +92,9 @@ function clienteExtraData(id='') {
 }
 
 function fornecedorExtraData(id='') {
+    //Limpando dados
+    $('.jsonFornecedor').html('');
+
     //Verificar se mandou id ou se veio do registro_id
     if (id == '') {id = $('#registro_id').val();}
 
@@ -95,53 +113,69 @@ function fornecedorExtraData(id='') {
             //Lendo json
             let json = JSON.parse(response);
 
-            //Lendo dados fornecedor
+            //Lendo dados Fornecedor
             let fornecedor = json.fornecedor;
 
-            //Passando dados fornecedor
-            $('.jsonFornecedorFoto').attr('src', url_atual+fornecedor.foto);
+            //Passando dados Fornecedor
+            $('.jsonFornecedorName').html(fornecedor.name);
 
             if (fornecedor.status == '1') {nameStatus = 'Ativo';}
             if (fornecedor.status == '2') {nameStatus = 'Inativo';}
             $('.jsonFornecedorStatus').html(nameStatus);
 
-            if (fornecedor.tipo == '1') {nameTipo = 'Pessoa Jurídica';}
-            if (fornecedor.tipo == '2') {nameTipo = 'Pessoa Física';}
-            $('.jsonFornecedorTipo').html(nameTipo);
-
-            $('.jsonFornecedorGenero').html(fornecedor.generoName);
-            $('.jsonFornecedorName').html(fornecedor.name);
-
-            $('.jsonFornecedorId').val(fornecedor.id);
-            $('.jsonFornecedorEmail').html(fornecedor.email);
-            $('.jsonFornecedorSite').html(fornecedor.site);
-
-            //Lendo dados transacoes (Totais)
-            let transacoesCount = json.transacoesCount;
-
-            //Lendo dados transacoes (Tabela)
-            let transacoesTable = json.transacoesTable.transacoes;
-
-            var tbodyTransacoes = '';
-
-            if (transacoesTable != '') {
-                //Passando dados transacoes (Tabela)
-                var row = 0;
-
-                function montarTable(item) {
-                    row++;
-                    operacaoName = item;
-
-                    tbodyTransacoes += "<tr><th scope='row'>" + row + "</th><td>" + operacaoName + "</td></tr>";
-                }
-
-                transacoesTable.forEach(montarTable);
+            if (fornecedor.tipo == '1') {
+                $('.jsonFornecedorTipo').html('Pessoa Jurídica');
+                $('.labelFornecedorCnpjCpf').html('CNPJ');
+                $('.jsonFornecedorCnpj').html(aplicarMascaraJs(fornecedor.cnpj, '##.###.###/####-##'));
             }
+
+            if (fornecedor.tipo == '2') {
+                $('.jsonFornecedorTipo').html('Pessoa Física');
+                $('.labelFornecedorCnpjCpf').html('CPF');
+                $('.jsonFornecedorCpf').html(aplicarMascaraJs(fornecedor.cpf, '###.###.###-##'));
+            }
+
+            //Informações Gerais
+            $('.jsonFornecedorSite').html(fornecedor.site);
+            $('.jsonFornecedorEmail').html(fornecedor.email);
+
+            if (fornecedor.telefone_1 != '' && fornecedor.telefone_1 !== null) {$('.jsonFornecedorContatoTelefone1').html(aplicarMascaraJs(fornecedor.telefone_1, '(##) #####-####'));}
+            if (fornecedor.telefone_2 != '' && fornecedor.telefone_2 !== null) {$('.jsonFornecedorContatoTelefone2').html(aplicarMascaraJs(fornecedor.telefone_2, '(##) #####-####'));}
+            if (fornecedor.celular_1 != '' && fornecedor.celular_1 !== null) {$('.jsonFornecedorContatoCelular1').html(aplicarMascaraJs(fornecedor.celular_1, '(##) #####-####'));}
+            if (fornecedor.celular_2 != '' && fornecedor.celular_2 !== null) {$('.jsonFornecedorContatoCelular2').html(aplicarMascaraJs(fornecedor.celular_2, '(##) #####-####'));}
+
+            //Lendo dados servicos''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+            let fornecedor_compras = json.fornecedor_compras;
+
+            var tbodyCompras = '';
+
+            //Passando dados compras (Tabela)
+            var row = 0;
+
+            function montarTable(item) {
+                row++;
+
+                xxx = item.xxx;
+                yyy = item.yyy;
+
+                tbodyCompras += "<tr>";
+                tbodyCompras += "<th scope='row'>" + row + "</th>";
+                tbodyCompras += "<td>" + xxx + "</td>";
+                tbodyCompras += "<td>" + yyy + "</td>";
+                tbodyCompras += "</tr>";
+            }
+
+            fornecedor_compras.forEach(montarTable);
 
             //Destruindo e iniciando (Simulando um Refresh)
             $('.class-datatable-2').DataTable().destroy();
-            $('.jsonFornecedorTransacoesTable').html(tbodyTransacoes);
+            $('.jsonFornecedorComprasTable').html(tbodyCompras);
+
             configurarDataTable(2);
+
+            //Alterar tamanho do input Pesquisar da tabela
+            $('.dataTables_filter .fildFilterTable').attr('style',  'width:150px');
+            //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         },
         complete: function () {},
         error: function (response) {
@@ -151,6 +185,9 @@ function fornecedorExtraData(id='') {
 }
 
 function funcionarioExtraData(id='') {
+    //Limpando dados
+    $('.jsonFuncionario').html('');
+
     //Verificar se mandou id ou se veio do registro_id
     if (id == '') {id = $('#registro_id').val();}
 
@@ -208,71 +245,9 @@ function funcionarioExtraData(id='') {
             $('.class-datatable-2').DataTable().destroy();
             $('.jsonFuncionarioTransacoesTable').html(tbodyTransacoes);
             configurarDataTable(2);
-        },
-        complete: function () {},
-        error: function (response) {
-            alert('ERROR: '+response);
-        }
-    });
-}
 
-function visitaTecnicaExtraData(id='') {
-    //Verificar se mandou id ou se veio do registro_id
-    if (id == '') {id = $('#registro_id').val();}
-
-    //URL
-    var url_atual = window.location.protocol+'//'+window.location.host+'/';
-
-    //Ajax
-    $.ajax({
-        processing: true,
-        serverSide: true,
-        type: "GET",
-        url: url_atual+"visitas_tecnicas/extradata/"+id,
-        data: {},
-        datatype: "json",
-        success: function (response) {
-            //Lendo json
-            let json = JSON.parse(response);
-
-            //Lendo dados
-            let visita_tecnica = json.visita_tecnica;
-
-            //Passando dados visita_tecnica
-            $('.jsonVisitaTecnicaFuncao').html(visita_tecnica.funcaoName);
-            $('.jsonVisitaTecnicaEscolaridade').html(visita_tecnica.escolaridadeName);
-            $('.jsonVisitaTecnicaGenero').html(visita_tecnica.generoName);
-            $('.jsonVisitaTecnicaName').html(visita_tecnica.name);
-
-            $('.jsonVisitaTecnicaId').val(visita_tecnica.id);
-            $('.jsonVisitaTecnicaEmail').html(visita_tecnica.email);
-
-            //Lendo dados transacoes (Totais)
-            let transacoesCount = json.transacoesCount;
-
-            //Lendo dados transacoes (Tabela)
-            let transacoesTable = json.transacoesTable.transacoes;
-
-            var tbodyTransacoes = '';
-
-            if (transacoesTable != '') {
-                //Passando dados transacoes (Tabela)
-                var row = 0;
-
-                function montarTable(item) {
-                    row++;
-                    operacaoName = item;
-
-                    tbodyTransacoes += "<tr><th scope='row'>" + row + "</th><td>" + operacaoName + "</td></tr>";
-                }
-
-                transacoesTable.forEach(montarTable);
-            }
-
-            //Destruindo e iniciando (Simulando um Refresh)
-            $('.class-datatable-2').DataTable().destroy();
-            $('.jsonVisitaTecnicaTransacoesTable').html(tbodyTransacoes);
-            configurarDataTable(2);
+            //Alterar tamanho do input Pesquisar da tabela
+            $('.dataTables_filter .fildFilterTable').attr('style',  'width:150px');
         },
         complete: function () {},
         error: function (response) {
@@ -769,7 +744,15 @@ function moeda2float(moeda){
     return parseFloat(moeda);
 }
 
-//Funções para o Submódulo Propostas''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+function aplicarMascaraJs(value, pattern) {
+    let i = 0;
+    const v = value.toString();
+    return pattern.replace(/#/g, () => v[i++] || '');
+}
+
+//Funções para o Submódulo Propostas - INÍCIO'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+//Funções para o Submódulo Propostas - INÍCIO'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
 //Atualiza/Limpa os dados do Serviço escolhido para grade
 //operacao = 0 : Limpar
 //operacao = 1 : Adicionar
@@ -933,9 +916,11 @@ function atualizarValorTotalProposta(valor_global) {
     $('#valor_total').val(float2moeda(valor_global - valor_desconto));
     $('#valor_total_extenso').val(valorExtenso(valor_global - valor_desconto));
 }
-//''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+//Funções para o Submódulo Propostas - FIM''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+//Funções para o Submódulo Propostas - FIM''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-//Funções para o submódulo Clientes'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+//Funções para o Submódulo Clientes - INÍCIO''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+//Funções para o Submódulo Clientes - INÍCIO''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 function pavimentosShowHide() {
     numero_pavimentos = $('#numero_pavimentos').val();
 
@@ -944,123 +929,476 @@ function pavimentosShowHide() {
             $('#divMedidasSeguranca' + i).show();
         } else {
             $('#divMedidasSeguranca'+i).hide();
+
+            //Limpar campos do Pavimento que deu hide
+            $('#divMedidasSeguranca'+i+' .cbSegurancaMedida').prop('checked', false);
+            $('#divMedidasSeguranca'+i+' .quantidadeSegurancaMedida').val('');
+            $('#divMedidasSeguranca'+i+' .tipoSegurancaMedida').val('');
+            $('#divMedidasSeguranca'+i+' .observacaoSegurancaMedida').val('');
         }
     }
 }
-//''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+//Funções para o Submódulo Clientes - FIM'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+//Funções para o Submódulo Clientes - FIM'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-//Funções para o submódulo Visitas Técnicas'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-//Limpar campos Classificação Cliente
-function montarClassificacaoHide() {
-    //divClienteClassificacao
-    $('#divClienteClassificacao').hide();
+//Funções para o Submódulo Cliente Serviços - INÍCIO''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+//Funções para o Submódulo Cliente Serviços - INÍCIO''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-    //Informações Gerais
-    $('#numero_pavimentos').val('');
-    $('#altura').val('');
-    $('#area_total_construida').val('');
-    $('#lotacao').val('');
-    $('#carga_incendio').val('');
-    $('#incendio_risco').val('');
-    $('#grupo').val('');
-    $('#divisao').val('');
-    $('#ocupacao_uso').val('');
-    $('#descricao').val('');
 
-    //Documentos
-    $('#divProjetoScip').hide();
-    $('#projeto_scip').val('0');
-
-    $('#divLaudoExigencias').hide();
-    $('#laudo_exigencias').val('0');
-
-    $('#divCertificadoAprovacao').hide();
-    $('#certificado_aprovacao').val('0');
-
-    $('#divCertificadoAprovacaoSimplificado').hide();
-    $('#certificado_aprovacao_simplificado').val('0');
-
-    $('#divCertificadoAprovacaoAssistido').hide();
-    $('#certificado_aprovacao_assistido').val('0');
-
-    //Medidas de Segurança
-    $('#divMedidasSeguranca').hide();
-    $('#divMedidasSegurancaItens').html('');
+//Limpar Dados do Modal
+function cs_limparDados() {
+    bi_limparDados();
 }
 
-function montarClassificacaoShow(dados) {
-    //Verificar se os campos vao ser readonly
-    if ($('#frm_operacao').val() == 'edit' && $('#visita_tecnica_status_id').val() == '2') {readonly = false;} else {readonly = true;}
+//Configuração campos que vão aparecer para o Serviço escolhido
+function cs_configuracaoCampos() {
+    var servico_tipo_id = $('#servico_id option[value="'+$('#servico_id').val()+'"]').attr('data-servico_tipo_id');
 
-    //divClienteClassificacao
-    $('#divClienteClassificacao').show();
+    //Hide campos
+    $('#divQuantidade').hide();
+    $('#divDataInicio').hide();
+    $('#divDataFim').hide();
+    $('#divDataVencimento').hide();
+    $('#divValor').hide();
 
-    //Informações Gerais
-    $('#numero_pavimentos').val(dados.numero_pavimentos);
-    $('#altura').val(dados.altura);
-    $('#area_total_construida').val(dados.area_total_construida);
-    $('#lotacao').val(dados.lotacao);
-    $('#carga_incendio').val(dados.carga_incendio);
-    $('#incendio_risco').val(dados.incendio_risco);
-    $('#grupo').val(dados.grupo);
-    $('#divisao').val(dados.divisao);
-    $('#ocupacao_uso').val(dados.ocupacao_uso);
-    $('#descricao').val(dados.descricao);
+    //d-none
+    $('#divSTBrigada').addClass('d-none');
+    $('#divSTVisitaTecnica').addClass('d-none');
+    $('#divSTManutencao').addClass('d-none');
 
-    //Documentos
-    if (dados.projeto_scip == 1) {
-        $('#divProjetoScip').show();
-        $('#projeto_scip').val('1');
-        $('#projeto_scip_numero').attr('readonly', readonly);
-    }
-    if (dados.laudo_exigencias == 1) {
-        $('#divLaudoExigencias').show();
-        $('#laudo_exigencias').val('1');
-        $('#laudo_exigencias_numero').attr('readonly', readonly);
-        $('#laudo_exigencias_data_emissao').attr('readonly', readonly);
-        $('#laudo_exigencias_data_vencimento').attr('readonly', readonly);
-    }
-    if (dados.certificado_aprovacao == 1) {
-        $('#divCertificadoAprovacao').show();
-        $('#certificado_aprovacao').val('1');
-        $('#certificado_aprovacao_numero').attr('readonly', readonly);
-    }
-    if (dados.certificado_aprovacao_simplificado == 1) {
-        $('#divCertificadoAprovacaoSimplificado').show();
-        $('#certificado_aprovacao_simplificado').val('1');
-        $('#certificado_aprovacao_simplificado_numero').attr('readonly', readonly);
-    }
-    if (dados.certificado_aprovacao_assistido == 1) {
-        $('#divCertificadoAprovacaoAssistido').show();
-        $('#certificado_aprovacao_assistido').val('1');
-        $('#certificado_aprovacao_assistido_numero').attr('readonly', readonly);
+    //Serviço Tipo 1: BRIGADA DE INCÊNDIO
+    if (servico_tipo_id == 1) {
+        //Show campos
+        $('#divDataInicio').show();
+        $('#divDataFim').show();
+        $('#divDataVencimento').show();
+        $('#divValor').show();
+
+        $('#divSTBrigada').removeClass('d-none');
+
+        //Limpar campos
+        $('#quantidade').val('');
     }
 
-    //Medidas de Segurança
-    numero_pavimentos = dados.numero_pavimentos;
-    cliente_seguranca_medidas = dados['cliente_seguranca_medidas'];
-    medidas_seguranca = '';
+    //Serviço Tipo 2: MANUTENÇÃO
+    if (servico_tipo_id == 2) {
+        //Show campos
+        $('#divQuantidade').show();
+        $('#divDataInicio').show();
+        $('#divDataFim').show();
+        $('#divDataVencimento').show();
+        $('#divValor').show();
+
+        //$('#divSTManutencao').removeClass('d-none');
+    }
+
+    //Serviço Tipo 3: VISITA TÉCNICA
+    if (servico_tipo_id == 3) {
+        //Show campos
+        $('#divDataInicio').show();
+        $('#divDataFim').show();
+        $('#divDataVencimento').show();
+        $('#divValor').show();
+
+        //$('#divSTVisitaTecnica').removeClass('d-none');
+
+        //Limpar campos
+        $('#quantidade').val('');
+    }
+}
+
+//BRIGADA DE INCÊNDIO - INICIO''''''''''''''''''''''''''''''''''''''''''''''''
+//BRIGADA DE INCÊNDIO - INICIO''''''''''''''''''''''''''''''''''''''''''''''''
+
+//Limpar Dados
+function bi_limparDados() {
+    bi_limparFormulario();
+    bi_limparGradeBrigadistas();
+}
+
+//Limpar Formulário
+function bi_limparFormulario() {
+    //Limpar informações gerais
+    $('#bi_escala_tipo_id').val('');
+    $('#bi_quantidade_alas_escala').val('');
+    $('#bi_quantidade_brigadistas_por_ala').val('');
+    $('#bi_quantidade_brigadistas_total').val('');
+    $('#bi_hora_inicio_ala').val('');
+}
+
+//Limpar Grade de Brigadistas
+function bi_limparGradeBrigadistas() {
+    //Limpar grade de brigadistas
+    $('#bi_grade_funcionario_id').val('');
+    $('#select2-bi_grade_funcionario_id-container').html('');
+    $('#bi_grade_funcionario_nome').val('');
+    $('#bi_grade_ala').val('');
+
+    $('#bi_tbody_grade_brigadistas').html('');
+    $('#bi_funcionario_hiddens').html('');
+}
+
+//Atualiza/Limpa grade de brigadistas
+//operacao = 0 : Limpar
+//operacao = 1 : Adicionar
+//operacao = 2 : Atualizar
+//operacao = 3 : Retirar
+function bi_gradeBrigadistasEscolher(operacao, funcionario_id='', funcionario_nome='', ala='') {
+    if (operacao == 0) {
+        //campos
+        $('#bi_grade_funcionario_id').val(funcionario_id);
+        $('#select2-bi_grade_funcionario_id-container').html(funcionario_nome);
+        $('#bi_grade_funcionario_nome').val(funcionario_nome);
+        $('#bi_grade_ala').val(ala);
+
+        //botoes
+        $('#bi_divGradeFuncionarioAdicionar').hide();
+        $('#bi_divGradeFuncionarioRetirar').hide();
+    }
+
+    if (operacao == 1) {
+        //campos
+        $('#bi_grade_funcionario_nome').val(funcionario_nome);
+
+        //botoes
+        $('#bi_divGradeFuncionarioAdicionar').show();
+        $('#bi_divGradeFuncionarioRetirar').hide();
+    }
+
+    if (operacao == 2) {
+        //campos
+        $('#bi_grade_funcionario_id').val(funcionario_id);
+        $('#select2-bi_grade_funcionario_id-container').html(funcionario_nome);
+        $('#bi_grade_funcionario_nome').val(funcionario_nome);
+        $('#bi_grade_ala').val(ala);
+
+        //botoes
+        $('#bi_divGradeFuncionarioAdicionar').hide();
+        $('#bi_divGradeFuncionarioRetirar').show();
+    }
+}
+
+//Atualizar a Grade de Brigadistas
+//operacao = 0 : Somente atualiza os valores
+//operacao = 1 : Adicionar
+//operacao = 2 : Atualizar
+//operacao = 3 : Retirar
+function bi_gradeBrigadistasAtualizar(operacao) {
+    if (operacao == 1) {
+        //Dados para preenchera linha da grade
+        var bi_grade_funcionario_id = $('#bi_grade_funcionario_id').val();
+        var bi_grade_funcionario_nome = $('#bi_grade_funcionario_nome').val();
+        var bi_grade_ala = $('#bi_grade_ala').val();
+
+        //Montar Linha
+        var linha;
+
+        linha = "<tr class='bi_funcionario_linha' id='bi_funcionario_linha_" + bi_grade_funcionario_id + "' data-id='" + bi_grade_funcionario_id + "' style='cursor: pointer'>";
+        linha += "  <td id='funcionario_ala_td_" + bi_grade_funcionario_id + "'>" + bi_grade_ala + "</td>";
+        linha += "  <td id='funcionario_nome_td_" + bi_grade_funcionario_id + "'>" + bi_grade_funcionario_nome + "</td>";
+        linha += "</tr>";
+
+        //Adicionar linha na grade
+        $('#bi_tbody_grade_brigadistas').append(linha);
+
+        //Montar campos hidden
+        var hiddens;
+
+        hiddens = "<div id='bi_funcionario_hiddens_" + bi_grade_funcionario_id + "'>";
+        hiddens += "<input type='hidden' name='bi_funcionario_id[]' id='bi_funcionario_id' value='"+bi_grade_funcionario_id+"'>";
+        hiddens += "<input type='hidden' name='bi_funcionario_nome[]' id='bi_funcionario_nome' value='"+bi_grade_funcionario_nome+"'>";
+        hiddens += "<input type='hidden' name='bi_ala[]' id='bi_ala' value='"+bi_grade_ala+"'>";
+        hiddens += "</div>";
+
+        //Adicionar hiddens na div
+        $('#bi_funcionario_hiddens').append(hiddens);
+    }
+
+    if (operacao == 3) {
+        //Dados
+        var bi_grade_funcionario_id = $('#bi_grade_funcionario_id').val();
+
+        //Remover linha da grade
+        $('#bi_funcionario_linha_'+bi_grade_funcionario_id).remove();
+
+        //Remover campos hiddens
+        $('#bi_funcionario_hiddens_'+bi_grade_funcionario_id).remove();
+    }
+
+    //Contando Funcionarios na grade
+    $('#bi_funcionario_total').html('Total: '+$('.bi_funcionario_linha').length+'/'+$('#bi_quantidade_brigadistas_total').val());
+}
+
+//Alterar campo bi_quantidade_brigadistas_total de acordo com os campos bi_escala_tipo_id e bi_quantidade_brigadistas_por_ala
+function bi_quantidadeBrigadistasTotal() {
+    var bi_quantidade_brigadistas_total = 0;
+
+    if ($('#bi_escala_tipo_id').val() != '' && $('#bi_quantidade_brigadistas_por_ala').val() != '') {
+        var qtd_alas_escala = $('#bi_quantidade_alas_escala').val();
+        var qtd_brigadistas_por_ala = $('#bi_quantidade_brigadistas_por_ala').val();
+
+        bi_quantidade_brigadistas_total = qtd_alas_escala * qtd_brigadistas_por_ala;
+    }
+
+    $('#bi_quantidade_brigadistas_total').val(bi_quantidade_brigadistas_total);
+}
+
+//Verificar se dados da grade estão corretos
+//@PARAN op=1 : Ao escolher Brigadista para colocar na grade
+//@PARAN op=2 : Ao tentar Incluir ou Alterar
+function bi_gradeBrigadistasVerificacao(op) {
+    //Verificar se qtd de Brigadistas em cada ala na grade está correto''''''''''''''''''''''''
+    for(i=1; i<=$('#bi_quantidade_alas_escala').val(); i++) {
+        var qtd_na_grade = 0;
+        $("input[name='bi_ala[]']").each(function () {
+            if ($(this).val() == i) {
+                qtd_na_grade++;
+            }
+        });
+
+        if (qtd_na_grade > $('#bi_quantidade_brigadistas_por_ala').val()) {
+            alert('Ala '+i+'. '+'É preciso ter '+$('#bi_quantidade_brigadistas_por_ala').val()+' Brigadistas em cada Ala na Grade.');
+            return false;
+        }
+    }
+    //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+    //Verificar se qtd de Brigadistas na grade está correto''''''''''''''''''''''''''''''''''''''
+    var qtd_na_grade = 0;
+    $("input[name='bi_funcionario_id[]']").each(function () {qtd_na_grade++;});
+
+    if (qtd_na_grade > $('#bi_quantidade_brigadistas_total').val()) {
+        alert('É preciso ter '+$('#bi_quantidade_brigadistas_total').val()+' Brigadistas na Grade.');
+        return false;
+    }
+
+    //Se for para Salvar verifica se a quantidade na grade é menor
+    if (op == 2) {
+        if (qtd_na_grade < $('#bi_quantidade_brigadistas_total').val()) {
+            alert('É preciso ter ' + $('#bi_quantidade_brigadistas_total').val() + ' Brigadistas na Grade.');
+            return false;
+        }
+    }
+    //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+    return true;
+}
+
+//Configuração conforme escala escolhida
+function bi_configuracaoConformeEscala(bi_escala_tipo_id) {
+    var quantidade_alas = $('#bi_escala_tipo_id option[value="'+bi_escala_tipo_id+'"]').attr('data-quantidade_alas');
+
+    //Campos hidden
+    $('#bi_quantidade_alas_escala').val(quantidade_alas);
+
+    //campo bi_grade_ala <options>
+    var bi_grade_ala_options = '<option value="">&nbsp;</option>';
+    for (i = 1; i <= quantidade_alas; i++) {
+        bi_grade_ala_options += '<option value="' + i + '">' + i + '</option>';
+    }
+
+    $('#bi_grade_ala').html(bi_grade_ala_options);
+
+    //Quantidade Total de Brigadistas
+    bi_quantidadeBrigadistasTotal();
+}
+//BRIGADA DE INCÊNDIO - FIM'''''''''''''''''''''''''''''''''''''''''''''''''''
+//BRIGADA DE INCÊNDIO - FIM'''''''''''''''''''''''''''''''''''''''''''''''''''
+
+//VISITA TÉCNICA - INICIO'''''''''''''''''''''''''''''''''''''''''''''''''''''
+//VISITA TÉCNICA - INICIO'''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+//Verificar se pode salvar
+function vt_verificacao() {
+    var retorno = true;
+
+    //Buscar dados do Registro
+    $.ajax({
+        type:'GET',
+        url: 'clientes/'+$('#cliente_id').val(),
+        async: false,
+        success: function (data) {
+            //Lendo dados
+            if (data.success) {
+                cliente_seguranca_medidas = data.success['cliente_seguranca_medidas'];
+
+                if (cliente_seguranca_medidas.length <= 0) {
+                    alert('Erro nos dados vindos do Cliente. Verifique as Medidas de Segurança.');
+                    retorno = false;
+                }
+            }
+        }
+    });
+
+    return retorno;
+}
+//VISITA TÉCNICA - FIM''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+//VISITA TÉCNICA - FIM''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+//Funções para o Submódulo Cliente Serviços - FIM'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+//Funções para o Submódulo Cliente Serviços - FIM'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+//Funções para o Submódulo Funcionarios - INÍCIO''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+//Funções para o Submódulo Funcionarios - INÍCIO''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+//Função para buscar dados na API (Documentos pdf do funcionario para colocar na grade)
+//Paran op (1 view) (2 edit)
+function montar_grade_documentos_funcionario(op) {
+    $.get('funcionarios/' + $('#registro_id').val(), function (data) {
+        let funcionarioDocumentos = data.success['funcionarioDocumentos'];
+
+        //Montar a grade
+        var linha = '';
+        $.each(funcionarioDocumentos, function(i, item) {
+            var caminho = window.location.protocol+'//'+window.location.host+'/'+item.caminho;
+
+            linha += '<tr>';
+            linha += '  <th scope="row">'+(i+1)+'</th>';
+            linha += '      <td>'+item.descricao+'</td>';
+            linha += '      <td style="vertical-align:top; white-space:nowrap;">';
+            linha += '          <div class="row">';
+            linha += '              <div class="col-1">';
+            linha += '                  <button type="button" class="btn btn-outline-info text-center btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Visualizar Documento" onclick="window.open(\''+caminho+'\', \'_blank\');"><i class="fa fa-file-pdf font-size-18"></i></button>';
+            linha += '              </div>';
+
+            //Botão Deletar documento
+            if (op == 2) {
+                linha += '              <div class="col-1">';
+                linha += '                  <button type="button" class="btn btn-outline-danger text-center btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Excluir Documento" onclick="deletar_documentos_funcionario(' + item.id + ');"><i class="fa fa-trash-alt font-size-18"></i></button>';
+                linha += '              </div>';
+            }
+
+            linha += '          </div>';
+            linha += '      </td>';
+            linha += '</tr>';
+        });
+
+        $('#tbodyDocumentoUpload').html(linha);
+    });
+}
+
+//Função para deletar documento da grade
+function deletar_documentos_funcionario(funcionario_documento_id) {
+    //Confirmação de Delete
+    alertSwalConfirmacao(function (confirmed) {
+        if (confirmed) {
+            $.ajax({
+                type: "DELETE",
+                url: "funcionarios/deletar_documento/" + funcionario_documento_id
+            });
+
+            montar_grade_documentos_funcionario(2);
+        }
+    });
+}
+//Funções para o Submódulo Funcionarios - FIM'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+//Funções para o Submódulo Funcionarios - FIM'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+//Funções para o Submódulo Visitas Técnicas - INÍCIO''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+//Funções para o Submódulo Visitas Técnicas - INÍCIO''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+function vt_configurarFormulario(dados) {
+    if ($('#frm_operacao').val() == 'edit') {
+        //Div's Principais''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+        $('#divInformacoesServico').show();
+        $('#divClassificacaoDecretoInformacoesGerais').hide();
+        $('#divMedidasSeguranca').show();
+        //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+        //Pdf's'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+        $('.input_projeto_scip_pdf').show();
+        $('.btn_projeto_scip_pdf_upload').show();
+
+        $('.input_laudo_exigencias_pdf').show();
+        $('.btn_laudo_exigencias_pdf_upload').show();
+
+        $('.input_certificado_aprovacao_pdf').show();
+        $('.btn_certificado_aprovacao_pdf_upload').show();
+
+        $('.input_certificado_aprovacao_simplificado_pdf').show();
+        $('.btn_certificado_aprovacao_simplificado_pdf_upload').show();
+
+        $('.input_certificado_aprovacao_assistido_pdf').show();
+        $('.btn_certificado_aprovacao_assistido_pdf_upload').show();
+        //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    } else {
+        //Div's Principais''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+        $('#divInformacoesServico').show();
+        $('#divClassificacaoDecretoInformacoesGerais').show();
+        $('#divMedidasSeguranca').show();
+        //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+        //Pdf's'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+        $('.input_projeto_scip_pdf').hide();
+        $('.btn_projeto_scip_pdf_upload').hide();
+
+        $('.input_laudo_exigencias_pdf').hide();
+        $('.btn_laudo_exigencias_pdf_upload').hide();
+
+        $('.input_certificado_aprovacao_pdf').hide();
+        $('.btn_certificado_aprovacao_pdf_upload').hide();
+
+        $('.input_certificado_aprovacao_simplificado_pdf').hide();
+        $('.btn_certificado_aprovacao_simplificado_pdf_upload').hide();
+
+        $('.input_certificado_aprovacao_assistido_pdf').hide();
+        $('.btn_certificado_aprovacao_assistido_pdf_upload').hide();
+        //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    }
+
+    //Classificação - Documentos''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    $('#divProjetoScip').hide();
+    $('#divLaudoExigencias').hide();
+    $('#divCertificadoAprovacao').hide();
+    $('#divCertificadoAprovacaoSimplificado').hide();
+    $('#divCertificadoAprovacaoAssistido').hide();
+
+    if (dados.projeto_scip == 1) {$('#divProjetoScip').show();}
+    if (dados.laudo_exigencias == 1) {$('#divLaudoExigencias').show();}
+    if (dados.certificado_aprovacao == 1) {$('#divCertificadoAprovacao').show();}
+    if (dados.certificado_aprovacao_simplificado == 1) {$('#divCertificadoAprovacaoSimplificado').show();}
+    if (dados.certificado_aprovacao_assistido == 1) {$('#divCertificadoAprovacaoAssistido').show();}
+    //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+}
+
+function vt_preencherFormulario(dados) {
+    //Dados do Serviço criado no submódulo Clientes'''''''''''''''''''''''''''''''''''
+    let clientes_servicos_servico = dados.clientes_servicos_servico;
+
+    //Campos
+    $('#is_cliente').val(clientes_servicos_servico.clienteName);
+    $('#is_servico_status').val(clientes_servicos_servico.servicoStatusName);
+    $('#is_responsavel_funcionario').val(clientes_servicos_servico.responsavelFuncionarioName);
+    $('#is_data_inicio').val(clientes_servicos_servico.data_inicio);
+    $('#is_data_fim').val(clientes_servicos_servico.data_fim);
+    $('#is_data_vencimento').val(clientes_servicos_servico.data_vencimento);
+    $('#is_valor').val(clientes_servicos_servico.valor);
+    //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+    //Classificação - Medidas de Segurança''''''''''''''''''''''''''''''''''''''''''''
+    var numero_pavimentos = dados.numero_pavimentos;
+    var cliente_seguranca_medidas = dados['cliente_seguranca_medidas'];
+    var medidas_seguranca = '';
 
     //verificar validacoes
     if (numero_pavimentos == '' || numero_pavimentos == '0' || numero_pavimentos == 0) {
         alert('Erro nos dados vindos do Cliente. Verifique o Número de Pavimentos.');
         $('#divMedidasSeguranca').hide();
-        return;
+        return false;
     }
     if (cliente_seguranca_medidas.length <= 0) {
         alert('Erro nos dados vindos do Cliente. Verifique as Medidas de Segurança.');
         $('#divMedidasSeguranca').hide();
-        return;
+        return false;
     }
 
     //Montar
-    for(pavimento=1; pavimento<=numero_pavimentos; pavimento++) {
+    for (pavimento = 1; pavimento <= numero_pavimentos; pavimento++) {
         ctrl = 0;
 
-        medidas_seguranca += '<h6 class="pb-3 text-success"><i class="fa fa-fire-extinguisher"></i> Medidas de Segurança - Pavimento ' + '<span class="font-size-15">'+pavimento+'</span>' + '</h6>';
+        medidas_seguranca += '<h6 class="pb-3 text-success"><i class="fa fa-fire-extinguisher"></i> Medidas de Segurança - Pavimento ' + '<span class="font-size-15">' + pavimento + '</span>' + '</h6>';
 
         //Campos
-        $.each(cliente_seguranca_medidas, function(i, campo) {
+        $.each(cliente_seguranca_medidas, function (i, campo) {
             if (pavimento == campo.pavimento) {
                 ctrl++;
 
@@ -1076,187 +1414,397 @@ function montarClassificacaoShow(dados) {
                 } else {
                     seguranca_medida_quantidade = campo.seguranca_medida_quantidade;
                 }
-                if (campo.seguranca_medida_observacoes === null || campo.seguranca_medida_observacoes === undefined) {
-                    seguranca_medida_observacoes = '';
+                if (campo.seguranca_medida_tipo === null || campo.seguranca_medida_tipo === undefined) {
+                    seguranca_medida_tipo = '';
                 } else {
-                    seguranca_medida_observacoes = campo.seguranca_medida_observacoes;
+                    seguranca_medida_tipo = campo.seguranca_medida_tipo;
+                }
+                if (campo.seguranca_medida_observacao === null || campo.seguranca_medida_observacao === undefined) {
+                    seguranca_medida_observacao = '';
+                } else {
+                    seguranca_medida_observacao = campo.seguranca_medida_observacao;
+                }
+                if (campo.conferencia === null || campo.conferencia === undefined) {
+                    conferencia = '';
+                } else {
+                    conferencia = campo.conferencia;
+                }
+                if (campo.observacao === null || campo.observacao === undefined) {
+                    observacao = '';
+                } else {
+                    observacao = campo.observacao;
                 }
 
-                medidas_seguranca += montarClassificacaoMedidaSeguranca(ctrl, pavimento, seguranca_medida_id, seguranca_medida_nome, seguranca_medida_quantidade, seguranca_medida_observacoes);
+                medidas_seguranca += vt_prepararMedidasSegurancas(ctrl, pavimento, seguranca_medida_id, seguranca_medida_nome, seguranca_medida_quantidade, seguranca_medida_tipo, seguranca_medida_observacao, conferencia, observacao);
             }
         });
     }
 
-    $('#divMedidasSeguranca').show();
     $('#divMedidasSegurancaItens').html(medidas_seguranca);
+
+    return true;
+    //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 }
 
-//Div Medidas Segurança
-function montarClassificacaoMedidaSeguranca(ctrl, pavimento, seguranca_medida_id, seguranca_medida_nome, seguranca_medida_quantidade, seguranca_medida_observacoes) {
+function vt_prepararMedidasSegurancas(ctrl, pavimento, seguranca_medida_id, seguranca_medida_nome, seguranca_medida_quantidade, seguranca_medida_tipo, seguranca_medida_observacao, conferencia, observacao) {
     //Verificar se os campos vao ser readonly
-    if ($('#frm_operacao').val() == 'edit' && $('#visita_tecnica_status_id').val() == '2') {readonly = '';} else {readonly = 'readonly';}
+    if ($('#frm_operacao').val() == 'edit') {readonly = ''; disabled = '';} else {readonly = 'readonly'; disabled = 'disabled';}
+
+    //Combo conferencia''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    var combo_conferencia = '';
+    var selected0 = '';
+    var selected1 = '';
+    var selected2 = '';
+
+    if (conferencia == 0) {selected0 = 'selected';}
+    if (conferencia == 1) {selected1 = 'selected';}
+    if (conferencia == 2) {selected2 = 'selected';}
+
+    combo_conferencia = '<select class="form-control col-12" id="conferencia_' + pavimento + '_' + seguranca_medida_id + '" name="conferencia_' + pavimento + '_' + seguranca_medida_id + '" required="required" '+readonly+'  '+disabled+'>';
+    combo_conferencia += '  <option value="0" '+selected0+'>Não Conferido</option>';
+    combo_conferencia += '  <option value="1" '+selected1+'>Aprovado</option>';
+    combo_conferencia += '  <option value="2" '+selected2+'>Restrição</option>';
+    combo_conferencia += '</select>';
+    //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
     var medidas_seguranca;
 
-    medidas_seguranca = '<div class="row alert alert-primary ms-3">';
-    medidas_seguranca += '  <div class="form-group col-12 col-md-3 pb-3">';
-    medidas_seguranca += '      <label class="form-label col-12">&nbsp;</label>';
-    medidas_seguranca += '      <div class="text-primary font-size-11 fw-bold align-middle me-2"><span class="font-size-14">'+pavimento+'.'+ctrl+'</span>' + '&nbsp;'+seguranca_medida_nome+ '</div>';
-    medidas_seguranca += '      <input type="hidden" id="seguranca_medida_id_' + pavimento + '_' + seguranca_medida_id + '" name="seguranca_medida_id_' + pavimento + '_' + seguranca_medida_id + '" value="' + seguranca_medida_id + '">';
-    medidas_seguranca += '      <input type="hidden" id="seguranca_medida_nome_' + pavimento + '_' + seguranca_medida_id + '" name="seguranca_medida_nome_' + pavimento + '_' + seguranca_medida_id + '" value="' + seguranca_medida_nome + '">';
-    medidas_seguranca += '      <input type="hidden" name="ids_seguranca_medidas[]" value="' + seguranca_medida_id + '">';
+    medidas_seguranca = '<div class="col-12 col-md-6 pb-3">';
+    medidas_seguranca += '  <div class="col-12 alert alert-primary">';
+    medidas_seguranca += '      <div class="form-group col-12 pb-3">';
+    medidas_seguranca += '          <div class="text-primary font-size-11 fw-bold align-middle me-2"><span class="font-size-14">'+pavimento+'.'+ctrl+'</span>' + '&nbsp;'+seguranca_medida_nome+ '</div>';
+    medidas_seguranca += '          <input type="hidden" id="seguranca_medida_id_' + pavimento + '_' + seguranca_medida_id + '" name="seguranca_medida_id_' + pavimento + '_' + seguranca_medida_id + '" value="' + seguranca_medida_id + '">';
+    medidas_seguranca += '          <input type="hidden" id="seguranca_medida_nome_' + pavimento + '_' + seguranca_medida_id + '" name="seguranca_medida_nome_' + pavimento + '_' + seguranca_medida_id + '" value="' + seguranca_medida_nome + '">';
+    medidas_seguranca += '          <input type="hidden" name="ids_seguranca_medidas[]" value="' + seguranca_medida_id + '">';
+    medidas_seguranca += '      </div>';
+    medidas_seguranca += '      <div class="row">';
+    medidas_seguranca += '          <div class="form-group col-12 col-md-2 pb-3">';
+    medidas_seguranca += '              <label class="form-label">Qtd</label>';
+    medidas_seguranca += '              <div class="col-12 text-dark">'+seguranca_medida_quantidade+'</div>';
+    medidas_seguranca += '          </div>';
+    medidas_seguranca += '          <div class="form-group col-12 col-md-10 pb-3">';
+    medidas_seguranca += '              <label class="form-label">Tipo</label>';
+    medidas_seguranca += '              <div class="col-12 text-dark">'+seguranca_medida_tipo+'</div>';
+    medidas_seguranca += '          </div>';
+    medidas_seguranca += '      </div>';
+    medidas_seguranca += '      <div class="row">';
+    medidas_seguranca += '          <div class="form-group col-12 col-md-4">';
+    medidas_seguranca += '              <label class="form-label">Conferência</label>';
+    medidas_seguranca +=                combo_conferencia;
+    medidas_seguranca += '          </div>';
+    medidas_seguranca += '          <div class="form-group col-12 col-md-8">';
+    medidas_seguranca += '              <label class="form-label">Observação</label>';
+    medidas_seguranca += '              <textarea class="form-control" id="observacao_' + pavimento + '_' + seguranca_medida_id + '" name="observacao_' + pavimento + '_' + seguranca_medida_id + '" '+readonly+'>' + observacao + '</textarea>';
+    medidas_seguranca += '          </div>';
+    medidas_seguranca += '      </div>';
     medidas_seguranca += '  </div>';
-    medidas_seguranca += '  <div class="form-group col-12 col-md-2 pb-3">';
-    medidas_seguranca += '      <label class="form-label">Quantidade</label>';
-    medidas_seguranca += '      <input type="number" class="form-control" id="seguranca_medida_quantidade_' + pavimento + '_' + seguranca_medida_id + '" name="seguranca_medida_quantidade_' + pavimento + '_' + seguranca_medida_id + '" value="' + seguranca_medida_quantidade + '" '+readonly+'>';
-    medidas_seguranca += '  </div>';
-    medidas_seguranca += '  <div class="form-group col-12 col-md-7 pb-3">';
-    medidas_seguranca += '      <label class="form-label">Observações</label>';
-    medidas_seguranca += '      <textarea class="form-control" id="seguranca_medida_observacoes_' + pavimento + '_' + seguranca_medida_id + '" name="seguranca_medida_observacoes_' + pavimento + '_' + seguranca_medida_id + '" '+readonly+'>' + seguranca_medida_observacoes + '</textarea>';
+    medidas_seguranca += '</div>';
+
+    return medidas_seguranca;
+}
+//Funções para o Submódulo Visitas Técnicas - FIM'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+//Funções para o Submódulo Visitas Técnicas - FIM'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+//Funções para o Submódulo Brigadas Incêndios - INÍCIO''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+//Funções para o Submódulo Brigadas Incêndios - INÍCIO''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+//Preencher o Formulário com Informações do Serviço
+function bi_preencherFormulario(dados) {
+    //Dados do Serviço criado no submódulo Clientes'''''''''''''''''''''''''''''''''''
+    let clientes_servicos_servico = dados.clientes_servicos_servico;
+
+    //Campos
+    $('#is_cliente').val(clientes_servicos_servico.clienteName);
+    $('#is_servico_status').val(clientes_servicos_servico.servicoStatusName);
+    $('#is_responsavel_funcionario').val(clientes_servicos_servico.responsavelFuncionarioName);
+    $('#is_data_inicio').val(clientes_servicos_servico.data_inicio);
+    $('#is_data_fim').val(clientes_servicos_servico.data_fim);
+    $('#is_data_vencimento').val(clientes_servicos_servico.data_vencimento);
+    $('#is_valor').val(clientes_servicos_servico.valor);
+    //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+}
+
+//Brigadas Incêndios - Escalas - INÍCIO''''''''''''''''''
+//Brigadas Incêndios - Escalas - INÍCIO''''''''''''''''''
+
+//Grade de Registros de Escalas
+function bi_montarGradeEscala() {
+    //Verificar período
+    if ($('#es_periodo_data_1').val() == '' || $('#es_periodo_data_2').val() == '') {
+        alert('Escolha um Período.');
+    } else {
+        $('.er_grade_escala').DataTable({
+            language: {
+                pageLength: {
+                    '-1': 'Mostrar todos os registros',
+                    '_': 'Mostrar %d registros'
+                },
+                lengthMenu: 'Exibir _MENU_ resultados por página',
+                emptyTable: 'Nenhum registro encontrado',
+                info: 'Mostrando de _START_ até _END_ de _TOTAL_ registros',
+                infoEmpty: 'Mostrando 0 até 0 de 0 registros',
+                infoFiltered: '(Filtrados de _MAX_ registros)',
+                infoThousands: '.',
+                loadingRecords: 'Carregando...',
+                processing: 'Processando...',
+                zeroRecords: 'Nenhum registro encontrado',
+                search: 'Pesquisar',
+                paginate: {
+                    next: 'Próximo',
+                    previous: 'Anterior',
+                    first: 'Primeiro',
+                    last: 'Último'
+                }
+            },
+            bDestroy: true,
+            responsive: false,
+            pageLength: 5,
+            lengthChange: true,
+            autoWidth: true,
+            order: [],
+            processing: true,
+            serverSide: false,
+            ajax: 'brigadas/escalas_index/' + $('#registro_id').val() + '/' + $('#es_periodo_data_1').val() + '/' + $('#es_periodo_data_2').val(),
+            columnDefs: [{'targets': [0, 1, 2, 3, 4], 'orderable': false}],
+            columns: [
+                {'data': '#'},
+                {'data': 'funcionario_nome'},
+                {'data': 'chegada'},
+                {'data': 'saida'},
+                {'data': 'action'}
+            ]
+        });
+    }
+}
+
+function bi_atualizarFrequenciaEscala() {
+    $.ajax({
+        data: $('#frm_escala_frequencia').serialize(),
+        url: "brigadas/escalas_update_frequencia/"+$('#brigada_escala_id').val(),
+        type: "PUT",
+        dataType: "json",
+        success: function (response) {
+            //Lendo dados
+            if (response.success) {
+                //Fechar Modal
+                $('.modal-acoes').modal('hide');
+
+                //Colocando Frequencia na Grade
+                var frequencia = '';
+
+                if ($('#escala_frequencia_id').val() == 1) {frequencia = "<span class='text-success'>PRESENÇA</span>";}
+                if ($('#escala_frequencia_id').val() == 2) {frequencia = "<span class='text-warning'>ATRASO</span>";}
+                if ($('#escala_frequencia_id').val() == 3) {frequencia = "<span class='text-danger'>FALTA</span>";}
+
+                $('#escala_frequencia_'+$('#brigada_escala_id').val()).html(frequencia);
+
+            } else {
+                alert('Erro interno');
+            }
+        },
+        error: function (data) {
+            alert('Erro interno');
+        }
+    });
+}
+//Brigadas Incêndios - Escalas - FIM'''''''''''''''''''''
+//Brigadas Incêndios - Escalas - FIM'''''''''''''''''''''
+
+//Brigadas Incêndios - Rondas - INÍCIO'''''''''''''''''''
+//Brigadas Incêndios - Rondas - INÍCIO'''''''''''''''''''
+
+//Função para montar o Formulário da Ronda
+//@PARAN op=1 : Executar Ronda - Dados vão vir da tabela clientes_seguranca_medidas
+//@PARAN op=2 : Visualizar Ronda - Dados vão vir da tabela brigadas_rondas_seguranca_medidas
+function bi_formularioRonda(op, dados) {
+    //dados
+    var seguranca_medidas = dados;
+
+    //Classificação - Medidas de Segurança''''''''''''''''''''''''''''''''''''''''''''
+    var retorno = '';
+    var retorno_titulo = '';
+    var retorno_linha = '';
+
+    //verificar validacoes
+    if (seguranca_medidas.length <= 0) {
+        alert('Erro nos dados vindos do Cliente. Verifique as Medidas de Segurança.');
+        return;
+    }
+
+    //numero_pavimentos (Fictício)
+    var numero_pavimentos = 50;
+
+    //Montar
+    for (var pavimento = 1; pavimento <= numero_pavimentos; pavimento++) {
+        var ctrl = 0;
+
+        retorno_titulo = '<h6 class="pb-3 text-success"><i class="fa fa-fire-extinguisher"></i> Medidas de Segurança - Pavimento ' + '<span class="font-size-15">' + pavimento + '</span>' + '</h6>';
+        retorno_linha = '';
+
+        //Campos
+        $.each(seguranca_medidas, function (i, campo) {
+            if (pavimento == campo.pavimento) {
+                ctrl++;
+
+                if (op == 1) {
+                    var seguranca_medida_id = campo.seguranca_medida_id;
+                    var seguranca_medida_nome = campo.seguranca_medida_nome;
+                    var seguranca_medida_quantidade = campo.quantidade;
+                    var seguranca_medida_tipo = campo.tipo;
+                    var conferencia = '';
+                    var observacao = '';
+                }
+
+                if (op == 2) {
+                    var seguranca_medida_id = campo.seguranca_medida_id;
+                    var seguranca_medida_nome = campo.seguranca_medida_nome;
+                    var seguranca_medida_quantidade = campo.seguranca_medida_quantidade;
+                    var seguranca_medida_tipo = campo.seguranca_medida_tipo;
+                    var conferencia = campo.conferencia;
+                    var observacao = campo.observacao;
+                }
+
+                retorno_linha += bi_segurancaMedidasRonda(op, ctrl, pavimento, seguranca_medida_id, seguranca_medida_nome, seguranca_medida_quantidade, seguranca_medida_tipo, conferencia, observacao);
+            }
+        });
+
+        if (retorno_linha != '') {retorno += retorno_titulo+retorno_linha;}
+    }
+
+    $('#divMedidasSegurancaRondaItens').html(retorno);
+    //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+}
+
+//Função para montar as Medidas Técnicas no Formulário Ronda
+//@PARAN op=1 : Executar Ronda
+//@PARAN op=2 : Visualizar Ronda
+function bi_segurancaMedidasRonda(op, ctrl, pavimento, seguranca_medida_id, seguranca_medida_nome, seguranca_medida_quantidade, seguranca_medida_tipo, conferencia, observacao) {
+    //Verificar se os campos vao ser readonly
+    var readonly = '';
+    var disabled = '';
+
+    var textoConferencia = 'NÃO INFORMADO';
+    var textoCor = '';
+
+    var botoesStyle = '';
+
+    if (op == 2) {
+        readonly = 'readonly';
+        disabled = 'disabled';
+
+        if (conferencia == 0) {
+            textoConferencia = textoConferencia = '<i class="far fa-calendar-minus"></i>'+' NÃO ENCONTRADO';
+            textoCor = 'text-warning';
+        }
+
+        if (conferencia == 1) {
+            textoConferencia = textoConferencia = '<i class="far fa-calendar-check"></i>'+' CONFERIDO';
+            textoCor = 'text-success';
+        }
+
+        if (conferencia == 2) {
+            textoConferencia = textoConferencia = '<i class="far fa-calendar-times"></i>'+' DANIFICADO';
+            textoCor = 'text-danger';
+        }
+
+        botoesStyle = 'style="display:none;"';
+    }
+
+    var medidas_seguranca;
+
+    medidas_seguranca = '<div class="col-12 col-md-6 pb-3">';
+    medidas_seguranca += '  <div class="col-12 alert alert-primary">';
+    medidas_seguranca += '      <div class="form-group col-12 pb-3">';
+    medidas_seguranca += '          <div class="text-primary font-size-11 fw-bold align-middle me-2"><span class="font-size-14">'+pavimento+'.'+ctrl+'</span>' + '&nbsp;'+seguranca_medida_nome+ '</div>';
+    medidas_seguranca += '          <input type="hidden" id="seguranca_medida_id_' + pavimento + '_' + seguranca_medida_id + '" name="seguranca_medida_id_' + pavimento + '_' + seguranca_medida_id + '" value="' + seguranca_medida_id + '">';
+    medidas_seguranca += '          <input type="hidden" id="seguranca_medida_nome_' + pavimento + '_' + seguranca_medida_id + '" name="seguranca_medida_nome_' + pavimento + '_' + seguranca_medida_id + '" value="' + seguranca_medida_nome + '">';
+    medidas_seguranca += '          <input type="hidden" id="seguranca_medida_quantidade_' + pavimento + '_' + seguranca_medida_id + '" name="seguranca_medida_quantidade_' + pavimento + '_' + seguranca_medida_id + '" value="' + seguranca_medida_quantidade + '">';
+    medidas_seguranca += '          <input type="hidden" id="seguranca_medida_tipo_' + pavimento + '_' + seguranca_medida_id + '" name="seguranca_medida_tipo_' + pavimento + '_' + seguranca_medida_id + '" value="' + seguranca_medida_tipo + '">';
+    medidas_seguranca += '          <input type="hidden" name="ids_seguranca_medidas[]" value="' + seguranca_medida_id + '">';
+    medidas_seguranca += '      </div>';
+    medidas_seguranca += '      <div class="row">';
+    medidas_seguranca += '          <div class="form-group col-2 col-md-2 pb-3">';
+    medidas_seguranca += '              <label class="form-label">Qtd</label>';
+    medidas_seguranca += '              <div class="col-12 text-dark">'+seguranca_medida_quantidade+'</div>';
+    medidas_seguranca += '          </div>';
+    medidas_seguranca += '          <div class="form-group col-10 col-md-10 pb-3">';
+    medidas_seguranca += '              <label class="form-label">Tipo</label>';
+    medidas_seguranca += '              <div class="col-12 text-dark">'+seguranca_medida_tipo+'</div>';
+    medidas_seguranca += '          </div>';
+    medidas_seguranca += '          <div class="form-group col-12 col-md-8">';
+    medidas_seguranca += '              <label class="form-label">Observação</label>';
+    medidas_seguranca += '              <textarea class="form-control" id="observacao_' + pavimento + '_' + seguranca_medida_id + '" name="observacao_' + pavimento + '_' + seguranca_medida_id + '" '+readonly+'>' + observacao + '</textarea>';
+    medidas_seguranca += '          </div>';
+    medidas_seguranca += '          <div class="form-group col-12 col-md-4">';
+    medidas_seguranca += '              <label class="form-label">Conferência</label>';
+    medidas_seguranca += '              <div class="pb-2 font-size-12 '+textoCor+'" id="textoConferencia_' + pavimento + '_' + seguranca_medida_id + '">'+textoConferencia+'</div>';
+    medidas_seguranca += '              <div class="row" '+botoesStyle+'>';
+    medidas_seguranca += '                  <div class="col-4">';
+    medidas_seguranca += '                      <button type="button" class="btn btn-outline-warning text-center font-size-16" onclick="bi_campoConferenciaRonda(0, '+pavimento+', '+seguranca_medida_id+');"><i class="far fa-calendar-minus"></i></button>';
+    medidas_seguranca += '                  </div>';
+    medidas_seguranca += '                  <div class="col-4">';
+    medidas_seguranca += '                      <button type="button" class="btn btn-outline-success text-center font-size-16" onclick="bi_campoConferenciaRonda(1, '+pavimento+', '+seguranca_medida_id+');"><i class="far fa-calendar-check"></i></button>';
+    medidas_seguranca += '                  </div>';
+    medidas_seguranca += '                  <div class="col-4">';
+    medidas_seguranca += '                      <button type="button" class="btn btn-outline-danger text-center font-size-16" onclick="bi_campoConferenciaRonda(2, '+pavimento+', '+seguranca_medida_id+');"><i class="far fa-calendar-times"></i></button>';
+    medidas_seguranca += '                  </div>';
+    medidas_seguranca += '              </div>';
+    medidas_seguranca += '              <input type="hidden" class="inputsConferencia" id="conferencia_' + pavimento + '_' + seguranca_medida_id + '" name="conferencia_' + pavimento + '_' + seguranca_medida_id + '" value="' + conferencia + '">';
+    medidas_seguranca += '          </div>';
+    medidas_seguranca += '      </div>';
     medidas_seguranca += '  </div>';
     medidas_seguranca += '</div>';
 
     return medidas_seguranca;
 }
 
-function montarFormVisitaGetCliente(cliente_id) {
-    if (cliente_id == '') {
-        //Limpar Classificação
-        montarClassificacaoHide();
-
-        return;
+//Função para alterar os campos conferenciae textoConferencia
+function bi_campoConferenciaRonda(id, pavimento, seguranca_medida_id) {
+    if (id == 0) {
+        textoConferencia = '<i class="far fa-calendar-minus"></i>'+' NÃO ENCONTRADO';
+        textoCor = 'text-warning';
     }
 
-    //Header
-    $.ajaxSetup({headers:{'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')}});
+    if (id == 1) {
+        textoConferencia = '<i class="far fa-calendar-check"></i>'+' CONFERIDO';
+        textoCor = 'text-success';
+    }
 
-    $.ajax({
-        type:'GET',
-        url: '/clientes/visita_tecnica/'+cliente_id,
-        data: '',
-        cache: false,
-        contentType: false,
-        processData: false,
-        success: function (response) {
-            cliente = response.success;
+    if (id == 2) {
+        textoConferencia = '<i class="far fa-calendar-times"></i>'+' DANIFICADO';
+        textoCor = 'text-danger';
+    }
 
-            //Limpar Classificação
-            montarClassificacaoHide();
+    $('#textoConferencia_' + pavimento + '_' + seguranca_medida_id).html(textoConferencia);
+    $('#textoConferencia_' + pavimento + '_' + seguranca_medida_id).removeClass('text-warning').removeClass('text-success').removeClass('text-danger').addClass(textoCor);
+    $('#conferencia_' + pavimento + '_' + seguranca_medida_id).val(id);
+}
 
-            //Popular Classificação
-            montarClassificacaoShow(cliente);
+//Função para validar campos antes de salvar
+function bi_validarFormRonda() {
+    var error = false;
+    var qtd = 0;
 
-
-            /*
-
-            //Medidas de Segurança''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-            numero_pavimentos = cliente.numero_pavimentos;
-            cliente_seguranca_medidas = cliente.cliente_seguranca_medidas;
-            medidas_seguranca = '';
-
-            //verificar validacoes
-            if (numero_pavimentos == '' || numero_pavimentos == '0' || numero_pavimentos == 0) {
-                alert('Erro nos dados vindos do Cliente. Verifique o Número de Pavimentos.');
-                $('#divMedidasSeguranca').hide();
-                return;
-            }
-            if (cliente_seguranca_medidas.length <= 0) {
-                alert('Erro nos dados vindos do Cliente. Verifique as Medidas de Segurança.');
-                $('#divMedidasSeguranca').hide();
-                return;
-            }
-
-            //Montar
-            $('#divMedidasSeguranca').show();
-
-            for(pavimento=1; pavimento<=numero_pavimentos; pavimento++) {
-                ctrl = 0;
-
-                medidas_seguranca += '<h6 class="pb-3 text-success"><i class="fa fa-fire-extinguisher"></i> Medidas de Segurança - Pavimento ' + '<span class="font-size-15">'+pavimento+'</span>' + '</h6>';
-
-                $.each(cliente_seguranca_medidas, function (i, item) {
-                    if (pavimento == item.pavimento) {
-                        ctrl++;
-
-                        //Campos
-                        seguranca_medida_id = item.id;
-                        seguranca_medida_nome = item.segurancaMedidaName;
-                        seguranca_medida_quantidade = '';
-                        seguranca_medida_observacoes = '';
-
-                        //Div Medidas Segurança
-                        medidas_seguranca += montarClassificacaoMedidaSeguranca(ctrl, pavimento, seguranca_medida_id, seguranca_medida_nome, seguranca_medida_quantidade, seguranca_medida_observacoes);
-                    }
-                });
-            }
-
-            $('#divMedidasSegurancaItens').html(medidas_seguranca);
-
-            */
-
-        },
-        error: function(response){
-            alert(response);
+    $('.inputsConferencia').each(function () {
+        if ($(this).val() == '') {
+            error = true;
+            qtd++;
         }
     });
+
+    if (error) {
+        alert('Existem '+qtd+' itens para completar a Ronda.');
+        return false;
+    }
+
+    return true;
 }
 
-function montarFormVisitaGetVisita(dados) {
-    //Limpar Classificação
-    montarClassificacaoHide();
+//Brigadas Incêndios - Rondas - FIM''''''''''''''''''''''
+//Brigadas Incêndios - Rondas - FIM''''''''''''''''''''''
 
-    //Popular Classificação
-    montarClassificacaoShow(dados);
-
-    /*
-
-    //Medidas de Segurança''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    numero_pavimentos = dados.numero_pavimentos;
-    cliente_seguranca_medidas = dados['cliente_seguranca_medidas'];
-    medidas_seguranca = '';
-
-    //verificar validacoes
-    if (numero_pavimentos == '' || numero_pavimentos == '0' || numero_pavimentos == 0) {
-        alert('Erro nos dados vindos do Cliente. Verifique o Número de Pavimentos.');
-        $('#divMedidasSeguranca').hide();
-        return;
-    }
-    if (cliente_seguranca_medidas.length <= 0) {
-        alert('Erro nos dados vindos do Cliente. Verifique as Medidas de Segurança.');
-        $('#divMedidasSeguranca').hide();
-        return;
-    }
-
-    //Montar
-    $('#divMedidasSeguranca').show();
-
-    for(pavimento=1; pavimento<=numero_pavimentos; pavimento++) {
-        ctrl = 0;
-
-        medidas_seguranca += '<h6 class="pb-3 text-success"><i class="fa fa-fire-extinguisher"></i> Medidas de Segurança - Pavimento ' + '<span class="font-size-15">'+pavimento+'</span>' + '</h6>';
-
-        //Campos
-        $.each(cliente_seguranca_medidas, function(i, campo) {
-            if (pavimento == campo.pavimento) {
-                ctrl++;
-
-                seguranca_medida_id = campo.seguranca_medida_id;
-
-                if (campo.seguranca_medida_nome === null) {seguranca_medida_nome = '';} else {seguranca_medida_nome = campo.seguranca_medida_nome;}
-                if (campo.seguranca_medida_quantidade === null) {seguranca_medida_quantidade = '';} else {seguranca_medida_quantidade = campo.seguranca_medida_quantidade;}
-                if (campo.seguranca_medida_observacoes === null) {seguranca_medida_observacoes = '';} else {seguranca_medida_observacoes = campo.seguranca_medida_observacoes;}
-
-                medidas_seguranca += montarClassificacaoMedidaSeguranca(ctrl, pavimento, seguranca_medida_id, seguranca_medida_nome, seguranca_medida_quantidade, seguranca_medida_observacoes);
-            }
-        });
-    }
-
-    $('#divMedidasSegurancaItens').html(medidas_seguranca);
-
-    */
-
-}
-//''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+//Funções para o Submódulo Brigadas Incêndios - FIM'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+//Funções para o Submódulo Brigadas Incêndios - FIM'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
 //Funções para Api ViaCep Para rodar em formulario sem REPEATER (Inicio)''''''''''''''''''''''''''''''''''''''''''''''''
 

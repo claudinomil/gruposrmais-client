@@ -34,7 +34,12 @@ class FuncaoController extends Controller
                 $allData = DataTables::of($this->content)
                     ->addIndexColumn()
                     ->addColumn('action', function ($row, Request $request) {
-                        return $this->columnAction($row['id'], $request['ajaxPrefixPermissaoSubmodulo'], $request['userLoggedPermissoes']);
+                        //Se a Função for "BRIGADISTA" : Somente Visualização
+                        if ($row['id'] == 1) {
+                            return '';
+                        } else {
+                            return $this->columnAction($row['id'], $request['ajaxPrefixPermissaoSubmodulo'], $request['userLoggedPermissoes']);
+                        }
                     })
                     ->rawColumns(['action'])
                     ->escapeColumns([])
@@ -97,6 +102,11 @@ class FuncaoController extends Controller
     {
         //Requisição Ajax
         if ($request->ajax()) {
+            //Se a Função for "BRIGADISTA" : Somente Visualização
+            if ($id == 1) {
+                return response()->json(['error_not_found' => 'Registro bloqueado.']);
+            }
+
             //Buscando dados Api_Data() - Registro pelo id
             $this->responseApi(1, 2, 'funcoes', $id, '', '', '');
 
@@ -115,6 +125,11 @@ class FuncaoController extends Controller
     {
         //Requisição Ajax
         if ($request->ajax()) {
+            //Se a Função for "BRIGADISTA" : Somente Visualização
+            if ($id == 1) {
+                return response()->json(['error_not_found' => 'Registro bloqueado.']);
+            }
+
             //Buscando dados Api_Data() - Alterar Registro
             $this->responseApi(1, 5, 'funcoes', $id, '', '', $request->all());
 
@@ -135,6 +150,11 @@ class FuncaoController extends Controller
     {
         //Requisição Ajax
         if ($request->ajax()) {
+            //Se a Função for "BRIGADISTA" : Somente Visualização
+            if ($id == 1) {
+                return response()->json(['error_not_found' => 'Registro bloqueado.']);
+            }
+
             //Buscando dados Api_Data() - Deletar Registro
             $this->responseApi(1, 6, 'funcoes', $id, '', '', '');
 
@@ -163,7 +183,12 @@ class FuncaoController extends Controller
                 $allData = DataTables::of($this->content)
                     ->addIndexColumn()
                     ->addColumn('action', function ($row, Request $request) {
-                        return $this->columnAction($row['id'], $request['ajaxPrefixPermissaoSubmodulo'], $request['userLoggedPermissoes']);
+                        //Se a Função for "BRIGADISTA" : Somente Visualização
+                        if ($row['id'] == 1) {
+                            return '';
+                        } else {
+                            return $this->columnAction($row['id'], $request['ajaxPrefixPermissaoSubmodulo'], $request['userLoggedPermissoes']);
+                        }
                     })
                     ->rawColumns(['action'])
                     ->escapeColumns([])

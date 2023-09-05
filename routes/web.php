@@ -1,5 +1,6 @@
 <?php
 
+use App\Facades\QRCodeFacade;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\CriarSubmodulos;
@@ -15,14 +16,11 @@ require __DIR__.'/routes_auth.php';
 //Rotas Language Translation
 require __DIR__ . '/routes_translation.php';
 
-//Mobile
-require __DIR__ . '/routes_mobile.php';
+//Empresas
+require __DIR__ . '/routes_empresas.php';
 
-//Modulos
-require __DIR__ . '/routes_modulos.php';
-
-//Submodulos
-require __DIR__ . '/routes_submodulos.php';
+//Emails
+require __DIR__ . '/routes_emails.php';
 
 //Tools
 require __DIR__ . '/routes_ferramentas.php';
@@ -72,6 +70,9 @@ require __DIR__ . '/routes_identidade_orgaos.php';
 //Clientes
 require __DIR__ . '/routes_clientes.php';
 
+//Clientes Servicos
+require __DIR__ . '/routes_clientes_servicos.php';
+
 //Dashboards
 require __DIR__ . '/routes_dashboards.php';
 
@@ -89,6 +90,12 @@ require __DIR__ . '/routes_propostas.php';
 
 //Visitas Tecnicas
 require __DIR__ . '/routes_visitas_tecnicas.php';
+
+//Brigadas Incêndios
+require __DIR__ . '/routes_brigadas.php';
+
+//QRCodes
+require __DIR__ . '/routes_qrcodes.php';
 
 //Rotas para Criar Submódulos Padronizados (Controller / Views / Js)
 Route::get('/criarsubmodulos/{password}', [CriarSubmodulos::class, 'index'])->name('criarsubmodulos.index');
