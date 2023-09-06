@@ -168,6 +168,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="px-2 py-2 border-top" id="divPresencaConfirmada">
                                     <div class="col-12">
                                         <form id="frm_gravar_presenca" name="frm_gravar_presenca">
