@@ -20,6 +20,7 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="row">
+
                                 <!-- Botões -->
                                 <div class="col-12 col-md-8 pb-2">
                                     @if (\App\Facades\Permissoes::permissao([$ajaxPrefixPermissaoSubmodulo.'_create'], $userLoggedPermissoes))

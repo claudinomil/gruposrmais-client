@@ -70,7 +70,7 @@ class ClienteServicoController extends Controller
 
                         $btns_padroes = $this->columnAction($row['id'], $request['ajaxPrefixPermissaoSubmodulo'], $request['userLoggedPermissoes'], $botoes);
 
-                        //QRCodes - Criando e colocando para Visualizar'''''''''''''''''''''''''''''''''''''''''''''''''
+                        //QRCodes - Criando e colocando para Visualizar no Modal''''''''''''''''''''''''''''''''''''''''
                         $btn_qrcode = '';
 
                         if ($row['servico_tipo_id'] == 1) {
@@ -282,7 +282,7 @@ class ClienteServicoController extends Controller
 
                         $btns_padroes = $this->columnAction($row['id'], $request['ajaxPrefixPermissaoSubmodulo'], $request['userLoggedPermissoes'], $botoes);
 
-                        //QRCodes - Criando e colocando para Visualizar'''''''''''''''''''''''''''''''''''''''''''''''''
+                        //QRCodes - Criando e colocando para Visualizar no Modal''''''''''''''''''''''''''''''''''''''''
                         $btn_qrcode = '';
 
                         if ($row['servico_tipo_id'] == 1) {
