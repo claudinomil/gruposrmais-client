@@ -76,6 +76,10 @@ class LoginController extends Controller
             //Ver de onde está acessando 'access_device' (mobile, tablet, desktop)
             SuporteFacade::setUserAcessDevice();
 
+
+            dd(SuporteFacade::getDevice());
+
+
             //Buscar dados de Configuração do Usuário logado (Conforme Empresa escolhida)
             if (!SuporteFacade::setUserConfiguracao($request['empresa_id'])) {
                 abort(500, 'Erro Interno => Acesso/Configuração.');

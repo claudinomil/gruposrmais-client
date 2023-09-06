@@ -314,7 +314,7 @@ class ClienteServicoController extends Controller
     //Eventos para QRCode - Início''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     public function qrcode_informacoes($id)
     {
-        if (SuporteFacade::getDevice() == 'desktopxxxxx') {
+        if (SuporteFacade::getDevice() == 'desktop') {
             //Se acessou de desktop retornar como página expirada
             abort(419);
         } else {
@@ -357,7 +357,7 @@ class ClienteServicoController extends Controller
 
     public function qrcode_brigada_presenca($id)
     {
-        if (SuporteFacade::getDevice() == 'desktopxxxxx') {
+        if (SuporteFacade::getDevice() == 'desktop') {
             //Se acessou de desktop retornar como página expirada
             abort(419);
         } else {
