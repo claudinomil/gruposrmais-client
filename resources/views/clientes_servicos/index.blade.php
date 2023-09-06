@@ -82,6 +82,9 @@
                         <div class="col-12 col-md-6 text-center">
                             <img src="" width="200" id="imgQRCode2">
                         </div>
+                        <div class="col-12 col-md-6 text-center">
+                            <img src="" width="200" id="imgQRCode3">
+                        </div>
                     </div>
                 </div>
             </div>

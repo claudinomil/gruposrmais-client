@@ -120,4 +120,25 @@ class SuporteService
             QRCodeFacade::label($label_text)->logo()->code($code_content)->save($save_destino, $save_name);
         }
     }
+
+    /*
+     * Gerar QRCode para Cliente Serviço
+     * Executar Ronda na Escala
+     */
+    public function getClienteServicoQRCodeBrigadaRonda($cliente_servico_id)
+    {
+        //Buscando dados Api_Data() - Dados para o QRCode
+        $response = ApiData::getData(10, 'qrcodes/clientes_servicos/qrcode_dados/'.$cliente_servico_id, '', '', '', '');
+
+        if ($response['content'] !== null) {
+            $data = $response['content'][0];
+
+            $label_text = 'Ronda';
+            $code_content = env('APP_URL') . '/qrcodes/clientes_servicos/qrcode_brigada_ronda/' . $data['id'];
+            $save_destino = 'build/assets/qrcodes/clientes_servicos/';
+            $save_name = 'qrcode_brigada_ronda_' . $data['id'] . '.png';
+
+            QRCodeFacade::label($label_text)->logo()->code($code_content)->save($save_destino, $save_name);
+        }
+    }
 }

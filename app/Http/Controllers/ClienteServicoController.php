@@ -84,9 +84,14 @@ class ClienteServicoController extends Controller
                                 SuporteFacade::getClienteServicoQRCodeBrigadaPresenca($row['id']);
                             }
 
+                            //Gravar QRCode Brigada Ronda
+                            if (!file_exists('build/assets/qrcodes/clientes_servicos/qrcode_brigada_ronda_' . $row['id'] . '.png')) {
+                                SuporteFacade::getClienteServicoQRCodeBrigadaRonda($row['id']);
+                            }
+
                             //Botão Visualizar QRCodes
                             if (Permissoes::permissao(['clientes_servicos_show'], $request['userLoggedPermissoes'])) {
-                                $btn_qrcode = '<div class="col-12 text-center pt-2"><button type="button" class="btn btn-dark waves-effect btn-label waves-light btn-sm" data-bs-toggle="modal" data-bs-target=".modal-qrcode" data-bs-placement="top" title="QRCodes" onclick="$(\'#imgQRCode1\').prop(\'src\', \''.asset('build/assets/qrcodes/clientes_servicos/qrcode_informacoes_' . $row['id'] . '.png').'\'); $(\'#imgQRCode2\').prop(\'src\', \''.asset('build/assets/qrcodes/clientes_servicos/qrcode_brigada_presenca_' . $row['id'] . '.png').'\');"><i class="mdi mdi-qrcode label-icon font-size-18"></i> QRCodes</button></div>';
+                                $btn_qrcode = '<div class="col-12 text-center pt-2"><button type="button" class="btn btn-dark waves-effect btn-label waves-light btn-sm" data-bs-toggle="modal" data-bs-target=".modal-qrcode" data-bs-placement="top" title="QRCodes" onclick="$(\'#imgQRCode1\').prop(\'src\', \''.asset('build/assets/qrcodes/clientes_servicos/qrcode_informacoes_' . $row['id'] . '.png').'\'); $(\'#imgQRCode2\').prop(\'src\', \''.asset('build/assets/qrcodes/clientes_servicos/qrcode_brigada_presenca_' . $row['id'] . '.png').'\'); $(\'#imgQRCode3\').prop(\'src\', \''.asset('build/assets/qrcodes/clientes_servicos/qrcode_brigada_ronda_' . $row['id'] . '.png').'\');"><i class="mdi mdi-qrcode label-icon font-size-18"></i> QRCodes</button></div>';
                             }
                         }
                         //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
