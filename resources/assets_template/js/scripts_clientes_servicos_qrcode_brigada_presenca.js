@@ -254,6 +254,11 @@ $(document).ready(function () {
                     return false;
                 }
 
+                if ($('#email').val() == '') {
+                    alert('E-mail do Brigadista não encontrado. É preciso ser Usuário do Sistema com referência ao Funcionário Brigadista.');
+                    return false;
+                }
+
                 if ($('#foto_real').val() == '') {
                     alert('Erro ao capturar a Foto. Tire a Foto ou Refaça o Procedimento.');
                     return false;

@@ -181,7 +181,7 @@
                                                 <div class="text-center">
                                                     <video class="col-12 form-control" id="video" autoplay></video>
                                                     <canvas class="col-12 form-control d-none" id="canvas"></canvas>
-                                                    <img class="col-12 form-control" id="photo" src="" style="display: none;">
+                                                    <img class="col-12 form-control" id="photo" src="" height="100px" style="display: none;">
                                                 </div>
                                                 <div class="text-center py-2">
                                                     <button type="button" class="btn btn-sm btn-primary waves-effect btn-label waves-light" id="btnTirarFoto"><i class="bx bx-photo-album label-icon"></i> Tirar Foto</button>
