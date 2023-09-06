@@ -315,8 +315,7 @@ class ClienteServicoController extends Controller
     public function qrcode_informacoes($id)
     {
         if (SuporteFacade::getDevice() == 'desktop') {
-            //Se acessou de desktop retornar como página expirada
-            abort(419);
+            abort(500, 'Não é permitido acesso via Desktop.');
         } else {
             //Buscando dados Api_Data() - Registro pelo id
             $this->responseApi(1, 2, 'qrcodes/clientes_servicos/qrcode_informacoes', $id, '', '', '');
@@ -358,8 +357,7 @@ class ClienteServicoController extends Controller
     public function qrcode_brigada_presenca($id)
     {
         if (SuporteFacade::getDevice() == 'desktop') {
-            //Se acessou de desktop retornar como página expirada
-            abort(419);
+            abort(500, 'Não é permitido acesso via Desktop.');
         } else {
             //Buscando dados Api_Data() - Registro pelo id
             $this->responseApi(1, 2, 'qrcodes/clientes_servicos/qrcode_brigada_presenca', $id, '', '', '');

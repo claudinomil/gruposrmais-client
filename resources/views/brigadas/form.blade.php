@@ -110,13 +110,13 @@
                         <!-- Filtro -->
                         <div class="col-12 col-md-4 float-end">
                             <div class="row">
-                                <div class="col-12 col-md-5 float-end px-1">
+                                <div class="col-5 col-md-5 float-end px-1">
                                     <input type="date" class="form-control text-center font-size-12" id="es_periodo_data_1" name="es_periodo_data_1">
                                 </div>
-                                <div class="col-12 col-md-5 float-end px-1">
+                                <div class="col-5 col-md-5 float-end px-1">
                                     <input type="date" class="form-control text-center font-size-12" id="es_periodo_data_2" name="es_periodo_data_2">
                                 </div>
-                                <div class="col-12 col-md-2 float-start ps-1">
+                                <div class="col-2 col-md-2 float-start ps-1">
                                     <x-button op="17" id="btnGradeEscalas" />
                                 </div>
                                 <div class="col-12 text-info small" id="divPeriodoDatasEscalas"></div>
