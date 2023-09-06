@@ -170,14 +170,11 @@
                                 </div>
 
                                 <div class="px-2 py-2 border-top" id="divPresencaConfirmada">
-                                    <div class="text-center py-2">
-                                        <button type="button" class="btn btn-sm btn-primary waves-effect btn-label waves-light" id="btnTirarFoto"><i class="bx bx-photo-album label-icon"></i> Tirar Foto</button>
-                                        <button type="button" class="btn btn-sm btn-warning waves-effect btn-label waves-light" style="display:none;" id="btnExcluirFoto"><i class="bx bx-trash label-icon"></i> Excluir Foto</button>
-                                    </div>
                                     <div class="col-12">
                                         <form id="frm_gravar_presenca" name="frm_gravar_presenca">
                                             <input type="hidden" id="iniciar_encerrar" name="iniciar_encerrar">
                                             <input type="hidden" id="brigada_escala_id" name="brigada_escala_id">
+                                            <input type="hidden" id="email" name="email">
                                             <input type="hidden" id="foto_real" name="foto_real">
 
                                             <div class="form-group col-12 pb-3">
@@ -186,9 +183,10 @@
                                                     <canvas class="col-12 form-control d-none" id="canvas"></canvas>
                                                     <img class="col-12 form-control" id="photo" src="" style="display: none;">
                                                 </div>
-                                            </div>
-                                            <div class="form-group col-12 pb-3">
-                                                <input type="text" class="form-control" id="email" name="email" readonly>
+                                                <div class="text-center py-2">
+                                                    <button type="button" class="btn btn-sm btn-primary waves-effect btn-label waves-light" id="btnTirarFoto"><i class="bx bx-photo-album label-icon"></i> Tirar Foto</button>
+                                                    <button type="button" class="btn btn-sm btn-warning waves-effect btn-label waves-light" style="display:none;" id="btnExcluirFoto"><i class="bx bx-trash label-icon"></i> Excluir Foto</button>
+                                                </div>
                                             </div>
                                             <div class="form-group col-12 pb-3">
                                                 <input type="password" class="form-control" id="password" name="password" placeholder="Digite sua Senha aqui...">

@@ -2,11 +2,9 @@ $(document).ready(function () {
     if ($('#frm_gravar_presenca').length) {
         $('#frm_gravar_presenca').validate({
             rules: {
-                iniciar_encerrar: {required: true},
-                brigada_escala_id: {required: true},
-                foto_real: {required: true},
-                email: {required: true},
-                password: {required: true}
+                email: {
+                    required: true
+                }
             },
             errorElement: 'span',
             errorPlacement: function (error, element) {
@@ -245,7 +243,12 @@ $(document).ready(function () {
 
             //Verificar Validação feita com sucesso
             if ($('#frm_gravar_presenca').valid()) {
-                //Verificar campos
+                //Validar campos hidden'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+                if ($('#iniciar_encerrar').val() == '') {
+                    alert('Erro ao capturar a Escala. Refaça o Procedimento.');
+                    return false;
+                }
+
                 if ($('#brigada_escala_id').val() == '') {
                     alert('Erro ao capturar a Escala. Refaça o Procedimento.');
                     return false;
@@ -255,6 +258,7 @@ $(document).ready(function () {
                     alert('Erro ao capturar a Foto. Tire a Foto ou Refaça o Procedimento.');
                     return false;
                 }
+                //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
                 //Ajax
                 $.ajax({
