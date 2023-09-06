@@ -77,7 +77,7 @@
                                                 </div>
                                             </div>
                                             <div class="flex-grow-1 overflow-hidden pt-4">
-                                                <h6 class="text-truncate text-bold">{{$funcionario_nome}}</h6>
+                                                <h6 class="text-truncate"><b>{{$funcionario_nome}}</b></h6>
                                                 <p class="text-muted font-size-11">
                                                     Escala: {{$escala_tipo_nome}}
                                                     <br>
@@ -163,7 +163,7 @@
                                             </div>
                                         </div>
                                         <div class="flex-grow-1 overflow-hidden pt-4">
-                                            <h6 class="text-truncate text-bold formFuncionarioNome"></h6>
+                                            <h6 class="text-truncate formFuncionarioNome"></h6>
                                             <p class="text-muted font-size-11 formDadosEscala"></p>
                                         </div>
                                     </div>
