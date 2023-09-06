@@ -2,11 +2,9 @@ $(document).ready(function () {
     if ($('#frm_gravar_presenca').length) {
         $('#frm_gravar_presenca').validate({
             rules: {
-                iniciar_encerrar: {required: true},
-                brigada_escala_id: {required: true},
-                foto_real: {required: true},
-                email: {required: true},
-                password: {required: true}
+                email: {
+                    required: true
+                }
             },
             errorElement: 'span',
             errorPlacement: function (error, element) {
@@ -34,7 +32,7 @@ $(document).ready(function () {
             $('body').css({'background-color': ''});
             $('#splash-screen').hide();
             $('#content-screen').show();
-        }, 3000);
+        }, 2000);
 
         //Iniciar Serviço
         $('body').on('click', '#btnIniciarServico', function () {
@@ -71,7 +69,7 @@ $(document).ready(function () {
             $('.formAla').addClass(cor_ala);
             $('.formAla').html(ala);
 
-            $('.formFuncionarioNome').html(funcionario_nome);
+            $('.formFuncionarioNome').html('<b>'+funcionario_nome+'</b>');
             $('.formDadosEscala').html('Escala: '+escala_tipo_nome+'<br>'+'Início: '+data_chegada+' às '+hora_chegada+'hs'+'<br>'+'Fim: '+data_saida+' às '+hora_saida+'hs');
 
             //Preencher dados do Formulário
@@ -124,7 +122,7 @@ $(document).ready(function () {
             $('.formAla').addClass(cor_ala);
             $('.formAla').html(ala);
 
-            $('.formFuncionarioNome').html(funcionario_nome);
+            $('.formFuncionarioNome').html('<b>'+funcionario_nome+'</b>');
             $('.formDadosEscala').html('Escala: '+escala_tipo_nome+'<br>'+'Início: '+data_chegada+' às '+hora_chegada+'hs'+'<br>'+'Fim: '+data_saida+' às '+hora_saida+'hs');
 
             //Preencher dados do Formulário
@@ -149,8 +147,12 @@ $(document).ready(function () {
         function startCamera() {
             //Verifica se o navegador suporta a API de captura de mídia
             if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                //Define a largura e a altura desejadas para o vídeo (NÃO FUNCIONA CORRETAMENTE / PEGA O TAMANHO PADRÃO)
+                const videoWidth = 0;
+                const videoHeight = 0;
+
                 //Solicita permissão para acessar a câmera
-                navigator.mediaDevices.getUserMedia({ video: true })
+                navigator.mediaDevices.getUserMedia({ video: { width: videoWidth, height: videoHeight } })
                     .then(function (stream) {
                         //O usuário concedeu permissão para acessar a câmera (Obtém elementos do DOM)
                         videoStream = stream; // Armazena a referência à stream
@@ -245,9 +247,19 @@ $(document).ready(function () {
 
             //Verificar Validação feita com sucesso
             if ($('#frm_gravar_presenca').valid()) {
-                //Verificar campos
+                //Validar campos hidden'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+                if ($('#iniciar_encerrar').val() == '') {
+                    alert('Erro ao capturar a Escala. Refaça o Procedimento.');
+                    return false;
+                }
+
                 if ($('#brigada_escala_id').val() == '') {
                     alert('Erro ao capturar a Escala. Refaça o Procedimento.');
+                    return false;
+                }
+
+                if ($('#email').val() == '') {
+                    alert('E-mail do Brigadista não encontrado. É preciso ser Usuário do Sistema com referência ao Funcionário Brigadista.');
                     return false;
                 }
 
@@ -255,6 +267,7 @@ $(document).ready(function () {
                     alert('Erro ao capturar a Foto. Tire a Foto ou Refaça o Procedimento.');
                     return false;
                 }
+                //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
                 //Ajax
                 $.ajax({
