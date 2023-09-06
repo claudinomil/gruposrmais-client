@@ -125,7 +125,7 @@
                     </div>
 
                     <!-- Título -->
-                    <div class="col-12 pb-4">
+                    <div class="col-12 pt-3 pb-4">
                         <h4 class="font-size-14" id="titulo"></h4>
                     </div>
 
