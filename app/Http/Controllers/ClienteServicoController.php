@@ -257,21 +257,6 @@ class ClienteServicoController extends Controller
                     ->editColumn('status', function ($row) {
                         $retorno = "<p class='text-dark mb-0'><b>::</b> ".$row['servicoStatusName']."</p>";
 
-                        //QRCode
-                        if ($row['servico_tipo_id'] == 1) {
-                            //Gravar QRCode
-                            if (!file_exists('build/assets/qrcodes/clientes_servicos/qrcode_informacoes_'.$row['id'].'.png')) {
-                                //Gravar QRCode
-                                SuporteFacade::getClienteServicoQRCodeInformacoes($row['id']);
-                            }
-
-                            //Mostrar QRCode
-                            if (file_exists('build/assets/qrcodes/clientes_servicos/qrcode_informacoes_'.$row['id'].'.png')) {
-                                $retorno .= "<a href='#' class='text-center pt-2' data-bs-toggle='modal' data-bs-target='.modal-qrcode' onclick=\"$('#imgQRCode').prop('src', '".asset('build/assets/qrcodes/clientes_servicos/qrcode_informacoes_' . $row['id'] . '.png')."');\"><img src=\"" . asset('build/assets/qrcodes/clientes_servicos/qrcode_informacoes_' . $row['id'] . '.png') . "\" width='60'></a>";
-                            }
-                        }
-
-                        //Return
                         return $retorno;
                     })
                     ->editColumn('cliente_funcionario', function ($row) {
@@ -291,11 +276,34 @@ class ClienteServicoController extends Controller
                         if ($row['servico_status_id'] == 1) {
                             $botoes = 1;
                         } else {
-                            //Se servico_status_id for diferente de 1(EXECUTADO) : Visualização e Alteração
+                            //Se servico_status_id for diferente de 1(EXECUTADO) : Visualização, Alteração, Exclusão e QrCodes
                             $botoes = 7;
                         }
 
-                        return $this->columnAction($row['id'], $request['ajaxPrefixPermissaoSubmodulo'], $request['userLoggedPermissoes'], $botoes);
+                        $btns_padroes = $this->columnAction($row['id'], $request['ajaxPrefixPermissaoSubmodulo'], $request['userLoggedPermissoes'], $botoes);
+
+                        //QRCodes - Criando e colocando para Visualizar'''''''''''''''''''''''''''''''''''''''''''''''''
+                        $btn_qrcode = '';
+
+                        if ($row['servico_tipo_id'] == 1) {
+                            //Gravar QRCode Informações
+                            if (!file_exists('build/assets/qrcodes/clientes_servicos/qrcode_informacoes_' . $row['id'] . '.png')) {
+                                SuporteFacade::getClienteServicoQRCodeInformacoes($row['id']);
+                            }
+
+                            //Gravar QRCode Brigada Presença
+                            if (!file_exists('build/assets/qrcodes/clientes_servicos/qrcode_brigada_presenca_' . $row['id'] . '.png')) {
+                                SuporteFacade::getClienteServicoQRCodeBrigadaPresenca($row['id']);
+                            }
+
+                            //Botão Visualizar QRCodes
+                            if (Permissoes::permissao(['clientes_servicos_show'], $request['userLoggedPermissoes'])) {
+                                $btn_qrcode = '<div class="col-12 text-center pt-2"><button type="button" class="btn btn-dark waves-effect btn-label waves-light btn-sm" data-bs-toggle="modal" data-bs-target=".modal-qrcode" data-bs-placement="top" title="QRCodes" onclick="$(\'#imgQRCode1\').prop(\'src\', \''.asset('build/assets/qrcodes/clientes_servicos/qrcode_informacoes_' . $row['id'] . '.png').'\'); $(\'#imgQRCode2\').prop(\'src\', \''.asset('build/assets/qrcodes/clientes_servicos/qrcode_brigada_presenca_' . $row['id'] . '.png').'\');"><i class="mdi mdi-qrcode label-icon font-size-18"></i> QRCodes</button></div>';
+                            }
+                        }
+                        //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+                        return $btns_padroes.$btn_qrcode;
                     })
                     ->rawColumns(['action'])
                     ->escapeColumns([])
