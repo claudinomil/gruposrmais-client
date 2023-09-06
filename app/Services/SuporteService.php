@@ -25,7 +25,7 @@ class SuporteService
      */
     public function getDevice()
     {
-        $isMob = is_numeric(strpos(strtolower($_SERVER["HTTP_USER_AGENT"]), "Mobile"));
+        $isMob = is_numeric(strpos(strtolower($_SERVER["HTTP_USER_AGENT"]), "mobile"));
         $isTab = is_numeric(strpos(strtolower($_SERVER["HTTP_USER_AGENT"]), "tablet"));
         $isDesk = !$isMob && !$isTab;
 
