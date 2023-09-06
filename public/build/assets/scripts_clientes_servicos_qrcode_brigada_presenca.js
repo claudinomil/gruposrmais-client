@@ -69,7 +69,7 @@ $(document).ready(function () {
             $('.formAla').addClass(cor_ala);
             $('.formAla').html(ala);
 
-            $('.formFuncionarioNome').html('<b>'+funcionario_nome+'</b>');
+            $('.formFuncionarioNome').html(funcionario_nome);
             $('.formDadosEscala').html('Escala: '+escala_tipo_nome+'<br>'+'Início: '+data_chegada+' às '+hora_chegada+'hs'+'<br>'+'Fim: '+data_saida+' às '+hora_saida+'hs');
 
             //Preencher dados do Formulário
@@ -122,7 +122,7 @@ $(document).ready(function () {
             $('.formAla').addClass(cor_ala);
             $('.formAla').html(ala);
 
-            $('.formFuncionarioNome').html('<b>'+funcionario_nome+'</b>');
+            $('.formFuncionarioNome').html(funcionario_nome);
             $('.formDadosEscala').html('Escala: '+escala_tipo_nome+'<br>'+'Início: '+data_chegada+' às '+hora_chegada+'hs'+'<br>'+'Fim: '+data_saida+' às '+hora_saida+'hs');
 
             //Preencher dados do Formulário
