@@ -356,7 +356,7 @@ class ClienteServicoController extends Controller
 
     public function qrcode_brigada_presenca($id)
     {
-        if (SuporteFacade::getDevice() == 'desktop') {
+        if (SuporteFacade::getDevice() == 'desktopx') {
             abort(500, 'Não é permitido acesso via Desktop.');
         } else {
             //Buscando dados Api_Data() - Registro pelo id

@@ -147,8 +147,12 @@ $(document).ready(function () {
         function startCamera() {
             //Verifica se o navegador suporta a API de captura de mídia
             if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                //Define a largura e a altura desejadas para o vídeo (NÃO FUNCIONA CORRETAMENTE / PEGA O TAMANHO PADRÃO)
+                const videoWidth = 0;
+                const videoHeight = 0;
+
                 //Solicita permissão para acessar a câmera
-                navigator.mediaDevices.getUserMedia({ video: true })
+                navigator.mediaDevices.getUserMedia({ video: { width: videoWidth, height: videoHeight } })
                     .then(function (stream) {
                         //O usuário concedeu permissão para acessar a câmera (Obtém elementos do DOM)
                         videoStream = stream; // Armazena a referência à stream

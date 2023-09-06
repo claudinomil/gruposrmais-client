@@ -181,11 +181,11 @@
                                                 <div class="text-center">
                                                     <video class="col-12 form-control" id="video" autoplay></video>
                                                     <canvas class="col-12 form-control d-none" id="canvas"></canvas>
-                                                    <img class="col-12 form-control" id="photo" src="" height="100px" style="display: none;">
+                                                    <img class="col-12 form-control" id="photo" src="" style="display: none;">
                                                 </div>
                                                 <div class="text-center py-2">
-                                                    <button type="button" class="btn btn-sm btn-primary waves-effect btn-label waves-light" id="btnTirarFoto"><i class="bx bx-photo-album label-icon"></i> Tirar Foto</button>
-                                                    <button type="button" class="btn btn-sm btn-warning waves-effect btn-label waves-light" style="display:none;" id="btnExcluirFoto"><i class="bx bx-trash label-icon"></i> Excluir Foto</button>
+                                                    <button type="button" class="btn btn-primary waves-effect btn-label waves-light" id="btnTirarFoto"><i class="bx bx-photo-album label-icon"></i> Tirar Foto</button>
+                                                    <button type="button" class="btn btn-warning waves-effect btn-label waves-light" style="display:none;" id="btnExcluirFoto"><i class="bx bx-trash label-icon"></i> Excluir Foto</button>
                                                 </div>
                                             </div>
                                             <div class="form-group col-12 pb-3">
@@ -197,7 +197,7 @@
                                                         <button type="button" class="btn btn-sm btn-success waves-effect btn-label waves-light" id="btnConfirmarPresenca"><i class="bx bx-check-double label-icon"></i> Confirmar</button>
                                                     </div>
                                                     <div class="col-6 text-end">
-                                                        <button type="button" class="btn btn-sm btn-danger waves-effect btn-label waves-light" id="btnCancelarConfirmarPresenca"><i class="bx bx-exit label-icon"></i> Cancelar</button>
+                                                        <button type="button" class="btn btn-danger waves-effect btn-label waves-light" id="btnCancelarConfirmarPresenca"><i class="bx bx-exit label-icon"></i> Cancelar</button>
                                                     </div>
                                                 </div>
                                             </div>
