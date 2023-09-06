@@ -32,7 +32,7 @@ $(document).ready(function () {
             $('body').css({'background-color': ''});
             $('#splash-screen').hide();
             $('#content-screen').show();
-        }, 3000);
+        }, 2000);
 
         //Iniciar Serviço
         $('body').on('click', '#btnIniciarServico', function () {

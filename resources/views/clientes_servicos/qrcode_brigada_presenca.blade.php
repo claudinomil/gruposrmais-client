@@ -88,7 +88,7 @@
 
                                                 @if($botao_iniciar_servico)
                                                     <button type="button"
-                                                            class="btn btn-sm btn-success waves-effect btn-label waves-light"
+                                                            class="btn btn-success waves-effect btn-label waves-light"
                                                             data-brigada_escala_id="{{$brigada_escala_id}}"
                                                             data-funcionario_foto="{{$funcionario_foto}}"
                                                             data-cor_ala="{{$corAla}}"
@@ -107,7 +107,7 @@
 
                                                 @if($botao_encerrar_servico)
                                                     <button type="button"
-                                                            class="btn btn-sm btn-primary waves-effect btn-label waves-light"
+                                                            class="btn btn-primary waves-effect btn-label waves-light"
                                                             data-brigada_escala_id="{{$brigada_escala_id}}"
                                                             data-funcionario_foto="{{$funcionario_foto}}"
                                                             data-cor_ala="{{$corAla}}"
@@ -194,7 +194,7 @@
                                             <div class="form-group col-12 pb-3">
                                                 <div class="row">
                                                     <div class="col-6 text-start">
-                                                        <button type="button" class="btn btn-sm btn-success waves-effect btn-label waves-light" id="btnConfirmarPresenca"><i class="bx bx-check-double label-icon"></i> Confirmar</button>
+                                                        <button type="button" class="btn btn-success waves-effect btn-label waves-light" id="btnConfirmarPresenca"><i class="bx bx-check-double label-icon"></i> Confirmar</button>
                                                     </div>
                                                     <div class="col-6 text-end">
                                                         <button type="button" class="btn btn-danger waves-effect btn-label waves-light" id="btnCancelarConfirmarPresenca"><i class="bx bx-exit label-icon"></i> Cancelar</button>
