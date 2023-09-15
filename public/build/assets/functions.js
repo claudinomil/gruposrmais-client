@@ -1832,7 +1832,7 @@ function formularioRondaSegurancaMedidas(op, ctrl, pavimento, seguranca_medida_i
 
     medidas_seguranca += '          <div class="form-group col-3 pb-3 text-center border border-primary rounded">';
     medidas_seguranca += '              <label class="form-label">Foto</label>';
-    medidas_seguranca += '              <div class="pb-2 font-size-12" id="textoFoto_' + pavimento + '_' + seguranca_medida_id + '">&nbsp;</div>';
+    medidas_seguranca += '              <div class="pb-2 font-size-12" id="botaoVerFoto_' + pavimento + '_' + seguranca_medida_id + '">&nbsp;</div>';
     medidas_seguranca += '              <div class="row">';
     medidas_seguranca += '                  <div class="col-12">';
     medidas_seguranca += '                      <button type="button" class="btn btn-outline-primary text-center font-size-16" data-bs-toggle="modal" data-bs-target=".modal-camera-traseira" data-bs-placement="top" onclick="$(\'#fotoTraseiraPavimento\').val('+pavimento+'); $(\'#fotoTraseiraSegurancaMedidaId\').val('+seguranca_medida_id+'); startCameraTraseira(); layoutTirarExcluirFotoTraseira(1);"><i class="far fa-image"></i></button>';

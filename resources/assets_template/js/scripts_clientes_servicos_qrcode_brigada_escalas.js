@@ -262,7 +262,7 @@ $(document).ready(function () {
             fotoIdTraseira.value = canvasTraseira.toDataURL('image/png');
 
             //Colocar link para ver foto
-            $('#textoFoto_'+pavimento+'_'+seguranca_medida_id).html('<button type="button" class="btn btn-sm btn-primary text-center font-size-12 pt-0 pb-0" data-bs-toggle="modal" data-bs-target=".modal-camera-traseira" data-bs-placement="top" onclick="$(\'#fotoTraseiraPavimento\').val('+pavimento+'); $(\'#fotoTraseiraSegurancaMedidaId\').val('+seguranca_medida_id+'); startCameraTraseira(); layoutTirarExcluirFotoTraseira(2); $(\'#photoTraseira\').attr(\'src\', $(\'#foto_'+pavimento+'_'+seguranca_medida_id+'\').val());">Ver</button>');
+            formularioRondaBotaoVerFoto(pavimento, seguranca_medida_id);
 
             //Parar a captura da câmera
             stopCameraTraseira();
@@ -286,7 +286,7 @@ $(document).ready(function () {
             photoTraseira.src = '';
 
             //Apagar link para ver foto
-            $('#textoFoto_'+pavimento+'_'+seguranca_medida_id).html('&nbsp;');
+            $('#botaoVerFoto_'+pavimento+'_'+seguranca_medida_id).html('&nbsp;');
 
             //Iniciar Captura de Vídeo
             startCameraTraseira();

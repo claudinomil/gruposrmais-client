@@ -1760,6 +1760,9 @@ function formularioRondaSegurancaMedidas(op, ctrl, pavimento, seguranca_medida_i
 
     var botoesStyle = '';
 
+    var botaoVerFoto = '&nbsp;';
+    var botaoVerFotoStyle = '';
+
     if (op == 2) {
         readonly = 'readonly';
         disabled = 'disabled';
@@ -1780,6 +1783,12 @@ function formularioRondaSegurancaMedidas(op, ctrl, pavimento, seguranca_medida_i
         }
 
         botoesStyle = 'style="display:none;"';
+
+        if (foto !== null) {
+            botaoVerFoto = '<button type="button" class="btn btn-sm btn-primary text-center font-size-12 pt-0 pb-0" data-bs-toggle="modal" data-bs-target=".modal-ver-foto" data-bs-placement="top" onclick="$(\'#verFoto\').attr(\'src\', $(\'#foto_'+pavimento+'_'+seguranca_medida_id+'\').val());">Ver</button>';
+        }
+
+        botaoVerFotoStyle = 'style="display:none;"';
     }
 
     var medidas_seguranca;
@@ -1832,8 +1841,8 @@ function formularioRondaSegurancaMedidas(op, ctrl, pavimento, seguranca_medida_i
 
     medidas_seguranca += '          <div class="form-group col-3 pb-3 text-center border border-primary rounded">';
     medidas_seguranca += '              <label class="form-label">Foto</label>';
-    medidas_seguranca += '              <div class="pb-2 font-size-12" id="textoFoto_' + pavimento + '_' + seguranca_medida_id + '">&nbsp;</div>';
-    medidas_seguranca += '              <div class="row">';
+    medidas_seguranca += '              <div class="pb-2 font-size-12" id="botaoVerFoto_' + pavimento + '_' + seguranca_medida_id + '">'+botaoVerFoto+'</div>';
+    medidas_seguranca += '              <div class="row" '+botaoVerFotoStyle+'>';
     medidas_seguranca += '                  <div class="col-12">';
     medidas_seguranca += '                      <button type="button" class="btn btn-outline-primary text-center font-size-16" data-bs-toggle="modal" data-bs-target=".modal-camera-traseira" data-bs-placement="top" onclick="$(\'#fotoTraseiraPavimento\').val('+pavimento+'); $(\'#fotoTraseiraSegurancaMedidaId\').val('+seguranca_medida_id+'); startCameraTraseira(); layoutTirarExcluirFotoTraseira(1);"><i class="far fa-image"></i></button>';
     medidas_seguranca += '                  </div>';
@@ -1868,6 +1877,13 @@ function formularioRondaCampoStatus(id, pavimento, seguranca_medida_id) {
     $('#textoStatus_' + pavimento + '_' + seguranca_medida_id).html(textoStatus);
     $('#textoStatus_' + pavimento + '_' + seguranca_medida_id).removeClass('text-warning').removeClass('text-success').removeClass('text-danger').addClass(textoCor);
     $('#status_' + pavimento + '_' + seguranca_medida_id).val(id);
+}
+
+//Função para colocar botao ver foto
+function formularioRondaBotaoVerFoto(pavimento, seguranca_medida_id) {
+    var botao = '<button type="button" class="btn btn-sm btn-primary text-center font-size-12 pt-0 pb-0" data-bs-toggle="modal" data-bs-target=".modal-camera-traseira" data-bs-placement="top" onclick="$(\'#fotoTraseiraPavimento\').val('+pavimento+'); $(\'#fotoTraseiraSegurancaMedidaId\').val('+seguranca_medida_id+'); layoutTirarExcluirFotoTraseira(2); $(\'#photoTraseira\').attr(\'src\', $(\'#foto_'+pavimento+'_'+seguranca_medida_id+'\').val());">Ver</button>';
+
+    $('#botaoVerFoto_'+pavimento+'_'+seguranca_medida_id).html();
 }
 
 //Função para validar campos antes de salvar Formulário Ronda
