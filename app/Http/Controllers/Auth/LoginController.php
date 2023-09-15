@@ -19,8 +19,6 @@ class LoginController extends Controller
     {
         $empresas = Http::get(env('PASSPORT_API_URL') . 'empresas_grupo_srmais')->json();
 
-        dd($empresas);
-
         return view('auth.login', compact('empresas'));
     }
 

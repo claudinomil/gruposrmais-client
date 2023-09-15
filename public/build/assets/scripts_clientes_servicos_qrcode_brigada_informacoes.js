@@ -14,7 +14,7 @@ $(document).ready(function () {
             //Título
             $('#rondas #titulo').html('<b>'+$(this).data('funcionario_nome')+'</b>'+'<br>'+'<b>Ronda feita:</b> '+$(this).data('data')+' às '+$(this).data('hora'));
 
-            //Loading
+            // Loading
             $('#rondasFormAjaxLoading').show();
 
             //URL
@@ -30,7 +30,7 @@ $(document).ready(function () {
                 }
             });
 
-            //Loading
+            // Loading
             $('#rondasFormAjaxLoading').hide();
         });
 

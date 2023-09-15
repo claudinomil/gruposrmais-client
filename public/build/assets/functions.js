@@ -1,3 +1,70 @@
+//Código para Acessar Câmera Frontal e Traseira - Início''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+//Código para Acessar Câmera Frontal e Traseira - Início''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+//Função para iniciar a captura da câmera
+function startCameraFrontal() {
+    //Verifica se o navegador suporta a API de captura de mídia
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        //Solicita permissão para acessar a câmera
+        navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } })
+            .then(function (stream) {
+                //O usuário concedeu permissão para acessar a câmera (Obtém elementos do DOM)
+                const videoFrontal = document.getElementById('videoFrontal');
+                videoFrontal.srcObject = stream;
+                videoFrontal.play();
+            })
+            .catch(function (error) {
+                // O usuário negou a permissão ou ocorreu um erro
+                alert('Erro ao acessar a câmera:'+error);
+            });
+    } else {
+        alert('Seu navegador não suporta a API de captura de mídia.');
+    }
+}
+
+//Função para parar a captura da câmera
+function stopCameraFrontal() {
+    const videoFrontal = document.getElementById('videoFrontal');
+    const tracksFrontal = videoFrontal.srcObject.getTracks();
+
+    tracksFrontal.forEach(function (track) {
+        track.stop(); // Para cada faixa de vídeo
+    });
+}
+
+//Função para iniciar a captura da câmera traseira
+function startCameraTraseira() {
+    //Verifica se o navegador suporta a API de captura de mídia
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        //Solicita permissão para acessar a câmera
+        navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
+            .then(function (stream) {
+                //O usuário concedeu permissão para acessar a câmera (Obtém elementos do DOM)
+                const videoTraseira = document.getElementById('videoTraseira');
+                videoTraseira.srcObject = stream;
+                videoTraseira.play();
+            })
+            .catch(function (error) {
+                // O usuário negou a permissão ou ocorreu um erro
+                alert('Erro ao acessar a câmera:'+error);
+            });
+    } else {
+        alert('Seu navegador não suporta a API de captura de mídia.');
+    }
+}
+
+//Função para parar a captura da câmera traseira
+function stopCameraTraseira() {
+    const videoTraseira = document.getElementById('videoTraseira');
+    const tracks = videoTraseira.srcObject.getTracks();
+
+    tracks.forEach(function (track) {
+        track.stop(); // Para cada faixa de vídeo
+    });
+}
+//Código para Acessar Câmera Frontal e Traseira - Fim'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+//Código para Acessar Câmera Frontal e Traseira - Fim'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
 function clienteExtraData(id='') {
     //Limpando dados
     $('.jsonCliente').html('');
@@ -529,6 +596,41 @@ function viewFontAwesome(field) {
         const image_view = $('#image_view');
         image_view.attr('class', $('#'+field).val());
     }
+}
+
+//Retorna data Servidor
+//op=1 : 9999-99-99
+//op=1 : 99/99/9999
+function dataServidor(op) {
+    //Dados
+    var data = new Date();
+    var dia = String(data.getDate()).padStart(2, '0');
+    var mes = String(data.getMonth() + 1).padStart(2, '0');
+    var ano = data.getFullYear();
+
+    //Retorno
+    if (op == 1) {return ano+'-'+mes+'-'+dia;}
+    if (op == 2) {return dia+'/'+mes+'/'+ano;}
+}
+
+//Retorna hora Servidor
+//op=1 : H:m:s
+//op=1 : H:m
+function horaServidor(op) {
+    //Dados
+    var data = new Date();
+    var hora = data.getHours().toString();
+    var minutos = data.getMinutes().toString();
+    var segundos = data.getSeconds().toString();
+
+    //Acertos
+    if (hora.length == 1) {hora = '0'+hora;}
+    if (minutos.length == 1) {minutos = '0'+minutos;}
+    if (segundos.length == 1) {segundos = '0'+segundos;}
+
+    //Retorno
+    if (op == 1) {return hora+':'+minutos+':'+segundos;}
+    if (op == 2) {return hora+':'+minutos;}
 }
 
 //Retorna data por extenso
@@ -1565,12 +1667,11 @@ function bi_montarGradeEscala() {
             processing: true,
             serverSide: false,
             ajax: 'brigadas/escalas_index/' + $('#registro_id').val() + '/' + $('#es_periodo_data_1').val() + '/' + $('#es_periodo_data_2').val(),
-            columnDefs: [{'targets': [0, 1, 2, 3, 4], 'orderable': false}],
+            columnDefs: [{'targets': [0, 1, 2, 3], 'orderable': false}],
             columns: [
                 {'data': '#'},
                 {'data': 'funcionario_nome'},
-                {'data': 'chegada'},
-                {'data': 'saida'},
+                {'data': 'chegada_saida'},
                 {'data': 'action'}
             ]
         });
@@ -1622,6 +1723,7 @@ function formularioRonda(op, dados) {
                     var seguranca_medida_tipo = campo.tipo;
                     var status = '';
                     var observacao = '';
+                    var foto = '';
                 }
 
                 if (op == 2) {
@@ -1631,9 +1733,10 @@ function formularioRonda(op, dados) {
                     var seguranca_medida_tipo = campo.seguranca_medida_tipo;
                     var status = campo.status;
                     var observacao = campo.observacao;
+                    var foto = campo.foto;
                 }
 
-                retorno_linha += formularioRondaSegurancaMedidas(op, ctrl, pavimento, seguranca_medida_id, seguranca_medida_nome, seguranca_medida_quantidade, seguranca_medida_tipo, status, observacao);
+                retorno_linha += formularioRondaSegurancaMedidas(op, ctrl, pavimento, seguranca_medida_id, seguranca_medida_nome, seguranca_medida_quantidade, seguranca_medida_tipo, status, observacao, foto);
             }
         });
 
@@ -1644,10 +1747,10 @@ function formularioRonda(op, dados) {
     //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 }
 
-//Função para montar as Medidas Técnicas no Formulário Ronda
+//Função para montar as Segurança Medidas no Formulário Ronda
 //@PARAN op=1 : Executar Ronda
 //@PARAN op=2 : Visualizar Ronda
-function formularioRondaSegurancaMedidas(op, ctrl, pavimento, seguranca_medida_id, seguranca_medida_nome, seguranca_medida_quantidade, seguranca_medida_tipo, status, observacao) {
+function formularioRondaSegurancaMedidas(op, ctrl, pavimento, seguranca_medida_id, seguranca_medida_nome, seguranca_medida_quantidade, seguranca_medida_tipo, status, observacao, foto) {
     //Verificar se os campos vao ser readonly
     var readonly = '';
     var disabled = '';
@@ -1692,19 +1795,23 @@ function formularioRondaSegurancaMedidas(op, ctrl, pavimento, seguranca_medida_i
     medidas_seguranca += '          <input type="hidden" name="ids_seguranca_medidas[]" value="' + seguranca_medida_id + '">';
     medidas_seguranca += '      </div>';
     medidas_seguranca += '      <div class="row">';
+
     medidas_seguranca += '          <div class="form-group col-2 col-md-2 pb-3">';
     medidas_seguranca += '              <label class="form-label">Qtd</label>';
     medidas_seguranca += '              <div class="col-12 text-dark">'+seguranca_medida_quantidade+'</div>';
     medidas_seguranca += '          </div>';
+
     medidas_seguranca += '          <div class="form-group col-10 col-md-10 pb-3">';
     medidas_seguranca += '              <label class="form-label">Tipo</label>';
     medidas_seguranca += '              <div class="col-12 text-dark">'+seguranca_medida_tipo+'</div>';
     medidas_seguranca += '          </div>';
-    medidas_seguranca += '          <div class="form-group col-12 col-md-8">';
+
+    medidas_seguranca += '          <div class="form-group col-12 col-md-8 pb-3">';
     medidas_seguranca += '              <label class="form-label">Observação</label>';
     medidas_seguranca += '              <textarea class="form-control" id="observacao_' + pavimento + '_' + seguranca_medida_id + '" name="observacao_' + pavimento + '_' + seguranca_medida_id + '" '+readonly+'>' + observacao + '</textarea>';
     medidas_seguranca += '          </div>';
-    medidas_seguranca += '          <div class="form-group col-12 col-md-4">';
+
+    medidas_seguranca += '          <div class="form-group col-8 pb-3 text-center border border-primary rounded">';
     medidas_seguranca += '              <label class="form-label">Status</label>';
     medidas_seguranca += '              <div class="pb-2 font-size-12 '+textoCor+'" id="textoStatus_' + pavimento + '_' + seguranca_medida_id + '">'+textoStatus+'</div>';
     medidas_seguranca += '              <div class="row" '+botoesStyle+'>';
@@ -1718,8 +1825,22 @@ function formularioRondaSegurancaMedidas(op, ctrl, pavimento, seguranca_medida_i
     medidas_seguranca += '                      <button type="button" class="btn btn-outline-danger text-center font-size-16" onclick="formularioRondaCampoStatus(2, '+pavimento+', '+seguranca_medida_id+');"><i class="far fa-calendar-times"></i></button>';
     medidas_seguranca += '                  </div>';
     medidas_seguranca += '              </div>';
-    medidas_seguranca += '              <input type="hidden" class="inputsStatus" id="status_' + pavimento + '_' + seguranca_medida_id + '" name="status_' + pavimento + '_' + seguranca_medida_id + '" value="' + status + '">';
+    medidas_seguranca += '              <input type="hidden" class="inputsStatus" id="status_' + pavimento + '_' + seguranca_medida_id + '" name="status_' + pavimento + '_' + seguranca_medida_id + '" value="' + status + '" data-pavimento="'+pavimento+'" data-seguranca_medida_id="'+seguranca_medida_id+'" data-seguranca_medida_nome="'+seguranca_medida_nome+'">';
     medidas_seguranca += '          </div>';
+
+    medidas_seguranca += '          <div class="form-group col-1">&nbsp;</div>';
+
+    medidas_seguranca += '          <div class="form-group col-3 pb-3 text-center border border-primary rounded">';
+    medidas_seguranca += '              <label class="form-label">Foto</label>';
+    medidas_seguranca += '              <div class="pb-2 font-size-12" id="textoFoto_' + pavimento + '_' + seguranca_medida_id + '">&nbsp;</div>';
+    medidas_seguranca += '              <div class="row">';
+    medidas_seguranca += '                  <div class="col-12">';
+    medidas_seguranca += '                      <button type="button" class="btn btn-outline-primary text-center font-size-16" data-bs-toggle="modal" data-bs-target=".modal-camera-traseira" data-bs-placement="top" onclick="$(\'#fotoTraseiraPavimento\').val('+pavimento+'); $(\'#fotoTraseiraSegurancaMedidaId\').val('+seguranca_medida_id+'); startCameraTraseira(); layoutTirarExcluirFotoTraseira(1);"><i class="far fa-image"></i></button>';
+    medidas_seguranca += '                  </div>';
+    medidas_seguranca += '              </div>';
+    medidas_seguranca += '              <input type="hidden" class="inputsFoto" id="foto_' + pavimento + '_' + seguranca_medida_id + '" name="foto_' + pavimento + '_' + seguranca_medida_id + '" value="' + foto + '" data-pavimento="'+pavimento+'" data-seguranca_medida_id="'+seguranca_medida_id+'" data-seguranca_medida_nome="'+seguranca_medida_nome+'">';
+    medidas_seguranca += '          </div>';
+
     medidas_seguranca += '      </div>';
     medidas_seguranca += '  </div>';
     medidas_seguranca += '</div>';
@@ -1727,7 +1848,7 @@ function formularioRondaSegurancaMedidas(op, ctrl, pavimento, seguranca_medida_i
     return medidas_seguranca;
 }
 
-//Função para alterar os campos statuse textoStatus
+//Função para alterar os campos status e textoStatus
 function formularioRondaCampoStatus(id, pavimento, seguranca_medida_id) {
     if (id == 0) {
         textoStatus = '<i class="far fa-calendar-minus"></i>'+' NÃO ENCONTRADO';
@@ -1749,20 +1870,35 @@ function formularioRondaCampoStatus(id, pavimento, seguranca_medida_id) {
     $('#status_' + pavimento + '_' + seguranca_medida_id).val(id);
 }
 
-//Função para validar campos antes de salvar
+//Função para validar campos antes de salvar Formulário Ronda
 function formularioRondaValidar() {
     var error = false;
-    var qtd = 0;
+    var message = 0;
+    var status = '';
 
+    //Varrer campos status para saber se foram todos escolhidos
     $('.inputsStatus').each(function () {
-        if ($(this).val() == '') {
+        status = $(this).val();
+
+        if (status == '') {
             error = true;
-            qtd++;
-        }
+            message = "Medidas de Segurança - Pavimento "+$(this).data('pavimento')+": "+$(this).data('seguranca_medida_nome')+" - Escolha o Status.";
+        } else if (status == 0) { //NÃO ENCONTRADO
+            if ($('#foto_'+$(this).data('pavimento')+"_"+$(this).data('seguranca_medida_id')).val() == '') {
+                error = true;
+                message = "Medidas de Segurança - Pavimento "+$(this).data('pavimento')+": "+$(this).data('seguranca_medida_nome')+" - Tire foto do local.";
+            }
+        } else if (status == 1) { //CONFERIDO
+        } else if (status == 2) { //DANIFICADO
+            if ($('#foto_'+$(this).data('pavimento')+"_"+$(this).data('seguranca_medida_id')).val() == '') {
+                error = true;
+                message = "Medidas de Segurança - Pavimento "+$(this).data('pavimento')+": "+$(this).data('seguranca_medida_nome')+" - Tire foto do local.";
+            }
+        } else {}
     });
 
     if (error) {
-        alert('Existem '+qtd+' itens para completar a Ronda.');
+        alert(message);
         return false;
     }
 
@@ -1774,6 +1910,66 @@ function formularioRondaValidar() {
 
 //Funções para o Submódulo Brigadas Incêndios - FIM'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 //Funções para o Submódulo Brigadas Incêndios - FIM'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+//Funções para o QRCode Brigada Escalas - Início''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+//Funções para o QRCode Brigada Escalas - Início''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+//Função para montar layout para Tirar/Excluir Foto
+function layoutTirarExcluirFotoFrontal(op) {
+    //Layout para Tirar Foto
+    if (op == 1) {
+        //Hide / Show
+        $('#btnTirarFotoFrontal').show();
+        $('#btnExcluirFotoFrontal').hide();
+
+        $('#videoFrontal').show();
+        $('#canvasFrontal').show();
+        $('#photoFrontal').hide();
+    }
+
+    //Layout para Excluir Foto
+    if (op == 2) {
+        //Hide / Show
+        $('#btnTirarFotoFrontal').hide();
+        $('#btnExcluirFotoFrontal').show();
+
+        $('#videoFrontal').hide();
+        $('#canvasFrontal').hide();
+        $('#photoFrontal').show();
+    }
+}
+
+//Função para montar layout para Tirar/Excluir Foto
+function layoutTirarExcluirFotoTraseira(op) {
+    //Layout para Tirar Foto
+    if (op == 1) {
+        //Hide / Show
+        $('#btnTirarFotoTraseira').show();
+        $('#btnExcluirFotoTraseira').hide();
+
+        $('#videoTraseira').show();
+        $('#canvasTraseira').show();
+        $('#photoTraseira').hide();
+    }
+
+    //Layout para Excluir Foto
+    if (op == 2) {
+        //Hide / Show
+        $('#btnTirarFotoTraseira').hide();
+        $('#btnExcluirFotoTraseira').show();
+
+        $('#videoTraseira').hide();
+        $('#canvasTraseira').hide();
+        $('#photoTraseira').show();
+    }
+
+    //Fechar modal
+    if (op == 3) {
+        $('.modal-camera-traseira').modal('hide');
+    }
+}
+//Funções para o QRCode Brigada Escalas - Fim'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+//Funções para o QRCode Brigada Escalas - Fim'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
 //Funções para Api ViaCep Para rodar em formulario sem REPEATER (Inicio)''''''''''''''''''''''''''''''''''''''''''''''''
 

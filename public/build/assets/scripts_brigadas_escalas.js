@@ -46,7 +46,7 @@ $(document).ready(function () {
                     //Escalas Form
                     $('#escalasForm').show();
 
-                    //Rondas Form
+                    // Rondas Form
                     $('#rondasForm').hide();
 
                     //Preencher o Formulário com Informações do Serviço
@@ -108,7 +108,7 @@ $(document).ready(function () {
             //Escalas Form
             $('#escalasForm').hide();
 
-            //Rondas Form
+            // Rondas Form
             $('#rondasForm').hide();
 
             //Título
@@ -119,20 +119,6 @@ $(document).ready(function () {
         $('#btnGradeEscalas').click(function () {
             //Buscar dados das Escalas solicitadas de acordo com operiodo de datas para colocar na grade
             bi_montarGradeEscala();
-        });
-
-        //Botão Editar Escala (Edita em um Modal)
-        $('body').on('click', '.btnEditarEscala', function () {
-            //Informações da Escala Selecionada para Editar
-            var id = $(this).data('id');
-            var funcionario_nome = $(this).data('funcionario_nome');
-            var data_chegada = $(this).data('data_chegada');
-            var hora_chegada = $(this).data('hora_chegada');
-            var data_saida = $(this).data('data_saida');
-            var hora_saida = $(this).data('hora_saida');
-
-            //Campo
-            $('#brigada_escala_id').val(id);
         });
     });
 });
