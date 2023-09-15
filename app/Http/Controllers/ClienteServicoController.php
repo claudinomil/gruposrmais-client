@@ -75,23 +75,18 @@ class ClienteServicoController extends Controller
 
                         if ($row['servico_tipo_id'] == 1) {
                             //Gravar QRCode Informações
-                            if (!file_exists('build/assets/qrcodes/clientes_servicos/qrcode_informacoes_' . $row['id'] . '.png')) {
-                                SuporteFacade::getClienteServicoQRCodeInformacoes($row['id']);
+                            if (!file_exists('build/assets/qrcodes/clientes_servicos/qrcode_brigada_informacoes_' . $row['id'] . '.png')) {
+                                SuporteFacade::getClienteServicoQRCodeBrigadaInformacoes($row['id']);
                             }
 
-                            //Gravar QRCode Brigada Presença
-                            if (!file_exists('build/assets/qrcodes/clientes_servicos/qrcode_brigada_presenca_' . $row['id'] . '.png')) {
-                                SuporteFacade::getClienteServicoQRCodeBrigadaPresenca($row['id']);
-                            }
-
-                            //Gravar QRCode Brigada Ronda
-                            if (!file_exists('build/assets/qrcodes/clientes_servicos/qrcode_brigada_ronda_' . $row['id'] . '.png')) {
-                                SuporteFacade::getClienteServicoQRCodeBrigadaRonda($row['id']);
+                            //Gravar QRCode Brigada Serviço
+                            if (!file_exists('build/assets/qrcodes/clientes_servicos/qrcode_brigada_escalas_' . $row['id'] . '.png')) {
+                                SuporteFacade::getClienteServicoQRCodeBrigadaEscalas($row['id']);
                             }
 
                             //Botão Visualizar QRCodes
                             if (Permissoes::permissao(['clientes_servicos_show'], $request['userLoggedPermissoes'])) {
-                                $btn_qrcode = '<div class="col-12 text-center pt-2"><button type="button" class="btn btn-dark waves-effect btn-label waves-light btn-sm" data-bs-toggle="modal" data-bs-target=".modal-qrcode" data-bs-placement="top" title="QRCodes" onclick="$(\'#imgQRCode1\').prop(\'src\', \''.asset('build/assets/qrcodes/clientes_servicos/qrcode_informacoes_' . $row['id'] . '.png').'\'); $(\'#imgQRCode2\').prop(\'src\', \''.asset('build/assets/qrcodes/clientes_servicos/qrcode_brigada_presenca_' . $row['id'] . '.png').'\'); $(\'#imgQRCode3\').prop(\'src\', \''.asset('build/assets/qrcodes/clientes_servicos/qrcode_brigada_ronda_' . $row['id'] . '.png').'\');"><i class="mdi mdi-qrcode label-icon font-size-18"></i> QRCodes</button></div>';
+                                $btn_qrcode = '<div class="col-12 text-center pt-2"><button type="button" class="btn btn-dark waves-effect btn-label waves-light btn-sm" data-bs-toggle="modal" data-bs-target=".modal-qrcode" data-bs-placement="top" title="QRCodes" onclick="$(\'#imgQRCode1\').prop(\'src\', \''.asset('build/assets/qrcodes/clientes_servicos/qrcode_brigada_informacoes_' . $row['id'] . '.png').'\'); $(\'#imgQRCode2\').prop(\'src\', \''.asset('build/assets/qrcodes/clientes_servicos/qrcode_brigada_escalas_' . $row['id'] . '.png').'\');"><i class="mdi mdi-qrcode label-icon font-size-18"></i> QRCodes</button></div>';
                             }
                         }
                         //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -143,7 +138,7 @@ class ClienteServicoController extends Controller
             //Registro criado com sucesso
             if ($this->code == 2010) {
                 //Gravar QRCode
-                SuporteFacade::getClienteServicoQRCodeInformacoes($this->content['id']);
+                SuporteFacade::getClienteServicoQRCodeBrigadaInformacoes($this->content['id']);
 
                 //Retorno
                 return response()->json(['success' => $this->message]);
@@ -225,13 +220,13 @@ class ClienteServicoController extends Controller
             //Registro deletado com sucesso
             if ($this->code == 2000) {
                 //Excluir QRCode Informações
-                if (file_exists('build/assets/qrcodes/clientes_servicos/qrcode_informacoes_'.$id.'.png')) {
-                    unlink('build/assets/qrcodes/clientes_servicos/qrcode_informacoes_'.$id.'.png');
+                if (file_exists('build/assets/qrcodes/clientes_servicos/qrcode_brigada_informacoes_'.$id.'.png')) {
+                    unlink('build/assets/qrcodes/clientes_servicos/qrcode_brigada_informacoes_'.$id.'.png');
                 }
 
-                //Excluir QRCode Brigada Presença
-                if (file_exists('build/assets/qrcodes/clientes_servicos/qrcode_brigada_presenca_'.$id.'.png')) {
-                    unlink('build/assets/qrcodes/clientes_servicos/qrcode_brigada_presenca_'.$id.'.png');
+                //Excluir QRCode Brigada Serviço
+                if (file_exists('build/assets/qrcodes/clientes_servicos/qrcode_brigada_escalas_'.$id.'.png')) {
+                    unlink('build/assets/qrcodes/clientes_servicos/qrcode_brigada_escalas_'.$id.'.png');
                 }
 
                 //Return
@@ -292,18 +287,18 @@ class ClienteServicoController extends Controller
 
                         if ($row['servico_tipo_id'] == 1) {
                             //Gravar QRCode Informações
-                            if (!file_exists('build/assets/qrcodes/clientes_servicos/qrcode_informacoes_' . $row['id'] . '.png')) {
-                                SuporteFacade::getClienteServicoQRCodeInformacoes($row['id']);
+                            if (!file_exists('build/assets/qrcodes/clientes_servicos/qrcode_brigada_informacoes_' . $row['id'] . '.png')) {
+                                SuporteFacade::getClienteServicoQRCodeBrigadaInformacoes($row['id']);
                             }
 
-                            //Gravar QRCode Brigada Presença
-                            if (!file_exists('build/assets/qrcodes/clientes_servicos/qrcode_brigada_presenca_' . $row['id'] . '.png')) {
-                                SuporteFacade::getClienteServicoQRCodeBrigadaPresenca($row['id']);
+                            //Gravar QRCode Brigada Serviço
+                            if (!file_exists('build/assets/qrcodes/clientes_servicos/qrcode_brigada_escalas_' . $row['id'] . '.png')) {
+                                SuporteFacade::getClienteServicoQRCodeBrigadaEscalas($row['id']);
                             }
 
                             //Botão Visualizar QRCodes
                             if (Permissoes::permissao(['clientes_servicos_show'], $request['userLoggedPermissoes'])) {
-                                $btn_qrcode = '<div class="col-12 text-center pt-2"><button type="button" class="btn btn-dark waves-effect btn-label waves-light btn-sm" data-bs-toggle="modal" data-bs-target=".modal-qrcode" data-bs-placement="top" title="QRCodes" onclick="$(\'#imgQRCode1\').prop(\'src\', \''.asset('build/assets/qrcodes/clientes_servicos/qrcode_informacoes_' . $row['id'] . '.png').'\'); $(\'#imgQRCode2\').prop(\'src\', \''.asset('build/assets/qrcodes/clientes_servicos/qrcode_brigada_presenca_' . $row['id'] . '.png').'\');"><i class="mdi mdi-qrcode label-icon font-size-18"></i> QRCodes</button></div>';
+                                $btn_qrcode = '<div class="col-12 text-center pt-2"><button type="button" class="btn btn-dark waves-effect btn-label waves-light btn-sm" data-bs-toggle="modal" data-bs-target=".modal-qrcode" data-bs-placement="top" title="QRCodes" onclick="$(\'#imgQRCode1\').prop(\'src\', \''.asset('build/assets/qrcodes/clientes_servicos/qrcode_brigada_informacoes_' . $row['id'] . '.png').'\'); $(\'#imgQRCode2\').prop(\'src\', \''.asset('build/assets/qrcodes/clientes_servicos/qrcode_brigada_escalas_' . $row['id'] . '.png').'\');"><i class="mdi mdi-qrcode label-icon font-size-18"></i> QRCodes</button></div>';
                             }
                         }
                         //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -325,13 +320,13 @@ class ClienteServicoController extends Controller
 
     //Eventos para QRCode - Início''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
     //Eventos para QRCode - Início''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    public function qrcode_informacoes($id)
+    public function qrcode_brigada_informacoes($id)
     {
-        if (SuporteFacade::getDevice() == 'desktop') {
+        if (SuporteFacade::getDevice() == 'desktopxxxxx') {
             abort(500, 'Não é permitido acesso via Desktop.');
         } else {
             //Buscando dados Api_Data() - Registro pelo id
-            $this->responseApi(1, 2, 'qrcodes/clientes_servicos/qrcode_informacoes', $id, '', '', '');
+            $this->responseApi(1, 2, 'qrcodes/clientes_servicos/qrcode_brigada_informacoes', $id, '', '', '');
 
             //Variáveis de controle
             $error = true;
@@ -356,7 +351,7 @@ class ClienteServicoController extends Controller
             }
 
             //chamar view
-            return view('clientes_servicos.qrcode_informacoes', [
+            return view('clientes_servicos.qrcode_brigada_informacoes', [
                 'error' => $error,
                 'message' => $message,
                 'cliente_servico' => $cliente_servico,
@@ -367,13 +362,13 @@ class ClienteServicoController extends Controller
         }
     }
 
-    public function qrcode_brigada_presenca($id)
+    public function qrcode_brigada_escalas($id)
     {
-        if (SuporteFacade::getDevice() == 'desktopx') {
+        if (SuporteFacade::getDevice() == 'desktopxxxxx') {
             abort(500, 'Não é permitido acesso via Desktop.');
         } else {
             //Buscando dados Api_Data() - Registro pelo id
-            $this->responseApi(1, 2, 'qrcodes/clientes_servicos/qrcode_brigada_presenca', $id, '', '', '');
+            $this->responseApi(1, 2, 'qrcodes/clientes_servicos/qrcode_brigada_escalas', $id, '', '', '');
 
             //Variáveis de controle
             $error = true;
@@ -382,6 +377,7 @@ class ClienteServicoController extends Controller
             //Variáveis de dados
             $cliente_servico = [];
             $escalas = [];
+            $rondas = [];
 
             //Registro recebido com sucesso
             if ($this->code == 2000) {
@@ -389,26 +385,28 @@ class ClienteServicoController extends Controller
 
                 $cliente_servico = $this->content['cliente_servico'][0];
                 $escalas = $this->content['escalas'];
+                $rondas = $this->content['rondas'];
             } else {
                 $message = $this->message;
             }
 
             //chamar view
-            return view('clientes_servicos.qrcode_brigada_presenca', [
+            return view('clientes_servicos.qrcode_brigada_escalas', [
                 'error' => $error,
                 'message' => $message,
                 'cliente_servico' => $cliente_servico,
-                'escalas' => $escalas
+                'escalas' => $escalas,
+                'rondas' => $rondas
             ]);
         }
     }
 
-    public function qrcode_gravar_presenca(Request $request, $brigada_escala_id)
+    public function qrcode_brigada_escala_operacao_salvar(Request $request, $brigada_escala_id)
     {
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Alterar Registro
-            $this->responseApi(1, 11, 'qrcodes/clientes_servicos/qrcode_gravar_presenca/'.$brigada_escala_id, '', '', '', $request->all());
+            $this->responseApi(1, 11, 'qrcodes/clientes_servicos/qrcode_brigada_escala_operacao_salvar/'.$brigada_escala_id, '', '', '', $request->all());
 
             //Registro alterado com sucesso
             if ($this->code == 2000) {

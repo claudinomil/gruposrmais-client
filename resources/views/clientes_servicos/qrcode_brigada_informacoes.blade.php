@@ -157,12 +157,14 @@
                                             $brigadista_informacoes .= '</p>';
 
                                             //Data/Hora Realizadas
-                                            if ($escala['escala_frequencia_id'] !== null) {
+                                            if ($escala['data_chegada_real'] !== null) {
                                                 $brigadista_informacoes .= '<p>';
                                                 $brigadista_informacoes .= '<b>Chegada Realizada:</b> '.$escala['data_chegada_real'].' às '.$escala['hora_chegada_real'].'hs';
-                                                $brigadista_informacoes .= '<br>';
-                                                $brigadista_informacoes .= '<b>Saída Realizada:</b> '.$escala['data_saida_real'].' às '.$escala['hora_saida_real'].'hs';
-                                                $brigadista_informacoes .= '</p>';
+
+                                                if ($escala['data_saida_real'] !== null) {
+                                                    $brigadista_informacoes .= '<br>';
+                                                    $brigadista_informacoes .= '<b>Saída Realizada:</b> '.$escala['data_saida_real'].' às '.$escala['hora_saida_real'].'hs';
+                                                }
                                             }
 
                                             //Colocar botões com as Rondas já executadas
@@ -185,7 +187,7 @@
                                                     if ($r == 9) {$r_extenso = 'Nona Ronda';}
                                                     if ($r == 10) {$r_extenso = 'Décima Ronda';}
 
-                                                    $btnsRondas .= '<div class="col-3 text-center pb-1"><button type="button" class="btn btn-outline-primary btn-sm text-center font-size-10 btnViewRonda" data-bs-toggle="tooltip" data-bs-placement="top" title="'.$r_extenso.'" data-id="'.$ronda['id'].'" data-funcionario_nome="'.$escala['funcionario_nome'].'" data-data_chegada="'.$escala['data_chegada'].'" data-hora_chegada="'.$escala['hora_chegada'].'" data-data_saida="'.$escala['data_saida'].'" data-hora_saida="'.$escala['hora_saida'].'" data-data="'.$ronda['data'].'" data-hora="'.$ronda['hora'].'">R'.$r.'</button></div>';
+                                                    $btnsRondas .= '<div class="col-3 text-center pb-1"><button type="button" class="btn btn-outline-primary btn-sm text-center font-size-10 btnViewRonda" data-bs-toggle="tooltip" data-bs-placement="top" title="'.$r_extenso.'" data-id="'.$ronda['id'].'" data-funcionario_nome="'.$escala['funcionario_nome'].'" data-data_chegada="'.$escala['data_chegada'].'" data-hora_chegada="'.$escala['hora_chegada'].'" data-data_saida="'.$escala['data_saida'].'" data-hora_saida="'.$escala['hora_saida'].'" data-data="'.$ronda['data_inicio_ronda'].'" data-hora="'.$ronda['hora_inicio_ronda'].'">R'.$r.'</button></div>';
                                                 }
                                             }
 
@@ -217,6 +219,6 @@
 @endsection
 
 @section('script')
-    <!-- scripts_clientes_servicos_qrcode_informacoes.js -->
-    <script src="{{ Vite::asset('resources/assets_template/js/scripts_clientes_servicos_qrcode_informacoes.js')}}"></script>
+    <!-- scripts_clientes_servicos_qrcode_brigada_informacoes.js -->
+    <script src="{{ Vite::asset('resources/assets_template/js/scripts_clientes_servicos_qrcode_brigada_informacoes.js')}}"></script>
 @endsection

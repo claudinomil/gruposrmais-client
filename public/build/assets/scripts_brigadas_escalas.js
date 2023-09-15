@@ -131,12 +131,6 @@ $(document).ready(function () {
             var data_saida = $(this).data('data_saida');
             var hora_saida = $(this).data('hora_saida');
 
-            //Abrir Modal Ações
-            $('.modal-acoes').modal('show');
-
-            //Titulo
-            $('#modal-acoes-title').html(funcionario_nome);
-
             //Campo
             $('#brigada_escala_id').val(id);
         });

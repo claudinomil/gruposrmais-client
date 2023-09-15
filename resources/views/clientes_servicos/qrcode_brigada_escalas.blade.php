@@ -8,9 +8,8 @@
             <div class="card">
                 <div class="card-body" style="min-height: 100vh; padding: 0.6rem 0.6rem !important;">
                     <div class="text-center mb-2">
-                        <h4 class="text-primary mb-1">Cliente Serviço</h4>
+                        <h5 class="text-primary mb-1">{{$cliente_servico['servicoName']}}</h5>
                         <p class="text-muted font-size-11 mb-1">{{$cliente_servico['clienteName']}}</p>
-                        <p class="text-muted font-size-11 mb-1">{{$cliente_servico['servicoName']}}</p>
                     </div>
                     <div class="mt-3">
                         @foreach ($escalas as $key => $escala)
@@ -52,19 +51,27 @@
                             $data_saida_real = $escala['data_saida_real'];
                             $hora_saida_real = $escala['hora_saida_real'];
 
-                            //Operação (Iniciar Serviço ou Encerrar Serviço)
+                            //Operação (Iniciar Serviço, Iniciar Ronda ou Encerrar Serviço)'''''''''''''''''''''''''''''
                             $botao_iniciar_servico = false;
+                            $botao_iniciar_ronda = false;
                             $botao_encerrar_servico = false;
 
-                            if ($escala['escala_frequencia_id'] === null) {
-                                $botao_iniciar_servico = true;
-                            } else {
-                                if ($data_saida_real === null) {$botao_encerrar_servico = true;}
-
+                            //Se Frequência for diferente de FALTOU
+                            if ($escala['escala_frequencia_id'] != 3) {
+                                //Se Data Chegada Real for NULL (O Brigadista pode Iniciar o Serviço)
+                                if ($escala['data_chegada_real'] === null) {
+                                    $botao_iniciar_servico = true;
+                                } else {
+                                    if ($escala['data_saida_real'] === null) {
+                                        $botao_iniciar_ronda = true;
+                                        $botao_encerrar_servico = true;
+                                    }
+                                }
                             }
+                            //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
                             @endphp
 
-                            <div class="col-12 divsBrigadistas">
+                            <div class="col-12 divsEscalaBrigadistasOperacoes">
                                 <div class="card" style="box-shadow: 0.1rem 0.5rem 0.5rem 0.07rem #2a3042;">
                                     <div class="card-body" style="padding: 0.2rem 0.6rem 0.6rem 0.6rem !important;">
                                         <div class="d-flex">
@@ -105,6 +112,26 @@
                                                     </button>
                                                 @endif
 
+                                                @if($botao_iniciar_ronda)
+                                                    <button type="button"
+                                                            class="btn btn-warning waves-effect btn-label waves-light"
+                                                            data-brigada_escala_id="{{$brigada_escala_id}}"
+                                                            data-funcionario_foto="{{$funcionario_foto}}"
+                                                            data-cor_ala="{{$corAla}}"
+                                                            data-ala="{{$ala}}"
+                                                            data-funcionario_nome="{{$funcionario_nome}}"
+                                                            data-usuario_email="{{$usuario_email}}"
+                                                            data-escala_tipo_nome="{{$escala_tipo_nome}}"
+                                                            data-data_chegada="{{$data_chegada}}"
+                                                            data-hora_chegada="{{$hora_chegada}}"
+                                                            data-data_saida="{{$data_saida}}"
+                                                            data-hora_saida="{{$hora_saida}}"
+                                                            id="btnIniciarRonda">
+                                                        <i class="bx bx-calendar-check label-icon"></i> Iniciar Ronda
+                                                    </button>
+                                                    <br><br>
+                                                @endif
+
                                                 @if($botao_encerrar_servico)
                                                     <button type="button"
                                                             class="btn btn-primary waves-effect btn-label waves-light"
@@ -128,19 +155,26 @@
                                     </div>
 
                                     @if($frequencia != '')
-                                        <div class="px-2 py-2 border-top">
+                                        <div class="px-2 py-2 border-top bg-light">
                                             <div class="row">
                                                 <div class="col-3 text-center">
                                                     <h5 class="text-truncate font-size-12 py-2">{!! $frequencia !!}</h5>
                                                 </div>
                                                 <div class="col-9 text-muted font-size-11">
                                                     @if($data_chegada_real != '')
-                                                        Chegada: {{$data_chegada_real.' às '.$hora_chegada_real.'hs'}}
+                                                        <span class="text-success">Chegada</span>: {{$data_chegada_real.' às '.$hora_chegada_real.'hs'}}
+
+                                                        @foreach ($rondas as $key => $ronda)
+                                                            @if($ronda['brigada_escala_id'] == $escala['id'])
+                                                                <br>
+                                                                <span class="text-warning">Ronda</span>: {{$ronda['data_inicio_ronda'].' às '.$ronda['hora_inicio_ronda'].'hs'}}
+                                                            @endif
+                                                        @endforeach
                                                     @endif
 
                                                     @if($data_saida_real != '')
                                                         <br>
-                                                        Saída: {{$data_saida_real.' às '.$hora_saida_real.'hs'}}
+                                                        <span class="text-primary">Saída</span>: {{$data_saida_real.' às '.$hora_saida_real.'hs'}}
                                                     @endif
                                                 </div>
                                             </div>
@@ -150,7 +184,7 @@
                             </div>
                         @endforeach
 
-                        <div class="col-12 d-none divConfirmarPresenca">
+                        <div class="col-12 d-none" id="divEscalaBrigadistaOperacao">
                             <div class="card" style="box-shadow: 0.1rem 0.5rem 0.5rem 0.07rem #2a3042;">
                                 <div class="card-body" style="padding: 0.2rem 0.6rem 0.6rem 0.6rem !important;">
                                     <div class="d-flex">
@@ -169,35 +203,40 @@
                                     </div>
                                 </div>
 
-                                <div class="px-2 py-2 border-top" id="divPresencaConfirmada">
+                                <div class="px-2 py-2 border-top" id="divOperacaoFormularioResultado">
                                     <div class="col-12">
-                                        <form id="frm_gravar_presenca" name="frm_gravar_presenca">
-                                            <input type="hidden" id="iniciar_encerrar" name="iniciar_encerrar">
+                                        <form id="frm_qrcode_brigada_escalas" name="frm_qrcode_brigada_escalas">
+                                            <input type="hidden" id="brigada_escala_operacao" name="brigada_escala_operacao">
                                             <input type="hidden" id="brigada_escala_id" name="brigada_escala_id">
                                             <input type="hidden" id="email" name="email">
                                             <input type="hidden" id="foto_real" name="foto_real">
+                                            <input type="hidden" id="data_inicio_ronda" name="data_inicio_ronda">
+                                            <input type="hidden" id="hora_inicio_ronda" name="hora_inicio_ronda">
 
                                             <div class="form-group col-12 pb-3">
                                                 <div class="text-center">
-                                                    <video class="col-12 form-control" id="video" autoplay></video>
-                                                    <canvas class="col-12 form-control d-none" id="canvas"></canvas>
-                                                    <img class="col-12 form-control" id="photo" src="" style="display: none;">
+                                                    <video class="col-12 form-control" id="videoFrontal" autoplay></video>
+                                                    <canvas class="col-12 form-control d-none" id="canvasFrontal"></canvas>
+                                                    <img class="col-12 form-control" id="photoFrontal" src="" style="display: none;">
                                                 </div>
                                                 <div class="text-center py-2">
-                                                    <button type="button" class="btn btn-primary waves-effect btn-label waves-light" id="btnTirarFoto"><i class="bx bx-photo-album label-icon"></i> Tirar Foto</button>
-                                                    <button type="button" class="btn btn-warning waves-effect btn-label waves-light" style="display:none;" id="btnExcluirFoto"><i class="bx bx-trash label-icon"></i> Excluir Foto</button>
+                                                    <button type="button" class="btn btn-primary waves-effect btn-label waves-light" id="btnTirarFotoFrontal"><i class="bx bx-photo-album label-icon"></i> Tirar Foto</button>
+                                                    <button type="button" class="btn btn-warning waves-effect btn-label waves-light" style="display:none;" id="btnExcluirFotoFrontal"><i class="bx bx-trash label-icon"></i> Excluir Foto</button>
                                                 </div>
                                             </div>
                                             <div class="form-group col-12 pb-3">
                                                 <input type="password" class="form-control" id="password" name="password" placeholder="Digite sua Senha aqui...">
                                             </div>
+
+                                            <div class="row" id="divMedidasSegurancaRondaItens"></div>
+
                                             <div class="form-group col-12 pb-3">
                                                 <div class="row">
                                                     <div class="col-6 text-start">
-                                                        <button type="button" class="btn btn-success waves-effect btn-label waves-light" id="btnConfirmarPresenca"><i class="bx bx-check-double label-icon"></i> Confirmar</button>
+                                                        <button type="button" class="btn btn-success waves-effect btn-label waves-light" id="btnConfirmarOperacao"><i class="bx bx-check-double label-icon"></i> Confirmar</button>
                                                     </div>
                                                     <div class="col-6 text-end">
-                                                        <button type="button" class="btn btn-danger waves-effect btn-label waves-light" id="btnCancelarConfirmarPresenca"><i class="bx bx-exit label-icon"></i> Cancelar</button>
+                                                        <button type="button" class="btn btn-danger waves-effect btn-label waves-light" id="btnCancelarOperacao"><i class="bx bx-exit label-icon"></i> Cancelar</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -211,9 +250,40 @@
             </div>
         </div>
     </div>
+
+    <!-- Acessar Câmera Traseira -->
+    <div class="modal fade modal-camera-traseira" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Câmera</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="text-center">
+                                <video class="col-12 form-control" id="videoTraseira" autoplay></video>
+                                <canvas class="col-12 form-control d-none" id="canvasTraseira"></canvas>
+                                <img class="col-12 form-control" id="photoTraseira" src="" style="display: none;">
+                            </div>
+                            <div class="text-center py-2">
+                                <button type="button" class="btn btn-primary waves-effect btn-label waves-light" id="btnTirarFotoTraseira"><i class="bx bx-photo-album label-icon"></i> Tirar Foto</button>
+                                <button type="button" class="btn btn-warning waves-effect btn-label waves-light" style="display:none;" id="btnExcluirFotoTraseira"><i class="bx bx-trash label-icon"></i> Excluir Foto</button>
+                            </div>
+
+                            <input type="hidden" id="fotoTraseiraPavimento" name="fotoTraseiraPavimento" value="">
+                            <input type="hidden" id="fotoTraseiraSegurancaMedidaId" name="fotoTraseiraSegurancaMedidaId" value="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection
 
 @section('script')
-    <!-- scripts_clientes_servicos_qrcode_brigada_presenca.js -->
-    <script src="{{ Vite::asset('resources/assets_template/js/scripts_clientes_servicos_qrcode_brigada_presenca.js')}}"></script>
+    <!-- scripts_clientes_servicos_qrcode_brigada_escalas.js -->
+    <script src="{{ Vite::asset('resources/assets_template/js/scripts_clientes_servicos_qrcode_brigada_escalas.js')}}"></script>
 @endsection

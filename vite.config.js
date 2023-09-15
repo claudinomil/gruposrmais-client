@@ -68,8 +68,8 @@ export default defineConfig({
                 {src: 'resources/assets_template/js/scripts_brigadas_escalas.js', dest: 'assets'},
                 {src: 'resources/assets_template/js/scripts_brigadas_rondas.js', dest: 'assets'},
                 {src: 'resources/assets_template/js/scripts_clientes_servicos.js', dest: 'assets'},
-                {src: 'resources/assets_template/js/scripts_clientes_servicos_qrcode_informacoes.js', dest: 'assets'},
-                {src: 'resources/assets_template/js/scripts_clientes_servicos_qrcode_brigada_presenca.js', dest: 'assets'},
+                {src: 'resources/assets_template/js/scripts_clientes_servicos_qrcode_brigada_informacoes.js', dest: 'assets'},
+                {src: 'resources/assets_template/js/scripts_clientes_servicos_qrcode_brigada_escalas.js', dest: 'assets'},
                 {src: 'resources/assets_template/images/clientes/cliente-0.png', dest: 'assets/images/clientes'},
                 {src: 'resources/assets_template/images/fornecedores/fornecedor-0.png', dest: 'assets/images/fornecedores'},
                 {src: 'resources/assets_template/images/funcionarios/funcionario-0.png', dest: 'assets/images/funcionarios'},
@@ -359,13 +359,13 @@ export default defineConfig({
 //     "isEntry": true,
 //     "src": "resources/assets_template/js/scripts_clientes_servicos.js"
 // },
-// "resources/assets_template/js/scripts_clientes_servicos_qrcode_informacoes.js": {
-//     "file": "assets/scripts_clientes_servicos_qrcode_informacoes.js",
+// "resources/assets_template/js/scripts_clientes_servicos_qrcode_brigada_informacoes.js": {
+//     "file": "assets/scripts_clientes_servicos_qrcode_brigada_informacoes.js",
 //     "isEntry": true,
-//     "src": "resources/assets_template/js/scripts_clientes_servicos_qrcode_informacoes.js"
+//     "src": "resources/assets_template/js/scripts_clientes_servicos_qrcode_brigada_informacoes.js"
 // },
-// "resources/assets_template/js/scripts_clientes_servicos_qrcode_brigada_presenca.js": {
-//     "file": "assets/scripts_clientes_servicos_qrcode_brigada_presenca.js",
+// "resources/assets_template/js/scripts_clientes_servicos_qrcode_brigada_escalas.js": {
+//     "file": "assets/scripts_clientes_servicos_qrcode_brigada_escalas.js",
 //     "isEntry": true,
-//     "src": "resources/assets_template/js/scripts_clientes_servicos_qrcode_brigada_presenca.js"
+//     "src": "resources/assets_template/js/scripts_clientes_servicos_qrcode_brigada_escalas.js"
 // },

@@ -19,7 +19,7 @@ class BrigadaController extends Controller
     {
         $this->middleware('check-permissao:brigadas_list', ['only' => ['index', 'search', 'escalas_index']]);
         $this->middleware('check-permissao:brigadas_show', ['only' => ['show']]);
-        $this->middleware('check-permissao:brigadas_edit', ['only' => ['edit', 'update', 'escalas_update_frequencia']]);
+        $this->middleware('check-permissao:brigadas_edit', ['only' => ['edit', 'update']]);
     }
 
     public function index(Request $request)
@@ -169,100 +169,106 @@ class BrigadaController extends Controller
 
                         return $retorno;
                     })
-                    ->editColumn('chegada', function ($row) {
-                        $retorno = "<h5 class='text-truncate font-size-12'>".$row['data_chegada']."</h5>";
-                        $retorno .= "<p class='text-muted mb-0'>".$row['hora_chegada']."</p>";
-
-                        return $retorno;
-                    })
-                    ->editColumn('saida', function ($row) {
-                        $retorno = "<h5 class='text-truncate font-size-12'>".$row['data_saida']."</h5>";
-                        $retorno .= "<p class='text-muted mb-0'>".$row['hora_saida']."</p>";
+                    ->editColumn('chegada_saida', function ($row) {
+                        $retorno = "<div class='col-12 font-size-12'>".$row['data_chegada']." às ".substr($row['hora_chegada'], 0, 5)."</div>";
+                        $retorno .= "<div class='col-12 font-size-12'>".$row['data_saida']." às ".substr($row['hora_saida'], 0, 5)."</div>";
 
                         return $retorno;
                     })
                     ->addColumn('action', function ($row, Request $request) {
-                        //Buscar Frequência e colocar botão para editá-la'''''''''''''''''''''''''''''''''''''''''''''''
-
-                        //Frequencia
+                        //Frequência e Frequência Cor
                         $frequencia = '';
-                        $frequenciaCor = '';
 
-                        if ($row['escala_frequencia_id'] == 1) {$frequencia = 'PRESENÇA';   $frequenciaCor = 'text-success';}
-                        if ($row['escala_frequencia_id'] == 2) {$frequencia = 'ATRASO';     $frequenciaCor = 'text-warning';}
-                        if ($row['escala_frequencia_id'] == 3) {$frequencia = 'FALTA';      $frequenciaCor = 'text-danger';}
+                        if ($row['escala_frequencia_id'] !== null) {
+                            if ($row['escala_frequencia_id'] == 1) {$frequenciaCor = 'text-success'; $frequenciaNome = 'PRESENÇA';}
+                            if ($row['escala_frequencia_id'] == 2) {$frequenciaCor = 'text-warning'; $frequenciaNome = 'ATRASO';}
+                            if ($row['escala_frequencia_id'] == 3) {$frequenciaCor = 'text-danger'; $frequenciaNome = 'FALTA';}
 
-                        //Frequência + Botão
-                        $btn = '<div class="row">';
-                        $btn .= '    <div class="col-12 col-md-8">';
-                        $btn .= '       <div class="col '.$frequenciaCor.'" id="escala_frequencia_'.$row['id'].'">'.$frequencia.'</div>';
-                        $btn .= '    </div>';
-                        $btn .= '    <div class="col-12 col-md-4">';
-
-                        if (Permissoes::permissao(['brigadas_edit'], $request['userLoggedPermissoes'])) {
-                            $btn .= '    <div class="col"><button type="button" class="btn btn-outline-success text-center btn-sm text-center float-end font-size-10 btnEditarEscala" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar Frequência" data-id="'.$row['id'].'" data-funcionario_nome="'.$row['funcionario_nome'].'" data-data_chegada="'.$row['data_chegada'].'" data-hora_chegada="'.$row['hora_chegada'].'" data-data_saida="'.$row['data_saida'].'" data-hora_saida="'.$row['hora_saida'].'">EDITAR</button></div>';
+                            $frequencia = '<span class="'.$frequenciaCor.'"><b>'.$frequenciaNome.'</b></span>';
                         }
 
-                        $btn .= '    </div>';
-                        $btn .= '</div>';
-                        //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+                        //Data/Hora Realizadas
+                        $data_chegada_real = $row['data_chegada_real'];
+                        $hora_chegada_real = substr($row['hora_chegada_real'], 0, 5);
+                        $data_saida_real = $row['data_saida_real'];
+                        $hora_saida_real = substr($row['hora_saida_real'], 0, 5);
 
-                        //Colocar botões com as Rondas já executadas e Botão para executar um nova Ronda''''''''''''''''
-                        $btn2 = '<hr>';
+                        $dadosFrequenciaRonda = '';
 
-                        $btn2 .= '<div class="row">';
-                        $btn2 .= '    <div class="col-12 col-md-8">';
-                        $btn2 .= '        <div class="row">';
+                        if ($frequencia != '') {
+                            $dadosFrequenciaRonda = '<div class="col-12 pb-2">'.$frequencia.'</div>';
 
-                        //Rondas já executadas''''''''''''''''''''''''''''''''''''''''''''''''''
-                        $r = 0;
-                        foreach ($this->content['rondas'] as $ronda) {
-                            if ($row['id'] == $ronda['brigada_escala_id']) {
-                                $r++;
+                            if ($data_chegada_real != '') {
+                                $btnFotoChegada = '<button type="button" class="btn btn-outline-success btn-sm text-center font-size-10" data-bs-toggle="modal" data-bs-target=".modal-foto" data-bs-placement="top" title="Foto Chegada" onclick="$(\'#imgFoto\').prop(\'src\', \''.$row['foto_chegada_real'].'\');">F1</button>';
 
-                                if ($r == 1) {$r_extenso = 'Primeira Ronda';}
-                                if ($r == 2) {$r_extenso = 'Segunda Ronda';}
-                                if ($r == 3) {$r_extenso = 'Terceira Ronda';}
-                                if ($r == 4) {$r_extenso = 'Quarta Ronda';}
-                                if ($r == 5) {$r_extenso = 'Quinta Ronda';}
-                                if ($r == 6) {$r_extenso = 'Sexta Ronda';}
-                                if ($r == 7) {$r_extenso = 'Sétima Ronda';}
-                                if ($r == 8) {$r_extenso = 'Oitava Ronda';}
-                                if ($r == 9) {$r_extenso = 'Nona Ronda';}
-                                if ($r == 10) {$r_extenso = 'Décima Ronda';}
+                                $dadosFrequenciaRonda .= '<div class="row pb-2">';
+                                $dadosFrequenciaRonda .= '<div class="col">';
+                                $dadosFrequenciaRonda .= '<span class="text-success">Chegada</span>: '.$data_chegada_real.' às '.$hora_chegada_real.'hs';
+                                $dadosFrequenciaRonda .= '</div>';
+                                $dadosFrequenciaRonda .= '<div class="col-2">';
+                                $dadosFrequenciaRonda .= $btnFotoChegada;
+                                $dadosFrequenciaRonda .= '</div>';
+                                $dadosFrequenciaRonda .= '<div class="col-2">';
+                                $dadosFrequenciaRonda .= '&nbsp;';
+                                $dadosFrequenciaRonda .= '</div>';
+                                $dadosFrequenciaRonda .= '</div>';
 
-                                $btn2 .= '<div class="col-4 text-center pb-1"><button type="button" class="btn btn-outline-primary btn-sm text-center font-size-10 btnViewRonda" data-bs-toggle="tooltip" data-bs-placement="top" title="'.$r_extenso.'" data-id="'.$ronda['id'].'" data-funcionario_nome="'.$row['funcionario_nome'].'" data-data_chegada="'.$row['data_chegada'].'" data-hora_chegada="'.$row['hora_chegada'].'" data-data_saida="'.$row['data_saida'].'" data-hora_saida="'.$row['hora_saida'].'">R'.$r.'</button></div>';
+                                //Rondas
+                                $r = 0;
+                                foreach ($this->content['rondas'] as $key => $ronda) {
+                                    if ($ronda['brigada_escala_id'] == $row['id']) {
+                                        //Botão visualizar Ronda''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+                                        $r++;
+
+                                        if ($r == 1) {$r_extenso = 'Primeira Ronda';}
+                                        if ($r == 2) {$r_extenso = 'Segunda Ronda';}
+                                        if ($r == 3) {$r_extenso = 'Terceira Ronda';}
+                                        if ($r == 4) {$r_extenso = 'Quarta Ronda';}
+                                        if ($r == 5) {$r_extenso = 'Quinta Ronda';}
+                                        if ($r == 6) {$r_extenso = 'Sexta Ronda';}
+                                        if ($r == 7) {$r_extenso = 'Sétima Ronda';}
+                                        if ($r == 8) {$r_extenso = 'Oitava Ronda';}
+                                        if ($r == 9) {$r_extenso = 'Nona Ronda';}
+                                        if ($r == 10) {$r_extenso = 'Décima Ronda';}
+
+                                        $btnVerRonda = '<button type="button" class="btn btn-outline-secondary btn-sm text-center font-size-10 btnViewRonda" data-bs-toggle="tooltip" data-bs-placement="top" title="'.$r_extenso.'" data-id="'.$ronda['id'].'" data-funcionario_nome="'.$row['funcionario_nome'].'" data-data_chegada="'.$row['data_chegada'].'" data-hora_chegada="'.$row['hora_chegada'].'" data-data_saida="'.$row['data_saida'].'" data-hora_saida="'.$row['hora_saida'].'">R'.$r.'</button>';
+                                        //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+                                        $btnFotoRonda = '<button type="button" class="btn btn-outline-warning btn-sm text-center font-size-10" data-bs-toggle="modal" data-bs-target=".modal-foto" data-bs-placement="top" title="Foto Ronda" onclick="$(\'#imgFoto\').prop(\'src\', \''.$ronda['foto'].'\');">F1</button>';
+
+                                        $dadosFrequenciaRonda .= '<div class="row pb-2">';
+                                        $dadosFrequenciaRonda .= '<div class="col">';
+                                        $dadosFrequenciaRonda .= '<span class="text-warning">Ronda</span>: '.$ronda['data_inicio_ronda'].' às '.substr($ronda['hora_inicio_ronda'], 0, 5).'hs';
+                                        $dadosFrequenciaRonda .= '</div>';
+                                        $dadosFrequenciaRonda .= '<div class="col-2">';
+                                        $dadosFrequenciaRonda .= $btnFotoRonda;
+                                        $dadosFrequenciaRonda .= '</div>';
+                                        $dadosFrequenciaRonda .= '<div class="col-2">';
+                                        $dadosFrequenciaRonda .= $btnVerRonda;
+                                        $dadosFrequenciaRonda .= '</div>';
+                                        $dadosFrequenciaRonda .= '</div>';
+                                    }
+                                }
+                            }
+
+                            if ($data_saida_real != '') {
+                                $btnFotoSaida = '<button type="button" class="btn btn-outline-primary btn-sm text-center font-size-10" data-bs-toggle="modal" data-bs-target=".modal-foto" data-bs-placement="top" title="Foto Saída" onclick="$(\'#imgFoto\').prop(\'src\', \''.$row['foto_saida_real'].'\');">F1</button>';
+
+                                $dadosFrequenciaRonda .= '<div class="row pb-2">';
+                                $dadosFrequenciaRonda .= '<div class="col">';
+                                $dadosFrequenciaRonda .= '<span class="text-primary">Saída</span>: '.$data_saida_real.' às '.$hora_saida_real.'hs';
+                                $dadosFrequenciaRonda .= '</div>';
+                                $dadosFrequenciaRonda .= '<div class="col-2">';
+                                $dadosFrequenciaRonda .= $btnFotoSaida;
+                                $dadosFrequenciaRonda .= '</div>';
+                                $dadosFrequenciaRonda .= '<div class="col-2">';
+                                $dadosFrequenciaRonda .= '&nbsp;';
+                                $dadosFrequenciaRonda .= '</div>';
+                                $dadosFrequenciaRonda .= '</div>';
                             }
                         }
-                        //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-                        $btn2 .= '        </div>';
-                        $btn2 .= '    </div>';
-                        $btn2 .= '    <div class="col-12 col-md-4">';
-
-                        //Verificando Nova Ronda (Só Usuário logado que está na Escala dentro do Horário)'''
-                        if ($row['funcionario_id'] == $request['userLoggedData']['funcionario_id']) {
-                            $dt_hs_atual = date('Y-m-dH:i:s');
-                            $dt_hs_chegada = \Carbon\Carbon::createFromFormat('d/m/Y', $row['data_chegada'])->format('Y-m-d').$row['hora_chegada'];
-                            $dt_hs_saida = \Carbon\Carbon::createFromFormat('d/m/Y', $row['data_saida'])->format('Y-m-d').$row['hora_saida'];
-
-                            if ($dt_hs_atual>=$dt_hs_chegada and $dt_hs_atual<=$dt_hs_saida) {
-                                $btn2 .= '<div class="float-end"><button type="button" class="btn btn-outline-primary btn-sm text-center float-end font-size-10 btnExecutarRonda" data-bs-toggle="tooltip" data-bs-placement="top" title="Executar Ronda" data-id="'.$row['id'].'" data-funcionario_nome="'.$row['funcionario_nome'].'" data-data_chegada="'.$row['data_chegada'].'" data-hora_chegada="'.$row['hora_chegada'].'" data-data_saida="'.$row['data_saida'].'" data-hora_saida="'.$row['hora_saida'].'">RONDA</button></div>';
-                            }
-                        }
-
-                        //RETIRAR ESSA LINHA ABAIXO (SOMENTE PARA APARECER O BOTÂO RONDA)
-                        //$btn2 .= '<div class="float-end"><button type="button" class="btn btn-outline-primary btn-sm text-center float-end font-size-10 btnExecutarRonda" data-bs-toggle="tooltip" data-bs-placement="top" title="Executar Ronda" data-id="'.$row['id'].'" data-funcionario_nome="'.$row['funcionario_nome'].'" data-data_chegada="'.$row['data_chegada'].'" data-hora_chegada="'.$row['hora_chegada'].'" data-data_saida="'.$row['data_saida'].'" data-hora_saida="'.$row['hora_saida'].'">RONDA</button></div>';
-
-
-
-                        //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-
-                        $btn2 .= '    </div>';
-                        $btn2 .= '</div>';
-                        //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-
-                        return $btn.$btn2;
+                        return $dadosFrequenciaRonda;
                     })
                     ->rawColumns(['action'])
                     ->escapeColumns([])
@@ -271,29 +277,6 @@ class BrigadaController extends Controller
                 return $allData;
             } else {
                 abort(500, 'Erro Interno Client');
-            }
-        }
-    }
-
-    public function escalas_update_frequencia(Request $request, $id)
-    {
-        //Requisição Ajax
-        if ($request->ajax()) {
-            //pegando o empresa_id
-            $empresa_id = session('userLogged_empresa_id');
-
-            //Buscando dados Api_Data() - Alterar Registro
-            $this->responseApi(1, 11, 'brigadas/escalas_update_frequencia/'.$id.'/'.$empresa_id, '', '', '', $request->all());
-
-            //Registro alterado com sucesso
-            if ($this->code == 2000) {
-                return response()->json(['success' => $this->message]);
-            } else if ($this->code == 2020) { //Falha na validação dos dados
-                return response()->json(['error_validation' => $this->message]);
-            } else if ($this->code == 4040) { //Registro não encontrado
-                return response()->json(['error_not_found' => $this->message]);
-            } else {
-                abort(500, 'Erro Interno Brigada Incêndio');
             }
         }
     }
@@ -313,25 +296,6 @@ class BrigadaController extends Controller
                 return response()->json(['success' => $this->content]);
             } else {
                 abort(500, 'Erro Interno Brigada Incêndio Rondas');
-            }
-        }
-    }
-
-    public function ronda_store(Request $request)
-    {
-        //Requisição Ajax
-        if ($request->ajax()) {
-            //pegando o empresa_id
-            $empresa_id = session('userLogged_empresa_id');
-
-            //Buscando dados Api_Data() - Alterar Registro
-            $this->responseApi(1, 12, 'brigadas/ronda_store/'.$empresa_id, '', '', '', $request->all());
-
-            //Registro alterado com sucesso
-            if ($this->code == 2010) {
-                return response()->json(['success' => $this->message]);
-            } else {
-                abort(500, 'Erro Interno Brigada Incêndio Ronda');
             }
         }
     }

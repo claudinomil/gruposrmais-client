@@ -12,8 +12,6 @@ Route::prefix('brigadas')->group(function () {
 
     //Escalas
     Route::get('/escalas_index/{brigada_id}/{es_periodo_data_1}/{es_periodo_data_2}', [BrigadaController::class, 'escalas_index'])->name('brigadas.escalas_index');
-    Route::put('/escalas_update_frequencia/{id}', [BrigadaController::class, 'escalas_update_frequencia'])->name('brigadas.escalas_update_frequencia');
 
     Route::get('/ronda_cliente_seguranca_medidas/{op}/{brigada_escala_id}/{brigada_ronda_id}', [BrigadaController::class, 'ronda_cliente_seguranca_medidas'])->name('brigadas.ronda_cliente_seguranca_medidas');
-    Route::post('/ronda_store', [BrigadaController::class, 'ronda_store'])->name('brigadas.ronda_store');
 });

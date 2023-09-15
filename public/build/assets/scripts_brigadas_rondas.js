@@ -54,7 +54,7 @@ $(document).ready(function () {
             $.get("brigadas/ronda_cliente_seguranca_medidas/2/"+'0'+'/'+brigada_ronda_id, function (data) {
                 //Lendo dados
                 if (data.success) {
-                    bi_formularioRonda(2, data.success);
+                    formularioRonda(2, data.success);
                 } else {
                     alert('Erro interno');
                 }
@@ -99,7 +99,7 @@ $(document).ready(function () {
 
                 //Lendo dados
                 if (data.success) {
-                    bi_formularioRonda(1, data.success);
+                    formularioRonda(1, data.success);
                 } else {
                     alert('Erro interno');
                 }
@@ -114,7 +114,7 @@ $(document).ready(function () {
             e.preventDefault();
 
             //Verificar Validação feita com sucesso
-            if (bi_validarFormRonda()) {
+            if (formularioRondaValidar()) {
                 //Confirm Operacao
                 $.ajax({
                     data: $('#frm_rondas').serialize(),

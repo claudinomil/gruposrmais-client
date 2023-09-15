@@ -83,62 +83,28 @@ class SuporteService
      * Gerar QRCode para Cliente Serviço
      * Mostra dados do Cliente Serviço, Escala e Rondas
      */
-    public function getClienteServicoQRCodeInformacoes($cliente_servico_id)
+    public function getClienteServicoQRCodeBrigadaInformacoes($cliente_servico_id)
     {
-        //Buscando dados Api_Data() - Dados para o QRCode
-        $response = ApiData::getData(10, 'qrcodes/clientes_servicos/qrcode_dados/'.$cliente_servico_id, '', '', '', '');
+        $label_text = 'Brigada Informações';
+        $code_content = env('APP_URL') . '/qrcodes/clientes_servicos/qrcode_brigada_informacoes/' . $cliente_servico_id;
+        $save_destino = 'build/assets/qrcodes/clientes_servicos/';
+        $save_name = 'qrcode_brigada_informacoes_' . $cliente_servico_id . '.png';
 
-        if ($response['content'] !== null) {
-            $data = $response['content'][0];
-
-            $label_text = 'Informações';
-            $code_content = env('APP_URL') . '/qrcodes/clientes_servicos/qrcode_informacoes/' . $data['id'];
-            $save_destino = 'build/assets/qrcodes/clientes_servicos/';
-            $save_name = 'qrcode_informacoes_' . $data['id'] . '.png';
-
-            QRCodeFacade::label($label_text)->logo()->code($code_content)->save($save_destino, $save_name);
-        }
+        QRCodeFacade::label($label_text)->logo()->code($code_content)->save($save_destino, $save_name);
     }
 
     /*
      * Gerar QRCode para Cliente Serviço
-     * Registra Presença do Brigadista no local
+     * Registra Chegada e Saída do Brigadista no local
+     * Realizar Rondas
      */
-    public function getClienteServicoQRCodeBrigadaPresenca($cliente_servico_id)
+    public function getClienteServicoQRCodeBrigadaEscalas($cliente_servico_id)
     {
-        //Buscando dados Api_Data() - Dados para o QRCode
-        $response = ApiData::getData(10, 'qrcodes/clientes_servicos/qrcode_dados/'.$cliente_servico_id, '', '', '', '');
+        $label_text = 'Brigada Serviço';
+        $code_content = env('APP_URL') . '/qrcodes/clientes_servicos/qrcode_brigada_escalas/' . $cliente_servico_id;
+        $save_destino = 'build/assets/qrcodes/clientes_servicos/';
+        $save_name = 'qrcode_brigada_escalas_' . $cliente_servico_id . '.png';
 
-        if ($response['content'] !== null) {
-            $data = $response['content'][0];
-
-            $label_text = 'Presença';
-            $code_content = env('APP_URL') . '/qrcodes/clientes_servicos/qrcode_brigada_presenca/' . $data['id'];
-            $save_destino = 'build/assets/qrcodes/clientes_servicos/';
-            $save_name = 'qrcode_brigada_presenca_' . $data['id'] . '.png';
-
-            QRCodeFacade::label($label_text)->logo()->code($code_content)->save($save_destino, $save_name);
-        }
-    }
-
-    /*
-     * Gerar QRCode para Cliente Serviço
-     * Executar Ronda na Escala
-     */
-    public function getClienteServicoQRCodeBrigadaRonda($cliente_servico_id)
-    {
-        //Buscando dados Api_Data() - Dados para o QRCode
-        $response = ApiData::getData(10, 'qrcodes/clientes_servicos/qrcode_dados/'.$cliente_servico_id, '', '', '', '');
-
-        if ($response['content'] !== null) {
-            $data = $response['content'][0];
-
-            $label_text = 'Ronda';
-            $code_content = env('APP_URL') . '/qrcodes/clientes_servicos/qrcode_brigada_ronda/' . $data['id'];
-            $save_destino = 'build/assets/qrcodes/clientes_servicos/';
-            $save_name = 'qrcode_brigada_ronda_' . $data['id'] . '.png';
-
-            QRCodeFacade::label($label_text)->logo()->code($code_content)->save($save_destino, $save_name);
-        }
+        QRCodeFacade::label($label_text)->logo()->code($code_content)->save($save_destino, $save_name);
     }
 }

@@ -1,6 +1,6 @@
 $(document).ready(function () {
-    if ($('#frm_gravar_presenca').length) {
-        $('#frm_gravar_presenca').validate({
+    if ($('#frm_qrcode_brigada_escalas').length) {
+        $('#frm_qrcode_brigada_escalas').validate({
             rules: {
                 email: {
                     required: true
@@ -36,8 +36,8 @@ $(document).ready(function () {
 
         //Iniciar Serviço
         $('body').on('click', '#btnIniciarServico', function () {
-            //Inserindo valor no campo iniciar_encerrar
-            $('#iniciar_encerrar').val('1');
+            //Inserindo valor no campo brigada_escala_operacao
+            $('#brigada_escala_operacao').val('1');
 
             //Limpar dados do Formulário
             $('#brigada_escala_id').val('');
@@ -77,20 +77,20 @@ $(document).ready(function () {
             $('#email').val(usuario_email);
 
             //Hide/Show
-            $('.divsBrigadistas').removeClass('d-block').removeClass('d-none').addClass('d-none');
-            $('.divConfirmarPresenca').removeClass('d-block').removeClass('d-none').addClass('d-block');
+            $('#divsEscalaBrigadistasOperacoes').removeClass('d-block').removeClass('d-none').addClass('d-none');
+            $('#divEscalaBrigadistaOperacao').removeClass('d-block').removeClass('d-none').addClass('d-block');
 
             //Layout Tirar/Excluir Foto
-            layoutTirarExcluirFoto(1);
+            layoutTirarExcluirFotoFrontal(1);
 
             //Iniciar Captura de Vídeo
-            startCamera();
+            startCameraFrontal();
         });
 
         //Encerrar Serviço
         $('body').on('click', '#btnEncerrarServico', function () {
-            //Inserindo valor no campo iniciar_encerrar
-            $('#iniciar_encerrar').val('2');
+            //Inserindo valor no campo brigada_escala_operacao
+            $('#brigada_escala_operacao').val('3');
 
             //Limpar dados do Formulário
             $('#brigada_escala_id').val('');
@@ -130,21 +130,21 @@ $(document).ready(function () {
             $('#email').val(usuario_email);
 
             //Hide/Show
-            $('.divsBrigadistas').removeClass('d-block').removeClass('d-none').addClass('d-none');
-            $('.divConfirmarPresenca').removeClass('d-block').removeClass('d-none').addClass('d-block');
+            $('#divsEscalaBrigadistasOperacoes').removeClass('d-block').removeClass('d-none').addClass('d-none');
+            $('#divEscalaBrigadistaOperacao').removeClass('d-block').removeClass('d-none').addClass('d-block');
 
             //Layout Tirar/Excluir Foto
-            layoutTirarExcluirFoto(1);
+            layoutTirarExcluirFotoFrontal(1);
 
             //Iniciar Captura de Vídeo
-            startCamera();
+            startCameraFrontal();
         });
 
         //Código para capturar o vídeo e tirar foto'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
         let videoStream; // Variável para armazenar a referência à stream de vídeo
 
         //Função para iniciar a captura da câmera
-        function startCamera() {
+        function startCameraFrontal() {
             //Verifica se o navegador suporta a API de captura de mídia
             if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
                 //Define a largura e a altura desejadas para o vídeo (NÃO FUNCIONA CORRETAMENTE / PEGA O TAMANHO PADRÃO)
@@ -170,7 +170,7 @@ $(document).ready(function () {
         }
 
         //Função para parar a captura da câmera
-        function stopCamera() {
+        function stopCameraFrontal() {
             if (videoStream) {
                 const tracks = videoStream.getTracks();
                 tracks.forEach(function (track) {
@@ -182,12 +182,12 @@ $(document).ready(function () {
         }
 
         //Função para montar layout para Tirar/Excluir Foto
-        function layoutTirarExcluirFoto(op) {
+        function layoutTirarExcluirFotoFrontal(op) {
             //Layout para Tirar Foto
             if (op == 1) {
                 //Hide / Show
-                $('#btnTirarFoto').show();
-                $('#btnExcluirFoto').hide();
+                $('#btnTirarFotoFrontal').show();
+                $('#btnExcluirFotoFrontal').hide();
 
                 $('#video').show();
                 $('#canvas').show();
@@ -197,8 +197,8 @@ $(document).ready(function () {
             //Layout para Excluir Foto
             if (op == 2) {
                 //Hide / Show
-                $('#btnTirarFoto').hide();
-                $('#btnExcluirFoto').show();
+                $('#btnTirarFotoFrontal').hide();
+                $('#btnExcluirFotoFrontal').show();
 
                 $('#video').hide();
                 $('#canvas').hide();
@@ -206,8 +206,8 @@ $(document).ready(function () {
             }
         }
 
-        //Quando clicar no botão btnTirarFoto
-        $('body').on('click', '#btnTirarFoto', function () {
+        //Quando clicar no botão btnTirarFotoFrontal
+        $('body').on('click', '#btnTirarFotoFrontal', function () {
             //Elementos
             const canvas = document.getElementById('canvas');
             const photo = document.getElementById('photo');
@@ -221,40 +221,40 @@ $(document).ready(function () {
             foto_real.value = canvas.toDataURL('image/png');
 
             //Parar a captura da câmera
-            stopCamera();
+            stopCameraFrontal();
 
             //Layout Tirar/Excluir Foto
-            layoutTirarExcluirFoto(2);
+            layoutTirarExcluirFotoFrontal(2);
         });
 
-        //Quando clicar no botão btnExcluirFoto
-        $('body').on('click', '#btnExcluirFoto', function () {
+        //Quando clicar no botão btnExcluirFotoFrontal
+        $('body').on('click', '#btnExcluirFotoFrontal', function () {
             //Limpar dados
             foto_real.value = '';
             photo.src = '';
 
             //Layout Tirar/Excluir Foto
-            layoutTirarExcluirFoto(1);
+            layoutTirarExcluirFotoFrontal(1);
 
             //Iniciar Captura de Vídeo
-            startCamera();
+            startCameraFrontal();
         });
         //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
-        //Confirm Presença
-        $('#btnConfirmarPresenca').click(function (e) {
+        //Confirmar Chegada/Saída
+        $('#btnConfirmarOperacao').click(function (e) {
             e.preventDefault();
 
             //Verificar Validação feita com sucesso
-            if ($('#frm_gravar_presenca').valid()) {
+            if ($('#frm_qrcode_brigada_escalas').valid()) {
                 //Validar campos hidden'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-                if ($('#iniciar_encerrar').val() == '') {
-                    alert('Erro ao capturar a Escala. Refaça o Procedimento.');
+                if ($('#brigada_escala_operacao').val() == '') {
+                    alert('Erro ao capturar Operação. Refaça o Procedimento.');
                     return false;
                 }
 
                 if ($('#brigada_escala_id').val() == '') {
-                    alert('Erro ao capturar a Escala. Refaça o Procedimento.');
+                    alert('Erro ao capturar Operação. Refaça o Procedimento.');
                     return false;
                 }
 
@@ -271,8 +271,8 @@ $(document).ready(function () {
 
                 //Ajax
                 $.ajax({
-                    data: $('#frm_gravar_presenca').serialize(),
-                    url: url_atual+"qrcodes/clientes_servicos/qrcode_gravar_presenca/"+$('#brigada_escala_id').val(),
+                    data: $('#frm_qrcode_brigada_escalas').serialize(),
+                    url: url_atual+"qrcodes/clientes_servicos/qrcode_brigada_escala_operacao_salvar/"+$('#brigada_escala_id').val(),
                     type: "PUT",
                     dataType: "json",
                     beforeSend: function () {
@@ -282,15 +282,16 @@ $(document).ready(function () {
                     success: function (response) {
                         //Lendo dados
                         if (response.success) {
-                            //Iniciar/Encerrar Serviço
-                            if ($('#iniciar_encerrar').val() == 1) {var bg_color = 'bg-success';   var texto_retorno = 'Chegada Confirmada com sucesso.';}
-                            if ($('#iniciar_encerrar').val() == 2) {var bg_color = 'bg-primary';   var texto_retorno = 'Saída Confirmada com sucesso.';}
+                            //Iniciar Serviço/Iniciar Ronda/Encerrar Serviço
+                            if ($('#brigada_escala_operacao').val() == 1) {var bg_color = 'bg-success';   var texto_retorno = 'Chegada Confirmada com sucesso.';}
+                            if ($('#brigada_escala_operacao').val() == 2) {var bg_color = 'bg-warning';   var texto_retorno = 'Ronda Confirmada com sucesso.';}
+                            if ($('#brigada_escala_operacao').val() == 3) {var bg_color = 'bg-primary';   var texto_retorno = 'Saída Confirmada com sucesso.';}
 
                             //Colocar na DIV
-                            $('#divPresencaConfirmada').addClass(bg_color);
-                            $('#divPresencaConfirmada').html('<div class="col-12 text-center text-white font-size-16"><i class="bx bx-check-double font-size-24"></i> '+texto_retorno+'</div>');
+                            $('#divOperacaoFormularioResultado').addClass(bg_color);
+                            $('#divOperacaoFormularioResultado').html('<div class="col-12 text-center text-white font-size-16"><i class="bx bx-check-double font-size-24"></i> '+texto_retorno+'</div>');
                         } else if (response.error) {
-                            alertSwal('warning', 'Brigada Escala - Presença', response.error, 'true', 20000);
+                            alertSwal('warning', 'Brigada Escala - Chegada e Saída', response.error, 'true', 20000);
                         } else {
                             alert('Erro interno');
                         }
@@ -306,17 +307,17 @@ $(document).ready(function () {
             }
         });
 
-        //Cancelar Confirmação de Presença
-        $('body').on('click', '#btnCancelarConfirmarPresenca', function () {
+        //Cancelar Confirmação de Chegada e Saída
+        $('body').on('click', '#btnCancelarOperacao', function () {
             //Hide/Show
-            $('.divsBrigadistas').removeClass('d-block').removeClass('d-none').addClass('d-block');
-            $('.divConfirmarPresenca').removeClass('d-block').removeClass('d-none').addClass('d-none');
+            $('#divsEscalaBrigadistasOperacoes').removeClass('d-block').removeClass('d-none').addClass('d-block');
+            $('#divEscalaBrigadistaOperacao').removeClass('d-block').removeClass('d-none').addClass('d-none');
 
             //Parar a captura da câmera
-            stopCamera();
+            stopCameraFrontal();
 
             //Layout Tirar/Excluir Foto
-            layoutTirarExcluirFoto(2);
+            layoutTirarExcluirFotoFrontal(2);
         });
     });
 });

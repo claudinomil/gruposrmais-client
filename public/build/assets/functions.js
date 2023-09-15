@@ -1424,10 +1424,10 @@ function vt_preencherFormulario(dados) {
                 } else {
                     seguranca_medida_observacao = campo.seguranca_medida_observacao;
                 }
-                if (campo.conferencia === null || campo.conferencia === undefined) {
-                    conferencia = '';
+                if (campo.status === null || campo.status === undefined) {
+                    status = '';
                 } else {
-                    conferencia = campo.conferencia;
+                    status = campo.status;
                 }
                 if (campo.observacao === null || campo.observacao === undefined) {
                     observacao = '';
@@ -1435,7 +1435,7 @@ function vt_preencherFormulario(dados) {
                     observacao = campo.observacao;
                 }
 
-                medidas_seguranca += vt_prepararMedidasSegurancas(ctrl, pavimento, seguranca_medida_id, seguranca_medida_nome, seguranca_medida_quantidade, seguranca_medida_tipo, seguranca_medida_observacao, conferencia, observacao);
+                medidas_seguranca += vt_prepararMedidasSegurancas(ctrl, pavimento, seguranca_medida_id, seguranca_medida_nome, seguranca_medida_quantidade, seguranca_medida_tipo, seguranca_medida_observacao, status, observacao);
             }
         });
     }
@@ -1446,25 +1446,25 @@ function vt_preencherFormulario(dados) {
     //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 }
 
-function vt_prepararMedidasSegurancas(ctrl, pavimento, seguranca_medida_id, seguranca_medida_nome, seguranca_medida_quantidade, seguranca_medida_tipo, seguranca_medida_observacao, conferencia, observacao) {
+function vt_prepararMedidasSegurancas(ctrl, pavimento, seguranca_medida_id, seguranca_medida_nome, seguranca_medida_quantidade, seguranca_medida_tipo, seguranca_medida_observacao, status, observacao) {
     //Verificar se os campos vao ser readonly
     if ($('#frm_operacao').val() == 'edit') {readonly = ''; disabled = '';} else {readonly = 'readonly'; disabled = 'disabled';}
 
-    //Combo conferencia''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-    var combo_conferencia = '';
+    //Combo status''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    var combo_status = '';
     var selected0 = '';
     var selected1 = '';
     var selected2 = '';
 
-    if (conferencia == 0) {selected0 = 'selected';}
-    if (conferencia == 1) {selected1 = 'selected';}
-    if (conferencia == 2) {selected2 = 'selected';}
+    if (status == 0) {selected0 = 'selected';}
+    if (status == 1) {selected1 = 'selected';}
+    if (status == 2) {selected2 = 'selected';}
 
-    combo_conferencia = '<select class="form-control col-12" id="conferencia_' + pavimento + '_' + seguranca_medida_id + '" name="conferencia_' + pavimento + '_' + seguranca_medida_id + '" required="required" '+readonly+'  '+disabled+'>';
-    combo_conferencia += '  <option value="0" '+selected0+'>Não Conferido</option>';
-    combo_conferencia += '  <option value="1" '+selected1+'>Aprovado</option>';
-    combo_conferencia += '  <option value="2" '+selected2+'>Restrição</option>';
-    combo_conferencia += '</select>';
+    combo_status = '<select class="form-control col-12" id="status_' + pavimento + '_' + seguranca_medida_id + '" name="status_' + pavimento + '_' + seguranca_medida_id + '" required="required" '+readonly+'  '+disabled+'>';
+    combo_status += '  <option value="0" '+selected0+'>Não Conferido</option>';
+    combo_status += '  <option value="1" '+selected1+'>Aprovado</option>';
+    combo_status += '  <option value="2" '+selected2+'>Restrição</option>';
+    combo_status += '</select>';
     //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
     var medidas_seguranca;
@@ -1489,8 +1489,8 @@ function vt_prepararMedidasSegurancas(ctrl, pavimento, seguranca_medida_id, segu
     medidas_seguranca += '      </div>';
     medidas_seguranca += '      <div class="row">';
     medidas_seguranca += '          <div class="form-group col-12 col-md-4">';
-    medidas_seguranca += '              <label class="form-label">Conferência</label>';
-    medidas_seguranca +=                combo_conferencia;
+    medidas_seguranca += '              <label class="form-label">Status</label>';
+    medidas_seguranca +=                combo_status;
     medidas_seguranca += '          </div>';
     medidas_seguranca += '          <div class="form-group col-12 col-md-8">';
     medidas_seguranca += '              <label class="form-label">Observação</label>';
@@ -1576,37 +1576,6 @@ function bi_montarGradeEscala() {
         });
     }
 }
-
-function bi_atualizarFrequenciaEscala() {
-    $.ajax({
-        data: $('#frm_escala_frequencia').serialize(),
-        url: "brigadas/escalas_update_frequencia/"+$('#brigada_escala_id').val(),
-        type: "PUT",
-        dataType: "json",
-        success: function (response) {
-            //Lendo dados
-            if (response.success) {
-                //Fechar Modal
-                $('.modal-acoes').modal('hide');
-
-                //Colocando Frequencia na Grade
-                var frequencia = '';
-
-                if ($('#escala_frequencia_id').val() == 1) {frequencia = "<span class='text-success'>PRESENÇA</span>";}
-                if ($('#escala_frequencia_id').val() == 2) {frequencia = "<span class='text-warning'>ATRASO</span>";}
-                if ($('#escala_frequencia_id').val() == 3) {frequencia = "<span class='text-danger'>FALTA</span>";}
-
-                $('#escala_frequencia_'+$('#brigada_escala_id').val()).html(frequencia);
-
-            } else {
-                alert('Erro interno');
-            }
-        },
-        error: function (data) {
-            alert('Erro interno');
-        }
-    });
-}
 //Brigadas Incêndios - Escalas - FIM'''''''''''''''''''''
 //Brigadas Incêndios - Escalas - FIM'''''''''''''''''''''
 
@@ -1616,7 +1585,7 @@ function bi_atualizarFrequenciaEscala() {
 //Função para montar o Formulário da Ronda
 //@PARAN op=1 : Executar Ronda - Dados vão vir da tabela clientes_seguranca_medidas
 //@PARAN op=2 : Visualizar Ronda - Dados vão vir da tabela brigadas_rondas_seguranca_medidas
-function bi_formularioRonda(op, dados) {
+function formularioRonda(op, dados) {
     //dados
     var seguranca_medidas = dados;
 
@@ -1651,7 +1620,7 @@ function bi_formularioRonda(op, dados) {
                     var seguranca_medida_nome = campo.seguranca_medida_nome;
                     var seguranca_medida_quantidade = campo.quantidade;
                     var seguranca_medida_tipo = campo.tipo;
-                    var conferencia = '';
+                    var status = '';
                     var observacao = '';
                 }
 
@@ -1660,11 +1629,11 @@ function bi_formularioRonda(op, dados) {
                     var seguranca_medida_nome = campo.seguranca_medida_nome;
                     var seguranca_medida_quantidade = campo.seguranca_medida_quantidade;
                     var seguranca_medida_tipo = campo.seguranca_medida_tipo;
-                    var conferencia = campo.conferencia;
+                    var status = campo.status;
                     var observacao = campo.observacao;
                 }
 
-                retorno_linha += bi_segurancaMedidasRonda(op, ctrl, pavimento, seguranca_medida_id, seguranca_medida_nome, seguranca_medida_quantidade, seguranca_medida_tipo, conferencia, observacao);
+                retorno_linha += formularioRondaSegurancaMedidas(op, ctrl, pavimento, seguranca_medida_id, seguranca_medida_nome, seguranca_medida_quantidade, seguranca_medida_tipo, status, observacao);
             }
         });
 
@@ -1678,12 +1647,12 @@ function bi_formularioRonda(op, dados) {
 //Função para montar as Medidas Técnicas no Formulário Ronda
 //@PARAN op=1 : Executar Ronda
 //@PARAN op=2 : Visualizar Ronda
-function bi_segurancaMedidasRonda(op, ctrl, pavimento, seguranca_medida_id, seguranca_medida_nome, seguranca_medida_quantidade, seguranca_medida_tipo, conferencia, observacao) {
+function formularioRondaSegurancaMedidas(op, ctrl, pavimento, seguranca_medida_id, seguranca_medida_nome, seguranca_medida_quantidade, seguranca_medida_tipo, status, observacao) {
     //Verificar se os campos vao ser readonly
     var readonly = '';
     var disabled = '';
 
-    var textoConferencia = 'NÃO INFORMADO';
+    var textoStatus = 'NÃO INFORMADO';
     var textoCor = '';
 
     var botoesStyle = '';
@@ -1692,18 +1661,18 @@ function bi_segurancaMedidasRonda(op, ctrl, pavimento, seguranca_medida_id, segu
         readonly = 'readonly';
         disabled = 'disabled';
 
-        if (conferencia == 0) {
-            textoConferencia = textoConferencia = '<i class="far fa-calendar-minus"></i>'+' NÃO ENCONTRADO';
+        if (status == 0) {
+            textoStatus = textoStatus = '<i class="far fa-calendar-minus"></i>'+' NÃO ENCONTRADO';
             textoCor = 'text-warning';
         }
 
-        if (conferencia == 1) {
-            textoConferencia = textoConferencia = '<i class="far fa-calendar-check"></i>'+' CONFERIDO';
+        if (status == 1) {
+            textoStatus = textoStatus = '<i class="far fa-calendar-check"></i>'+' CONFERIDO';
             textoCor = 'text-success';
         }
 
-        if (conferencia == 2) {
-            textoConferencia = textoConferencia = '<i class="far fa-calendar-times"></i>'+' DANIFICADO';
+        if (status == 2) {
+            textoStatus = textoStatus = '<i class="far fa-calendar-times"></i>'+' DANIFICADO';
             textoCor = 'text-danger';
         }
 
@@ -1736,20 +1705,20 @@ function bi_segurancaMedidasRonda(op, ctrl, pavimento, seguranca_medida_id, segu
     medidas_seguranca += '              <textarea class="form-control" id="observacao_' + pavimento + '_' + seguranca_medida_id + '" name="observacao_' + pavimento + '_' + seguranca_medida_id + '" '+readonly+'>' + observacao + '</textarea>';
     medidas_seguranca += '          </div>';
     medidas_seguranca += '          <div class="form-group col-12 col-md-4">';
-    medidas_seguranca += '              <label class="form-label">Conferência</label>';
-    medidas_seguranca += '              <div class="pb-2 font-size-12 '+textoCor+'" id="textoConferencia_' + pavimento + '_' + seguranca_medida_id + '">'+textoConferencia+'</div>';
+    medidas_seguranca += '              <label class="form-label">Status</label>';
+    medidas_seguranca += '              <div class="pb-2 font-size-12 '+textoCor+'" id="textoStatus_' + pavimento + '_' + seguranca_medida_id + '">'+textoStatus+'</div>';
     medidas_seguranca += '              <div class="row" '+botoesStyle+'>';
     medidas_seguranca += '                  <div class="col-4">';
-    medidas_seguranca += '                      <button type="button" class="btn btn-outline-warning text-center font-size-16" onclick="bi_campoConferenciaRonda(0, '+pavimento+', '+seguranca_medida_id+');"><i class="far fa-calendar-minus"></i></button>';
+    medidas_seguranca += '                      <button type="button" class="btn btn-outline-warning text-center font-size-16" onclick="formularioRondaCampoStatus(0, '+pavimento+', '+seguranca_medida_id+');"><i class="far fa-calendar-minus"></i></button>';
     medidas_seguranca += '                  </div>';
     medidas_seguranca += '                  <div class="col-4">';
-    medidas_seguranca += '                      <button type="button" class="btn btn-outline-success text-center font-size-16" onclick="bi_campoConferenciaRonda(1, '+pavimento+', '+seguranca_medida_id+');"><i class="far fa-calendar-check"></i></button>';
+    medidas_seguranca += '                      <button type="button" class="btn btn-outline-success text-center font-size-16" onclick="formularioRondaCampoStatus(1, '+pavimento+', '+seguranca_medida_id+');"><i class="far fa-calendar-check"></i></button>';
     medidas_seguranca += '                  </div>';
     medidas_seguranca += '                  <div class="col-4">';
-    medidas_seguranca += '                      <button type="button" class="btn btn-outline-danger text-center font-size-16" onclick="bi_campoConferenciaRonda(2, '+pavimento+', '+seguranca_medida_id+');"><i class="far fa-calendar-times"></i></button>';
+    medidas_seguranca += '                      <button type="button" class="btn btn-outline-danger text-center font-size-16" onclick="formularioRondaCampoStatus(2, '+pavimento+', '+seguranca_medida_id+');"><i class="far fa-calendar-times"></i></button>';
     medidas_seguranca += '                  </div>';
     medidas_seguranca += '              </div>';
-    medidas_seguranca += '              <input type="hidden" class="inputsConferencia" id="conferencia_' + pavimento + '_' + seguranca_medida_id + '" name="conferencia_' + pavimento + '_' + seguranca_medida_id + '" value="' + conferencia + '">';
+    medidas_seguranca += '              <input type="hidden" class="inputsStatus" id="status_' + pavimento + '_' + seguranca_medida_id + '" name="status_' + pavimento + '_' + seguranca_medida_id + '" value="' + status + '">';
     medidas_seguranca += '          </div>';
     medidas_seguranca += '      </div>';
     medidas_seguranca += '  </div>';
@@ -1758,34 +1727,34 @@ function bi_segurancaMedidasRonda(op, ctrl, pavimento, seguranca_medida_id, segu
     return medidas_seguranca;
 }
 
-//Função para alterar os campos conferenciae textoConferencia
-function bi_campoConferenciaRonda(id, pavimento, seguranca_medida_id) {
+//Função para alterar os campos statuse textoStatus
+function formularioRondaCampoStatus(id, pavimento, seguranca_medida_id) {
     if (id == 0) {
-        textoConferencia = '<i class="far fa-calendar-minus"></i>'+' NÃO ENCONTRADO';
+        textoStatus = '<i class="far fa-calendar-minus"></i>'+' NÃO ENCONTRADO';
         textoCor = 'text-warning';
     }
 
     if (id == 1) {
-        textoConferencia = '<i class="far fa-calendar-check"></i>'+' CONFERIDO';
+        textoStatus = '<i class="far fa-calendar-check"></i>'+' CONFERIDO';
         textoCor = 'text-success';
     }
 
     if (id == 2) {
-        textoConferencia = '<i class="far fa-calendar-times"></i>'+' DANIFICADO';
+        textoStatus = '<i class="far fa-calendar-times"></i>'+' DANIFICADO';
         textoCor = 'text-danger';
     }
 
-    $('#textoConferencia_' + pavimento + '_' + seguranca_medida_id).html(textoConferencia);
-    $('#textoConferencia_' + pavimento + '_' + seguranca_medida_id).removeClass('text-warning').removeClass('text-success').removeClass('text-danger').addClass(textoCor);
-    $('#conferencia_' + pavimento + '_' + seguranca_medida_id).val(id);
+    $('#textoStatus_' + pavimento + '_' + seguranca_medida_id).html(textoStatus);
+    $('#textoStatus_' + pavimento + '_' + seguranca_medida_id).removeClass('text-warning').removeClass('text-success').removeClass('text-danger').addClass(textoCor);
+    $('#status_' + pavimento + '_' + seguranca_medida_id).val(id);
 }
 
 //Função para validar campos antes de salvar
-function bi_validarFormRonda() {
+function formularioRondaValidar() {
     var error = false;
     var qtd = 0;
 
-    $('.inputsConferencia').each(function () {
+    $('.inputsStatus').each(function () {
         if ($(this).val() == '') {
             error = true;
             qtd++;

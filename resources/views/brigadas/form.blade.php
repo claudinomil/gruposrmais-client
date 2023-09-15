@@ -150,9 +150,8 @@
                                         <tr>
                                             <th class="text-center">#</th>
                                             <th>Nome</th>
-                                            <th>Chegada</th>
-                                            <th>Saída</th>
-                                            <th style="max-width: 200px">Frequência / Ronda</th>
+                                            <th>Chegada / Saída</th>
+                                            <th class="nowrap">Frequência / Ronda(s)</th>
                                         </tr>
                                         </thead>
                                         <tbody></tbody>
@@ -166,31 +165,20 @@
         </div>
     </div>
 
-    <!-- Modal Ações -->
-    <div class="modal fade modal-acoes" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-sm">
+    <!-- Visualizar Fotos -->
+    <div class="modal fade modal-foto" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modal-acoes-title"></h5>
+                    <h5 class="modal-title">Foto</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <form id="frm_escala_frequencia" name="frm_escala_frequencia" enctype="multipart/form-data">
-                        <input type="hidden" id="brigada_escala_id" name="brigada_escala_id">
-                        <input type="hidden" id="escala_frequencia_id" name="escala_frequencia_id">
-
-                        <div class="row">
-                            <div class="col-4 pb-3">
-                                <button type="button" class="btn btn-outline-success text-center btn-sm col-12 text-center font-size-10" onclick="$('#escala_frequencia_id').val(1); bi_atualizarFrequenciaEscala();">PRESENÇA</button>
-                            </div>
-                            <div class="col-4 pb-3">
-                                <button type="button" class="btn btn-outline-warning text-center btn-sm col-12 text-center font-size-10" onclick="$('#escala_frequencia_id').val(2); bi_atualizarFrequenciaEscala();">ATRASO</button>
-                            </div>
-                            <div class="col-4 pb-3">
-                                <button type="button" class="btn btn-outline-danger text-center btn-sm col-12 text-center font-size-10" onclick="$('#escala_frequencia_id').val(3); bi_atualizarFrequenciaEscala();">FALTA</button>
-                            </div>
+                <div class="modal-body text-center">
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <img src=""height="300" width="280" id="imgFoto">
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -208,12 +196,6 @@
                         <div class="col-12 col-md-8 float-start">
                             <div class="row">
                                 <div class="col pb-4">
-                                    <!-- Criar Registro com a Ronda -->
-                                    @if(\App\Facades\Permissoes::permissao([$ajaxPrefixPermissaoSubmodulo.'_create'], $userLoggedPermissoes))
-                                        <!-- Botão Confirnar Operação -->
-                                        <button type="button" class="btn btn-success waves-effect btn-label waves-light rondasFormConfirmOperacao" data-bs-toggle="tooltip" data-bs-placement="top" title="Confirmar Ronda"><i class="fa fa-save label-icon"></i> Confirmar</button>
-                                    @endif
-
                                     <!-- Botão Cancelar Operação -->
                                     <button type="button" class="btn btn-secondary waves-effect btn-label waves-light rondasFormCancelOperacao" data-bs-toggle="tooltip" data-bs-placement="top" title="Cancelar Operação"><i class="fa fa-arrow-left label-icon"></i> Cancelar</button>
                                 </div>
@@ -257,12 +239,6 @@
                         <div class="col-12 col-md-8 float-start">
                             <div class="row">
                                 <div class="col pb-4">
-                                    <!-- Criar Registro com a Ronda -->
-                                    @if(\App\Facades\Permissoes::permissao([$ajaxPrefixPermissaoSubmodulo.'_create'], $userLoggedPermissoes))
-                                        <!-- Botão Confirnar Operação -->
-                                        <button type="button" class="btn btn-success waves-effect btn-label waves-light rondasFormConfirmOperacao" data-bs-toggle="tooltip" data-bs-placement="top" title="Confirmar Ronda"><i class="fa fa-save label-icon"></i> Confirmar</button>
-                                    @endif
-
                                     <!-- Botão Cancelar Operação -->
                                     <button type="button" class="btn btn-secondary waves-effect btn-label waves-light rondasFormCancelOperacao" data-bs-toggle="tooltip" data-bs-placement="top" title="Cancelar Operação"><i class="fa fa-arrow-left label-icon"></i> Cancelar</button>
                                 </div>
