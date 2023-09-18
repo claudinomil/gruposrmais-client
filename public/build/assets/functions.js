@@ -1883,7 +1883,7 @@ function formularioRondaCampoStatus(id, pavimento, seguranca_medida_id) {
 function formularioRondaBotaoVerFoto(pavimento, seguranca_medida_id) {
     var botao = '<button type="button" class="btn btn-sm btn-primary text-center font-size-12 pt-0 pb-0" data-bs-toggle="modal" data-bs-target=".modal-camera-traseira" data-bs-placement="top" onclick="$(\'#fotoTraseiraPavimento\').val('+pavimento+'); $(\'#fotoTraseiraSegurancaMedidaId\').val('+seguranca_medida_id+'); layoutTirarExcluirFotoTraseira(2); $(\'#photoTraseira\').attr(\'src\', $(\'#foto_'+pavimento+'_'+seguranca_medida_id+'\').val());">Ver</button>';
 
-    $('#botaoVerFoto_'+pavimento+'_'+seguranca_medida_id).html();
+    $('#botaoVerFoto_'+pavimento+'_'+seguranca_medida_id).html(botao);
 }
 
 //Função para validar campos antes de salvar Formulário Ronda
