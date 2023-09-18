@@ -261,8 +261,8 @@
                                 <x-button-crud op="99" model="3" bgColor="warning" textColor="write" image="bx bx-trash" label="Excluir Foto" style="display:none;" id="btnExcluirFotoTraseira" />
                             </div>
 
-                            <input type="hiddenx" id="fotoTraseiraPavimento" name="fotoTraseiraPavimento" value="">
-                            <input type="hiddenx" id="fotoTraseiraSegurancaMedidaId" name="fotoTraseiraSegurancaMedidaId" value="">
+                            <input type="hidden" id="fotoTraseiraPavimento" name="fotoTraseiraPavimento" value="">
+                            <input type="hidden" id="fotoTraseiraSegurancaMedidaId" name="fotoTraseiraSegurancaMedidaId" value="">
                         </div>
                     </div>
                 </div>
