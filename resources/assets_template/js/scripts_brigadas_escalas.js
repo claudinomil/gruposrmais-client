@@ -96,7 +96,7 @@ $(document).ready(function () {
         });
 
         //Cancel Operacao e voltar para Grade de Brigadas de Incêndios
-        $('.escalasFormCancelOperacao').click(function (e) {
+        $('.crudCancelarOperacaoEscalas').click(function (e) {
             e.preventDefault();
 
             //Table Show/Hide
@@ -116,7 +116,7 @@ $(document).ready(function () {
         });
 
         //Botão Escalas
-        $('#btnGradeEscalas').click(function () {
+        $('.btnGradeEscalas').click(function () {
             //Buscar dados das Escalas solicitadas de acordo com operiodo de datas para colocar na grade
             bi_montarGradeEscala();
         });

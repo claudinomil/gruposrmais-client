@@ -8,31 +8,31 @@
                         <!-- store or update -->
                         @if(\App\Facades\Permissoes::permissao([$ajaxPrefixPermissaoSubmodulo.'_create', $ajaxPrefixPermissaoSubmodulo.'_edit'], $userLoggedPermissoes))
                             <!-- Botão Confirnar Operação -->
-                                <button type="button" class="btn btn-success waves-effect btn-label waves-light crudFormConfirmOperacao" data-bs-toggle="tooltip" data-bs-placement="top" title="Confirmar Operação"><i class="fa fa-save label-icon"></i> Confirmar</button>
+                                <x-button-crud op="5" class="crudConfirmarOperacao" />
                         @endif
 
                         <!-- Botão Cancelar Operação -->
-                        <button type="button" class="btn btn-secondary waves-effect btn-label waves-light crudFormCancelOperacao" data-bs-toggle="tooltip" data-bs-placement="top" title="Cancelar Operação"><i class="fa fa-arrow-left label-icon"></i> Cancelar</button>
+                        <x-button-crud op="4" class="crudCancelarOperacao" />
                     </div>
                     <div class="modal-buttons crudFormButtons2">
                         <!-- edit or delete -->
                         @if(\App\Facades\Permissoes::permissao([$ajaxPrefixPermissaoSubmodulo.'_edit'], $userLoggedPermissoes))
                             <!-- Botão Alterar Registro -->
-                                <button type="button" class="btn btn-primary waves-effect btn-label waves-light editRecord" data-bs-toggle="tooltip" data-bs-placement="top" data-id="0" title="Alterar Registro"><i class="fas fa-pencil-alt label-icon"></i> Alterar</button>
+                                <x-button-crud op="2" class="crudAlterarRegistro" />
                         @endif
 
                         @if(\App\Facades\Permissoes::permissao([$ajaxPrefixPermissaoSubmodulo.'_destroy'], $userLoggedPermissoes))
                             <!-- Botão Excluir Registro -->
-                                <button type="button" class="btn btn-danger waves-effect btn-label waves-light deleteRecord" data-bs-toggle="tooltip" data-bs-placement="top" data-id="0" title="Excluir Registro"><i class="fa fa-trash-alt label-icon"></i> Excluir</button>
+                                <x-button-crud op="3" class="crudExcluirRegistro" />
                         @endif
 
                         @if(\App\Facades\Permissoes::permissao([$ajaxPrefixPermissaoSubmodulo.'_list'], $userLoggedPermissoes))
                             <!-- Botão PropostaPDF -->
-                            <button type="button" class="btn btn-info waves-effect btn-label waves-light gerarPdfProposta" data-bs-toggle="tooltip" data-bs-placement="top" data-id="0" title="Proposta em PDF"><i class="fas fa-file-pdf label-icon"></i> PDF</button>
+                            <x-button-crud op="99" model="3" bgColor="info" textColor="write" class="gerarPdfProposta" title="Proposta em PDF" image="fas fa-file-pdf" label="PDF" />
                         @endif
 
                         <!-- Botão Cancelar Operação -->
-                        <button type="button" class="btn btn-secondary waves-effect btn-label waves-light crudFormCancelOperacao" data-bs-toggle="tooltip" data-bs-placement="top" title="Cancelar Operação"><i class="fa fa-arrow-left label-icon"></i> Cancelar</button>
+                        <x-button-crud op="4" class="crudCancelarOperacao" />
                     </div>
                     <div class="modal-loading" id="crudFormAjaxLoading" style="display: none;">
                         <div class="spinner-chase">
@@ -132,13 +132,13 @@
                                             <label class="form-label">Opções</label>
                                             <div class="row">
                                                 <div class="col-4" id="ts_servico_adicionar_div" style="display: none;">
-                                                    <button type="button" class="btn btn-success" id="ts_servico_adicionar" name="ts_servico_adicionar" title="Adicionar Serviço na Grade"><i class="fas fa-check"></i></button>
+                                                    <x-button-crud op="99" model="1" bgColor="success" textColor="write" id="ts_servico_adicionar" name="ts_servico_adicionar" title="Adicionar Serviço na Grade" image="fas fa-check" />
                                                 </div>
                                                 <div class="col-4" id="ts_servico_atualizar_div" style="display: none;">
-                                                    <button type="button" class="btn btn-primary" id="ts_servico_atualizar" name="ts_servico_atualizar" title="Atualizar Serviço na Grade"><i class="fas fa-edit"></i></button>
+                                                    <x-button-crud op="99" model="1" bgColor="primary" textColor="write" id="ts_servico_atualizar" name="ts_servico_atualizar" title="Atualizar Serviço na Grade" image="fas fa-edit" />
                                                 </div>
                                                 <div class="col-4" id="ts_servico_retirar_div" style="display: none;">
-                                                    <button type="button" class="btn btn-danger" id="ts_servico_retirar" name="ts_servico_retirar" title="Retirar Serviço da Grade"><i class="fas fa-trash-alt"></i></button>
+                                                    <x-button-crud op="99" model="1" bgColor="danger" textColor="write" id="ts_servico_retirar" name="ts_servico_retirar" title="Retirar Serviço da Grade" image="fas fa-trash-alt" />
                                                 </div>
                                             </div>
                                         </div>
@@ -239,31 +239,31 @@
                         <!-- store or update -->
                     @if(\App\Facades\Permissoes::permissao([$ajaxPrefixPermissaoSubmodulo.'_create', $ajaxPrefixPermissaoSubmodulo.'_edit'], $userLoggedPermissoes))
                         <!-- Botão Confirnar Operação -->
-                            <button type="button" class="btn btn-success waves-effect btn-label waves-light crudFormConfirmOperacao" data-bs-toggle="tooltip" data-bs-placement="top" title="Confirmar Operação"><i class="fa fa-save label-icon"></i> Confirmar</button>
+                            <x-button-crud op="5" class="crudConfirmarOperacao" />
                     @endif
 
                     <!-- Botão Cancelar Operação -->
-                        <button type="button" class="btn btn-secondary waves-effect btn-label waves-light crudFormCancelOperacao" data-bs-toggle="tooltip" data-bs-placement="top" title="Cancelar Operação"><i class="fa fa-arrow-left label-icon"></i> Cancelar</button>
+                        <x-button-crud op="4" class="crudCancelarOperacao" />
                     </div>
                     <div class="modal-buttons crudFormButtons2">
                         <!-- edit or delete -->
                     @if(\App\Facades\Permissoes::permissao([$ajaxPrefixPermissaoSubmodulo.'_edit'], $userLoggedPermissoes))
                         <!-- Botão Alterar Registro -->
-                            <button type="button" class="btn btn-primary waves-effect btn-label waves-light editRecord" data-bs-toggle="tooltip" data-bs-placement="top" data-id="0" title="Alterar Registro"><i class="fas fa-pencil-alt label-icon"></i> Alterar</button>
+                            <x-button-crud op="2" class="crudAlterarRegistro" />
                     @endif
 
                     @if(\App\Facades\Permissoes::permissao([$ajaxPrefixPermissaoSubmodulo.'_destroy'], $userLoggedPermissoes))
                         <!-- Botão Excluir Registro -->
-                            <button type="button" class="btn btn-danger waves-effect btn-label waves-light deleteRecord" data-bs-toggle="tooltip" data-bs-placement="top" data-id="0" title="Excluir Registro"><i class="fa fa-trash-alt label-icon"></i> Excluir</button>
+                            <x-button-crud op="3" class="crudExcluirRegistro" />
                     @endif
 
                     @if(\App\Facades\Permissoes::permissao([$ajaxPrefixPermissaoSubmodulo.'_list'], $userLoggedPermissoes))
                         <!-- Botão PropostaPDF -->
-                            <button type="button" class="btn btn-info waves-effect btn-label waves-light gerarPdfProposta" data-bs-toggle="tooltip" data-bs-placement="top" data-id="0" title="Proposta em PDF"><i class="fas fa-file-pdf label-icon"></i> PDF</button>
+                        <x-button-crud op="99" model="3" bgColor="info" textColor="write" class="gerarPdfProposta" title="Proposta em PDF" image="fas fa-file-pdf" label="PDF" />
                     @endif
 
                     <!-- Botão Cancelar Operação -->
-                        <button type="button" class="btn btn-secondary waves-effect btn-label waves-light crudFormCancelOperacao" data-bs-toggle="tooltip" data-bs-placement="top" title="Cancelar Operação"><i class="fa fa-arrow-left label-icon"></i> Cancelar</button>
+                        <x-button-crud op="4" class="crudCancelarOperacao" />
                     </div>
                 </div>
             </div>

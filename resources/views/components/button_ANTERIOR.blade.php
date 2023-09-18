@@ -1,14 +1,11 @@
 <button
-
     {{ $attributes }}
 
     @if($type !== null)
         type="{{ $type }}"
     @endif
 
-    @if($class !== null)
-        class="{{ $class }}"
-    @endif
+    {{ $attributes->merge(['class' => $class]) }}
 
     @if($dataBsToggle !== null)
         data-bs-toggle="{{ $dataBsToggle }}"

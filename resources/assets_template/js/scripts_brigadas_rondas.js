@@ -65,7 +65,7 @@ $(document).ready(function () {
         });
 
         //Cancel Operacao e voltar para Grade de Escalas
-        $('.rondasFormCancelOperacao').click(function (e) {
+        $('.crudCancelarOperacaoRondas').click(function (e) {
             e.preventDefault();
 
             //Table Show/Hide

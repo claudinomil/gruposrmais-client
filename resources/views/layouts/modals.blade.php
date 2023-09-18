@@ -18,7 +18,7 @@
                                             </div>
                                         </div>
                                         <div class="col-5 align-self-end">
-                                            <button type="button" class="btn-close float-end px-1 py-1" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            <x-button-crud op="99" model="1" class="btn-close float-end px-1 py-1" data-bs-dismiss="modal" aria-label="Close" />
                                             <img src="{{ asset('build/assets/images/profile-img.png') }}" alt="" class="img-fluid">
                                         </div>
                                     </div>
@@ -46,20 +46,20 @@
                                                 <div class="row" id="modal-profile-botoes">
                                                     <div class="col-4 mt-4 px-0">
                                                         @if(\App\Facades\Permissoes::permissao(['users_perfil_edit'], $userLoggedPermissoes))
-                                                            <button class="btn btn-success waves-effect btn-label waves-light btn-sm float-end" id="buttonUploadAvatar"><i class="fas fa-address-card label-icon"></i>Avatar</button>
-                                                            <button class="btn btn-warning waves-effect btn-label waves-light btn-sm float-end" id="buttonUploadAvatarClose" style="display: none;"><i class="fas fa-address-card label-icon"></i>Fechar</button>
+                                                            <x-button-crud op="99" model="3" bgColor="success" textColor="write" class="btn-sm float-end" image="fas fa-address-card" label="Avatar" id="buttonUploadAvatar" />
+                                                            <x-button-crud op="99" model="3" bgColor="warning" textColor="write" class="btn-sm float-end" image="fas fa-address-card" label="Fechar" style="display: none;" id="buttonUploadAvatarClose" />
                                                         @endif
                                                     </div>
                                                     <div class="col-4 mt-4 px-0">
                                                         @if(\App\Facades\Permissoes::permissao(['users_perfil_edit'], $userLoggedPermissoes))
-                                                            <button class="btn btn-primary waves-effect btn-label waves-light btn-sm float-end" id="buttonEditEmail"><i class="fas fa-envelope label-icon"></i>E-mail</button>
-                                                            <button class="btn btn-warning waves-effect btn-label waves-light btn-sm float-end" id="buttonEditEmailClose" style="display: none;"><i class="fas fa-address-card label-icon"></i>Fechar</button>
+                                                            <x-button-crud op="99" model="3" bgColor="primary" textColor="write" class="btn-sm float-end" image="fas fa-envelope" label="E-mail" id="buttonEditEmail" />
+                                                            <x-button-crud op="99" model="3" bgColor="warning" textColor="write" class="btn-sm float-end" image="fas fa-envelope" label="Fechar" style="display: none;" id="buttonEditEmailClose" />
                                                         @endif
                                                     </div>
                                                     <div class="col-4 mt-4 px-0">
                                                         @if(\App\Facades\Permissoes::permissao(['users_perfil_edit'], $userLoggedPermissoes))
-                                                            <button class="btn btn-danger waves-effect btn-label waves-light btn-sm float-end" id="buttonEditPassword"><i class="fas fa-key label-icon"></i>Senha</button>
-                                                            <button class="btn btn-warning waves-effect waves-light btn-label btn-sm float-end" id="buttonEditPasswordClose" style="display: none;"><i class="fas fa-address-card label-icon"></i>Fechar</button>
+                                                            <x-button-crud op="99" model="3" bgColor="danger" textColor="write" class="btn-sm float-end" image="fas fa-key" label="Senha" id="buttonEditPassword" />
+                                                            <x-button-crud op="99" model="3" bgColor="warning" textColor="write" class="btn-sm float-end" image="fas fa-key" label="Fechar" style="display: none;" id="buttonEditPasswordClose" />
                                                         @endif
                                                     </div>
                                                 </div>
@@ -107,7 +107,7 @@
                                                         <span class="col-12 text-danger font-size-11" id="new-email-error"></span>
                                                     </div>
                                                     <div class="form-group col-12 pb-3">
-                                                        <button type="submit" class="btn btn-secondary">Confirmar</button>
+                                                        <x-button-crud op="99" model="3" type="submit" bgColor="success" textColor="write" image="fa fa-save" label="Confirmar" />
                                                     </div>
                                                 </div>
 
@@ -141,7 +141,7 @@
                                                         <span class="col-12 text-danger font-size-11" id="confirm-new-password-error"></span>
                                                     </div>
                                                     <div class="form-group col-12 pb-3">
-                                                        <button type="submit" class="btn btn-secondary">Confirmar</button>
+                                                        <x-button-crud op="99" model="3" type="submit" bgColor="success" textColor="write" image="fa fa-save" label="Confirmar" />
                                                     </div>
                                                 </div>
 
@@ -278,7 +278,7 @@
                                             </div>
                                         </div>
                                         <div class="col-4 align-self-end">
-                                            <button type="button" class="btn-close float-end px-1 py-1" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            <x-button-crud op="99" model="1" class="btn-close float-end px-1 py-1" data-bs-dismiss="modal" aria-label="Close" />
                                             <img src="{{ asset('build/assets/images/cliente-img.png') }}" alt="" class="img-fluid">
                                         </div>
                                     </div>
@@ -384,7 +384,7 @@
                                             </div>
                                         </div>
                                         <div class="col-4 align-self-end">
-                                            <button type="button" class="btn-close float-end px-1 py-1" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            <x-button-crud op="99" model="1" class="btn-close float-end px-1 py-1" data-bs-dismiss="modal" aria-label="Close" />
                                             <img src="{{ asset('build/assets/images/fornecedor-img.png') }}" alt="" class="img-fluid">
                                         </div>
                                     </div>
@@ -489,7 +489,7 @@
                                             </div>
                                         </div>
                                         <div class="col-4 align-self-end">
-                                            <button type="button" class="btn-close float-end px-1 py-1" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            <x-button-crud op="99" model="1" class="btn-close float-end px-1 py-1" data-bs-dismiss="modal" aria-label="Close" />
                                             <img src="{{ asset('build/assets/images/funcionario-img.png') }}" alt="" class="img-fluid">
                                         </div>
                                     </div>
@@ -517,8 +517,8 @@
                                                 <div class="row">
                                                     <div class="col-4 mt-4 px-0">
                                                         @if(\App\Facades\Permissoes::permissao([$ajaxPrefixPermissaoSubmodulo.'_edit'], $userLoggedPermissoes))
-                                                            <button class="btn btn-danger waves-effect btn-label waves-light btn-sm float-end" id="buttonUploadFuncionarioExtraFoto"><i class="fas fa-address-card label-icon"></i>Foto</button>
-                                                            <button class="btn btn-warning waves-effect btn-label waves-light btn-sm float-end" id="buttonUploadFuncionarioExtraFotoClose" style="display: none;"><i class="fas fa-address-card label-icon"></i>Fechar</button>
+                                                            <x-button-crud op="99" model="3" bgColor="danger" textColor="write" class="btn-sm float-end" image="fas fa-address-card" label="Foto" id="buttonUploadFuncionarioExtraFoto" />
+                                                            <x-button-crud op="99" model="3" bgColor="warning" textColor="write" class="btn-sm float-end" image="fas fa-address-card" label="Fechar" style="display: none;" id="buttonUploadFuncionarioExtraFotoClose" />
                                                         @endif
                                                     </div>
                                                 </div>
@@ -647,7 +647,7 @@
                                             </div>
                                         </div>
                                         <div class="col-5 align-self-end">
-                                            <button type="button" class="btn-close float-end px-1 py-1" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            <x-button-crud op="99" model="1" class="btn-close float-end px-1 py-1" data-bs-dismiss="modal" aria-label="Close" />
                                             <img src="{{ asset('build/assets/images/visita_tecnica-img.png') }}" alt="" class="img-fluid">
                                         </div>
                                     </div>

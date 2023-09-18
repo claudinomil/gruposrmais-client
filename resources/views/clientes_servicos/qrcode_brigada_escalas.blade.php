@@ -94,61 +94,50 @@
                                                 </p>
 
                                                 @if($botao_iniciar_servico)
-                                                    <button type="button"
-                                                            class="btn btn-success waves-effect btn-label waves-light"
-                                                            data-brigada_escala_id="{{$brigada_escala_id}}"
-                                                            data-funcionario_foto="{{$funcionario_foto}}"
-                                                            data-cor_ala="{{$corAla}}"
-                                                            data-ala="{{$ala}}"
-                                                            data-funcionario_nome="{{$funcionario_nome}}"
-                                                            data-usuario_email="{{$usuario_email}}"
-                                                            data-escala_tipo_nome="{{$escala_tipo_nome}}"
-                                                            data-data_chegada="{{$data_chegada}}"
-                                                            data-hora_chegada="{{$hora_chegada}}"
-                                                            data-data_saida="{{$data_saida}}"
-                                                            data-hora_saida="{{$hora_saida}}"
-                                                            id="btnIniciarServico">
-                                                        <i class="bx bx-check label-icon"></i> Iniciar Serviço
-                                                    </button>
+                                                    <x-button-crud op="99" model="3" bgColor="success" textColor="write" image="bx bx-check" label="Iniciar Serviço" id="btnIniciarServico"
+                                                                   data-brigada_escala_id="{{$brigada_escala_id}}"
+                                                                   data-funcionario_foto="{{$funcionario_foto}}"
+                                                                   data-cor_ala="{{$corAla}}"
+                                                                   data-ala="{{$ala}}"
+                                                                   data-funcionario_nome="{{$funcionario_nome}}"
+                                                                   data-usuario_email="{{$usuario_email}}"
+                                                                   data-escala_tipo_nome="{{$escala_tipo_nome}}"
+                                                                   data-data_chegada="{{$data_chegada}}"
+                                                                   data-hora_chegada="{{$hora_chegada}}"
+                                                                   data-data_saida="{{$data_saida}}"
+                                                                   data-hora_saida="{{$hora_saida}}" />
                                                 @endif
 
                                                 @if($botao_iniciar_ronda)
-                                                    <button type="button"
-                                                            class="btn btn-warning waves-effect btn-label waves-light"
-                                                            data-brigada_escala_id="{{$brigada_escala_id}}"
-                                                            data-funcionario_foto="{{$funcionario_foto}}"
-                                                            data-cor_ala="{{$corAla}}"
-                                                            data-ala="{{$ala}}"
-                                                            data-funcionario_nome="{{$funcionario_nome}}"
-                                                            data-usuario_email="{{$usuario_email}}"
-                                                            data-escala_tipo_nome="{{$escala_tipo_nome}}"
-                                                            data-data_chegada="{{$data_chegada}}"
-                                                            data-hora_chegada="{{$hora_chegada}}"
-                                                            data-data_saida="{{$data_saida}}"
-                                                            data-hora_saida="{{$hora_saida}}"
-                                                            id="btnIniciarRonda">
-                                                        <i class="bx bx-calendar-check label-icon"></i> Iniciar Ronda
-                                                    </button>
+                                                    <x-button-crud op="99" model="3" bgColor="warning" textColor="write" image="bx bx-calendar-check" label="Iniciar Ronda" id="btnIniciarRonda"
+                                                                   data-brigada_escala_id="{{$brigada_escala_id}}"
+                                                                   data-funcionario_foto="{{$funcionario_foto}}"
+                                                                   data-cor_ala="{{$corAla}}"
+                                                                   data-ala="{{$ala}}"
+                                                                   data-funcionario_nome="{{$funcionario_nome}}"
+                                                                   data-usuario_email="{{$usuario_email}}"
+                                                                   data-escala_tipo_nome="{{$escala_tipo_nome}}"
+                                                                   data-data_chegada="{{$data_chegada}}"
+                                                                   data-hora_chegada="{{$hora_chegada}}"
+                                                                   data-data_saida="{{$data_saida}}"
+                                                                   data-hora_saida="{{$hora_saida}}" />
+
                                                     <br><br>
                                                 @endif
 
                                                 @if($botao_encerrar_servico)
-                                                    <button type="button"
-                                                            class="btn btn-primary waves-effect btn-label waves-light"
-                                                            data-brigada_escala_id="{{$brigada_escala_id}}"
-                                                            data-funcionario_foto="{{$funcionario_foto}}"
-                                                            data-cor_ala="{{$corAla}}"
-                                                            data-ala="{{$ala}}"
-                                                            data-funcionario_nome="{{$funcionario_nome}}"
-                                                            data-usuario_email="{{$usuario_email}}"
-                                                            data-escala_tipo_nome="{{$escala_tipo_nome}}"
-                                                            data-data_chegada="{{$data_chegada}}"
-                                                            data-hora_chegada="{{$hora_chegada}}"
-                                                            data-data_saida="{{$data_saida}}"
-                                                            data-hora_saida="{{$hora_saida}}"
-                                                            id="btnEncerrarServico">
-                                                        <i class="bx bx-check label-icon"></i> Encerrar Serviço
-                                                    </button>
+                                                    <x-button-crud op="99" model="3" bgColor="primary" textColor="write" image="bx bx-check" label="Encerrar Serviço" id="btnEncerrarServico"
+                                                                   data-brigada_escala_id="{{$brigada_escala_id}}"
+                                                                   data-funcionario_foto="{{$funcionario_foto}}"
+                                                                   data-cor_ala="{{$corAla}}"
+                                                                   data-ala="{{$ala}}"
+                                                                   data-funcionario_nome="{{$funcionario_nome}}"
+                                                                   data-usuario_email="{{$usuario_email}}"
+                                                                   data-escala_tipo_nome="{{$escala_tipo_nome}}"
+                                                                   data-data_chegada="{{$data_chegada}}"
+                                                                   data-hora_chegada="{{$hora_chegada}}"
+                                                                   data-data_saida="{{$data_saida}}"
+                                                                   data-hora_saida="{{$hora_saida}}" />
                                                 @endif
                                             </div>
                                         </div>
@@ -220,8 +209,8 @@
                                                     <img class="col-12 form-control" id="photoFrontal" src="" style="display: none;">
                                                 </div>
                                                 <div class="text-center py-2">
-                                                    <button type="button" class="btn btn-primary waves-effect btn-label waves-light" id="btnTirarFotoFrontal"><i class="bx bx-photo-album label-icon"></i> Tirar Foto</button>
-                                                    <button type="button" class="btn btn-warning waves-effect btn-label waves-light" style="display:none;" id="btnExcluirFotoFrontal"><i class="bx bx-trash label-icon"></i> Excluir Foto</button>
+                                                    <x-button-crud op="99" model="3" bgColor="primary" textColor="write" image="bx bx-photo-album" label="Tirar Foto" id="btnTirarFotoFrontal" />
+                                                    <x-button-crud op="99" model="3" bgColor="warning" textColor="write" image="bx bx-trash" label="Excluir Foto" style="display:none;" id="btnExcluirFotoFrontal" />
                                                 </div>
                                             </div>
                                             <div class="form-group col-12 pb-3">
@@ -233,10 +222,10 @@
                                             <div class="form-group col-12 pb-3">
                                                 <div class="row">
                                                     <div class="col-6 text-start">
-                                                        <button type="button" class="btn btn-success waves-effect btn-label waves-light" id="btnConfirmarOperacao"><i class="bx bx-check-double label-icon"></i> Confirmar</button>
+                                                        <x-button-crud op="99" model="3" bgColor="success" textColor="write" image="bx bx-check-double" label="Confirmar" id="btnConfirmarOperacao" />
                                                     </div>
                                                     <div class="col-6 text-end">
-                                                        <button type="button" class="btn btn-danger waves-effect btn-label waves-light" id="btnCancelarOperacao"><i class="bx bx-exit label-icon"></i> Cancelar</button>
+                                                        <x-button-crud op="99" model="3" bgColor="danger" textColor="write" image="bx bx-exit" label="Cancelar" id="btnCancelarOperacao" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -268,12 +257,12 @@
                                 <img class="col-12 form-control" id="photoTraseira" src="" style="display: none;">
                             </div>
                             <div class="text-center py-2">
-                                <button type="button" class="btn btn-primary waves-effect btn-label waves-light" id="btnTirarFotoTraseira"><i class="bx bx-photo-album label-icon"></i> Tirar Foto</button>
-                                <button type="button" class="btn btn-warning waves-effect btn-label waves-light" style="display:none;" id="btnExcluirFotoTraseira"><i class="bx bx-trash label-icon"></i> Excluir Foto</button>
+                                <x-button-crud op="99" model="3" bgColor="primary" textColor="write" image="bx bx-photo-album" label="Tirar Foto" id="btnTirarFotoTraseira" />
+                                <x-button-crud op="99" model="3" bgColor="warning" textColor="write" image="bx bx-trash" label="Excluir Foto" style="display:none;" id="btnExcluirFotoTraseira" />
                             </div>
 
-                            <input type="hidden" id="fotoTraseiraPavimento" name="fotoTraseiraPavimento" value="">
-                            <input type="hidden" id="fotoTraseiraSegurancaMedidaId" name="fotoTraseiraSegurancaMedidaId" value="">
+                            <input type="hiddenx" id="fotoTraseiraPavimento" name="fotoTraseiraPavimento" value="">
+                            <input type="hiddenx" id="fotoTraseiraSegurancaMedidaId" name="fotoTraseiraSegurancaMedidaId" value="">
                         </div>
                     </div>
                 </div>

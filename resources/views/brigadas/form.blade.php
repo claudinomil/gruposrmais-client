@@ -8,21 +8,21 @@
                         <!-- update -->
                         @if(\App\Facades\Permissoes::permissao([$ajaxPrefixPermissaoSubmodulo.'_edit'], $userLoggedPermissoes))
                             <!-- Botão Confirnar Operação -->
-                            <button type="button" class="btn btn-success waves-effect btn-label waves-light crudFormConfirmOperacao" data-bs-toggle="tooltip" data-bs-placement="top" title="Confirmar Operação"><i class="fa fa-save label-icon"></i> Confirmar</button>
+                            <x-button-crud op="5" class="crudConfirmarOperacao" />
                         @endif
 
                         <!-- Botão Cancelar Operação -->
-                        <button type="button" class="btn btn-secondary waves-effect btn-label waves-light crudFormCancelOperacao" data-bs-toggle="tooltip" data-bs-placement="top" title="Cancelar Operação"><i class="fa fa-arrow-left label-icon"></i> Cancelar</button>
+                        <x-button-crud op="4" class="crudCancelarOperacao" />
                     </div>
                     <div class="modal-buttons crudFormButtons2">
                         <!-- edit -->
                         @if(\App\Facades\Permissoes::permissao([$ajaxPrefixPermissaoSubmodulo.'_edit'], $userLoggedPermissoes))
                             <!-- Botão Alterar Registro -->
-                            <button type="button" class="btn btn-primary waves-effect btn-label waves-light editRecord" data-bs-toggle="tooltip" data-bs-placement="top" data-id="0" title="Alterar Registro"><i class="fas fa-pencil-alt label-icon"></i> Alterar</button>
+                            <x-button-crud op="2" class="crudAlterarRegistro" />
                         @endif
 
                         <!-- Botão Cancelar Operação -->
-                        <button type="button" class="btn btn-secondary waves-effect btn-label waves-light crudFormCancelOperacao" data-bs-toggle="tooltip" data-bs-placement="top" title="Cancelar Operação"><i class="fa fa-arrow-left label-icon"></i> Cancelar</button>
+                        <x-button-crud op="4" class="crudCancelarOperacao" />
                     </div>
                     <div class="modal-loading" id="crudFormAjaxLoading" style="display: none;">
                         <div class="spinner-chase">
@@ -102,7 +102,7 @@
                             <div class="row">
                                 <div class="col pb-4">
                                     <!-- Botão Cancelar Operação -->
-                                    <button type="button" class="btn btn-secondary waves-effect btn-label waves-light escalasFormCancelOperacao" data-bs-toggle="tooltip" data-bs-placement="top" title="Cancelar Operação"><i class="fa fa-arrow-left label-icon"></i> Cancelar</button>
+                                    <x-button-crud op="4" class="crudCancelarOperacaoEscalas" />
                                 </div>
                             </div>
                         </div>
@@ -117,7 +117,7 @@
                                     <input type="date" class="form-control text-center font-size-12" id="es_periodo_data_2" name="es_periodo_data_2">
                                 </div>
                                 <div class="col-2 col-md-2 float-start ps-1">
-                                    <x-button op="17" id="btnGradeEscalas" />
+                                    <x-button-crud op="6" class="btnGradeEscalas" />
                                 </div>
                                 <div class="col-12 text-info small" id="divPeriodoDatasEscalas"></div>
                             </div>
@@ -197,7 +197,7 @@
                             <div class="row">
                                 <div class="col pb-4">
                                     <!-- Botão Cancelar Operação -->
-                                    <button type="button" class="btn btn-secondary waves-effect btn-label waves-light rondasFormCancelOperacao" data-bs-toggle="tooltip" data-bs-placement="top" title="Cancelar Operação"><i class="fa fa-arrow-left label-icon"></i> Cancelar</button>
+                                    <x-button-crud op="4" class="crudCancelarOperacaoRondas" />
                                 </div>
                             </div>
                         </div>
@@ -240,7 +240,7 @@
                             <div class="row">
                                 <div class="col pb-4">
                                     <!-- Botão Cancelar Operação -->
-                                    <button type="button" class="btn btn-secondary waves-effect btn-label waves-light rondasFormCancelOperacao" data-bs-toggle="tooltip" data-bs-placement="top" title="Cancelar Operação"><i class="fa fa-arrow-left label-icon"></i> Cancelar</button>
+                                    <x-button-crud op="4" class="crudCancelarOperacaoRondas" />
                                 </div>
                             </div>
                         </div>

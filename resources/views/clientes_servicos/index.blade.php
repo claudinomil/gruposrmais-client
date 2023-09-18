@@ -24,7 +24,7 @@
                                 <!-- Botões -->
                                 <div class="col-12 col-md-8 pb-2">
                                     @if (\App\Facades\Permissoes::permissao([$ajaxPrefixPermissaoSubmodulo.'_create'], $userLoggedPermissoes))
-                                        <x-button op="1" id="createNewRecord" />
+                                        <x-button-crud op="1" class="crudIncluirRegistro" />
                                     @endif
                                 </div>
 
@@ -40,7 +40,7 @@
                                             <input type="text" class="form-control" id="pesquisar_value" name="pesquisar_value" placeholder="Valor Pesquisar" required>
                                         </div>
                                         <div class="col-2 float-start ps-1">
-                                            <x-button op="17" id="searchRecords" />
+                                            <x-button-crud op="6" class="crudPesquisarRegistros" />
                                         </div>
                                     </div>
                                 </div>

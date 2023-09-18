@@ -96,7 +96,7 @@ $(document).ready(function () {
         });
 
         //Cancel Operacao e voltar para Grade de Brigadas de Incêndios
-        $('.escalasFormCancelOperacao').click(function (e) {
+        $('.crudCancelarOperacaoEscalas').click(function (e) {
             e.preventDefault();
 
             //Table Show/Hide

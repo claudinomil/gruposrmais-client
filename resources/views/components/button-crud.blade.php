@@ -1,14 +1,9 @@
 <button
-
     {{ $attributes }}
 
-    @if($type !== null)
-        type="{{ $type }}"
-    @endif
+    type="{{ $type }}"
 
-    @if($class !== null)
-        class="{{ $class }}"
-    @endif
+    class="{{ $class }}"
 
     @if($dataBsToggle !== null)
         data-bs-toggle="{{ $dataBsToggle }}"
@@ -16,6 +11,10 @@
 
     @if($dataBsPlacement !== null)
         data-bs-placement="{{ $dataBsPlacement }}"
+    @endif
+
+    @if($dataBsTarget !== null)
+        data-bs-target="{{ $dataBsTarget }}"
     @endif
 
     @if($dataId !== null)
@@ -28,8 +27,8 @@
 
     >
 
-    @if($imageAwesome !== null)
-        <i class="{{ $imageAwesome }}"></i>
+    @if($image !== null)
+        <i class="{{ $image }}"></i>
     @endif
 
     {{ $label }}

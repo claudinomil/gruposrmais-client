@@ -84,7 +84,7 @@ class Controller extends BaseController
     /*
      * Função para retornar Botões para a coluna Ações da tabela de registros do CRUD
      */
-    public function columnAction(string $id, $ajaxPrefixPermissaoSubmodulo, $userLoggedPermissoes, $botoes=7, $btnType=4)
+    public function columnAction(string $id, $ajaxPrefixPermissaoSubmodulo, $userLoggedPermissoes, $botoes=7)
     {
         //PARAN: $botoes
         //0: Nenhum Botão
@@ -97,52 +97,30 @@ class Controller extends BaseController
         //7: Visualização, Alteração e Exclusão
         //8: Visualização e Escalas
 
-        //$btnType = 4;
-
         //Montando Coluna Ação
         $btn = '<td class="text-center" style="vertical-align:top; white-space:nowrap;"><div class="row">';
 
         if ($botoes == 1 or $botoes == 4 or $botoes == 5 or $botoes == 7 or $botoes == 8) {
             if (Permissoes::permissao([$ajaxPrefixPermissaoSubmodulo.'_show'], $userLoggedPermissoes)) {
-                if ($btnType == 1) {$btnClass = 'btn btn-info text-white text-center btn-sm'; $btnSize = '';}
-                if ($btnType == 2) {$btnClass = 'btn text-info text-center btn-sm'; $btnSize = 'font-size-18';}
-                if ($btnType == 3) {$btnClass = 'btn btn-outline-secondary btn-sm'; $btnSize = '';}
-                if ($btnType == 4) {$btnClass = 'btn btn-outline-info text-center btn-sm'; $btnSize = 'font-size-18';}
-
-                $btn .= '<div class="col-4"><button type="button" class="viewRecord '.$btnClass.'" data-bs-toggle="tooltip" data-bs-placement="top" title="Visualizar Registro" data-id="'.$id.'"><i class="fa fa-eye '.$btnSize.'"></i></button></div>';
+                $btn .= '<div class="col-4"><button type="button" class="btn btn-outline-info text-center btn-sm crudVisualizarRegistro" data-bs-toggle="tooltip" data-bs-placement="top" title="Visualizar Registro" data-id="'.$id.'"><i class="fa fa-eye font-size-18"></i></button></div>';
             }
         }
 
         if ($botoes == 2 or $botoes == 4 or $botoes == 6 or $botoes == 7) {
             if (Permissoes::permissao([$ajaxPrefixPermissaoSubmodulo.'_edit'], $userLoggedPermissoes)) {
-                if ($btnType == 1) {$btnClass = 'btn btn-primary text-white text-center btn-sm'; $btnSize = '';}
-                if ($btnType == 2) {$btnClass = 'btn text-primary text-center btn-sm'; $btnSize = 'font-size-18';}
-                if ($btnType == 3) {$btnClass = 'btn btn-outline-secondary btn-sm'; $btnSize = '';}
-                if ($btnType == 4) {$btnClass = 'btn btn-outline-primary text-center btn-sm'; $btnSize = 'font-size-18';}
-
-                $btn .= '<div class="col-4"><button type="button" class="editRecord '.$btnClass.'" data-bs-toggle="tooltip" data-bs-placement="top" title="Alterar Registro" data-id="'.$id.'"><i class="fas fa-pencil-alt '.$btnSize.'"></i></button></div>';
+                $btn .= '<div class="col-4"><button type="button" class="btn btn-outline-primary text-center btn-sm crudAlterarRegistro" data-bs-toggle="tooltip" data-bs-placement="top" title="Alterar Registro" data-id="'.$id.'"><i class="fas fa-pencil-alt font-size-18"></i></button></div>';
             }
         }
 
         if ($botoes == 3 or $botoes == 5 or $botoes == 6 or $botoes == 7) {
             if (Permissoes::permissao([$ajaxPrefixPermissaoSubmodulo.'_destroy'], $userLoggedPermissoes)) {
-                if ($btnType == 1) {$btnClass = 'btn btn-danger text-white text-center btn-sm'; $btnSize = '';}
-                if ($btnType == 2) {$btnClass = 'btn text-danger text-center btn-sm'; $btnSize = 'font-size-18';}
-                if ($btnType == 3) {$btnClass = 'btn btn-outline-secondary btn-sm'; $btnSize = '';}
-                if ($btnType == 4) {$btnClass = 'btn btn-outline-danger text-center btn-sm'; $btnSize = 'font-size-18';}
-
-                $btn .= '<div class="col-4"><button type="button" class="deleteRecord '.$btnClass.'" data-bs-toggle="tooltip" data-bs-placement="top" title="Excluir Registro" data-id="'.$id.'"><i class="fa fa-trash-alt  '.$btnSize.'"></i></button></div>';
+                $btn .= '<div class="col-4"><button type="button" class="btn btn-outline-danger text-center btn-sm crudExcluirRegistro" data-bs-toggle="tooltip" data-bs-placement="top" title="Excluir Registro" data-id="'.$id.'"><i class="fa fa-trash-alt font-size-18"></i></button></div>';
             }
         }
 
         if ($botoes == 8) {
             if (Permissoes::permissao([$ajaxPrefixPermissaoSubmodulo.'_edit'], $userLoggedPermissoes)) {
-                if ($btnType == 1) {$btnClass = 'btn btn-primary text-white text-center btn-sm'; $btnSize = '';}
-                if ($btnType == 2) {$btnClass = 'btn text-primary text-center btn-sm'; $btnSize = 'font-size-18';}
-                if ($btnType == 3) {$btnClass = 'btn btn-outline-secondary btn-sm'; $btnSize = '';}
-                if ($btnType == 4) {$btnClass = 'btn btn-outline-primary text-center btn-sm'; $btnSize = 'font-size-18';}
-
-                $btn .= '<div class="col-4"><button type="button" class="escalasBrigada '.$btnClass.'" data-bs-toggle="tooltip" data-bs-placement="top" title="Escalas" data-id="'.$id.'"><i class="far fa-calendar-alt  '.$btnSize.'"></i></button></div>';
+                $btn .= '<div class="col-4"><button type="button" class="btn btn-outline-primary text-center btn-sm escalasBrigada" data-bs-toggle="tooltip" data-bs-placement="top" title="Escalas" data-id="'.$id.'"><i class="far fa-calendar-alt font-size-18"></i></button></div>';
             }
         }
 

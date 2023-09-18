@@ -43,7 +43,7 @@ class VisitaTecnicaController extends Controller
                             $botoes = 4;
                         }
 
-                        return $this->columnAction($row['id'], $request['ajaxPrefixPermissaoSubmodulo'], $request['userLoggedPermissoes'], $botoes, 4);
+                        return $this->columnAction($row['id'], $request['ajaxPrefixPermissaoSubmodulo'], $request['userLoggedPermissoes'], $botoes);
                     })
                     ->rawColumns(['action'])
                     ->escapeColumns([])
@@ -132,7 +132,7 @@ class VisitaTecnicaController extends Controller
                 $allData = DataTables::of($this->content)
                     ->addIndexColumn()
                     ->addColumn('action', function ($row, Request $request) {
-                        return $this->columnAction($row['id'], $request['ajaxPrefixPermissaoSubmodulo'], $request['userLoggedPermissoes'], 4, 4);
+                        return $this->columnAction($row['id'], $request['ajaxPrefixPermissaoSubmodulo'], $request['userLoggedPermissoes'], 4);
                     })
                     ->rawColumns(['action'])
                     ->escapeColumns([])

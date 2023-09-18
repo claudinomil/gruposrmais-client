@@ -62,7 +62,7 @@
                 }
 
                 //Search
-                $('#searchRecords').click(function () {
+                $('.crudPesquisarRegistros').click(function () {
                     //Recebendo field/value
                     var field = $('#pesquisar_field').val();
                     var value = $('#pesquisar_value').val();
@@ -76,7 +76,7 @@
                 });
 
                 //Create
-                $('#createNewRecord').click(function () {
+                $('.crudIncluirRegistro').click(function () {
                     //Passar pelo evento create do controller
                     $.get("{{$ajaxPrefixPermissaoSubmodulo}}/create", function (data) {
                         //Limpar validações
@@ -208,7 +208,7 @@
                 });
 
                 //View
-                $('body').on('click', '.viewRecord', function () {
+                $('body').on('click', '.crudVisualizarRegistro', function () {
                     //Campo hidden registro_id
                     $('#registro_id').val($(this).data('id'));
 
@@ -386,9 +386,9 @@
                                 //Verificar botões''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
                                 //Se servico_status_id for igual a 1(EXECUTADO) : Somente Visualização
                                 if (data.success.clientes_servicos_servico.servico_status_id == 1) {
-                                    $('.crudFormButtons2 .editRecord').hide();
+                                    $('.crudFormButtons2 .crudAlterarRegistro').hide();
                                 } else {
-                                    $('.crudFormButtons2 .editRecord').show();
+                                    $('.crudFormButtons2 .crudAlterarRegistro').show();
                                 }
                                 //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
@@ -444,11 +444,11 @@
                                 //Verificar botões''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
                                 //Se servico_status_id for igual a 1(EXECUTADO) : Somente Visualização
                                 if (data.success.servico_status_id == 1) {
-                                    $('.crudFormButtons2 .editRecord').hide();
-                                    $('.crudFormButtons2 .deleteRecord').hide();
+                                    $('.crudFormButtons2 .crudAlterarRegistro').hide();
+                                    $('.crudFormButtons2 .crudExcluirRegistro').hide();
                                 } else {
-                                    $('.crudFormButtons2 .editRecord').show();
-                                    $('.crudFormButtons2 .deleteRecord').show();
+                                    $('.crudFormButtons2 .crudAlterarRegistro').show();
+                                    $('.crudFormButtons2 .crudExcluirRegistro').show();
                                 }
                                 //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
@@ -502,7 +502,7 @@
                 });
 
                 //Edit
-                $('body').on('click', '.editRecord', function () {
+                $('body').on('click', '.crudAlterarRegistro', function () {
                     //Campo hidden registro_id
                     if ($(this).data('id') != 0) {
                         $('#registro_id').val($(this).data('id'));
@@ -795,7 +795,7 @@
                 });
 
                 //Delete
-                $('body').on('click', '.deleteRecord', function () {
+                $('body').on('click', '.crudExcluirRegistro', function () {
                     //Campo hidden registro_id
                     if ($(this).data('id') != 0) {
                         $('#registro_id').val($(this).data('id'));
@@ -865,7 +865,7 @@
                 });
 
                 //Confirm Operacao
-                $('.crudFormConfirmOperacao').click(function (e) {
+                $('.crudConfirmarOperacao').click(function (e) {
                     e.preventDefault();
 
                     //Verificar Validação feita com sucesso
@@ -1094,7 +1094,7 @@
                 });
 
                 //Cancel Operacao
-                $('.crudFormCancelOperacao').click(function (e) {
+                $('.crudCancelarOperacao').click(function (e) {
                     e.preventDefault();
 
                     //Modal Show/Hide

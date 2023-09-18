@@ -8,29 +8,29 @@
                         <!-- store or update -->
                         @if(\App\Facades\Permissoes::permissao([$ajaxPrefixPermissaoSubmodulo.'_create', $ajaxPrefixPermissaoSubmodulo.'_edit'], $userLoggedPermissoes))
                             <!-- Botão Confirnar Operação -->
-                            <button type="button" class="btn btn-success waves-effect btn-label waves-light crudFormConfirmOperacao" data-bs-toggle="tooltip" data-bs-placement="top" title="Confirmar Operação"><i class="fa fa-save label-icon"></i> Confirmar</button>
+                            <x-button-crud op="5" class="crudConfirmarOperacao" />
                         @endif
 
                         <!-- Botão Cancelar Operação -->
-                        <button type="button" class="btn btn-secondary waves-effect btn-label waves-light crudFormCancelOperacao" data-bs-toggle="tooltip" data-bs-placement="top" title="Cancelar Operação"><i class="fa fa-arrow-left label-icon"></i> Cancelar</button>
+                        <x-button-crud op="4" class="crudCancelarOperacao" />
                     </div>
                     <div class="modal-buttons crudFormButtons2">
                         <!-- edit or delete -->
                         @if(\App\Facades\Permissoes::permissao([$ajaxPrefixPermissaoSubmodulo.'_edit'], $userLoggedPermissoes))
                             <!-- Botão Alterar Registro -->
-                                <button type="button" class="btn btn-primary waves-effect btn-label waves-light editRecord" data-bs-toggle="tooltip" data-bs-placement="top" data-id="0" title="Alterar Registro"><i class="fas fa-pencil-alt label-icon"></i> Alterar</button>
+                                <x-button-crud op="2" class="crudAlterarRegistro" />
                         @endif
 
                         @if(\App\Facades\Permissoes::permissao([$ajaxPrefixPermissaoSubmodulo.'_destroy'], $userLoggedPermissoes))
                             <!-- Botão Excluir Registro -->
-                                <button type="button" class="btn btn-danger waves-effect btn-label waves-light deleteRecord" data-bs-toggle="tooltip" data-bs-placement="top" data-id="0" title="Excluir Registro"><i class="fa fa-trash-alt label-icon"></i> Excluir</button>
+                                <x-button-crud op="3" class="crudExcluirRegistro" />
                         @endif
 
                         <!-- Botão Extra -->
-                        <button type="button" class="btn btn-warning waves-effect btn-label waves-light" data-bs-toggle="modal" data-bs-target=".modal-cliente" onclick="clienteExtraData();" data-id="0"><i class="bx bx-photo-album label-icon"></i> Extra</button>
+                        <x-button-crud op="7" data-bs-target=".modal-cliente" onclick="clienteExtraData();" />
 
                         <!-- Botão Cancelar Operação -->
-                        <button type="button" class="btn btn-secondary waves-effect btn-label waves-light crudFormCancelOperacao" data-bs-toggle="tooltip" data-bs-placement="top" title="Cancelar Operação"><i class="fa fa-arrow-left label-icon"></i> Cancelar</button>
+                        <x-button-crud op="4" class="crudCancelarOperacao" />
                     </div>
                     <div class="modal-loading" id="crudFormAjaxLoading" style="display: none;">
                         <div class="spinner-chase">
@@ -408,29 +408,29 @@
                         <!-- store or update -->
                     @if(\App\Facades\Permissoes::permissao([$ajaxPrefixPermissaoSubmodulo.'_create', $ajaxPrefixPermissaoSubmodulo.'_edit'], $userLoggedPermissoes))
                         <!-- Botão Confirnar Operação -->
-                            <button type="button" class="btn btn-success waves-effect btn-label waves-light crudFormConfirmOperacao" data-bs-toggle="tooltip" data-bs-placement="top" title="Confirmar Operação"><i class="fa fa-save label-icon"></i> Confirmar</button>
+                            <x-button-crud op="5" class="crudConfirmarOperacao" />
                     @endif
 
                     <!-- Botão Cancelar Operação -->
-                        <button type="button" class="btn btn-secondary waves-effect btn-label waves-light crudFormCancelOperacao" data-bs-toggle="tooltip" data-bs-placement="top" title="Cancelar Operação"><i class="fa fa-arrow-left label-icon"></i> Cancelar</button>
+                        <x-button-crud op="4" class="crudCancelarOperacao" />
                     </div>
                     <div class="modal-buttons crudFormButtons2">
                         <!-- edit or delete -->
                     @if(\App\Facades\Permissoes::permissao([$ajaxPrefixPermissaoSubmodulo.'_edit'], $userLoggedPermissoes))
                         <!-- Botão Alterar Registro -->
-                            <button type="button" class="btn btn-primary waves-effect btn-label waves-light editRecord" data-bs-toggle="tooltip" data-bs-placement="top" data-id="0" title="Alterar Registro"><i class="fas fa-pencil-alt label-icon"></i> Alterar</button>
+                            <x-button-crud op="2" class="crudAlterarRegistro" />
                     @endif
 
                     @if(\App\Facades\Permissoes::permissao([$ajaxPrefixPermissaoSubmodulo.'_destroy'], $userLoggedPermissoes))
                         <!-- Botão Excluir Registro -->
-                            <button type="button" class="btn btn-danger waves-effect btn-label waves-light deleteRecord" data-bs-toggle="tooltip" data-bs-placement="top" data-id="0" title="Excluir Registro"><i class="fa fa-trash-alt label-icon"></i> Excluir</button>
+                            <x-button-crud op="3" class="crudExcluirRegistro" />
                     @endif
 
                     <!-- Botão Extra -->
-                        <button type="button" class="btn btn-warning waves-effect btn-label waves-light" data-bs-toggle="modal" data-bs-target=".modal-cliente" onclick="clienteExtraData();" data-id="0"><i class="bx bx-photo-album label-icon"></i> Extra</button>
+                    <x-button-crud op="7" data-bs-target=".modal-cliente" onclick="clienteExtraData();" />
 
                         <!-- Botão Cancelar Operação -->
-                        <button type="button" class="btn btn-secondary waves-effect btn-label waves-light crudFormCancelOperacao" data-bs-toggle="tooltip" data-bs-placement="top" title="Cancelar Operação"><i class="fa fa-arrow-left label-icon"></i> Cancelar</button>
+                        <x-button-crud op="4" class="crudCancelarOperacao" />
                     </div>
                 </div>
             </div>
@@ -451,7 +451,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="pb-2">
-                                <button type="button" class="btn btn-success button_api_copiar">Copiar Informações</button>
+                                <x-button-crud op="99" model="3" bgColor="success" textColor="write" class="button_api_copiar" image="far fa-copy" label="Copiar Informações" />
                             </div>
                             <div class="table-responsive">
                                 <!-- Campos hidden para copiar -->
@@ -546,8 +546,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                <button type="button" class="btn btn-success button_api_copiar">Copiar Informações</button>
+                <x-button-crud op="99" model="3" bgColor="secondary" textColor="write" data-bs-dismiss="modal" image="far fa-window-close" label="Fechar" />
+                <x-button-crud op="99" model="3" bgColor="success" textColor="write" class="button_api_copiar" image="far fa-copy" label="Copiar Informações" />
             </div>
         </div>
     </div>
