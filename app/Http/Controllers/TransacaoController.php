@@ -15,7 +15,7 @@ class TransacaoController extends Controller
 
     public function __construct()
     {
-        $this->middleware('check-permissao:transacoes_list', ['only' => ['index', 'search']]);
+        $this->middleware('check-permissao:transacoes_list', ['only' => ['index', 'filter']]);
     }
 
     public function index(Request $request)
@@ -23,7 +23,7 @@ class TransacaoController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Lista de Registros
-            $this->responseApi(1, 1, 'transacoes', '', '', '', '');
+            $this->responseApi(1, 1, 'transacoes', '', '', '');
 
             //Dados recebidos com sucesso
             if ($this->code == 2000) {
@@ -66,12 +66,12 @@ class TransacaoController extends Controller
         }
     }
 
-    public function search(Request $request, $field = '', $value = '')
+    public function filter(Request $request, $array_dados)
     {
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Pesquisar Registros
-            $this->responseApi(1, 3, 'transacoes', '', $field, $value, '');
+            $this->responseApi(1, 3, 'transacoes', '', $array_dados, '');
 
             //Dados recebidos com sucesso
             if ($this->code == 2000) {

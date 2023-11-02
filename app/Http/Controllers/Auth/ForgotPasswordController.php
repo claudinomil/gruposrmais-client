@@ -36,11 +36,11 @@ class ForgotPasswordController extends Controller
         $token = Str::random(64);
 
         //Buscando dados Api_Data() - Verificar se Usuário existe
-        $this->responseApi(1, 10, 'users/exist/'.$request->email, '', '', '', '');
+        $this->responseApi(1, 10, 'users/exist/'.$request->email, '', '', '');
 
         if ($this->content == 1) {
             //Buscando dados Api_Data() - Gravar operação na tabela password_resets
-            $this->responseApi(1, 4, 'password_resets/' . $token, '', '', '', $request->all());
+            $this->responseApi(1, 4, 'password_resets/' . $token, '', '', $request->all());
 
             //Registro criado com sucesso
             if ($this->code == 2010) {
@@ -80,12 +80,12 @@ class ForgotPasswordController extends Controller
         ]);
 
         //Buscando dados Api_Data() - Fazer verificação na tabela password_resets
-        $this->responseApi(1, 4, 'password_resets_confirm', '', '', '', $request->all());
+        $this->responseApi(1, 4, 'password_resets_confirm', '', '', $request->all());
 
         //Registro confirmado
         if ($this->code == 2000) {
             //Buscando dados Api_Data() - Alterar tabela users & Deletar registro na tabela password_resets
-            $this->responseApi(1, 4, 'password_resets_update_delete', '', '', '', $request->all());
+            $this->responseApi(1, 4, 'password_resets_update_delete', '', '', $request->all());
 
             //Operações realizadas com sucesso
             if ($this->code == 2000) {

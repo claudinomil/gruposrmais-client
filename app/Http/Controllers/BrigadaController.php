@@ -17,7 +17,7 @@ class BrigadaController extends Controller
 
     public function __construct()
     {
-        $this->middleware('check-permissao:brigadas_list', ['only' => ['index', 'search', 'escalas_index']]);
+        $this->middleware('check-permissao:brigadas_list', ['only' => ['index', 'filter', 'escalas_index']]);
         $this->middleware('check-permissao:brigadas_show', ['only' => ['show']]);
         $this->middleware('check-permissao:brigadas_edit', ['only' => ['edit', 'update']]);
     }
@@ -27,7 +27,7 @@ class BrigadaController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Lista de Registros
-            $this->responseApi(1, 1, 'brigadas', '', '', '', '');
+            $this->responseApi(1, 1, 'brigadas', '', '', '');
 
             //Dados recebidos com sucesso
             if ($this->code == 2000) {
@@ -54,7 +54,7 @@ class BrigadaController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Registro pelo id
-            $this->responseApi(1, 2, 'brigadas', $id, '', '', '');
+            $this->responseApi(1, 2, 'brigadas', $id, '', '');
 
             //Registro recebido com sucesso
             if ($this->code == 2000) {
@@ -72,7 +72,7 @@ class BrigadaController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Registro pelo id
-            $this->responseApi(1, 2, 'brigadas', $id, '', '', '');
+            $this->responseApi(1, 2, 'brigadas', $id, '', '');
 
             //Registro recebido com sucesso
             if ($this->code == 2000) {
@@ -90,7 +90,7 @@ class BrigadaController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Alterar Registro
-            $this->responseApi(1, 5, 'brigadas', $id, '', '', $request->all());
+            $this->responseApi(1, 5, 'brigadas', $id, '', $request->all());
 
             //Registro alterado com sucesso
             if ($this->code == 2000) {
@@ -105,12 +105,12 @@ class BrigadaController extends Controller
         }
     }
 
-    public function search(Request $request, $field = '', $value = '')
+    public function filter(Request $request, $array_dados)
     {
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Pesquisar Registros
-            $this->responseApi(1, 3, 'brigadas', '', $field, $value, '');
+            $this->responseApi(1, 3, 'brigadas', '', $array_dados, '');
 
             //Dados recebidos com sucesso
             if ($this->code == 2000) {
@@ -140,7 +140,7 @@ class BrigadaController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Lista de Registros
-            $this->responseApi(1, 10, 'brigadas/escalas/'.$brigada_id.'/'.$es_periodo_data_1.'/'.$es_periodo_data_2, '', '', '', '');
+            $this->responseApi(1, 10, 'brigadas/escalas/'.$brigada_id.'/'.$es_periodo_data_1.'/'.$es_periodo_data_2, '', '', '');
 
             //Dados recebidos com sucesso
             if ($this->code == 2000) {
@@ -286,7 +286,7 @@ class BrigadaController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Lista de Registros
-            $this->responseApi(1, 10, 'brigadas/ronda_cliente_seguranca_medidas/'.$op.'/'.$brigada_escala_id.'/'.$brigada_ronda_id, '', '', '', '');
+            $this->responseApi(1, 10, 'brigadas/ronda_cliente_seguranca_medidas/'.$op.'/'.$brigada_escala_id.'/'.$brigada_ronda_id, '', '', '');
 
             //dd($this->content);
 

@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Http;
 
 class ApiData
 {
-    public function getData($type, $submodulo, $id, $search_field, $search_value, $request)
+    public function getData($type, $submodulo, $id, $array_dados_filtro, $request)
     {
         try {
             $httpHeaders = Http::withHeaders(
@@ -33,8 +33,8 @@ class ApiData
             //Registro pelo id
             if ($type == 2) {$response = $httpHeaders->get($submodulo.'/show/'.$id);}
 
-            //Lista por pesquisa
-            if ($type == 3) {$response = $httpHeaders->get($submodulo.'/search/'.$search_field.'/'.$search_value.'/'.$empresa_id);}
+            //Lista por Filtro
+            if ($type == 3) {$response = $httpHeaders->get($submodulo.'/filter/'.$array_dados_filtro.'/'.$empresa_id);}
 
             //Incluir Registro
             if ($type == 4) {$response = $httpHeaders->post($submodulo.'/store'.'/'.$empresa_id, $request);}

@@ -23,7 +23,7 @@ class FornecedorController extends Controller
 
     public function __construct()
     {
-        $this->middleware('check-permissao:fornecedores_list', ['only' => ['index', 'search', 'extradata']]);
+        $this->middleware('check-permissao:fornecedores_list', ['only' => ['index', 'filter', 'extradata']]);
         $this->middleware('check-permissao:fornecedores_create', ['only' => ['create', 'store']]);
         $this->middleware('check-permissao:fornecedores_show', ['only' => ['show']]);
         $this->middleware('check-permissao:fornecedores_edit', ['only' => ['edit', 'update']]);
@@ -35,7 +35,7 @@ class FornecedorController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Lista de Registros
-            $this->responseApi(1, 1, 'fornecedores', '', '', '', '');
+            $this->responseApi(1, 1, 'fornecedores', '', '', '');
 
             //Dados recebidos com sucesso
             if ($this->code == 2000) {
@@ -73,7 +73,7 @@ class FornecedorController extends Controller
             $empresa_id = session('userLogged_empresa_id');
 
             //Buscando dados Api_Data()auxiliary - Auxiliary Tables (Combobox)
-            $this->responseApi(2, 10, 'fornecedores/auxiliary/tables/'.$empresa_id, '', '', '', '');
+            $this->responseApi(2, 10, 'fornecedores/auxiliary/tables/'.$empresa_id, '', '', '');
 
             return view('fornecedores.index', [
                 'generos' => $this->generos,
@@ -97,7 +97,7 @@ class FornecedorController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Incluir Registro
-            $this->responseApi(1, 4, 'fornecedores', '', '', '', $request->all());
+            $this->responseApi(1, 4, 'fornecedores', '', '', $request->all());
 
             //Registro criado com sucesso
             if ($this->code == 2010) {
@@ -115,7 +115,7 @@ class FornecedorController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Registro pelo id
-            $this->responseApi(1, 2, 'fornecedores', $id, '', '', '');
+            $this->responseApi(1, 2, 'fornecedores', $id, '', '');
 
             //Registro recebido com sucesso
             if ($this->code == 2000) {
@@ -141,7 +141,7 @@ class FornecedorController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Registro pelo id
-            $this->responseApi(1, 2, 'fornecedores', $id, '', '', '');
+            $this->responseApi(1, 2, 'fornecedores', $id, '', '');
 
             //Registro recebido com sucesso
             if ($this->code == 2000) {
@@ -167,7 +167,7 @@ class FornecedorController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Alterar Registro
-            $this->responseApi(1, 5, 'fornecedores', $id, '', '', $request->all());
+            $this->responseApi(1, 5, 'fornecedores', $id, '', $request->all());
 
             //Registro alterado com sucesso
             if ($this->code == 2000) {
@@ -187,7 +187,7 @@ class FornecedorController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Deletar Registro
-            $this->responseApi(1, 6, 'fornecedores', $id, '', '', '');
+            $this->responseApi(1, 6, 'fornecedores', $id, '', '');
 
             //Registro deletado com sucesso
             if ($this->code == 2000) {
@@ -202,12 +202,12 @@ class FornecedorController extends Controller
         }
     }
 
-    public function search(Request $request, $field = '', $value = '')
+    public function filter(Request $request, $array_dados)
     {
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Pesquisar Registros
-            $this->responseApi(1, 3, 'fornecedores', '', $field, $value, '');
+            $this->responseApi(1, 3, 'fornecedores', '', $array_dados, '');
 
             //Dados recebidos com sucesso
             if ($this->code == 2000) {
@@ -250,7 +250,7 @@ class FornecedorController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Registro pelo id
-            $this->responseApi(1, 10, 'fornecedores/extradata/' . $id, '', '', '', '');
+            $this->responseApi(1, 10, 'fornecedores/extradata/' . $id, '', '', '');
 
             //Registro recebido com sucesso
             if ($this->code == 2000) {

@@ -15,7 +15,7 @@ class FuncaoController extends Controller
 
     public function __construct()
     {
-        $this->middleware('check-permissao:funcoes_list', ['only' => ['index', 'search']]);
+        $this->middleware('check-permissao:funcoes_list', ['only' => ['index', 'filter']]);
         $this->middleware('check-permissao:funcoes_create', ['only' => ['create', 'store']]);
         $this->middleware('check-permissao:funcoes_show', ['only' => ['show']]);
         $this->middleware('check-permissao:funcoes_edit', ['only' => ['edit', 'update']]);
@@ -27,7 +27,7 @@ class FuncaoController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Lista de Registros
-            $this->responseApi(1, 1, 'funcoes', '', '', '', '');
+            $this->responseApi(1, 1, 'funcoes', '', '', '');
 
             //Dados recebidos com sucesso
             if ($this->code == 2000) {
@@ -67,7 +67,7 @@ class FuncaoController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Incluir Registro
-            $this->responseApi(1, 4, 'funcoes', '', '', '', $request->all());
+            $this->responseApi(1, 4, 'funcoes', '', '', $request->all());
 
             //Registro criado com sucesso
             if ($this->code == 2010) {
@@ -85,7 +85,7 @@ class FuncaoController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Registro pelo id
-            $this->responseApi(1, 2, 'funcoes', $id, '', '', '');
+            $this->responseApi(1, 2, 'funcoes', $id, '', '');
 
             //Registro recebido com sucesso
             if ($this->code == 2000) {
@@ -108,7 +108,7 @@ class FuncaoController extends Controller
             }
 
             //Buscando dados Api_Data() - Registro pelo id
-            $this->responseApi(1, 2, 'funcoes', $id, '', '', '');
+            $this->responseApi(1, 2, 'funcoes', $id, '', '');
 
             //Registro recebido com sucesso
             if ($this->code == 2000) {
@@ -131,7 +131,7 @@ class FuncaoController extends Controller
             }
 
             //Buscando dados Api_Data() - Alterar Registro
-            $this->responseApi(1, 5, 'funcoes', $id, '', '', $request->all());
+            $this->responseApi(1, 5, 'funcoes', $id, '', $request->all());
 
             //Registro alterado com sucesso
             if ($this->code == 2000) {
@@ -156,7 +156,7 @@ class FuncaoController extends Controller
             }
 
             //Buscando dados Api_Data() - Deletar Registro
-            $this->responseApi(1, 6, 'funcoes', $id, '', '', '');
+            $this->responseApi(1, 6, 'funcoes', $id, '', '');
 
             //Registro deletado com sucesso
             if ($this->code == 2000) {
@@ -171,12 +171,12 @@ class FuncaoController extends Controller
         }
     }
 
-    public function search(Request $request, $field = '', $value = '')
+    public function filter(Request $request, $array_dados)
     {
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Pesquisar Registros
-            $this->responseApi(1, 3, 'funcoes', '', $field, $value, '');
+            $this->responseApi(1, 3, 'funcoes', '', $array_dados, '');
 
             //Dados recebidos com sucesso
             if ($this->code == 2000) {

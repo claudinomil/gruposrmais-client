@@ -93,7 +93,25 @@
                                         @php $num = 0; @endphp
 
                                         @foreach ($submodulos as $key => $submodulo)
-                                            @php $num++; @endphp
+                                            @php
+                                                $num++;
+
+                                                //Verificar Permissões que o Submódulo não tem''''''''''''''''''''''''''
+                                                $hide_list = false;
+                                                $hide_create = false;
+                                                $hide_show = false;
+                                                $hide_edit = false;
+                                                $hide_destroy = false;
+
+                                                foreach ($permissoes as $key => $permissao) {
+                                                    if ($permissao['name'] == $submodulo['prefix_permissao'].'_list') {$hide_list = true;}
+                                                    if ($permissao['name'] == $submodulo['prefix_permissao'].'_create') {$hide_create = true;}
+                                                    if ($permissao['name'] == $submodulo['prefix_permissao'].'_show') {$hide_show = true;}
+                                                    if ($permissao['name'] == $submodulo['prefix_permissao'].'_edit') {$hide_edit = true;}
+                                                    if ($permissao['name'] == $submodulo['prefix_permissao'].'_destroy') {$hide_destroy = true;}
+                                                }
+                                                //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+                                            @endphp
 
                                             <tr>
                                                 <td>{{ $num }}</td>
@@ -104,8 +122,10 @@
                                                         <label class="form-check-label"><i class="fa fa-check text-primary"></i> Listar</label>
                                                     </div>
                                                     <div class="form-check form-checkbox-outline form-check-primary mb-3 tdCreateEdit" style="display: none;">
+                                                        @if($hide_list === true)
                                                         <input class="form-check-input {{'create_edit_'.$submodulo['prefix_permissao'].'_list'}}" type="checkbox" id="listar_{{$submodulo['id']}}" name="listar_{{$submodulo['id']}}" value="{{$submodulo['prefix_permissao']}}_list" onchange="checkedPermissaoTable(6, {{$submodulo['id']}});">
                                                         <label class="form-check-label" for="listar_{{$submodulo['id']}}">Listar</label>
+                                                        @endif
                                                     </div>
                                                 </td>
                                                 <td class="text-center">
@@ -113,8 +133,10 @@
                                                         <label class="form-check-label"><i class="fa fa-check text-info"></i> Mostrar</label>
                                                     </div>
                                                     <div class="form-check form-checkbox-outline form-check-info mb-3 tdCreateEdit" style="display: none;">
+                                                        @if($hide_show === true)
                                                         <input class="form-check-input {{'create_edit_'.$submodulo['prefix_permissao'].'_show'}}" type="checkbox" id="mostrar_{{$submodulo['id']}}" name="mostrar_{{$submodulo['id']}}" value="{{$submodulo['prefix_permissao']}}_show" onchange="checkedPermissaoTable(7, {{$submodulo['id']}});">
                                                         <label class="form-check-label" for="mostrar_{{$submodulo['id']}}">Mostrar</label>
+                                                        @endif
                                                     </div>
                                                 </td>
                                                 <td class="text-center">
@@ -122,8 +144,10 @@
                                                         <label class="form-check-label"><i class="fa fa-check text-success"></i> Criar</label>
                                                     </div>
                                                     <div class="form-check form-checkbox-outline form-check-success mb-3 tdCreateEdit" style="display: none;">
+                                                        @if($hide_create === true)
                                                         <input class="form-check-input {{'create_edit_'.$submodulo['prefix_permissao'].'_create'}}" type="checkbox" id="criar_{{$submodulo['id']}}" name="criar_{{$submodulo['id']}}" value="{{$submodulo['prefix_permissao']}}_create" onchange="checkedPermissaoTable(8, {{$submodulo['id']}});">
                                                         <label class="form-check-label" for="criar_{{$submodulo['id']}}">Criar</label>
+                                                        @endif
                                                     </div>
                                                 </td>
                                                 <td class="text-center">
@@ -131,8 +155,10 @@
                                                         <label class="form-check-label"><i class="fa fa-check text-warning"></i> Editar</label>
                                                     </div>
                                                     <div class="form-check form-checkbox-outline form-check-warning mb-3 tdCreateEdit" style="display: none;">
+                                                        @if($hide_edit === true)
                                                         <input class="form-check-input {{'create_edit_'.$submodulo['prefix_permissao'].'_edit'}}" type="checkbox" id="editar_{{$submodulo['id']}}" name="editar_{{$submodulo['id']}}" value="{{$submodulo['prefix_permissao']}}_edit" onchange="checkedPermissaoTable(9, {{$submodulo['id']}});">
                                                         <label class="form-check-label" for="editar_{{$submodulo['id']}}">Editar</label>
+                                                        @endif
                                                     </div>
                                                 </td>
                                                 <td class="text-center">
@@ -140,8 +166,10 @@
                                                         <label class="form-check-label"><i class="fa fa-check text-danger"></i> Deletar</label>
                                                     </div>
                                                     <div class="form-check form-checkbox-outline form-check-danger mb-3 tdCreateEdit" style="display: none;">
+                                                        @if($hide_destroy === true)
                                                         <input class="form-check-input {{'create_edit_'.$submodulo['prefix_permissao'].'_destroy'}}" type="checkbox" id="deletar_{{$submodulo['id']}}" name="deletar_{{$submodulo['id']}}" value="{{$submodulo['prefix_permissao']}}_destroy" onchange="checkedPermissaoTable(10, {{$submodulo['id']}});">
                                                         <label class="form-check-label" for="deletar_{{$submodulo['id']}}">Deletar</label>
+                                                        @endif
                                                     </div>
                                                 </td>
                                             </tr>

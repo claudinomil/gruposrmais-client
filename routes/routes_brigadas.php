@@ -8,7 +8,7 @@ Route::prefix('brigadas')->group(function () {
     Route::get('/{id}', [BrigadaController::class, 'show'])->name('brigadas.show');
     Route::get('/{id}/edit', [BrigadaController::class, 'edit'])->name('brigadas.edit');
     Route::put('/{id}', [BrigadaController::class, 'update'])->name('brigadas.update');
-    Route::get('/search/{field}/{value}', [BrigadaController::class, 'search'])->name('brigadas.search');
+    Route::get('/filter/{array_dados}', [BrigadaController::class, 'filter'])->name('brigadas.filter');
 
     //Escalas
     Route::get('/escalas_index/{brigada_id}/{es_periodo_data_1}/{es_periodo_data_2}', [BrigadaController::class, 'escalas_index'])->name('brigadas.escalas_index');

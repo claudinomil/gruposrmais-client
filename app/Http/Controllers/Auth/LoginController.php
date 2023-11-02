@@ -19,6 +19,8 @@ class LoginController extends Controller
     {
         $empresas = Http::get(env('PASSPORT_API_URL') . 'empresas_grupo_srmais')->json();
 
+        //dd($empresas);
+
         return view('auth.login', compact('empresas'));
     }
 
@@ -40,7 +42,7 @@ class LoginController extends Controller
         );
 
         //Buscando dados Api_Data() - Verificar se email já foi confirmado
-        $this->responseApi(1, 10, 'users/confirm/' . $request->email, '', '', '', '');
+        $this->responseApi(1, 10, 'users/confirm/' . $request->email, '', '', '');
 
         if ($this->code == 2000) {
             //CHAMADA DO PASSPORT COM 'grant_type' => 'password'''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -121,7 +123,7 @@ class LoginController extends Controller
     public function logout()
     {
         //Buscando dados Api_Data() - Fazer Logout
-        $this->responseApi(1, 7, '', '', '', '', '');
+        $this->responseApi(1, 7, '', '', '', '');
 
         return view('welcome');
     }

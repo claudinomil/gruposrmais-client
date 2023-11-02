@@ -11,5 +11,5 @@ Route::prefix('estados_civis')->group(function () {
     Route::get('/{id}/edit', [EstadoCivilController::class, 'edit'])->name('estados_civis.edit');
     Route::put('/{id}', [EstadoCivilController::class, 'update'])->name('estados_civis.update');
     Route::delete('/{id}', [EstadoCivilController::class, 'destroy'])->name('estados_civis.destroy');
-    Route::get('/search/{field}/{value}', [EstadoCivilController::class, 'search'])->name('estados_civis.search');
+    Route::get('/filter/{array_dados}', [EstadoCivilController::class, 'filter'])->name('estados_civis.filter');
 });

@@ -11,5 +11,5 @@ Route::prefix('notificacoes')->group(function () {
     Route::get('/{id}/edit', [NotificacaoController::class, 'edit'])->name('notificacoes.edit');
     Route::put('/{id}', [NotificacaoController::class, 'update'])->name('notificacoes.update');
     Route::delete('/{id}', [NotificacaoController::class, 'destroy'])->name('notificacoes.destroy');
-    Route::get('/search/{field}/{value}', [NotificacaoController::class, 'search'])->name('notificacoes.search');
+    Route::get('/filter/{array_dados}', [NotificacaoController::class, 'filter'])->name('notificacoes.filter');
 });

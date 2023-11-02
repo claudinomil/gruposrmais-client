@@ -10,6 +10,7 @@
 <script type="text/javascript" src="{{ Vite::asset('resources/assets_template/libs/sweetalert2/sweetalert2.min.js') }}"></script>
 <script type="text/javascript" src="{{ Vite::asset('resources/assets_template/libs/select2/select2.min.js') }}"></script>
 <script type="text/javascript" src="{{ Vite::asset('resources/assets_template/libs/datatables/datatables.min.js') }}"></script>
+<script type="text/javascript" src="{{ Vite::asset('resources/assets_template/libs/jquery-repeater/jquery-repeater.js') }}"></script>
 <script type="text/javascript" src="{{ Vite::asset('resources/assets_template/libs/jszip/jszip.min.js') }}"></script>
 <script type="text/javascript" src="{{ Vite::asset('resources/assets_template/libs/pdfmake/pdfmake.min.js') }}"></script>
 <script type="text/javascript" src="{{ Vite::asset('resources/assets_template/libs/jquery-mask/jquery.mask.min.js') }}"></script>

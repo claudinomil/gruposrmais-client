@@ -11,5 +11,5 @@ Route::prefix('empresas')->group(function () {
     Route::get('/{id}/edit', [EmpresaController::class, 'edit'])->name('empresas.edit');
     Route::put('/{id}', [EmpresaController::class, 'update'])->name('empresas.update');
     Route::delete('/{id}', [EmpresaController::class, 'destroy'])->name('empresas.destroy');
-    Route::get('/search/{field}/{value}', [EmpresaController::class, 'search'])->name('empresas.search');
+    Route::get('/filter/{array_dados}', [EmpresaController::class, 'filter'])->name('empresas.filter');
 });

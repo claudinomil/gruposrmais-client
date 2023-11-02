@@ -11,5 +11,5 @@ Route::prefix('bancos')->group(function () {
     Route::get('/{id}/edit', [BancoController::class, 'edit'])->name('bancos.edit');
     Route::put('/{id}', [BancoController::class, 'update'])->name('bancos.update');
     Route::delete('/{id}', [BancoController::class, 'destroy'])->name('bancos.destroy');
-    Route::get('/search/{field}/{value}', [BancoController::class, 'search'])->name('bancos.search');
+    Route::get('/filter/{array_dados}', [BancoController::class, 'filter'])->name('bancos.filter');
 });

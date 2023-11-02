@@ -85,7 +85,7 @@ class ConfirmEmailController extends Controller
         //Verificar digitação
         if (($request['token1'] == session('token1')) and ($request['token2'] == session('token2')) and ($request['token3'] == session('token3')) and ($request['token4'] == session('token4'))) {
             //Buscando dados Api_Data() - Alterar tabela users (campo user_confirmed_at)
-            $this->responseApi(1, 12, 'users/confirmupdate', '', '', '', $request->all());
+            $this->responseApi(1, 12, 'users/confirmupdate', '', '', $request->all());
 
             //Operação realizada com sucesso
             if ($this->code == 2000) {

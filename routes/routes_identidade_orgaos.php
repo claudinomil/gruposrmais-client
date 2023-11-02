@@ -11,5 +11,5 @@ Route::prefix('identidade_orgaos')->group(function () {
     Route::get('/{id}/edit', [IdentidadeOrgaoController::class, 'edit'])->name('identidade_orgaos.edit');
     Route::put('/{id}', [IdentidadeOrgaoController::class, 'update'])->name('identidade_orgaos.update');
     Route::delete('/{id}', [IdentidadeOrgaoController::class, 'destroy'])->name('identidade_orgaos.destroy');
-    Route::get('/search/{field}/{value}', [IdentidadeOrgaoController::class, 'search'])->name('identidade_orgaos.search');
+    Route::get('/filter/{array_dados}', [IdentidadeOrgaoController::class, 'filter'])->name('identidade_orgaos.filter');
 });

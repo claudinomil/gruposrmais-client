@@ -11,5 +11,5 @@ Route::prefix('ferramentas')->group(function () {
     Route::get('/{id}/edit', [FerramentaController::class, 'edit'])->name('ferramentas.edit');
     Route::put('/{id}', [FerramentaController::class, 'update'])->name('ferramentas.update');
     Route::delete('/{id}', [FerramentaController::class, 'destroy'])->name('ferramentas.destroy');
-    Route::get('/search/{field}/{value}', [FerramentaController::class, 'search'])->name('ferramentas.search');
+    Route::get('/filter/{array_dados}', [FerramentaController::class, 'filter'])->name('ferramentas.filter');
 });

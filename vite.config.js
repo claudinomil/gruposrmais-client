@@ -31,6 +31,7 @@ export default defineConfig({
                 {src: 'resources/assets_template/libs/sweetalert2/sweetalert2.min.js', dest: 'assets'},
                 {src: 'resources/assets_template/libs/select2/select2.min.js', dest: 'assets'},
                 {src: 'resources/assets_template/libs/datatables/datatables.min.js', dest: 'assets'},
+                {src: 'resources/assets_template/libs/jquery-repeater/jquery-repeater.js', dest: 'assets'},
                 {src: 'resources/assets_template/libs/jszip/jszip.min.js', dest: 'assets'},
                 {src: 'resources/assets_template/libs/pdfmake/pdfmake.min.js', dest: 'assets'},
                 {src: 'resources/assets_template/libs/jquery-mask/jquery.mask.min.js', dest: 'assets'},
@@ -178,6 +179,11 @@ export default defineConfig({
 //     "file": "assets/datatables.min.js",
 //     "isEntry": true,
 //     "src": "resources/assets_template/libs/datatables/datatables.min.js"
+// },
+// "resources/assets_template/libs/jquery-repeater/jquery-repeater.js": {
+//     "file": "assets/jquery-repeater.js",
+//     "isEntry": true,
+//     "src": "resources/assets_template/libs/jquery-repeater/jquery-repeater.js"
 // },
 // "resources/assets_template/libs/jszip/jszip.min.js": {
 //     "file": "assets/jszip.min.js",

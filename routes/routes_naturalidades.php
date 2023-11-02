@@ -11,5 +11,5 @@ Route::prefix('naturalidades')->group(function () {
     Route::get('/{id}/edit', [NaturalidadeController::class, 'edit'])->name('naturalidades.edit');
     Route::put('/{id}', [NaturalidadeController::class, 'update'])->name('naturalidades.update');
     Route::delete('/{id}', [NaturalidadeController::class, 'destroy'])->name('naturalidades.destroy');
-    Route::get('/search/{field}/{value}', [NaturalidadeController::class, 'search'])->name('naturalidades.search');
+    Route::get('/filter/{array_dados}', [NaturalidadeController::class, 'filter'])->name('naturalidades.filter');
 });

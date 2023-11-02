@@ -18,7 +18,7 @@ class VisitaTecnicaController extends Controller
 
     public function __construct()
     {
-        $this->middleware('check-permissao:visitas_tecnicas_list', ['only' => ['index', 'search']]);
+        $this->middleware('check-permissao:visitas_tecnicas_list', ['only' => ['index', 'filter']]);
         $this->middleware('check-permissao:visitas_tecnicas_show', ['only' => ['show']]);
         $this->middleware('check-permissao:visitas_tecnicas_edit', ['only' => ['edit', 'update']]);
     }
@@ -28,7 +28,7 @@ class VisitaTecnicaController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Lista de Registros
-            $this->responseApi(1, 1, 'visitas_tecnicas', '', '', '', '');
+            $this->responseApi(1, 1, 'visitas_tecnicas', '', '', '');
 
             //Dados recebidos com sucesso
             if ($this->code == 2000) {
@@ -58,7 +58,7 @@ class VisitaTecnicaController extends Controller
             $empresa_id = session('userLogged_empresa_id');
 
             //Buscando dados Api_Data() - Auxiliary Tables (Combobox)
-            $this->responseApi(2, 10, 'visitas_tecnicas/auxiliary/tables/'.$empresa_id, '', '', '', '');
+            $this->responseApi(2, 10, 'visitas_tecnicas/auxiliary/tables/'.$empresa_id, '', '', '');
 
             return view('visitas_tecnicas.index');
         }
@@ -69,7 +69,7 @@ class VisitaTecnicaController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Registro pelo id
-            $this->responseApi(1, 2, 'visitas_tecnicas', $id, '', '', '');
+            $this->responseApi(1, 2, 'visitas_tecnicas', $id, '', '');
 
             //Registro recebido com sucesso
             if ($this->code == 2000) {
@@ -87,7 +87,7 @@ class VisitaTecnicaController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Registro pelo id
-            $this->responseApi(1, 2, 'visitas_tecnicas', $id, '', '', '');
+            $this->responseApi(1, 2, 'visitas_tecnicas', $id, '', '');
 
             //Registro recebido com sucesso
             if ($this->code == 2000) {
@@ -105,7 +105,7 @@ class VisitaTecnicaController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Alterar Registro
-            $this->responseApi(1, 5, 'visitas_tecnicas', $id, '', '', $request->all());
+            $this->responseApi(1, 5, 'visitas_tecnicas', $id, '', $request->all());
 
             //Registro alterado com sucesso
             if ($this->code == 2000) {
@@ -120,12 +120,12 @@ class VisitaTecnicaController extends Controller
         }
     }
 
-    public function search(Request $request, $field = '', $value = '')
+    public function filter(Request $request, $array_dados)
     {
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Pesquisar Registros
-            $this->responseApi(1, 3, 'visitas_tecnicas', '', $field, $value, '');
+            $this->responseApi(1, 3, 'visitas_tecnicas', '', $array_dados, '');
 
             //Dados recebidos com sucesso
             if ($this->code == 2000) {
@@ -152,7 +152,7 @@ class VisitaTecnicaController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data()
-            $this->responseApi(1, 10, 'visitas_tecnicas/medidas_seguranca/'.$np.'/'.$atc.'/'.$grupo.'/'.$divisao, '', '', '', '');
+            $this->responseApi(1, 10, 'visitas_tecnicas/medidas_seguranca/'.$np.'/'.$atc.'/'.$grupo.'/'.$divisao, '', '', '');
 
             //Registro
             if ($this->code == 2000) {

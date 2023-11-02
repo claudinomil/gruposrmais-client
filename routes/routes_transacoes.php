@@ -5,7 +5,7 @@ use App\Http\Controllers\TransacaoController;
 //Transacoes
 Route::prefix('transacoes')->group(function () {
     Route::get('', [TransacaoController::class, 'index'])->name('transacoes.index');
-    Route::get('/search/{field}/{value}', [TransacaoController::class, 'search'])->name('transacoes.search');
+    Route::get('/filter/{array_dados}', [TransacaoController::class, 'filter'])->name('transacoes.filter');
 
     //DEIXAR ESSAS ROTAS PARA NÃO DAR ERRO NO JAVASCRIPT AJAX
     //Route::get('/create', [TransacaoController::class, 'create'])->name('transacoes.create');

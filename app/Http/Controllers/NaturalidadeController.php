@@ -15,7 +15,7 @@ class NaturalidadeController extends Controller
 
     public function __construct()
     {
-        $this->middleware('check-permissao:naturalidades_list', ['only' => ['index', 'search']]);
+        $this->middleware('check-permissao:naturalidades_list', ['only' => ['index', 'filter']]);
         $this->middleware('check-permissao:naturalidades_create', ['only' => ['create', 'store']]);
         $this->middleware('check-permissao:naturalidades_show', ['only' => ['show']]);
         $this->middleware('check-permissao:naturalidades_edit', ['only' => ['edit', 'update']]);
@@ -27,7 +27,7 @@ class NaturalidadeController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Lista de Registros
-            $this->responseApi(1, 1, 'naturalidades', '', '', '', '');
+            $this->responseApi(1, 1, 'naturalidades', '', '', '');
 
             //Dados recebidos com sucesso
             if ($this->code == 2000) {
@@ -62,7 +62,7 @@ class NaturalidadeController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Incluir Registro
-            $this->responseApi(1, 4, 'naturalidades', '', '', '', $request->all());
+            $this->responseApi(1, 4, 'naturalidades', '', '', $request->all());
 
             //Registro criado com sucesso
             if ($this->code == 2010) {
@@ -80,7 +80,7 @@ class NaturalidadeController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Registro pelo id
-            $this->responseApi(1, 2, 'naturalidades', $id, '', '', '');
+            $this->responseApi(1, 2, 'naturalidades', $id, '', '');
 
             //Registro recebido com sucesso
             if ($this->code == 2000) {
@@ -98,7 +98,7 @@ class NaturalidadeController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Registro pelo id
-            $this->responseApi(1, 2, 'naturalidades', $id, '', '', '');
+            $this->responseApi(1, 2, 'naturalidades', $id, '', '');
 
             //Registro recebido com sucesso
             if ($this->code == 2000) {
@@ -116,7 +116,7 @@ class NaturalidadeController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Alterar Registro
-            $this->responseApi(1, 5, 'naturalidades', $id, '', '', $request->all());
+            $this->responseApi(1, 5, 'naturalidades', $id, '', $request->all());
 
             //Registro alterado com sucesso
             if ($this->code == 2000) {
@@ -136,7 +136,7 @@ class NaturalidadeController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Deletar Registro
-            $this->responseApi(1, 6, 'naturalidades', $id, '', '', '');
+            $this->responseApi(1, 6, 'naturalidades', $id, '', '');
 
             //Registro deletado com sucesso
             if ($this->code == 2000) {
@@ -151,12 +151,12 @@ class NaturalidadeController extends Controller
         }
     }
 
-    public function search(Request $request, $field = '', $value = '')
+    public function filter(Request $request, $array_dados)
     {
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Pesquisar Registros
-            $this->responseApi(1, 3, 'naturalidades', '', $field, $value, '');
+            $this->responseApi(1, 3, 'naturalidades', '', $array_dados, '');
 
             //Dados recebidos com sucesso
             if ($this->code == 2000) {

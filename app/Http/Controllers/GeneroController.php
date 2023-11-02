@@ -16,7 +16,7 @@ class GeneroController extends Controller
 
     public function __construct()
     {
-        $this->middleware('check-permissao:generos_list', ['only' => ['index', 'search']]);
+        $this->middleware('check-permissao:generos_list', ['only' => ['index', 'filter']]);
         $this->middleware('check-permissao:generos_create', ['only' => ['create', 'store']]);
         $this->middleware('check-permissao:generos_show', ['only' => ['show']]);
         $this->middleware('check-permissao:generos_edit', ['only' => ['edit', 'update']]);
@@ -28,7 +28,7 @@ class GeneroController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Lista de Registros
-            $this->responseApi(1, 1, 'generos', '', '', '', '');
+            $this->responseApi(1, 1, 'generos', '', '', '');
 
             //Dados recebidos com sucesso
             if ($this->code == 2000) {
@@ -63,7 +63,7 @@ class GeneroController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Incluir Registro
-            $this->responseApi(1, 4, 'generos', '', '', '', $request->all());
+            $this->responseApi(1, 4, 'generos', '', '', $request->all());
 
             //Registro criado com sucesso
             if ($this->code == 2010) {
@@ -81,7 +81,7 @@ class GeneroController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Registro pelo id
-            $this->responseApi(1, 2, 'generos', $id, '', '', '');
+            $this->responseApi(1, 2, 'generos', $id, '', '');
 
             //Registro recebido com sucesso
             if ($this->code == 2000) {
@@ -99,7 +99,7 @@ class GeneroController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Registro pelo id
-            $this->responseApi(1, 2, 'generos', $id, '', '', '');
+            $this->responseApi(1, 2, 'generos', $id, '', '');
 
             //Registro recebido com sucesso
             if ($this->code == 2000) {
@@ -117,7 +117,7 @@ class GeneroController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Alterar Registro
-            $this->responseApi(1, 5, 'generos', $id, '', '', $request->all());
+            $this->responseApi(1, 5, 'generos', $id, '', $request->all());
 
             //Registro alterado com sucesso
             if ($this->code == 2000) {
@@ -137,7 +137,7 @@ class GeneroController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Deletar Registro
-            $this->responseApi(1, 6, 'generos', $id, '', '', '');
+            $this->responseApi(1, 6, 'generos', $id, '', '');
 
             //Registro deletado com sucesso
             if ($this->code == 2000) {
@@ -152,12 +152,12 @@ class GeneroController extends Controller
         }
     }
 
-    public function search(Request $request, $field = '', $value = '')
+    public function filter(Request $request, $array_dados)
     {
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Pesquisar Registros
-            $this->responseApi(1, 3, 'generos', '', $field, $value, '');
+            $this->responseApi(1, 3, 'generos', '', $array_dados, '');
 
             //Dados recebidos com sucesso
             if ($this->code == 2000) {

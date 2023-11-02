@@ -11,5 +11,5 @@ Route::prefix('nacionalidades')->group(function () {
     Route::get('/{id}/edit', [NacionalidadeController::class, 'edit'])->name('nacionalidades.edit');
     Route::put('/{id}', [NacionalidadeController::class, 'update'])->name('nacionalidades.update');
     Route::delete('/{id}', [NacionalidadeController::class, 'destroy'])->name('nacionalidades.destroy');
-    Route::get('/search/{field}/{value}', [NacionalidadeController::class, 'search'])->name('nacionalidades.search');
+    Route::get('/filter/{array_dados}', [NacionalidadeController::class, 'filter'])->name('nacionalidades.filter');
 });

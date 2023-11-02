@@ -21,28 +21,26 @@
                         <div class="col-12">
                             <div class="row">
                                 <!-- Botões -->
-                                <div class="col-12 col-md-8 pb-2">&nbsp;</div>
+                                <div class="col-12 col-md-6 pb-2">&nbsp;</div>
 
-                                <!-- Pesquisar no Banco -->
-                                <div class="col-12 col-md-4 float-end">
-                                    <div class="row">
-                                        <div class="col-5 float-end px-1">
-                                            <select class="form-control" id="pesquisar_field" name="pesquisar_field" placeholder="Campo Pesquisar">
-                                                <option value="transacoes.date">Data</option>
-                                                <option value="transacoes.time">Hora</option>
-                                                <option value="users.name">Usuário</option>
-                                                <option value="operacoes.name">Operação</option>
-                                                <option value="submodulos.name">Submódulo</option>
-                                                <option value="transacoes.dados">Dados</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-5 float-end px-1">
-                                            <input type="text" class="form-control" id="pesquisar_value" name="pesquisar_value" placeholder="Valor Pesquisar" required>
-                                        </div>
-                                        <div class="col-2 float-start ps-1">
-                                            <x-button-crud op="6" class="crudPesquisarRegistros" />
-                                        </div>
-                                    </div>
+                                <!-- Filtro no Banco -->
+                                <div class="col-12 col-md-6 float-end">
+                                    <input type="hidden" id="filter-crud-filter_crud_tipo_condicao" value="1">
+                                    <input type="hidden" id="filter-crud-filter_crud_campo_pesquisar" value="users.name">
+                                    <input type="hidden" id="filter-crud-filter_crud_operacao_realizar" value="1">
+
+                                    @php
+                                        $selectCampoPesquisar = [
+                                        ['value' => 'transacoes.date', 'descricao' => 'Data'],
+                                        ['value' => 'transacoes.time', 'descricao' => 'Hora'],
+                                        ['value' => 'users.name', 'descricao' => 'Usuário'],
+                                        ['value' => 'operacoes.name', 'descricao' => 'Operação'],
+                                        ['value' => 'submodulos.name', 'descricao' => 'Submódulo'],
+                                        ['value' => 'transacoes.dados', 'descricao' => 'Dados']
+                                        ];
+                                    @endphp
+
+                                    <x-filter-crud :selectCampoPesquisar=$selectCampoPesquisar />
                                 </div>
                             </div>
                         </div>

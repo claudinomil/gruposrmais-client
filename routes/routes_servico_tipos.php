@@ -11,5 +11,5 @@ Route::prefix('servico_tipos')->group(function () {
     Route::get('/{id}/edit', [ServicoTipoController::class, 'edit'])->name('servico_tipos.edit');
     Route::put('/{id}', [ServicoTipoController::class, 'update'])->name('servico_tipos.update');
     Route::delete('/{id}', [ServicoTipoController::class, 'destroy'])->name('servico_tipos.destroy');
-    Route::get('/search/{field}/{value}',[ServicoTipoController::class, 'search'])->name('servico_tipos.search');
+    Route::get('/filter/{array_dados}', [ServicoTipoController::class, 'filter'])->name('servico_tipos.filter');
 });

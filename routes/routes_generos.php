@@ -11,5 +11,5 @@ Route::prefix('generos')->group(function () {
     Route::get('/{id}/edit', [GeneroController::class, 'edit'])->name('generos.edit');
     Route::put('/{id}', [GeneroController::class, 'update'])->name('generos.update');
     Route::delete('/{id}', [GeneroController::class, 'destroy'])->name('generos.destroy');
-    Route::get('/search/{field}/{value}', [GeneroController::class, 'search'])->name('generos.search');
+    Route::get('/filter/{array_dados}', [GeneroController::class, 'filter'])->name('generos.filter');
 });

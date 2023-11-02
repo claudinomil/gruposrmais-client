@@ -11,7 +11,7 @@ Route::prefix('fornecedores')->group(function () {
     Route::get('/{id}/edit', [FornecedorController::class, 'edit'])->name('fornecedores.edit');
     Route::put('/{id}', [FornecedorController::class, 'update'])->name('fornecedores.update');
     Route::delete('/{id}', [FornecedorController::class, 'destroy'])->name('fornecedores.destroy');
-    Route::get('/search/{field}/{value}', [FornecedorController::class, 'search'])->name('fornecedores.search');
+    Route::get('/filter/{array_dados}', [FornecedorController::class, 'filter'])->name('fornecedores.filter');
 
     Route::get('/extradata/{id}', [FornecedorController::class, 'extradata']);
 });

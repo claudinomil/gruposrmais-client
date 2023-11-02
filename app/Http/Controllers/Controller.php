@@ -18,10 +18,10 @@ class Controller extends BaseController
      * Função para ir na API e retornar informações
      */
 
-    public function responseApi($op, $type, $uri, $id, $search_field, $search_value, $request)
+    public function responseApi($op, $type, $uri, $id, $array_dados_filtro, $request)
     {
         //Buscando dados Api_Data()
-        $response = ApiData::getData($type, $uri, $id, $search_field, $search_value, $request);
+        $response = ApiData::getData($type, $uri, $id, $array_dados_filtro, $request);
         //dd($response->json());   //TRAZER ERRO NA DEPURAÇÃO
 
         //Verificar error

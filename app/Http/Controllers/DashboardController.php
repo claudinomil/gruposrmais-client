@@ -42,7 +42,7 @@ class DashboardController extends Controller
         $id = $this->dashboardsUsers . '_' . $this->dashboardsFuncionarios . '_' . $this->dashboardsClientes;
 
         //Buscando dados Api_Data() - Lista de Registros
-        $this->responseApi(1, 8, 'dashboards', $id, '', '', '');
+        $this->responseApi(1, 8, 'dashboards', $id, '', '');
 
         //Dados recebidos com sucesso
         if ($this->code == 2000) {

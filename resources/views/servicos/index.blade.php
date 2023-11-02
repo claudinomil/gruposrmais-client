@@ -21,28 +21,26 @@
                         <div class="col-12">
                             <div class="row">
                                 <!-- Botões -->
-                                <div class="col-12 col-md-8 pb-2">
+                                <div class="col-12 col-md-6 pb-2">
                                     @if (\App\Facades\Permissoes::permissao([$ajaxPrefixPermissaoSubmodulo.'_create'], $userLoggedPermissoes))
                                         <x-button-crud op="1" class="crudIncluirRegistro" />
                                     @endif
                                 </div>
 
-                                <!-- Pesquisar no Banco -->
-                                <div class="col-12 col-md-4 float-end">
-                                    <div class="row">
-                                        <div class="col-5 float-end px-1">
-                                            <select class="form-control" id="pesquisar_field" name="pesquisar_field" placeholder="Campo Pesquisar">
-                                                <option value="servicos.name">Nome</option>
-                                                <option value="servico_tipos.name">Serviço Tipo</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-5 float-end px-1">
-                                            <input type="text" class="form-control" id="pesquisar_value" name="pesquisar_value" placeholder="Valor Pesquisar" required>
-                                        </div>
-                                        <div class="col-2 float-start ps-1">
-                                            <x-button-crud op="6" class="crudPesquisarRegistros" />
-                                        </div>
-                                    </div>
+                                <!-- Filtro no Banco -->
+                                <div class="col-12 col-md-6 float-end">
+                                    <input type="hidden" id="filter-crud-filter_crud_tipo_condicao" value="1">
+                                    <input type="hidden" id="filter-crud-filter_crud_campo_pesquisar" value="servicos.name">
+                                    <input type="hidden" id="filter-crud-filter_crud_operacao_realizar" value="1">
+
+                                    @php
+                                        $selectCampoPesquisar = [
+                                        ['value' => 'servicos.name', 'descricao' => 'Nome'],
+                                        ['value' => 'servico_tipos.name', 'descricao' => 'Serviço Tipo']
+                                        ];
+                                    @endphp
+
+                                    <x-filter-crud :selectCampoPesquisar=$selectCampoPesquisar />
                                 </div>
                             </div>
                         </div>

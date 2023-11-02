@@ -28,7 +28,7 @@ class UserController extends Controller
 
     public function __construct()
     {
-        $this->middleware('check-permissao:users_list', ['only' => ['index', 'search']]);
+        $this->middleware('check-permissao:users_list', ['only' => ['index', 'filter']]);
         $this->middleware('check-permissao:users_create', ['only' => ['create', 'store']]);
         $this->middleware('check-permissao:users_show', ['only' => ['show']]);
         $this->middleware('check-permissao:users_edit', ['only' => ['edit', 'update']]);
@@ -43,7 +43,7 @@ class UserController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Lista de Registros
-            $this->responseApi(1, 1, 'users', '', '', '', '');
+            $this->responseApi(1, 1, 'users', '', '', '');
 
             //Dados recebidos com sucesso
             if ($this->code == 2000) {
@@ -74,7 +74,7 @@ class UserController extends Controller
             $empresa_id = session('userLogged_empresa_id');
 
             //Buscando dados Api_Data() - Auxiliary Tables (Combobox)
-            $this->responseApi(2, 10, 'users/auxiliary/tables/'.$empresa_id, '', '', '', '');
+            $this->responseApi(2, 10, 'users/auxiliary/tables/'.$empresa_id, '', '', '');
 
             return view('users.index', [
                 'empresas' => $this->empresas,
@@ -99,7 +99,7 @@ class UserController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Incluir Registro
-            $this->responseApi(1, 4, 'users', '', '', '', $request->all());
+            $this->responseApi(1, 4, 'users', '', '', $request->all());
 
             //Registro criado com sucesso
             if ($this->code == 2010) {
@@ -119,7 +119,7 @@ class UserController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Registro pelo id
-            $this->responseApi(1, 2, 'users', $id, '', '', '');
+            $this->responseApi(1, 2, 'users', $id, '', '');
 
             //Registro recebido com sucesso
             if ($this->code == 2000) {
@@ -137,7 +137,7 @@ class UserController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Registro pelo id
-            $this->responseApi(1, 2, 'users', $id, '', '', '');
+            $this->responseApi(1, 2, 'users', $id, '', '');
 
             //Registro recebido com sucesso
             if ($this->code == 2000) {
@@ -155,7 +155,7 @@ class UserController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Alterar Registro
-            $this->responseApi(1, 5, 'users', $id, '', '', $request->all());
+            $this->responseApi(1, 5, 'users', $id, '', $request->all());
 
             //Registro alterado com sucesso
             if ($this->code == 2000) {
@@ -176,22 +176,8 @@ class UserController extends Controller
     {
         //Requisição Ajax
         if ($request->ajax()) {
-            //Pegar email para deletar na Api (API Admin)'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-            //Buscando dados Api_Data() - Registro pelo id
-            $this->responseApi(1, 2, 'users', $id, '', '', '');
-
-            //Registro recebido com sucesso
-            if ($this->code == 2000) {
-                $email = $this->content['email'];
-            } else if ($this->code == 4040) { //Registro não encontrado
-                return response()->json(['error' => $this->message]);
-            } else {
-                abort(500, 'Erro Interno User');
-            }
-            //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-
             //Buscando dados Api_Data() - Deletar Registro
-            $this->responseApi(1, 6, 'users', $id, '', '', '');
+            $this->responseApi(1, 6, 'users', $id, '', '');
 
             //Registro deletado com sucesso
             if ($this->code == 2000) {
@@ -206,12 +192,12 @@ class UserController extends Controller
         }
     }
 
-    public function search(Request $request, $field = '', $value = '')
+    public function filter(Request $request, $array_dados)
     {
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Pesquisar Registros
-            $this->responseApi(1, 3, 'users', '', $field, $value, '');
+            $this->responseApi(1, 3, 'users', '', $array_dados, '');
 
             //Dados recebidos com sucesso
             if ($this->code == 2000) {
@@ -249,7 +235,7 @@ class UserController extends Controller
             $id = $_GET['id'];
 
             //Buscando dados Api_Data() - Registro pelo id
-            $this->responseApi(1, 10, 'users/profiledata/' . $id, '', '', '', '');
+            $this->responseApi(1, 10, 'users/profiledata/' . $id, '', '', '');
 
             //Registro recebido com sucesso
             if ($this->code == 2000) {
@@ -317,7 +303,7 @@ class UserController extends Controller
                 //Buscando dados Api_Data() - Alterar Registro
                 $data = array();
                 $data['avatar'] = $avatar;
-                $this->responseApi(1, 11, 'users/updateavatar/' . $id, '', '', '', $data);
+                $this->responseApi(1, 11, 'users/updateavatar/' . $id, '', '', $data);
 
                 echo $this->message;
             } else {
@@ -337,7 +323,7 @@ class UserController extends Controller
             $request['password'] = Hash::make($request['new_password']);
 
             //Buscando dados Api_Data() - Alterar Registro
-            $this->responseApi(1, 11, 'users/editpassword/' . $id, '', '', '', $request->all());
+            $this->responseApi(1, 11, 'users/editpassword/' . $id, '', '', $request->all());
 
             //Registro alterado com sucesso
             if ($this->code == 2000) {
@@ -365,7 +351,7 @@ class UserController extends Controller
             $request['email'] = $request['new_email'];
 
             //Buscando dados Api_Data() - Alterar Registro
-            $this->responseApi(1, 11, 'users/editemail/' . $id, '', '', '', $request->all());
+            $this->responseApi(1, 11, 'users/editemail/' . $id, '', '', $request->all());
 
             //Registro alterado com sucesso
             if ($this->code == 2000) {
@@ -392,7 +378,7 @@ class UserController extends Controller
             $data['layout_style'] = $style;
 
             //Buscando dados Api_Data() - Alterar Registro
-            $this->responseApi(1, 11, 'users/editmodestyle/'.$id.'/'.session('userLogged_empresa_id'), '', '', '', $data);
+            $this->responseApi(1, 11, 'users/editmodestyle/'.$id.'/'.session('userLogged_empresa_id'), '', '', $data);
 
             //Registro alterado com sucesso
             if ($this->code == 2000) {

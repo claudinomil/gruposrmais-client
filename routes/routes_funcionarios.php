@@ -11,7 +11,7 @@ Route::prefix('funcionarios')->group(function () {
     Route::get('/{id}/edit', [FuncionarioController::class, 'edit'])->name('funcionarios.edit');
     Route::put('/{id}', [FuncionarioController::class, 'update'])->name('funcionarios.update');
     Route::delete('/{id}', [FuncionarioController::class, 'destroy'])->name('funcionarios.destroy');
-    Route::get('/search/{field}/{value}', [FuncionarioController::class, 'search'])->name('funcionarios.search');
+    Route::get('/filter/{array_dados}', [FuncionarioController::class, 'filter'])->name('funcionarios.filter');
 
     Route::get('/extradata/{id}', [FuncionarioController::class, 'extradata']);
     Route::post('/uploadfoto', [FuncionarioController::class, 'uploadfoto'])->name('funcionarios.uploadfoto');

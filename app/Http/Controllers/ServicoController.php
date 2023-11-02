@@ -18,7 +18,7 @@ class ServicoController extends Controller
 
     public function __construct()
     {
-        $this->middleware('check-permissao:servicos_list', ['only' => ['index', 'search']]);
+        $this->middleware('check-permissao:servicos_list', ['only' => ['index', 'filter']]);
         $this->middleware('check-permissao:servicos_create', ['only' => ['create', 'store']]);
         $this->middleware('check-permissao:servicos_show', ['only' => ['show']]);
         $this->middleware('check-permissao:servicos_edit', ['only' => ['edit', 'update']]);
@@ -30,7 +30,7 @@ class ServicoController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Lista de Registros
-            $this->responseApi(1, 1, 'servicos', '', '', '', '');
+            $this->responseApi(1, 1, 'servicos', '', '', '');
 
             //Dados recebidos com sucesso
             if ($this->code == 2000) {
@@ -52,7 +52,7 @@ class ServicoController extends Controller
             $empresa_id = session('userLogged_empresa_id');
 
             //Buscando dados Api_Data() - Auxiliary Tables (Combobox)
-            $this->responseApi(2, 10, 'servicos/auxiliary/tables/'.$empresa_id, '', '', '', '');
+            $this->responseApi(2, 10, 'servicos/auxiliary/tables/'.$empresa_id, '', '', '');
 
             return view('servicos.index', [
                 'servico_tipos' => $this->servico_tipos
@@ -73,7 +73,7 @@ class ServicoController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Incluir Registro
-            $this->responseApi(1, 4, 'servicos', '', '', '', $request->all());
+            $this->responseApi(1, 4, 'servicos', '', '', $request->all());
 
             //Registro criado com sucesso
             if ($this->code == 2010) {
@@ -91,7 +91,7 @@ class ServicoController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Registro pelo id
-            $this->responseApi(1, 2, 'servicos', $id, '', '', '');
+            $this->responseApi(1, 2, 'servicos', $id, '', '');
 
             //Registro recebido com sucesso
             if ($this->code == 2000) {
@@ -113,7 +113,7 @@ class ServicoController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Registro pelo id
-            $this->responseApi(1, 2, 'servicos', $id, '', '', '');
+            $this->responseApi(1, 2, 'servicos', $id, '', '');
 
             //Registro recebido com sucesso
             if ($this->code == 2000) {
@@ -131,7 +131,7 @@ class ServicoController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Alterar Registro
-            $this->responseApi(1, 5, 'servicos', $id, '', '', $request->all());
+            $this->responseApi(1, 5, 'servicos', $id, '', $request->all());
 
             //Registro alterado com sucesso
             if ($this->code == 2000) {
@@ -151,7 +151,7 @@ class ServicoController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Deletar Registro
-            $this->responseApi(1, 6, 'servicos', $id, '', '', '');
+            $this->responseApi(1, 6, 'servicos', $id, '', '');
 
             //Registro deletado com sucesso
             if ($this->code == 2000) {
@@ -166,12 +166,12 @@ class ServicoController extends Controller
         }
     }
 
-    public function search(Request $request, $field = '', $value = '')
+    public function filter(Request $request, $array_dados)
     {
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Pesquisar Registros
-            $this->responseApi(1, 3, 'servicos', '', $field, $value, '');
+            $this->responseApi(1, 3, 'servicos', '', $array_dados, '');
 
             //Dados recebidos com sucesso
             if ($this->code == 2000) {

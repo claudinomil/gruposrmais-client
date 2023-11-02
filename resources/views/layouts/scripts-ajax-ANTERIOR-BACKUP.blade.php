@@ -6,78 +6,6 @@
         {{-- Script para CRUD Ajax --}}
         <script type="text/javascript">
             $(function () {
-                //Configuração
-                function ajaxCrudConfiguracao({p_frm_operacao=null, p_fieldsDisabled=null, p_crudFormButtons1=null, p_crudFormButtons2=null, p_crudTable=null, p_crudForm=null, p_crudFormAjaxLoading=null, p_removeMask=null, p_putMask=null}) {
-                    //Campo hidden frm_operacao
-                    if (p_frm_operacao !== null) {$('#frm_operacao').val(p_frm_operacao);}
-
-                    //Campos do Formulário - disabled true/false
-                    if (p_fieldsDisabled !== null) {
-                        $('input').prop('disabled', p_fieldsDisabled);
-                        $('textarea').prop('disabled', p_fieldsDisabled);
-                        $('select').prop('disabled', p_fieldsDisabled);
-                        $('.select2').prop('disabled', p_fieldsDisabled);
-
-                        //Campos do Formulário - disabled true/false (Campos Padrões)
-                        if (p_fieldsDisabled === true) {
-                            $('#pesquisar_field').prop('disabled', false);
-                            $('#pesquisar_value').prop('disabled', false);
-                            $('.fildFilterTable').prop('disabled', false);
-                            $('.fildLengthTable').prop('disabled', false);
-                        }
-                    }
-
-                    //Botões do Modal
-                    if (p_crudFormButtons1 == 'show') {$('.crudFormButtons1').show();}
-
-                    if (p_crudFormButtons1 == 'hide') {$('.crudFormButtons1').hide();}
-
-                    if (p_crudFormButtons2 == 'show') {$('.crudFormButtons2').show();}
-
-                    if (p_crudFormButtons2 == 'hide') {$('.crudFormButtons2').hide();}
-
-                    //Table Show/Hide
-                    if (p_crudTable == 'show') {$('#crudTable').show();}
-
-                    if (p_crudTable == 'hide') {$('#crudTable').hide();}
-
-                    //Form Show/Hide
-                    if (p_crudForm == 'show') {$('#crudForm').show();}
-
-                    if (p_crudForm == 'hide') {$('#crudForm').hide();}
-
-                    //DIV Loading Show/Hide
-                    if (p_crudFormAjaxLoading == 'show') {$('#crudFormAjaxLoading').show();}
-
-                    if (p_crudFormAjaxLoading == 'hide') {$('#crudFormAjaxLoading').hide();}
-
-                    //Removendo Máscaras
-                    if (p_removeMask === true) {removeMask();}
-
-                    //Restaurando Máscaras
-                    if (p_putMask === true) {putMask();}
-                }
-
-                //Preencher Formulario
-                function ajaxCrudPreencherFormulario(campo, dados) {
-                    if (campo == 'id') {
-                        $('#registro_id').val(dados['id']);
-                    } else {
-                        if ($('#'+campo).hasClass('select2')) {
-                            $('#'+campo).val(dados[campo]).trigger('change');
-                        } else {
-                            $('#'+campo).val(dados[campo]);
-                        }
-                    }
-                }
-
-                //Limpar Formulario
-                function ajaxCrudLimparFormulario(nomeFormulario) {
-                    $('.is-invalid').removeClass('is-invalid');
-                    $('#'+nomeFormulario).trigger('reset');
-                    $('.select2').val('').trigger('change');
-                }
-
                 //Header
                 $.ajaxSetup({
                     headers:{
@@ -131,22 +59,59 @@
                             @endif
                         ]
                     });
-
-                    //Configuração
-                    ajaxCrudConfiguracao({p_fieldsDisabled:false});
                 }
+
+                //Search
+                $('.crudPesquisarRegistros').click(function () {
+                    //Recebendo field/value
+                    var field = $('#pesquisar_field').val();
+                    var value = $('#pesquisar_value').val();
+
+                    if (field == '' || value == '') {
+                        alert('Digite?');
+                        return;
+                    }
+
+                    tableContent('{{$ajaxPrefixPermissaoSubmodulo}}/search/'+$('#pesquisar_field').val()+'/'+$('#pesquisar_value').val());
+                });
 
                 //Create
                 $('.crudIncluirRegistro').click(function () {
                     //Passar pelo evento create do controller
                     $.get("{{$ajaxPrefixPermissaoSubmodulo}}/create", function (data) {
+                        //Limpar validações
+                        $('.is-invalid').removeClass('is-invalid');
+
+                        //Limpar Formulário
+                        $('#{{$ajaxNameFormSubmodulo}}').trigger('reset');
+                        $('.select2').val('').trigger('change');
+
                         //Lendo dados
                         if (data.success) {
-                            //Configuração
-                            ajaxCrudConfiguracao({p_frm_operacao:'create', p_fieldsDisabled:false, p_crudFormButtons1:'show', p_crudFormButtons2:'hide', p_crudTable:'hide', p_crudForm:'show', p_removeMask:true, p_putMask:true});
+                            //Campo hidden frm_operacao
+                            $('#frm_operacao').val('create');
 
-                            //Limpar Formulario
-                            ajaxCrudLimparFormulario('{{$ajaxNameFormSubmodulo}}');
+                            //Campos do Formulário - disabled true/false
+                            $('input').prop('disabled', false);
+                            $('textarea').prop('disabled', false);
+                            $('select').prop('disabled', false);
+                            $('.select2').prop('disabled', false);
+
+                            //Botões do Modal
+                            $('.crudFormButtons1').show();
+                            $('.crudFormButtons2').hide();
+
+                            //Table Show/Hide
+                            $('#crudTable').hide();
+
+                            //Modal Show/Hide
+                            $('#crudForm').show();
+
+                            //Removendo Máscaras
+                            removeMask();
+
+                            //Restaurando Máscaras
+                            putMask();
 
                             //Settings'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
                             @if($ajaxPrefixPermissaoSubmodulo == 'notificacoes')
@@ -249,18 +214,58 @@
 
                     //Buscar dados do Registro
                     $.get("{{$ajaxPrefixPermissaoSubmodulo}}/"+$('#registro_id').val(), function (data) {
+                        //Limpar validações
+                        $('.is-invalid').removeClass('is-invalid');
+
+                        //Limpar Formulário
+                        $('#{{$ajaxNameFormSubmodulo}}').trigger('reset');
+                        $('.select2').val('').trigger('change');
+
                         //Lendo dados
                         if (data.success) {
-                            //Configuração
-                            ajaxCrudConfiguracao({p_frm_operacao:'view', p_fieldsDisabled:true, p_crudFormButtons1:'hide', p_crudFormButtons2:'show', p_crudTable:'hide', p_crudForm:'show', p_removeMask:true, p_putMask:true});
-
-                            //Limpar Formulario
-                            ajaxCrudLimparFormulario('{{$ajaxNameFormSubmodulo}}');
-
                             //preencher formulário
                             @foreach($ajaxNamesFieldsSubmodulo as $field)
-                                ajaxCrudPreencherFormulario('{{$field}}', data.success);
+                                @if($field == 'id')
+                                    $('#registro_id').val(data.success.id);
+                                @else
+                                    if ($('#{{$field}}').hasClass('select2')) {
+                                        $('#{{$field}}').val(data.success['{{$field}}']).trigger('change');
+                                    } else {
+                                        $('#{{$field}}').val(data.success['{{$field}}']);
+                                    }
+                                @endif
                             @endforeach
+
+                            //Campo hidden frm_operacao
+                            $('#frm_operacao').val('view');
+
+                            //Campos do Formulário - disabled true/false
+                            $('input').prop('disabled', true);
+                            $('textarea').prop('disabled', true);
+                            $('select').prop('disabled', true);
+                            $('.select2').prop('disabled', true);
+
+                            //Campos do Formulário - disabled true/false (Campos Padrões)
+                            $('#pesquisar_field').prop('disabled', false);
+                            $('#pesquisar_value').prop('disabled', false);
+                            $('.fildFilterTable').prop('disabled', false);
+                            $('.fildLengthTable').prop('disabled', false);
+
+                            //Botões do Modal
+                            $('.crudFormButtons1').hide();
+                            $('.crudFormButtons2').show();
+
+                            //Table Show/Hide
+                            $('#crudTable').hide();
+
+                            //Modal Show/Hide
+                            $('#crudForm').show();
+
+                            //Removendo Máscaras
+                            removeMask();
+
+                            //Restaurando Máscaras
+                            putMask();
 
                             //Settings'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
                             @if($ajaxPrefixPermissaoSubmodulo == 'notificacoes')
@@ -469,18 +474,27 @@
                             @endif
                             //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
                         } else if (data.error_not_found) {
-                            //Configuração
-                            ajaxCrudConfiguracao({p_removeMask:true, p_putMask:true});
+                            //Removendo Máscaras
+                            removeMask();
+
+                            //Restaurando Máscaras
+                            putMask();
 
                             alertSwal('warning', "Registro não encontrado", '', 'true', 2000);
                         } else if (data.error_permissao) {
-                            //Configuração
-                            ajaxCrudConfiguracao({p_removeMask:true, p_putMask:true});
+                            //Removendo Máscaras
+                            removeMask();
+
+                            //Restaurando Máscaras
+                            putMask();
 
                             alertSwal('warning', "Permissão Negada", '', 'true', 2000);
                         } else {
-                            //Configuração
-                            ajaxCrudConfiguracao({p_removeMask:true, p_putMask:true});
+                            //Removendo Máscaras
+                            removeMask();
+
+                            //Restaurando Máscaras
+                            putMask();
 
                             alert('Erro interno');
                         }
@@ -496,18 +510,52 @@
 
                     //Buscar dados do Registro
                     $.get("{{$ajaxPrefixPermissaoSubmodulo}}/"+$('#registro_id').val()+"/edit", function (data) {
+                        //Limpar validações
+                        $('.is-invalid').removeClass('is-invalid');
+
+                        //Limpar Formulário
+                        $('#{{$ajaxNameFormSubmodulo}}').trigger('reset');
+                        $('.select2').val('').trigger('change');
+
                         //Lendo dados
                         if (data.success) {
-                            //Configuração
-                            ajaxCrudConfiguracao({p_frm_operacao:'edit', p_fieldsDisabled:false, p_crudFormButtons1:'show', p_crudFormButtons2:'hide', p_crudTable:'hide', p_crudForm:'show', p_removeMask:true, p_putMask:true});
-
-                            //Limpar Formulario
-                            ajaxCrudLimparFormulario('{{$ajaxNameFormSubmodulo}}');
-
                             //preencher formulário
                             @foreach($ajaxNamesFieldsSubmodulo as $field)
-                                ajaxCrudPreencherFormulario('{{$field}}', data.success);
+                                @if($field == 'id')
+                                    $('#registro_id').val(data.success.id);
+                                @else
+                                    if ($('#{{$field}}').hasClass('select2')) {
+                                        $('#{{$field}}').val(data.success['{{$field}}']).trigger('change');
+                                    } else {
+                                        $('#{{$field}}').val(data.success['{{$field}}']);
+                                    }
+                                @endif
                             @endforeach
+
+                            //Campo hidden frm_operacao
+                            $('#frm_operacao').val('edit');
+
+                            //Campos do Formulário - disabled true/false
+                            $('input').prop('disabled', false);
+                            $('textarea').prop('disabled', false);
+                            $('select').prop('disabled', false);
+                            $('.select2').prop('disabled', false);
+
+                            //Botões do Modal
+                            $('.crudFormButtons1').show();
+                            $('.crudFormButtons2').hide();
+
+                            //Table Show/Hide
+                            $('#crudTable').hide();
+
+                            //Modal Show/Hide
+                            $('#crudForm').show();
+
+                            //Removendo Máscaras
+                            removeMask();
+
+                            //Restaurando Máscaras
+                            putMask();
 
                             //Settings'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
                             @if($ajaxPrefixPermissaoSubmodulo == 'notificacoes')
@@ -638,8 +686,11 @@
                                 vt_configurarFormulario(data.success);
 
                                 if (!vt_preencherFormulario(data.success)) {
-                                    //Configuração
-                                    ajaxCrudConfiguracao({p_crudTable:'show', p_crudForm:'hide'});
+                                    //Modal Show/Hide
+                                    $('#crudForm').hide();
+
+                                    //Table Show/Hide
+                                    $('#crudTable').show();
                                 }
 
                                 //Alert para marcar Serviço como Finalizado'''''''''''''''''''''''''''''''''''''''''''''
@@ -689,6 +740,11 @@
                                 //$('#cliente_id').prop('disabled', true);
                                 //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
+
+
+
+
+
                                 //Brigada de Incêndio'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
                                 //Configuração conforme escala escolhida
@@ -711,18 +767,27 @@
                             @endif
                             //'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
                         } else if (data.error_not_found) {
-                            //Configuração
-                            ajaxCrudConfiguracao({p_removeMask:true, p_putMask:true});
+                            //Removendo Máscaras
+                            removeMask();
+
+                            //Restaurando Máscaras
+                            putMask();
 
                             alertSwal('warning', "Registro não encontrado", '', 'true', 2000);
                         } else if (data.error_permissao) {
-                            //Configuração
-                            ajaxCrudConfiguracao({p_removeMask:true, p_putMask:true});
+                            //Removendo Máscaras
+                            removeMask();
+
+                            //Restaurando Máscaras
+                            putMask();
 
                             alertSwal('warning', "Permissão Negada", '', 'true', 2000);
                         } else {
-                            //Configuração
-                            ajaxCrudConfiguracao({p_removeMask:true, p_putMask:true});
+                            //Removendo Máscaras
+                            removeMask();
+
+                            //Restaurando Máscaras
+                            putMask();
 
                             alert('Erro interno');
                         }
@@ -752,24 +817,31 @@
                                 type: "DELETE",
                                 url: "{{$ajaxPrefixPermissaoSubmodulo}}/" + $('#registro_id').val(),
                                 beforeSend: function () {
-                                    //Configuração - Retirar DIV Botões e colocar DIV Loading
-                                    ajaxCrudConfiguracao({p_crudFormButtons2:'hide', p_crudFormAjaxLoading:'show'});
+                                    //Retirar DIV Botões e colocar DIV Loading
+                                    $('.crudFormButtons2').hide();
+                                    $('#crudFormAjaxLoading').show();
                                 },
                                 success: function (response) {
                                     //Lendo dados
                                     if (response.success) {
                                         alertSwal('success', "{{$ajaxNameSubmodulo}}", response.success, 'true', 2000);
 
-                                        //Configuração
-                                        ajaxCrudConfiguracao({p_crudTable:'show', p_crudForm:'hide'});
+                                        //Modal Show/Hide
+                                        $('#crudForm').hide();
+
+                                        //Table Show/Hide
+                                        $('#crudTable').show();
 
                                         //Table
                                         tableContent('{{$ajaxPrefixPermissaoSubmodulo}}');
                                     } else if (response.error) {
                                         alertSwal('error', "{{$ajaxNameSubmodulo}}", response.error, 'true', 2000);
 
-                                        //Configuração
-                                        ajaxCrudConfiguracao({p_crudTable:'show', p_crudForm:'hide'});
+                                        //Modal Show/Hide
+                                        $('#crudForm').hide();
+
+                                        //Table Show/Hide
+                                        $('#crudTable').show();
 
                                         //Table
                                         tableContent('{{$ajaxPrefixPermissaoSubmodulo}}');
@@ -783,8 +855,9 @@
                                     alert('Erro interno');
                                 },
                                 complete: function () {
-                                    //Configuração - Retirar DIV Loading e colocar DIV Botões
-                                    ajaxCrudConfiguracao({p_crudFormButtons2:'show', p_crudFormAjaxLoading:'hide'});
+                                    //Retirar DIV Loading e colocar DIV Botões
+                                    $('#crudFormAjaxLoading').hide()
+                                    $('.crudFormButtons2').show();
                                 }
                             });
                         }
@@ -814,8 +887,8 @@
                         @endif
 
                         if (executar == 1) {
-                            //Configuração
-                            ajaxCrudConfiguracao({p_removeMask:true});
+                            //Removendo Máscaras
+                            removeMask();
 
                             //Confirm Operacao - Create
                             if ($('#frm_operacao').val() == 'create') {
@@ -825,8 +898,9 @@
                                     type: "POST",
                                     dataType: "json",
                                     beforeSend: function () {
-                                        //Configuração - Retirar DIV Botões e colocar DIV Loading
-                                        ajaxCrudConfiguracao({p_crudFormButtons1:'hide', p_crudFormAjaxLoading:'show'});
+                                        //Retirar DIV Botões e colocar DIV Loading
+                                        $('.crudFormButtons1').hide();
+                                        $('#crudFormAjaxLoading').show();
                                     },
                                     success: function (response) {
                                         //Lendo dados
@@ -842,17 +916,27 @@
 
                                             alertSwal('success', "{{$ajaxNameSubmodulo}}", response.success, 'true', 2000);
 
-                                            //Configuração
-                                            ajaxCrudConfiguracao({p_crudTable:'show', p_crudForm:'hide'});
+                                            //Limpar validações
+                                            $('.is-invalid').removeClass('is-invalid');
 
-                                            //Limpar Formulario
-                                            ajaxCrudLimparFormulario('{{$ajaxNameFormSubmodulo}}');
+                                            //Limpar Formulário
+                                            $('#{{$ajaxNameFormSubmodulo}}').trigger('reset');
+                                            $('.select2').val('').trigger('change');
+
+                                            //Modal Show/Hide
+                                            $('#crudForm').hide();
+
+                                            //Table Show/Hide
+                                            $('#crudTable').show();
 
                                             //Table
                                             tableContent('{{$ajaxPrefixPermissaoSubmodulo}}');
                                         } else if (response.error_validation) {
-                                            //Configuração
-                                            ajaxCrudConfiguracao({p_removeMask:true, p_putMask:true});
+                                            //Removendo Máscaras
+                                            removeMask();
+
+                                            //Restaurando Máscaras
+                                            putMask();
 
                                             //Montar mensage de erro de Validação
                                             message = '<div class="pt-3">';
@@ -863,28 +947,38 @@
 
                                             alertSwal('warning', "Validação", message, 'true', 20000);
                                         } else if (response.error_permissao) {
-                                            //Configuração
-                                            ajaxCrudConfiguracao({p_removeMask:true, p_putMask:true});
+                                            //Removendo Máscaras
+                                            removeMask();
+
+                                            //Restaurando Máscaras
+                                            putMask();
 
                                             alertSwal('warning', "Permissão Negada", '', 'true', 2000);
                                         } else if (response.error) {
                                             alertSwal('warning', "{{$ajaxNameSubmodulo}}", response.error, 'true', 20000);
                                         } else {
-                                            //Configuração
-                                            ajaxCrudConfiguracao({p_removeMask:true, p_putMask:true});
+                                            //Removendo Máscaras
+                                            removeMask();
+
+                                            //Restaurando Máscaras
+                                            putMask();
 
                                             alert('Erro interno');
                                         }
                                     },
                                     error: function (data) {
-                                        //Configuração
-                                        ajaxCrudConfiguracao({p_removeMask:true, p_putMask:true});
+                                        //Removendo Máscaras
+                                        removeMask();
+
+                                        //Restaurando Máscaras
+                                        putMask();
 
                                         alert('Erro interno');
                                     },
                                     complete: function () {
-                                        //Configuração - Retirar DIV Loading e colocar DIV Botões
-                                        ajaxCrudConfiguracao({p_crudFormButtons1:'show', p_crudFormAjaxLoading:'hide'});
+                                        //Retirar DIV Loading e colocar DIV Botões
+                                        $('#crudFormAjaxLoading').hide()
+                                        $('.crudFormButtons1').show();
                                     }
                                 });
                             }
@@ -912,25 +1006,36 @@
                                     type: "PUT",
                                     dataType: "json",
                                     beforeSend: function () {
-                                        //Configuração - Retirar DIV Botões e colocar DIV Loading
-                                        ajaxCrudConfiguracao({p_crudFormButtons1:'hide', p_crudFormAjaxLoading:'show'});
+                                        //Retirar DIV Botões e colocar DIV Loading
+                                        $('.crudFormButtons1').hide();
+                                        $('#crudFormAjaxLoading').show();
                                     },
                                     success: function (response) {
                                         //Lendo dados
                                         if (response.success) {
                                             alertSwal('success', "{{$ajaxNameSubmodulo}}", response.success, 'true', 2000);
 
-                                            //Limpar Formulario
-                                            ajaxCrudLimparFormulario('{{$ajaxNameFormSubmodulo}}');
+                                            //Limpar validações
+                                            $('.is-invalid').removeClass('is-invalid');
 
-                                            //Configuração
-                                            ajaxCrudConfiguracao({p_crudTable:'show', p_crudForm:'hide'});
+                                            //Limpar Formulário
+                                            $('#{{$ajaxNameFormSubmodulo}}').trigger('reset');
+                                            $('.select2').val('').trigger('change');
+
+                                            //Modal Show/Hide
+                                            $('#crudForm').hide();
+
+                                            //Table Show/Hide
+                                            $('#crudTable').show();
 
                                             //Table
                                             tableContent('{{$ajaxPrefixPermissaoSubmodulo}}');
                                         } else if (response.error_validation) {
-                                            //Configuração
-                                            ajaxCrudConfiguracao({p_removeMask:true, p_putMask:true});
+                                            //Removendo Máscaras
+                                            removeMask();
+
+                                            //Restaurando Máscaras
+                                            putMask();
 
                                             //Montar mensage de erro de Validação
                                             message = '<div class="pt-3">';
@@ -941,33 +1046,46 @@
 
                                             alertSwal('warning', "Validação", message, 'true', 20000);
                                         } else if (response.error_not_found) {
-                                            //Configuração
-                                            ajaxCrudConfiguracao({p_removeMask:true, p_putMask:true});
+                                            //Removendo Máscaras
+                                            removeMask();
+
+                                            //Restaurando Máscaras
+                                            putMask();
 
                                             alertSwal('warning', "Registro não encontrado", '', 'true', 2000);
                                         } else if (response.error_permissao) {
-                                            //Configuração
-                                            ajaxCrudConfiguracao({p_removeMask:true, p_putMask:true});
+                                            //Removendo Máscaras
+                                            removeMask();
+
+                                            //Restaurando Máscaras
+                                            putMask();
 
                                             alertSwal('warning', "Permissão Negada", '', 'true', 2000);
                                         } else if (response.error) {
                                             alertSwal('warning', "{{$ajaxNameSubmodulo}}", response.error, 'true', 20000);
                                         } else {
-                                            //Configuração
-                                            ajaxCrudConfiguracao({p_removeMask:true, p_putMask:true});
+                                            //Removendo Máscaras
+                                            removeMask();
+
+                                            //Restaurando Máscaras
+                                            putMask();
 
                                             alert('Erro interno');
                                         }
                                     },
                                     error: function (data) {
-                                        //Configuração
-                                        ajaxCrudConfiguracao({p_removeMask:true, p_putMask:true});
+                                        //Removendo Máscaras
+                                        removeMask();
+
+                                        //Restaurando Máscaras
+                                        putMask();
 
                                         alert('Erro interno');
                                     },
                                     complete: function () {
-                                        //Configuração - Retirar DIV Loading e colocar DIV Botões
-                                        ajaxCrudConfiguracao({p_crudFormButtons1:'show', p_crudFormAjaxLoading:'hide'});
+                                        //Retirar DIV Loading e colocar DIV Botões
+                                        $('#crudFormAjaxLoading').hide()
+                                        $('.crudFormButtons1').show();
                                     }
                                 });
                             }
@@ -979,8 +1097,11 @@
                 $('.crudCancelarOperacao').click(function (e) {
                     e.preventDefault();
 
-                    //Configuração
-                    ajaxCrudConfiguracao({p_fieldsDisabled:false, p_crudTable:'show', p_crudForm:'hide'});
+                    //Modal Show/Hide
+                    $('#crudForm').hide();
+
+                    //Table Show/Hide
+                    $('#crudTable').show();
                 });
 
                 //Configurações'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -998,115 +1119,6 @@
                     $(".select2-search-disable").select2({minimumResultsForSearch:1/0, dropdownParent: $('#crudForm')});
                 }
                 //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-
-                //Código para o Filter CRUD - Início''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-                //Código para o Filter CRUD - Início''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-                $(".repeater").repeater({
-                    defaultValues: {
-                        'filter_crud_tipo_condicao': $('#filter-crud-filter_crud_tipo_condicao').val(),
-                        'filter_crud_campo_pesquisar': $('#filter-crud-filter_crud_campo_pesquisar').val(),
-                        'filter_crud_operacao_realizar': $('#filter-crud-filter_crud_operacao_realizar').val(),
-                        'filter_crud_dado_pesquisar': ''
-                    },
-                    show: function() {
-                        //repetir filtro com temporizador zero(0)
-                        $(this).slideDown(0, function() {
-                            //executar filtros
-                            filter_crud_executar('show');
-                        });
-                    },
-                    hide:function(removeElement) {
-                        //Pegar quantidade de Itens/Filtros
-                        var qtdItens = $('[data-repeater-item]').length;
-
-                        //Não deixar excluir quando só tiver uma linha
-                        if (qtdItens > 1) {
-                            $(this).slideUp(function () {
-                                //remover filtro
-                                removeElement();
-
-                                //executar filtros
-                                filter_crud_executar('hide');
-                            });
-                        } else {
-                            alert('Esse Filtro não pode ser excluído.');
-                        }
-                    }
-                });
-
-                //Filter
-                $(document).on('click', '.filterRecords', function() {
-                    filter_crud_executar();
-                });
-
-                //Retira a última linha adicionada caso a anterior esteja com o campo dado_pesquisar vazio
-                function filter_crud_retirar_linha_adicionada() {
-                    //Pegar quantidade de Itens/Filtros
-                    var qtdItens = $('[data-repeater-item]').length;
-
-                    //Verificar o ajuste necessário
-                    var diminuirItens = 1;
-
-                    //qtdItens ajustada
-                    qtdItens = qtdItens - diminuirItens;
-
-                    var ind = 0;
-                    $('[data-repeater-item]').each(function () {
-                        if (ind == qtdItens) {
-                            $(this).remove();
-                        }
-
-                        ind++;
-                    });
-                }
-
-                //Executar Filtros
-                function filter_crud_executar(locale='') {
-                    //Pegar quantidade de Itens/Filtros
-                    var qtdItens = $('[data-repeater-item]').length;
-
-                    //Verificar o ajuste necessário para mandar somente os filtros que já estavam renderizados
-                    if (locale == '') {var diminuirItens = 1;}
-                    if (locale == 'show') {var diminuirItens = 2;}
-                    if (locale == 'hide') {var diminuirItens = 1;}
-
-                    //qtdItens ajustada
-                    qtdItens = qtdItens - diminuirItens;
-
-                    //Arrays
-                    const array_dados = [];
-
-                    //Varrer filtros para montar array de dados
-                    for(i=0; i<=qtdItens; i++) {
-                        var tipo_condicao = $("select[name='field["+i+"][filter_crud_tipo_condicao]']").val();
-                        var campo_pesquisar = $("select[name='field["+i+"][filter_crud_campo_pesquisar]']").val();
-                        var operacao_realizar = $("select[name='field["+i+"][filter_crud_operacao_realizar]']").val();
-                        var dado_pesquisar = $("input[name='field["+i+"][filter_crud_dado_pesquisar]']").val();
-
-                        if (dado_pesquisar == '') {
-                            if (locale != 'hide') {
-                                alert('Digite algo para pesquisar no filtro ' + (i + 1));
-
-                                if (locale == 'show') {
-                                    filter_crud_retirar_linha_adicionada();
-                                }
-                            }
-
-                            return false;
-                        }
-
-                        //Populando array_dados
-                        array_dados.push(tipo_condicao);
-                        array_dados.push(campo_pesquisar);
-                        array_dados.push(operacao_realizar);
-                        array_dados.push(dado_pesquisar);
-                    }
-
-                    //Table
-                    tableContent('{{$ajaxPrefixPermissaoSubmodulo}}/filter/'+array_dados);
-                }
-                //Código para o Filter CRUD - Fim'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-                //Código para o Filter CRUD - Fim'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
             });
         </script>
     @endif

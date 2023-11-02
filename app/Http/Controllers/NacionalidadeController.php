@@ -15,7 +15,7 @@ class NacionalidadeController extends Controller
 
     public function __construct()
     {
-        $this->middleware('check-permissao:nacionalidades_list', ['only' => ['index', 'search']]);
+        $this->middleware('check-permissao:nacionalidades_list', ['only' => ['index', 'filter']]);
         $this->middleware('check-permissao:nacionalidades_create', ['only' => ['create', 'store']]);
         $this->middleware('check-permissao:nacionalidades_show', ['only' => ['show']]);
         $this->middleware('check-permissao:nacionalidades_edit', ['only' => ['edit', 'update']]);
@@ -27,7 +27,7 @@ class NacionalidadeController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Lista de Registros
-            $this->responseApi(1, 1, 'nacionalidades', '', '', '', '');
+            $this->responseApi(1, 1, 'nacionalidades', '', '', '');
 
             //Dados recebidos com sucesso
             if ($this->code == 2000) {
@@ -62,7 +62,7 @@ class NacionalidadeController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Incluir Registro
-            $this->responseApi(1, 4, 'nacionalidades', '', '', '', $request->all());
+            $this->responseApi(1, 4, 'nacionalidades', '', '', $request->all());
 
             //Registro criado com sucesso
             if ($this->code == 2010) {
@@ -80,7 +80,7 @@ class NacionalidadeController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Registro pelo id
-            $this->responseApi(1, 2, 'nacionalidades', $id, '', '', '');
+            $this->responseApi(1, 2, 'nacionalidades', $id, '', '');
 
             //Registro recebido com sucesso
             if ($this->code == 2000) {
@@ -98,7 +98,7 @@ class NacionalidadeController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Registro pelo id
-            $this->responseApi(1, 2, 'nacionalidades', $id, '', '', '');
+            $this->responseApi(1, 2, 'nacionalidades', $id, '', '');
 
             //Registro recebido com sucesso
             if ($this->code == 2000) {
@@ -116,7 +116,7 @@ class NacionalidadeController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Alterar Registro
-            $this->responseApi(1, 5, 'nacionalidades', $id, '', '', $request->all());
+            $this->responseApi(1, 5, 'nacionalidades', $id, '', $request->all());
 
             //Registro alterado com sucesso
             if ($this->code == 2000) {
@@ -136,7 +136,7 @@ class NacionalidadeController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Deletar Registro
-            $this->responseApi(1, 6, 'nacionalidades', $id, '', '', '');
+            $this->responseApi(1, 6, 'nacionalidades', $id, '', '');
 
             //Registro deletado com sucesso
             if ($this->code == 2000) {
@@ -151,12 +151,12 @@ class NacionalidadeController extends Controller
         }
     }
 
-    public function search(Request $request, $field = '', $value = '')
+    public function filter(Request $request, $array_dados)
     {
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Pesquisar Registros
-            $this->responseApi(1, 3, 'nacionalidades', '', $field, $value, '');
+            $this->responseApi(1, 3, 'nacionalidades', '', $array_dados, '');
 
             //Dados recebidos com sucesso
             if ($this->code == 2000) {

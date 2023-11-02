@@ -11,7 +11,7 @@ Route::prefix('users')->group(function () {
     Route::get('/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
     Route::put('/{id}', [UserController::class, 'update'])->name('users.update');
     Route::delete('/{id}', [UserController::class, 'destroy'])->name('users.destroy');
-    Route::get('/search/{field}/{value}', [UserController::class, 'search'])->name('users.search');
+    Route::get('/filter/{array_dados}', [UserController::class, 'filter'])->name('users.filter');
 
     Route::post('/uploadavatar', [UserController::class, 'uploadavatar'])->name('users.uploadavatar');
     Route::post('/editpassword', [UserController::class, 'editpassword'])->name('users.editpassword');

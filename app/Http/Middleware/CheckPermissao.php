@@ -42,7 +42,7 @@ class CheckPermissao
         }
 
         //Buscando dados Usuario/Permissões/Configurações/Ajax CRUD
-        $response = ApiData::getData(0, $searchSubmodulo, '', '', '', '');
+        $response = ApiData::getData(0, $searchSubmodulo, '', '', '');
         //dd($response->json());   //TRAZER ERRO NA DEPURAÇÃO
 
         if (isset($response['content'])) {

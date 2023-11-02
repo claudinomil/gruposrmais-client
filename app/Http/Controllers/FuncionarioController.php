@@ -29,7 +29,7 @@ class FuncionarioController extends Controller
 
     public function __construct()
     {
-        $this->middleware('check-permissao:funcionarios_list', ['only' => ['index', 'search', 'extradata']]);
+        $this->middleware('check-permissao:funcionarios_list', ['only' => ['index', 'filter', 'extradata']]);
         $this->middleware('check-permissao:funcionarios_create', ['only' => ['create', 'store']]);
         $this->middleware('check-permissao:funcionarios_show', ['only' => ['show']]);
         $this->middleware('check-permissao:funcionarios_edit', ['only' => ['edit', 'update', 'uploadfoto']]);
@@ -41,7 +41,7 @@ class FuncionarioController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Lista de Registros
-            $this->responseApi(1, 1, 'funcionarios', '', '', '', '');
+            $this->responseApi(1, 1, 'funcionarios', '', '', '');
 
             //Dados recebidos com sucesso
             if ($this->code == 2000) {
@@ -81,7 +81,7 @@ class FuncionarioController extends Controller
             $empresa_id = session('userLogged_empresa_id');
 
             //Buscando dados Api_Data() - Auxiliary Tables (Combobox)
-            $this->responseApi(2, 10, 'funcionarios/auxiliary/tables/'.$empresa_id, '', '', '', '');
+            $this->responseApi(2, 10, 'funcionarios/auxiliary/tables/'.$empresa_id, '', '', '');
 
             return view('funcionarios.index', [
                 'contratacao_tipos' => $this->contratacao_tipos,
@@ -112,7 +112,7 @@ class FuncionarioController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Incluir Registro
-            $this->responseApi(1, 4, 'funcionarios', '', '', '', $request->all());
+            $this->responseApi(1, 4, 'funcionarios', '', '', $request->all());
 
             //Registro criado com sucesso
             if ($this->code == 2010) {
@@ -130,7 +130,7 @@ class FuncionarioController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Registro pelo id
-            $this->responseApi(1, 2, 'funcionarios', $id, '', '', '');
+            $this->responseApi(1, 2, 'funcionarios', $id, '', '');
 
             //Registro recebido com sucesso
             if ($this->code == 2000) {
@@ -171,7 +171,7 @@ class FuncionarioController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Registro pelo id
-            $this->responseApi(1, 2, 'funcionarios', $id, '', '', '');
+            $this->responseApi(1, 2, 'funcionarios', $id, '', '');
 
             //Registro recebido com sucesso
             if ($this->code == 2000) {
@@ -212,7 +212,7 @@ class FuncionarioController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Alterar Registro
-            $this->responseApi(1, 5, 'funcionarios', $id, '', '', $request->all());
+            $this->responseApi(1, 5, 'funcionarios', $id, '', $request->all());
 
             //Registro alterado com sucesso
             if ($this->code == 2000) {
@@ -232,7 +232,7 @@ class FuncionarioController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Deletar Registro
-            $this->responseApi(1, 6, 'funcionarios', $id, '', '', '');
+            $this->responseApi(1, 6, 'funcionarios', $id, '', '');
 
             //Registro deletado com sucesso
             if ($this->code == 2000) {
@@ -247,12 +247,12 @@ class FuncionarioController extends Controller
         }
     }
 
-    public function search(Request $request, $field = '', $value = '')
+    public function filter(Request $request, $array_dados)
     {
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Pesquisar Registros
-            $this->responseApi(1, 3, 'funcionarios', '', $field, $value, '');
+            $this->responseApi(1, 3, 'funcionarios', '', $array_dados, '');
 
             //Dados recebidos com sucesso
             if ($this->code == 2000) {
@@ -347,7 +347,7 @@ class FuncionarioController extends Controller
                 //Buscando dados Api_Data() - Alterar Registro
                 $data = array();
                 $data['foto'] = $foto;
-                $this->responseApi(1, 11, 'funcionarios/updatefoto/' . $id, '', '', '', $data);
+                $this->responseApi(1, 11, 'funcionarios/updatefoto/' . $id, '', '', $data);
 
                 echo $this->message;
             } else {
@@ -361,7 +361,7 @@ class FuncionarioController extends Controller
         //Requisição Ajax
         if ($request->ajax()) {
             //Buscando dados Api_Data() - Registro pelo id
-            $this->responseApi(1, 10, 'funcionarios/extradata/' . $id, '', '', '', '');
+            $this->responseApi(1, 10, 'funcionarios/extradata/' . $id, '', '', '');
 
             //Registro recebido com sucesso
             if ($this->code == 2000) {
@@ -421,7 +421,7 @@ class FuncionarioController extends Controller
                                 $data['caminho'] = $pdf;
 
                                 //Buscando dados Api_Data() - Incluir Registro
-                                $this->responseApi(1, 12, 'funcionarios/store_documentos/documentos', '', '', '', $data);
+                                $this->responseApi(1, 12, 'funcionarios/store_documentos/documentos', '', '', $data);
                             }
                         }
                     }
@@ -440,6 +440,6 @@ class FuncionarioController extends Controller
     public function deletar_documento($funcionario_documento_id)
     {
         //Buscando dados Api_Data() - Deletar Registro
-        $this->responseApi(1, 6, 'funcionarios/deletar_documento', $funcionario_documento_id, '', '', '');
+        $this->responseApi(1, 6, 'funcionarios/deletar_documento', $funcionario_documento_id, '', '');
     }
 }

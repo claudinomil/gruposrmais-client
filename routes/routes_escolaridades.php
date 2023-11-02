@@ -11,5 +11,5 @@ Route::prefix('escolaridades')->group(function () {
     Route::get('/{id}/edit', [EscolaridadeController::class, 'edit'])->name('escolaridades.edit');
     Route::put('/{id}', [EscolaridadeController::class, 'update'])->name('escolaridades.update');
     Route::delete('/{id}', [EscolaridadeController::class, 'destroy'])->name('escolaridades.destroy');
-    Route::get('/search/{field}/{value}', [EscolaridadeController::class, 'search'])->name('escolaridades.search');
+    Route::get('/filter/{array_dados}', [EscolaridadeController::class, 'filter'])->name('escolaridades.filter');
 });

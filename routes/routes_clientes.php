@@ -11,7 +11,7 @@ Route::prefix('clientes')->group(function () {
     Route::get('/{id}/edit', [ClienteController::class, 'edit'])->name('clientes.edit');
     Route::put('/{id}', [ClienteController::class, 'update'])->name('clientes.update');
     Route::delete('/{id}', [ClienteController::class, 'destroy'])->name('clientes.destroy');
-    Route::get('/search/{field}/{value}', [ClienteController::class, 'search'])->name('clientes.search');
+    Route::get('/filter/{array_dados}', [ClienteController::class, 'filter'])->name('clientes.filter');
 
     Route::get('/extradata/{id}', [ClienteController::class, 'extradata']);
 
