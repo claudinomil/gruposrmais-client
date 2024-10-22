@@ -42,6 +42,7 @@ export default defineConfig({
                 {src: 'resources/assets_template/js/functions.js', dest: 'assets'},
                 {src: 'resources/assets_template/js/scripts_template_init.js', dest: 'assets'},
                 {src: 'resources/assets_template/js/scripts_bancos.js', dest: 'assets'},
+                {src: 'resources/assets_template/js/scripts_empresas.js', dest: 'assets'},
                 {src: 'resources/assets_template/js/scripts_departamentos.js', dest: 'assets'},
                 {src: 'resources/assets_template/js/scripts_funcionarios.js', dest: 'assets'},
                 {src: 'resources/assets_template/js/scripts_clientes.js', dest: 'assets'},
@@ -234,6 +235,11 @@ export default defineConfig({
 //     "file": "assets/scripts_clientes.js",
 //     "isEntry": true,
 //     "src": "resources/assets_template/js/scripts_clientes.js"
+// },
+// "resources/assets_template/js/scripts_empresas.js": {
+//     "file": "assets/scripts_empresas.js",
+//     "isEntry": true,
+//     "src": "resources/assets_template/js/scripts_empresas.js"
 // },
 // "resources/assets_template/js/scripts_departamentos.js": {
 //     "file": "assets/scripts_departamentos.js",

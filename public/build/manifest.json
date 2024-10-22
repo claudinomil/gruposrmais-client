@@ -188,7 +188,7 @@
     "css": [
       "assets/app-b84d8c31.css"
     ],
-    "file": "assets/app-c2c8ee3b.js",
+    "file": "assets/app-1e5f23ac.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   },
@@ -301,6 +301,11 @@
         "file": "assets/scripts_clientes.js",
         "isEntry": true,
         "src": "resources/assets_template/js/scripts_clientes.js"
+    },
+    "resources/assets_template/js/scripts_empresas.js": {
+        "file": "assets/scripts_empresas.js",
+        "isEntry": true,
+        "src": "resources/assets_template/js/scripts_empresas.js"
     },
     "resources/assets_template/js/scripts_departamentos.js": {
         "file": "assets/scripts_departamentos.js",
